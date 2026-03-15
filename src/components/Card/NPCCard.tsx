@@ -16,7 +16,7 @@ interface Props {
 const CARD_ASPECT  = 3 / 4
 const CARD_PADDING = 8
 
-export const NPCCard: React.FC<Props> = ({ npc, availableHeight }) => {
+const NPCCardInner: React.FC<Props> = ({ npc, availableHeight }) => {
   const { width } = useWindowDimensions()
   const roleColor = ROLE_COLORS[npc.role] ?? '#555'
 
@@ -71,6 +71,8 @@ export const NPCCard: React.FC<Props> = ({ npc, availableHeight }) => {
     </View>
   )
 }
+
+export const NPCCard = React.memo(NPCCardInner)
 
 const styles = StyleSheet.create({
   card: {

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback, useEffect, useMemo } from 'react'
 import {
   View, Text, TouchableOpacity, StyleSheet,
   Platform, useWindowDimensions,
@@ -38,7 +38,7 @@ const STAT_MAX = config.stat_max as Record<StatType, number>
 
 const SWIPE_PREVIEW_THRESHOLD = themeData.animation.swipe_threshold
 
-const StatBarItem: React.FC<{
+const StatBarItem = React.memo<{
   icon:         string
   val:          number
   pct:          number
@@ -48,7 +48,7 @@ const StatBarItem: React.FC<{
   rejectDelta:  number
   max:          number
   dragX:        SharedValue<number>
-}> = ({ icon, val, pct, isCrit, color, acceptDelta, rejectDelta, max, dragX }) => {
+}>(({ icon, val, pct, isCrit, color, acceptDelta, rejectDelta, max, dragX }) => {
 
   const pulse  = useSharedValue(1)
   const trackH = useSharedValue(0)
@@ -119,7 +119,7 @@ const StatBarItem: React.FC<{
       </Animated.Text>
     </View>
   )
-}
+})
 
 const barStyles = StyleSheet.create({
   col:   { flex: 1, alignItems: 'center', gap: 2 },
@@ -151,14 +151,17 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
 
   const dragX = useSharedValue(0)
 
+  const npc      = game.activeNPC
+  const event    = game.activeEvent
+
+  const npcAccept = useMemo(() => (npc?.accept as StatDelta | undefined) ?? {}, [npc?.npc_id])
+  const npcReject = useMemo(() => (npc?.reject as StatDelta | undefined) ?? {}, [npc?.npc_id])
+
   const [detailsVisible,   setDetailsVisible]   = useState(false)
   const [queryResult,      setQueryResult]      = useState<string | null>(null)
   const [queryWarnPending, setQueryWarnPending] = useState(false)
   const [innerH,           setInnerH]           = useState(sh * 0.88)
   const [tutorialDone,     setTutorialDone]     = useState(false)
-
-  const npc      = game.activeNPC
-  const event    = game.activeEvent
   const canQuery = game.queryChargesLeft > 0
   const isCompact = sh < 700
 
@@ -249,12 +252,10 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
 
           <View style={[styles.statStrip, { height: statH }]}>
             {STATS.map(s => {
-              const val        = Math.round(stats.stats[s])
-              const pct        = Math.min(1, Math.max(0, val / STAT_MAX[s]))
-              const isCrit     = stats.isCritical(s)
-              const color      = isCrit ? C.stat_critical : (UI.stat_colors as any)[s]
-              const accept     = (npc?.accept as StatDelta | undefined) ?? {}
-              const reject     = (npc?.reject as StatDelta | undefined) ?? {}
+              const val    = Math.round(stats.stats[s])
+              const pct    = Math.min(1, Math.max(0, val / STAT_MAX[s]))
+              const isCrit = stats.isCritical(s)
+              const color  = isCrit ? C.stat_critical : (UI.stat_colors as any)[s]
               return (
                 <StatBarItem
                   key={s}
@@ -263,8 +264,8 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
                   pct={pct}
                   isCrit={isCrit}
                   color={color}
-                  acceptDelta={accept[s] ?? 0}
-                  rejectDelta={reject[s] ?? 0}
+                  acceptDelta={npcAccept[s] ?? 0}
+                  rejectDelta={npcReject[s] ?? 0}
                   max={STAT_MAX[s]}
                   dragX={dragX}
                 />

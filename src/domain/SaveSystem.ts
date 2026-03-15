@@ -9,9 +9,11 @@ const KEYS = {
 
 export const SaveSystem = {
   async save(data: Record<string, unknown>): Promise<void> {
-    for (const [key, value] of Object.entries(data)) {
-      await AsyncStorage.setItem(key, JSON.stringify(value))
-    }
+    await Promise.all(
+      Object.entries(data).map(([key, value]) =>
+        AsyncStorage.setItem(key, JSON.stringify(value))
+      )
+    )
   },
 
   async load<T>(key: string): Promise<T | null> {
@@ -24,9 +26,7 @@ export const SaveSystem = {
   },
 
   async clear(): Promise<void> {
-    for (const key of Object.values(KEYS)) {
-      await AsyncStorage.removeItem(key)
-    }
+    await Promise.all(Object.values(KEYS).map(key => AsyncStorage.removeItem(key)))
   },
 
   KEYS,

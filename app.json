@@ -13,9 +13,11 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.eerenyilmazz.lastgate"
+      "bundleIdentifier": "com.eerenyilmazz.lastgate",
+      "jsEngine": "hermes"
     },
     "android": {
+      "jsEngine": "hermes",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",

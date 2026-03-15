@@ -23,7 +23,7 @@ interface Props {
   dragY?: SharedValue<number>
 }
 
-export const SwipeHandler: React.FC<Props> = ({
+const SwipeHandlerInner: React.FC<Props> = ({
   children,
   onSwipeRight,
   onSwipeLeft,
@@ -125,6 +125,8 @@ export const SwipeHandler: React.FC<Props> = ({
     </GestureDetector>
   )
 }
+
+export const SwipeHandler = React.memo(SwipeHandlerInner)
 
 const styles = StyleSheet.create({
   dirLabel: {
