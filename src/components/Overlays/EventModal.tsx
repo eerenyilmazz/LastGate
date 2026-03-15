@@ -70,8 +70,8 @@ const ChoiceRow: React.FC<{
       onPress={onPress}
       style={[es.choiceBtn, {
         borderLeftColor: color,
-        borderColor: color + '33',
-        backgroundColor: color + '0d',
+        borderColor: color + '22',
+        backgroundColor: color + '08',
       }]}
       activeOpacity={0.82}
     >

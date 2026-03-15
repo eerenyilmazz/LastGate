@@ -114,7 +114,7 @@ const StatBarItem = React.memo<{
         <Animated.View style={[barStyles.fill, fillStyle, isCrit && animStyle]} />
       </View>
 
-      <Animated.Text style={[barStyles.val, { color: isCrit ? themeData.colors.stat_critical : color + 'cc' }, isCrit && animStyle]}>
+      <Animated.Text style={[barStyles.val, { color: isCrit ? themeData.colors.stat_critical : '#5a4a38' }, isCrit && animStyle]}>
         {displayVal > 999 ? '999+' : displayVal}
       </Animated.Text>
     </View>

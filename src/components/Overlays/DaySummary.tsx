@@ -66,7 +66,7 @@ export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
 
                 <Text style={styles.statIcon}>{STAT_ICONS[key]}</Text>
 
-                <Text style={[styles.statShort, { fontFamily: MONO, color: isCrit ? C.stat_critical : STAT_COLORS[key] + 'aa' }]}>
+                <Text style={[styles.statShort, { fontFamily: MONO, color: isCrit ? C.stat_critical : '#5a4a30' }]}>
                   {STAT_SHORT[key]}
                 </Text>
 
