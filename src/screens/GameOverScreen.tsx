@@ -46,7 +46,6 @@ export const GameOverScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
     contentY.value  = withDelay(200, withTiming(0, { duration: 600, easing: Easing.out(Easing.back(1.15)) }))
     iconScale.value = withDelay(400, withTiming(1, { duration: 800, easing: Easing.out(Easing.back(1.1)) }))
 
-    // Başlık flicker — zafer için düz, ölüm için glitch
     if (isVictory) {
       titleOp.value = withDelay(700, withTiming(1, { duration: 600 }))
     } else {
@@ -79,40 +78,31 @@ export const GameOverScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
   return (
     <SafeAreaView style={styles.root}>
 
-      {/* CRT scan */}
       <Animated.View style={[styles.scanline, scanStyle]} pointerEvents="none" />
 
-      {/* Vignette */}
       <Animated.View
         style={[styles.vignette, { backgroundColor: vignetteColor }, vignetteStyle]}
         pointerEvents="none"
       />
 
-      {/* Üst renk çizgisi */}
       <View style={[styles.accentLine, { backgroundColor: ending.color }]} />
 
       <Animated.View style={[styles.content, contentStyle]}>
 
-        {/* Tag + gün */}
         <Text style={[styles.dayTag, { fontFamily: MONO }]}>
           {ending.tag}  ·  {game.day}{ui.labels.day_num_suffix ?? '. GÜN'}
         </Text>
 
-        {/* İkon */}
         <Animated.Text style={[styles.icon, iconStyle]}>{ending.icon}</Animated.Text>
 
-        {/* Başlık */}
         <Animated.Text style={[styles.title, { color: ending.color, fontFamily: MONO }, titleStyle]}>
           {ending.title}
         </Animated.Text>
 
-        {/* Ayraç */}
         <View style={[styles.divider, { backgroundColor: ending.color + '30' }]} />
 
-        {/* Açıklama */}
         <Text style={[styles.desc, { fontFamily: MONO }]}>{ending.desc}</Text>
 
-        {/* Koşu istatistikleri */}
         <View style={[styles.statsBox, { borderColor: ending.color + '22' }]}>
           <Text style={[styles.statsHeader, { fontFamily: MONO, color: ending.color + 'aa' }]}>
             {RS_LABELS.header}
@@ -132,13 +122,11 @@ export const GameOverScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
           </View>
         </View>
 
-        {/* SP */}
         <View style={[styles.spBox, { borderColor: ending.color + '35' }]}>
           <Text style={[styles.spLabel, { fontFamily: MONO }]}>{ui.labels.earned_sp ?? 'KAZANILAN SP'}</Text>
           <Text style={[styles.spNum, { color: ending.color }]}>★  {progress.sp}</Text>
         </View>
 
-        {/* Yeniden Başla */}
         <TouchableOpacity
           onPress={onRestart}
           style={[styles.btn, { borderColor: ending.color + '55', backgroundColor: ending.color + '15' }]}
@@ -149,7 +137,6 @@ export const GameOverScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
           </Text>
         </TouchableOpacity>
 
-        {/* Ana Menü */}
         {onMainMenu && (
           <TouchableOpacity onPress={onMainMenu} style={styles.btnGhost} activeOpacity={0.7}>
             <Text style={[styles.btnGhostText, { fontFamily: MONO }]}>{ui.labels.btn_main_menu ?? '↩  ANA MENÜ'}</Text>

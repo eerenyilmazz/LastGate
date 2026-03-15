@@ -24,7 +24,6 @@ export const EventManager = {
 
     if (available.length === 0) return null
 
-    // Ağırlıklı rastgele seçim
     const totalWeight = available.reduce((sum, e) => sum + e.weight, 0)
     let random = Math.random() * totalWeight
 
@@ -47,7 +46,6 @@ export const EventManager = {
       choice.role_bonus &&
       acceptedRoles.includes(choice.requires_role)
     ) {
-      // Bonus efektleri base'e ekle
       for (const key of Object.keys(choice.role_bonus) as Array<keyof StatDelta>) {
         base[key] = (base[key] ?? 0) + (choice.role_bonus[key] ?? 0)
       }

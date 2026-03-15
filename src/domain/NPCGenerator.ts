@@ -23,7 +23,6 @@ export class NPCGenerator {
 
   getNext(): NPC {
     if (this.queue.length === 0) {
-      // Tüm NPC'ler tükendiyse yeniden karıştır
       this.queue = shuffle(ALL_NPCS)
       this.usedIDs.clear()
     }
@@ -37,7 +36,6 @@ export class NPCGenerator {
     this.queue = shuffle(ALL_NPCS)
   }
 
-  // Serialization için
   getState(): { queue: NPC[]; usedIDs: string[] } {
     return { queue: this.queue, usedIDs: Array.from(this.usedIDs) }
   }

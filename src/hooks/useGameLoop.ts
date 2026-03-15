@@ -14,10 +14,7 @@ import { StatDelta, StatState } from '../types/stat.types'
 import config from '../data/config.json'
 import ui from '../data/ui.json'
 
-// NPCGenerator instance — singleton per session
 const generator = new NPCGenerator()
-
-// ── Bina bazlı yardımcılar ─────────────────────────────────────────────────
 
 const BUILDINGS = config.buildings as Array<{
   id: string
@@ -38,15 +35,12 @@ function computeInfectionReduction(ownedBuildings: string[]): number {
   return Math.min(total, config.infection_reduction_cap)
 }
 
-// ──────────────────────────────────────────────────────────────────────────
-
 export const useGameLoop = () => {
   const game     = useGameStore()
   const stats    = useStatStore()
   const progress = useProgressStore()
   const settings = useSettingsStore()
 
-  // Günde kaç NPC gelecek
   const npcsLeft = useRef(1)
   const rollDay  = () => {
     npcsLeft.current = Math.floor(
@@ -54,26 +48,18 @@ export const useGameLoop = () => {
     ) + config.npcs_per_day_min
   }
 
-  // --- GÜN SONU İŞLEMİ ---
-
   const endDay = useCallback(() => {
-    // 0. Günün başlangıç istatistiklerini sakla (perfect_day için)
     const dayStartStats: StatState = { ...stats.stats }
 
-    // 1. Pasif bina bonusları
     stats.applyPassive(progress.buildings)
 
-    // 2. Rol sinerji bonusları
     const synergyDelta = StatEngine.computeRoleSynergy(game.acceptedRoleCounts)
     stats.apply(synergyDelta)
 
-    // 3. Yiyecek tüketimi
     stats.applyFoodConsumption()
 
-    // 4. Açlık hasarı
     stats.applyStarvation()
 
-    // 5. Gizli trait tick
     const infectionReduction = computeInfectionReduction(progress.buildings)
     const { deltas, notifications, remaining } = HiddenSystem.tick(
       game.pendingTraits,
@@ -85,7 +71,6 @@ export const useGameLoop = () => {
     for (const note of notifications) game.addNotification(note)
     game.removeTraits(remaining)
 
-    // 6. Game over kontrolü
     const reason = stats.getGameOverReason()
     if (reason) {
       progress.updateBestRun(game.day, false)
@@ -95,7 +80,6 @@ export const useGameLoop = () => {
       return
     }
 
-    // 7. Zafer kontrolü
     if (game.day >= config.win_condition_day) {
       progress.updateBestRun(game.day, true)
       game.setGameOver('victory' as any)
@@ -104,7 +88,6 @@ export const useGameLoop = () => {
       return
     }
 
-    // 8. Event kontrolü
     if (EventManager.shouldTrigger(game.day)) {
       const event = EventManager.pickEvent(stats.stats, game.usedEventIDs)
       if (event) {
@@ -114,15 +97,12 @@ export const useGameLoop = () => {
       }
     }
 
-    // 9. SP kazanımı
     progress.addSP(config.sp_rewards.day_survived)
 
-    // 10. Perfect day kontrolü (gün başı istatistikleriyle karşılaştır)
     const cur    = stats.stats
     const noDrop = Object.keys(cur).every(k => cur[k as keyof typeof cur] >= dayStartStats[k as keyof typeof dayStartStats])
     if (noDrop) progress.addSP(config.sp_rewards.perfect_day)
 
-    // 11. Yeni güne geç — npc_arrival fazında bekle (NotificationOverlay için)
     rollDay()
     game.advanceDay(computeQueryCharges(progress.buildings))
     const nextNPC = generator.getNext()
@@ -130,8 +110,6 @@ export const useGameLoop = () => {
 
     saveAll()
   }, [game, stats, progress])
-
-  // --- NPC KARARI ---
 
   const handleAccept = useCallback((npc: NPC) => {
     const effectiveStats = npc.hidden_trait === 'liar'
@@ -142,7 +120,6 @@ export const useGameLoop = () => {
     game.addAcceptedRole(npc.role)
     game.incrementRunStat('accepted')
 
-    // HiddenSystem.enqueue artık none/liar dışında hepsini alır (protector dahil)
     if (npc.hidden_trait !== 'none' && npc.hidden_trait !== 'liar') {
       game.enqueueTrait({ npc_id: npc.npc_id, trait: npc.hidden_trait, accepted_day: game.day })
     }
@@ -196,7 +173,6 @@ export const useGameLoop = () => {
     if (!result.success) return ui.query_messages.no_charges
     game.incrementRunStat('queries')
 
-    // 2. ve 3. sorgular yiyecek götürür
     if (!result.isFree) {
       stats.apply({ food: -config.query_food_cost })
     }
@@ -211,8 +187,6 @@ export const useGameLoop = () => {
 
     return ui.trait_final[npc.hidden_trait] ?? npc.clue_text
   }, [game, stats])
-
-  // --- EVENT KARARI ---
 
   const handleEventChoice = useCallback((choiceId: 'A' | 'B' | 'C') => {
     const event = game.activeEvent
@@ -240,12 +214,9 @@ export const useGameLoop = () => {
     game.advanceDay(computeQueryCharges(progress.buildings))
     const nextNPC = generator.getNext()
     game.setActiveNPC(nextNPC)
-    // npc_arrival fazında kal — GameScreen'deki useEffect otomatik geçiş yapar
 
     saveAll()
   }, [game, stats, progress])
-
-  // --- YARDIMCILAR ---
 
   const DIFF_MULT: Record<string, number> = { easy: 0.3, normal: 0.0, hard: -0.25 }
 
@@ -255,7 +226,6 @@ export const useGameLoop = () => {
     stats.reset()
     progress.reset()
 
-    // Zorluk başlangıç stat ayarı
     const mult = DIFF_MULT[settings.difficulty] ?? 0
     if (mult !== 0) {
       const initial = config.initial_stats as Record<string, number>

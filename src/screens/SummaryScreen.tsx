@@ -52,7 +52,6 @@ export const SummaryScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
         showsVerticalScrollIndicator={false}
       >
 
-        {/* ── Başlık ── */}
         <View style={styles.header}>
           <Text style={[styles.tag, { fontFamily: MONO }]}>[ ZAFERLİ SON ]</Text>
           <Animated.Text style={[styles.emblem, emblemStyle]}>🏆</Animated.Text>
@@ -66,10 +65,8 @@ export const SummaryScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
           </Text>
         </View>
 
-        {/* ── Divider ── */}
         <View style={styles.divider} />
 
-        {/* ── Final stat tablosu ── */}
         <View style={styles.section}>
           <Text style={[styles.sectionLabel, { fontFamily: MONO }]}>— FİNAL DURUMU —</Text>
           {STAT_KEYS.map(key => {
@@ -92,10 +89,8 @@ export const SummaryScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
           })}
         </View>
 
-        {/* ── Divider ── */}
         <View style={styles.divider} />
 
-        {/* ── SP ── */}
         <View style={styles.spRow}>
           <Text style={[styles.spLabel, { fontFamily: MONO }]}>TOPLAM SP</Text>
           <View style={styles.spRight}>
@@ -104,7 +99,6 @@ export const SummaryScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
           </View>
         </View>
 
-        {/* ── Butonlar ── */}
         <View style={styles.btnGroup}>
           <TouchableOpacity onPress={onRestart} style={styles.btnPrimary} activeOpacity={0.85}>
             <Text style={[styles.btnText, { fontFamily: MONO }]}>[ TEKRAR OYNA ]</Text>

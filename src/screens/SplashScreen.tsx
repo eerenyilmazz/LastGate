@@ -57,7 +57,6 @@ export const SplashScreen: React.FC<Props> = ({ onDone }) => {
       withTiming(height + 10, { duration: 4000, easing: Easing.linear }),
       -1, false,
     )
-    // Kan kırmızısı vinyette — yavaş soluk alıp verme
     bloodOp.value = withDelay(400,
       withRepeat(withSequence(
         withTiming(1,   { duration: 2400, easing: Easing.inOut(Easing.ease) }),
@@ -84,20 +83,16 @@ export const SplashScreen: React.FC<Props> = ({ onDone }) => {
   return (
     <TouchableOpacity activeOpacity={1} onPress={onDone} style={styles.root}>
 
-      {/* CRT tarama */}
       <Animated.View style={[styles.scanline, scanStyle]} pointerEvents="none" />
 
-      {/* Kan kırmızısı vinyette — tüm ekran hafif kırmızı puls */}
       <Animated.View style={[styles.bloodVignette, bloodStyle]} pointerEvents="none" />
 
-      {/* ── 1. Üst şerit ── */}
       <Animated.View style={[styles.alertStripe, alertStyle]} pointerEvents="none">
         <Text style={[styles.alertText, { fontFamily: MONO }]} numberOfLines={1}>
           {'>> ACİL DURUM · BÖLGE 7 · ENFEKSİYON · HAYATTA KAL · SON KAPI AKTİF >>'}
         </Text>
       </Animated.View>
 
-      {/* ── 2. Merkez: logo + terminal ── */}
       <View style={styles.center}>
 
         <Animated.View style={[styles.logoBlock, logoStyle]}>
@@ -135,7 +130,6 @@ export const SplashScreen: React.FC<Props> = ({ onDone }) => {
 
       </View>
 
-      {/* ── 3. Alt bölüm: tagline → hint → version ── */}
       <Animated.View style={[styles.taglineWrap, bottomStyle]} pointerEvents="none">
         <Text style={[styles.tagline, { fontFamily: MONO }]}>{'>> 100 GÜN HAYATTA KAL <<'}</Text>
       </Animated.View>
@@ -157,7 +151,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#060606',
     alignItems: 'center',
-    // Tüm çocuklar sütun halinde dizilir: alertStripe → center → tagline → hint → version
   },
 
   scanline: {
@@ -165,13 +158,11 @@ const styles = StyleSheet.create({
     height: 2, backgroundColor: 'rgba(255,255,255,0.04)', zIndex: 20,
   },
 
-  // Kan efekti
   bloodVignette: {
     position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
     backgroundColor: 'rgba(110, 0, 0, 0.07)',
     zIndex: 1,
   },
-  // ── Üst şerit
   alertStripe: {
     backgroundColor: '#0e0e0e',
     width: '100%',
@@ -185,7 +176,6 @@ const styles = StyleSheet.create({
   },
   alertText: { color: '#252525', fontSize: 9, fontWeight: '800', letterSpacing: 2 },
 
-  // ── Merkez — kalan tüm alanı doldurur
   center: {
     flex: 1,
     width: '100%',
@@ -205,7 +195,6 @@ const styles = StyleSheet.create({
   },
   subtitle: { fontSize: 10, fontWeight: '700', color: '#282828', letterSpacing: 8 },
 
-  // ── Terminal kutusu
   terminal: {
     width: '100%',
     backgroundColor: '#080808',
@@ -230,7 +219,6 @@ const styles = StyleSheet.create({
   dot:        { width: 2, height: 2, borderRadius: 1, backgroundColor: '#131313' },
   statusValue:{ fontSize: 9, fontWeight: '800', letterSpacing: 1.5 },
 
-  // ── Alt bölüm (normal flex akışı, absolute yok)
   taglineWrap: { alignItems: 'center', marginBottom: 14 },
   tagline: { color: '#222', fontSize: 10, letterSpacing: 2, fontWeight: '700' },
 

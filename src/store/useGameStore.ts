@@ -10,40 +10,30 @@ interface GameStore extends GameState {
   usedEventIDs: string[]
   notifications: string[]
 
-  // Faz kontrolü
   setPhase: (phase: GamePhase) => void
 
-  // NPC
   setActiveNPC: (npc: NPC | null) => void
   addAcceptedRole: (role: NPCRole) => void
   consumeQueryCharge: () => { success: boolean; isFree: boolean; queryIndex: number }
 
-  // İstatistik
   incrementRunStat: (key: keyof RunStats) => void
 
-  // Event
   setActiveEvent: (event: GameEvent | null) => void
   markEventUsed: (id: string) => void
 
-  // Hidden traits
   enqueueTrait: (trait: PendingTrait) => void
   removeTraits: (remaining: PendingTrait[]) => void
 
-  // Bildirimler
   addNotification: (text: string) => void
   clearNotifications: () => void
 
-  // Gün — queryCharges: watchtower dahil hesaplanmış değer
   advanceDay: (queryCharges?: number) => void
-  setQueryCharges: (n: number) => void  // queryChargesTotal da günceller
+  setQueryCharges: (n: number) => void
 
-  // Game over
   setGameOver: (reason: GameOverReason) => void
 
-  // Reset
   reset: () => void
 
-  // Save/Load
   _load: (state: Partial<GameState & { pendingTraits: PendingTrait[]; usedEventIDs: string[] }>) => void
 }
 
@@ -94,7 +84,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
   consumeQueryCharge() {
     const { queryChargesLeft, queryChargesTotal } = get()
     if (queryChargesLeft <= 0) return { success: false, isFree: false, queryIndex: -1 }
-    const queryIndex = queryChargesTotal - queryChargesLeft  // 0=1.sorgu, 1=2.sorgu, 2=3.sorgu
+    const queryIndex = queryChargesTotal - queryChargesLeft
     const isFree     = queryIndex === 0
     set(s => ({ queryChargesLeft: s.queryChargesLeft - 1 }))
     return { success: true, isFree, queryIndex }

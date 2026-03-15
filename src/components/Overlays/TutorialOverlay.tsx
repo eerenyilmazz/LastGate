@@ -19,7 +19,6 @@ export const TutorialOverlay: React.FC<Props> = ({ onClose }) => (
   <View style={styles.overlay}>
     <View style={[styles.sheet, { paddingBottom: Platform.OS === 'android' ? 44 : 30 }]}>
 
-      {/* Terminal başlık */}
       <View style={styles.termHeader}>
         <View style={styles.dots}>
           <View style={[styles.dot, { backgroundColor: DOTS[0] }]} />
@@ -30,7 +29,6 @@ export const TutorialOverlay: React.FC<Props> = ({ onClose }) => (
         <View style={{ width: 40 }} />
       </View>
 
-      {/* İpuçları */}
       <View style={styles.list}>
         {TUTORIAL.tips.map((tip, i) => (
           <View key={i} style={styles.tipRow}>
@@ -42,7 +40,6 @@ export const TutorialOverlay: React.FC<Props> = ({ onClose }) => (
         ))}
       </View>
 
-      {/* Kapat */}
       <TouchableOpacity onPress={onClose} style={styles.btn} activeOpacity={0.8}>
         <Text style={[styles.btnText, { fontFamily: MONO }]}>{TUTORIAL.continue_btn}</Text>
       </TouchableOpacity>

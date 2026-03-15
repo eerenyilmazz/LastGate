@@ -19,9 +19,7 @@ interface Props {
   onSwipeLeft:  () => void
   onSwipeUp:    () => void
   disabled?:    boolean
-  /** Tinder arka plan için ana bileşene drag-X paylaşımı */
   dragX?: SharedValue<number>
-  /** Tinder arka plan için ana bileşene drag-Y paylaşımı */
   dragY?: SharedValue<number>
 }
 
@@ -50,14 +48,12 @@ export const SwipeHandler: React.FC<Props> = ({
       translateX.value = e.translationX
       translateY.value = e.translationY * 0.3
       rotation.value   = e.translationX * 0.06
-      // Tinder arka plan için üst bileşene bildir
       if (dragX) dragX.value = e.translationX
       if (dragY) dragY.value = e.translationY
     })
     .onEnd(e => {
       'worklet'
       if (e.translationX > THRESHOLD) {
-        // Sağa sürükle → Kabul
         translateX.value = withTiming(500, { duration: DURATION })
         opacity.value    = withTiming(0,   { duration: DURATION }, () => {
           'worklet'
@@ -66,7 +62,6 @@ export const SwipeHandler: React.FC<Props> = ({
         if (dragX) dragX.value = withTiming(0, { duration: DURATION })
 
       } else if (e.translationX < -THRESHOLD) {
-        // Sola sürükle → Ret
         translateX.value = withTiming(-500, { duration: DURATION })
         opacity.value    = withTiming(0,    { duration: DURATION }, () => {
           'worklet'
@@ -75,7 +70,6 @@ export const SwipeHandler: React.FC<Props> = ({
         if (dragX) dragX.value = withTiming(0, { duration: DURATION })
 
       } else if (e.translationY < -THRESHOLD) {
-        // Yukarı sürükle → Sorgu (kart geri gelir)
         translateX.value = withSpring(0)
         translateY.value = withSpring(0)
         rotation.value   = withSpring(0)
@@ -84,7 +78,6 @@ export const SwipeHandler: React.FC<Props> = ({
         runOnJS(onSwipeUp)()
 
       } else {
-        // Yarım sürükle → geri yay
         translateX.value = withSpring(0)
         translateY.value = withSpring(0)
         rotation.value   = withSpring(0)
@@ -102,7 +95,6 @@ export const SwipeHandler: React.FC<Props> = ({
     opacity: opacity.value,
   }))
 
-  // Yön etiketleri (kart üzerinde)
   const acceptLabelStyle = useAnimatedStyle(() => ({
     opacity: interpolate(translateX.value, [20, THRESHOLD], [0, 1], Extrapolation.CLAMP),
   }))
@@ -118,17 +110,14 @@ export const SwipeHandler: React.FC<Props> = ({
       <Animated.View style={animStyle} pointerEvents={disabled ? 'none' : 'auto'}>
         {children}
 
-        {/* KABUL — sağ üst */}
         <Animated.View style={[styles.dirLabel, styles.acceptLabel, acceptLabelStyle]}>
           <Text style={[styles.dirText, { color: '#4caf50' }]}>KABUL ✓</Text>
         </Animated.View>
 
-        {/* RET — sol üst */}
         <Animated.View style={[styles.dirLabel, styles.rejectLabel, rejectLabelStyle]}>
           <Text style={[styles.dirText, { color: '#ef5350' }]}>✕ RET</Text>
         </Animated.View>
 
-        {/* SORGU — üst merkez */}
         <Animated.View style={[styles.dirLabel, styles.queryLabel, queryLabelStyle]}>
           <Text style={[styles.dirText, { color: '#ff9800' }]}>SORGU ↑</Text>
         </Animated.View>

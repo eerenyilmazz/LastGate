@@ -38,26 +38,21 @@ const STAT_MAX = config.stat_max as Record<StatType, number>
 
 const SWIPE_PREVIEW_THRESHOLD = themeData.animation.swipe_threshold
 
-// ─── Animasyonlu stat bar ────────────────────────────────────────────────────
-// isCrit → yanıp söner
-// dragX  → swipe yönüne göre bar yüksekliği hedef değere doğru kayar
-
 const StatBarItem: React.FC<{
   icon:         string
   val:          number
-  pct:          number          // mevcut doluluk oranı [0‥1]
+  pct:          number
   isCrit:       boolean
   color:        string
-  acceptDelta:  number          // kabul edilirse stat değişimi
-  rejectDelta:  number          // reddedilirse stat değişimi
-  max:          number          // bu stat'ın maksimum değeri
+  acceptDelta:  number
+  rejectDelta:  number
+  max:          number
   dragX:        SharedValue<number>
 }> = ({ icon, val, pct, isCrit, color, acceptDelta, rejectDelta, max, dragX }) => {
 
   const pulse  = useSharedValue(1)
-  const trackH = useSharedValue(0)   // onLayout ile ölçülür, worklet'te kullanılır
+  const trackH = useSharedValue(0)
 
-  // Swipe sırasında gösterilecek değer (JS thread)
   const [displayVal, setDisplayVal] = useState(val)
   useEffect(() => { setDisplayVal(val) }, [val])
   useAnimatedReaction(
@@ -72,7 +67,6 @@ const StatBarItem: React.FC<{
     [val, acceptDelta, rejectDelta, max],
   )
 
-  // Kritik → yanıp sön animasyonu
   useEffect(() => {
     if (isCrit) {
       pulse.value = withRepeat(
@@ -91,16 +85,11 @@ const StatBarItem: React.FC<{
 
   const animStyle = useAnimatedStyle(() => ({ opacity: pulse.value }))
 
-  // ── Reigns-style bar animasyonu ──────────────────────────────────────────
-  // dragX > 0  → sağa (kabul) kaydırılıyor: acceptDelta uygula
-  // dragX < 0  → sola (ret)   kaydırılıyor: rejectDelta uygula
-  // İlerleme oranı [0‥1] SWIPE_PREVIEW_THRESHOLD'a göre normalize edilir
   const fillStyle = useAnimatedStyle(() => {
     'worklet'
     const h  = trackH.value
     const dx = dragX.value
 
-    // Track henüz ölçülmediyse ya da sürükleme yoksa statik göster
     if (h === 0 || Math.abs(dx) < 4) {
       return { height: h * pct, backgroundColor: color }
     }
@@ -108,7 +97,6 @@ const StatBarItem: React.FC<{
     const delta    = dx > 0 ? acceptDelta : rejectDelta
     const progress = Math.min(1, Math.abs(dx) / SWIPE_PREVIEW_THRESHOLD)
 
-    // Hedef doluluk oranı
     const projectedPct = Math.max(0, Math.min(1, (val + delta) / max))
     const displayH     = h * (pct + (projectedPct - pct) * progress)
 
@@ -146,8 +134,6 @@ const barStyles = StyleSheet.create({
   val:   { fontSize: 8, fontWeight: '800' },
 })
 
-// ─────────────────────────────────────────────────────────────────────────────
-
 const CARD_ASPECT = 3 / 4
 
 interface Props {
@@ -163,7 +149,6 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
   const progress = useProgressStore()
   const { handleAccept, handleReject, handleQuery, handleEventChoice, endDay } = useGameLoop()
 
-  // SwipeHandler ile paylaşılan drag değeri → stat bar önizlemesi için
   const dragX = useSharedValue(0)
 
   const [detailsVisible,   setDetailsVisible]   = useState(false)
@@ -184,7 +169,6 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
   const statH   = isCompact ? 44 : 52
   const btnPadV = isCompact ? 10 : 13
 
-  // npc_arrival fazında bildirim yoksa otomatik geç
   useEffect(() => {
     if (game.phase !== 'npc_arrival') return
     if (game.notifications.length > 0) return
@@ -245,10 +229,8 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
 
         <View style={styles.spacer} />
 
-        {/* ── HUD ── */}
         <View style={[styles.hud, { paddingTop: isCompact ? 4 : 8 }]}>
 
-          {/* Gün + SP */}
           <View style={styles.hudRow1}>
             <View>
               <Text style={[styles.dayNum, { color: theme.colors.text_primary }]}>
@@ -265,7 +247,6 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
             </View>
           </View>
 
-          {/* Stat barlar — dragX paylaşılır, swipe'a göre önizleme gösterilir */}
           <View style={[styles.statStrip, { height: statH }]}>
             {STATS.map(s => {
               const val        = Math.round(stats.stats[s])
@@ -293,7 +274,6 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
 
         </View>
 
-        {/* ── Kart ── */}
         <View style={[styles.cardSlot, { height: cardSlotH }]}>
           {npc && (
             <SwipeHandler
@@ -309,7 +289,6 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
           )}
         </View>
 
-        {/* ── Toast ── */}
         <View style={styles.toastArea}>
           {game.phase === 'npc_decision' && queryWarnPending ? (
             <View style={[styles.queryToast, styles.queryWarnToast]}>
@@ -326,7 +305,6 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
           ) : null}
         </View>
 
-        {/* ── Aksiyon butonları ── */}
         <View style={[styles.actionBar, {
           paddingBottom: Platform.OS === 'android' ? 10 : 4,
           opacity: (npc && game.phase === 'npc_decision') ? 1 : 0,
@@ -382,7 +360,6 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
 
       </View>
 
-      {/* Overlays */}
       {game.phase === 'intro' && (
         <IntroScreen onStart={() => game.setPhase('npc_decision')} />
       )}

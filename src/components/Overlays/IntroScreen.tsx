@@ -23,7 +23,6 @@ export const IntroScreen: React.FC<Props> = ({ onStart }) => {
   const [showCTA,      setShowCTA]      = useState(false)
   const [cursor,       setCursor]       = useState(true)
 
-  // Satırları sırayla göster
   useEffect(() => {
     if (visibleCount >= INTRO.lines.length) {
       const t = setTimeout(() => setShowCTA(true), CTA_DELAY_MS)
@@ -34,7 +33,6 @@ export const IntroScreen: React.FC<Props> = ({ onStart }) => {
     return () => clearTimeout(t)
   }, [visibleCount])
 
-  // İmleç yanıp sönmesi
   useEffect(() => {
     if (showCTA) { setCursor(true); return }
     const t = setInterval(() => setCursor(c => !c), 480)
@@ -45,7 +43,6 @@ export const IntroScreen: React.FC<Props> = ({ onStart }) => {
     <View style={styles.overlay}>
       <SafeAreaView style={styles.safe}>
 
-        {/* ── Terminal başlık ── */}
         <View style={styles.termHeader}>
           <View style={styles.dots}>
             {DOTS.map((color, i) => (
@@ -58,13 +55,10 @@ export const IntroScreen: React.FC<Props> = ({ onStart }) => {
           <View style={{ width: 40 }} />
         </View>
 
-        {/* ── İçerik alanı: flex:1, içinde spacer ile metin bloku denge ── */}
         <View style={styles.mainArea}>
 
-          {/* Üst spacer — 2 birim boş bırakır */}
           <View style={styles.spacerTop} />
 
-          {/* Dekoratif ayraç + metin */}
           <View style={styles.contentBlock}>
             <View style={styles.dividerRow}>
               <View style={styles.dividerLine} />
@@ -74,7 +68,6 @@ export const IntroScreen: React.FC<Props> = ({ onStart }) => {
 
             <View style={styles.gap} />
 
-            {/* Tüm satırlar render edilir; opacity ile sıralı açılır → layout sabit kalır */}
             <View style={styles.linesBlock}>
               {INTRO.lines.map((line, i) => (
                 <Text
@@ -88,19 +81,16 @@ export const IntroScreen: React.FC<Props> = ({ onStart }) => {
                 </Text>
               ))}
 
-              {/* Yanıp sönen imleç */}
               <Text style={[styles.cursorLine, { fontFamily: MONO, opacity: (!showCTA && visibleCount > 0) ? 1 : 0 }]}>
                 {cursor ? '▌' : ' '}
               </Text>
             </View>
           </View>
 
-          {/* Alt spacer — 3 birim boş bırakır; içerik üstte-orta görünür */}
           <View style={styles.spacerBottom} />
 
         </View>
 
-        {/* ── CTA butonu: her zaman sabit altta ── */}
         <View style={[
           styles.bottomArea,
           { paddingBottom: Platform.OS === 'android' ? 36 : 24 },
@@ -116,7 +106,6 @@ export const IntroScreen: React.FC<Props> = ({ onStart }) => {
               </Text>
             </TouchableOpacity>
           ) : (
-            /* Placeholder: CTA görünmeden önce alanı tutar */
             <View style={styles.ctaPlaceholder} />
           )}
         </View>
@@ -134,7 +123,6 @@ const styles = StyleSheet.create({
   },
   safe: { flex: 1 },
 
-  // ── Terminal başlık
   termHeader: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -155,22 +143,17 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 
-  // ── Ana alan: flex:1, içindeki spacer'lar metni dengeli konumlandırır
   mainArea: {
     flex: 1,
     paddingHorizontal: 28,
   },
 
-  // Üst spacer küçük, alt spacer büyük → metin ekranın üst-orta kesimine düşer
   spacerTop:    { flex: 2 },
   spacerBottom: { flex: 3 },
 
-  // ── İçerik bloğu (ayraç + satırlar)
   contentBlock: {
-    // flex: 0 — doğal yüksekliğini alır, spacer'lar onu ortalar
   },
 
-  // Dekoratif ayraç
   dividerRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -190,7 +173,6 @@ const styles = StyleSheet.create({
 
   gap: { height: 22 },
 
-  // Metin bloğu
   linesBlock: {},
   line: {
     color: '#6a5a3e',
@@ -206,7 +188,6 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
 
-  // ── Alt sabit alan
   bottomArea: {
     paddingHorizontal: 24,
     paddingTop: 12,

@@ -24,7 +24,6 @@ export const NotificationOverlay: React.FC<Props> = ({ onContinue }) => {
     <View style={styles.overlay}>
       <View style={[styles.sheet, { paddingBottom: Platform.OS === 'android' ? 44 : 30 }]}>
 
-        {/* Terminal başlık */}
         <View style={styles.termHeader}>
           <View style={styles.dots}>
             <View style={[styles.dot, { backgroundColor: DOTS[0] }]} />
@@ -37,7 +36,6 @@ export const NotificationOverlay: React.FC<Props> = ({ onContinue }) => {
           <View style={{ width: 40 }} />
         </View>
 
-        {/* Bildirimler listesi */}
         <ScrollView
           style={styles.scroll}
           contentContainerStyle={styles.list}
@@ -51,7 +49,6 @@ export const NotificationOverlay: React.FC<Props> = ({ onContinue }) => {
           ))}
         </ScrollView>
 
-        {/* Devam butonu */}
         <TouchableOpacity onPress={onContinue} style={styles.btn} activeOpacity={0.8}>
           <Text style={[styles.btnText, { fontFamily: MONO }]}>{REPORT.continue_btn}</Text>
         </TouchableOpacity>

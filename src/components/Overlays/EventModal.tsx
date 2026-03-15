@@ -7,14 +7,10 @@ import { GameEvent, EventChoice } from '../../types/event.types'
 import { NPCRole } from '../../types/npc.types'
 import themeData from '../../data/theme.json'
 
-// ─── Sabitler ────────────────────────────────────────────────────────────────
-
 const MONO        = Platform.select(themeData.ui.font_mono) as string
 const STAT_ICONS  = themeData.ui.stat_icons as Record<string, string>
 const CHOICE_COLOR = themeData.ui.choice_colors as Record<string, string>
 const DOTS        = themeData.ui.terminal_dots
-
-// ─── Yardımcı: iki StatDelta'yı birleştir ───────────────────────────────────
 
 function mergeDeltas(
   a: Record<string, number | undefined>,
@@ -27,8 +23,6 @@ function mergeDeltas(
   }
   return out
 }
-
-// ─── Etki chip'leri ──────────────────────────────────────────────────────────
 
 const EffectChips: React.FC<{ effects: Record<string, number | undefined> }> = ({ effects }) => {
   const entries = Object.entries(effects).filter(([, v]) => v !== undefined && v !== 0)
@@ -56,8 +50,6 @@ const EffectChips: React.FC<{ effects: Record<string, number | undefined> }> = (
   )
 }
 
-// ─── Tek seçenek satırı ──────────────────────────────────────────────────────
-
 const ChoiceRow: React.FC<{
   choice: EventChoice
   hasBonus: boolean
@@ -79,7 +71,6 @@ const ChoiceRow: React.FC<{
       style={[es.choiceBtn, { borderLeftColor: color }]}
       activeOpacity={0.82}
     >
-      {/* Üst satır: rozet + etiket + bonus */}
       <View style={es.choiceTop}>
         <View style={[es.badge, { backgroundColor: color + '22', borderColor: color + '55' }]}>
           <Text style={[es.badgeLetter, { color, fontFamily: MONO }]}>{choice.id}</Text>
@@ -96,15 +87,12 @@ const ChoiceRow: React.FC<{
         )}
       </View>
 
-      {/* Alt satır: etki chip'leri */}
       <View style={es.chipArea}>
         <EffectChips effects={combined} />
       </View>
     </TouchableOpacity>
   )
 }
-
-// ─── Ana bileşen ─────────────────────────────────────────────────────────────
 
 interface Props {
   event: GameEvent
@@ -121,7 +109,6 @@ export const EventModal: React.FC<Props> = ({ event, acceptedRoles, onChoice }) 
       <View style={es.backdrop}>
         <View style={es.sheet}>
 
-          {/* ── Terminal başlık çubuğu ── */}
           <View style={es.termHeader}>
             <View style={es.dots}>
               <View style={[es.dot, { backgroundColor: DOTS[0] }]} />
@@ -131,7 +118,6 @@ export const EventModal: React.FC<Props> = ({ event, acceptedRoles, onChoice }) 
             <Text style={[es.termTitle, { fontFamily: MONO }]}>
               OLAY · {event.category.toUpperCase()}
             </Text>
-            {/* Sağ boşluk: dots ile simetri */}
             <View style={{ width: 36 }} />
           </View>
 
@@ -140,24 +126,20 @@ export const EventModal: React.FC<Props> = ({ event, acceptedRoles, onChoice }) 
             contentContainerStyle={es.body}
           >
 
-            {/* ── Olay başlığı ── */}
             <Text style={es.eventTitle}>{event.title}</Text>
 
-            {/* ── Açıklama bloğu ── */}
             <View style={es.descBlock}>
               <Text style={[es.descText, { fontFamily: MONO }]}>
                 {event.description}
               </Text>
             </View>
 
-            {/* ── Ayraç ── */}
             <View style={es.divider}>
               <View style={es.dividerLine} />
               <Text style={[es.dividerText, { fontFamily: MONO }]}>BİR SEÇİM YAP</Text>
               <View style={es.dividerLine} />
             </View>
 
-            {/* ── Seçenekler ── */}
             <View style={es.choicesBlock}>
               {event.choices.map(choice => (
                 <ChoiceRow
@@ -177,8 +159,6 @@ export const EventModal: React.FC<Props> = ({ event, acceptedRoles, onChoice }) 
   )
 }
 
-// ─── Stiller ─────────────────────────────────────────────────────────────────
-
 const es = StyleSheet.create({
   backdrop: {
     flex: 1,
@@ -195,7 +175,6 @@ const es = StyleSheet.create({
     paddingBottom: Platform.OS === 'android' ? 28 : 20,
   },
 
-  // ── Terminal başlık
   termHeader: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -219,7 +198,6 @@ const es = StyleSheet.create({
     textAlign: 'center',
   },
 
-  // ── Body
   body: {
     paddingHorizontal: 16,
     paddingTop: 16,
@@ -247,7 +225,6 @@ const es = StyleSheet.create({
     lineHeight: 19,
   },
 
-  // ── Ayraç
   divider: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -261,7 +238,6 @@ const es = StyleSheet.create({
     letterSpacing: 1.5,
   },
 
-  // ── Seçenekler bloğu
   choicesBlock: { gap: 8 },
 
   choiceBtn: {
@@ -320,7 +296,6 @@ const es = StyleSheet.create({
 
   chipArea: { paddingLeft: 36 },
 
-  // ── Etki chip'leri
   chipRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 5 },
   chip: {
     flexDirection: 'row',

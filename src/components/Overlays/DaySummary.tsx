@@ -20,14 +20,10 @@ const STAT_SHORT = themeData.ui.stat_names_upper as Record<StatType, string>
 const STAT_COLORS = themeData.ui.stat_colors as Record<StatType, string>
 const STAT_MAX   = config.stat_max as Record<StatType, number>
 
-// ─── Props ───────────────────────────────────────────────────────────────────
-
 interface Props {
   onContinue: () => void
   onBuilding: () => void
 }
-
-// ─── Ana bileşen ─────────────────────────────────────────────────────────────
 
 export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
   const stats = useStatStore()
@@ -44,7 +40,6 @@ export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
         onStartShouldSetResponder={() => false}
       >
 
-        {/* ── Terminal başlık çubuğu ── */}
         <View style={styles.termHeader}>
           <View style={styles.dots}>
             <View style={[styles.dot, { backgroundColor: DOTS[0] }]} />
@@ -54,11 +49,9 @@ export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
           <Text style={[styles.dayLabel, { fontFamily: MONO }]}>
             {LABELS.day_summary_header_prefix}{game.day}{LABELS.day_summary_header_suffix}
           </Text>
-          {/* simetri için sağ dolgu */}
           <View style={{ width: 40 }} />
         </View>
 
-        {/* ── Stat satırları ── */}
         <View style={styles.statsBlock}>
           {STAT_KEYS.map(key => {
             const cur   = Math.round(stats.stats[key])
@@ -66,31 +59,25 @@ export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
             const diff  = cur - prev
             const pct   = Math.min(1, Math.max(0, cur / STAT_MAX[key]))
             const isCrit = pct < 0.15
-            // Düşüşteyse kırmızı, kritik seviyedeyse parlak kırmızı, normal: stat rengi
             const color = isCrit ? C.stat_critical : diff < 0 ? C.reject_glow : STAT_COLORS[key]
 
             return (
               <View key={key} style={styles.statRow}>
 
-                {/* Emoji ikon */}
                 <Text style={styles.statIcon}>{STAT_ICONS[key]}</Text>
 
-                {/* 3 harflik kısa ad */}
                 <Text style={[styles.statShort, { fontFamily: MONO, color: isCrit ? C.stat_critical : '#444' }]}>
                   {STAT_SHORT[key]}
                 </Text>
 
-                {/* Dolum barı */}
                 <View style={styles.barTrack}>
                   <View style={[styles.barFill, { width: `${pct * 100}%` as any, backgroundColor: color }]} />
                 </View>
 
-                {/* Sayısal değer */}
                 <Text style={[styles.statNum, { color: isCrit ? C.stat_critical : '#bbb' }]}>
                   {cur}
                 </Text>
 
-                {/* Fark badge'i */}
                 <View style={[
                   styles.diffBox,
                   diff > 0 && styles.diffBoxPos,
@@ -109,12 +96,10 @@ export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
           })}
         </View>
 
-        {/* ── Ayraç ── */}
         <View style={styles.divider}>
           <View style={styles.dividerLine} />
         </View>
 
-        {/* ── Şehirdeki roller ── */}
         {Object.keys(game.acceptedRoleCounts).length > 0 && (
           <View style={styles.roleRow}>
             {Object.entries(game.acceptedRoleCounts).map(([role, count]) => {
@@ -130,7 +115,6 @@ export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
           </View>
         )}
 
-        {/* ── Yerleşim Yönetimi butonu ── */}
         <TouchableOpacity
           onPress={onBuilding}
           style={styles.buildingBtn}
@@ -146,15 +130,12 @@ export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
           <Text style={styles.buildingArrow}>›</Text>
         </TouchableOpacity>
 
-        {/* ── İpucu ── */}
         <Text style={[styles.hint, { fontFamily: MONO }]}>{LABELS.continue_hint}</Text>
 
       </View>
     </TouchableOpacity>
   )
 }
-
-// ─── Stiller ─────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
   overlay: {
@@ -172,7 +153,6 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
 
-  // ── Terminal başlık
   termHeader: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -193,7 +173,6 @@ const styles = StyleSheet.create({
     letterSpacing: 3,
   },
 
-  // ── Stat satırları
   statsBlock: {
     paddingHorizontal: 20,
     paddingTop: 18,
@@ -219,7 +198,7 @@ const styles = StyleSheet.create({
   barTrack: {
     flex: 1,
     height: 8,
-    backgroundColor: '#1e1812',   // sıcak koyu — bar renkleri daha kontraslı görünsün
+    backgroundColor: '#1e1812',
     borderRadius: 4,
     overflow: 'hidden',
   },
@@ -249,7 +228,6 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
 
-  // ── Ayraç
   divider: {
     marginHorizontal: 20,
     marginVertical: 16,
@@ -259,7 +237,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#1a1410',
   },
 
-  // ── Rol sayıları
   roleRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -286,7 +263,6 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
   },
 
-  // ── Yerleşim butonu
   buildingBtn: {
     marginHorizontal: 16,
     marginBottom: 14,
@@ -325,7 +301,6 @@ const styles = StyleSheet.create({
     fontWeight: '900',
   },
 
-  // ── İpucu
   hint: {
     color: '#2a2a2a',
     fontSize: 9,

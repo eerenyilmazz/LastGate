@@ -11,16 +11,12 @@ import uiData from '../../data/ui.json'
 const C      = themeData.colors
 const LABELS = uiData.labels
 
-// ─── Sabit tablolar ─────────────────────────────────────────────────────────
-
 const ROLE_COLORS = themeData.ui.role_colors as Record<string, string>
 const ROLE_TR     = themeData.ui.role_names_tr as Record<string, string>
 const STAT_ICONS  = themeData.ui.stat_icons as Record<string, string>
 const STAT_NAMES  = themeData.ui.stat_names_tr as Record<string, string>
 const MONO        = Platform.select(themeData.ui.font_mono) as string
 const DOTS        = themeData.ui.terminal_dots
-
-// ─── DeltaChips: stat değişimlerini renkli chip olarak göster ───────────────
 
 const DeltaChips: React.FC<{ delta: StatDelta }> = ({ delta }) => {
   const entries = Object.entries(delta).filter(([, v]) => v !== undefined && v !== 0)
@@ -48,8 +44,6 @@ const DeltaChips: React.FC<{ delta: StatDelta }> = ({ delta }) => {
   )
 }
 
-// ─── Bölüm başlığı ──────────────────────────────────────────────────────────
-
 const SectionLabel: React.FC<{ text: string; color?: string }> = ({ text, color = '#333' }) => (
   <View style={ds.sectionRow}>
     <View style={[ds.sectionLine, { backgroundColor: color }]} />
@@ -57,8 +51,6 @@ const SectionLabel: React.FC<{ text: string; color?: string }> = ({ text, color 
     <View style={[ds.sectionLine, { backgroundColor: color }]} />
   </View>
 )
-
-// ─── Ana bileşen ─────────────────────────────────────────────────────────────
 
 interface Props {
   npc: NPC
@@ -83,7 +75,6 @@ export const CardDetails: React.FC<Props> = ({ npc, visible, onClose }) => {
       >
         <View style={ds.sheet} onStartShouldSetResponder={() => true}>
 
-          {/* ── Terminal başlık çubuğu ── */}
           <View style={ds.termHeader}>
             <View style={ds.dots}>
               <View style={[ds.dot, { backgroundColor: DOTS[0] }]} />
@@ -103,40 +94,32 @@ export const CardDetails: React.FC<Props> = ({ npc, visible, onClose }) => {
             contentContainerStyle={ds.body}
           >
 
-            {/* ── Kimlik bloğu ── */}
             <View style={ds.idBlock}>
-              {/* Sol: renkli çizgi */}
               <View style={[ds.idAccent, { backgroundColor: roleColor }]} />
 
               <View style={ds.idContent}>
-                {/* Rol rozeti */}
                 <View style={[ds.roleBadge, { backgroundColor: roleColor + '22', borderColor: roleColor + '55' }]}>
                   <Text style={[ds.roleText, { color: roleColor, fontFamily: MONO }]}>
                     {ROLE_TR[npc.role] ?? npc.role.toUpperCase()}
                   </Text>
                 </View>
 
-                {/* İsim */}
                 <Text style={ds.name}>{npc.name}</Text>
 
-                {/* Diyalog */}
                 <Text style={ds.dialogue}>"{npc.dialogue}"</Text>
               </View>
             </View>
 
-            {/* ── Gözlem ── */}
             <SectionLabel text={LABELS.card_observe} color="#444" />
             <View style={ds.observeBlock}>
               <Text style={[ds.observeText, { fontFamily: MONO }]}>{npc.clue_text}</Text>
             </View>
 
-            {/* ── Kabul etkisi ── */}
             <SectionLabel text={LABELS.card_accept} color={C.accept} />
             <View style={ds.effectBlock}>
               <DeltaChips delta={npc.accept as StatDelta} />
             </View>
 
-            {/* ── Ret etkisi ── */}
             <SectionLabel text={LABELS.card_reject} color={C.reject} />
             <View style={ds.effectBlock}>
               <DeltaChips delta={npc.reject as StatDelta} />
@@ -145,7 +128,6 @@ export const CardDetails: React.FC<Props> = ({ npc, visible, onClose }) => {
             <View style={{ height: 8 }} />
           </ScrollView>
 
-          {/* ── Kapat butonu ── */}
           <TouchableOpacity
             onPress={onClose}
             style={ds.closeButton}
@@ -159,8 +141,6 @@ export const CardDetails: React.FC<Props> = ({ npc, visible, onClose }) => {
     </Modal>
   )
 }
-
-// ─── Stiller ─────────────────────────────────────────────────────────────────
 
 const ds = StyleSheet.create({
   backdrop: {
@@ -178,7 +158,6 @@ const ds = StyleSheet.create({
     paddingBottom: Platform.OS === 'android' ? 28 : 20,
   },
 
-  // Terminal başlık
   termHeader: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -213,10 +192,8 @@ const ds = StyleSheet.create({
   },
   closeText: { color: '#555', fontSize: 11, fontWeight: '900' },
 
-  // Scrollview içi
   body: { paddingHorizontal: 16, paddingTop: 14, gap: 0 },
 
-  // Kimlik bloğu
   idBlock: {
     flexDirection: 'row',
     marginBottom: 18,
@@ -252,7 +229,6 @@ const ds = StyleSheet.create({
     fontStyle: 'italic',
   },
 
-  // Bölüm başlığı
   sectionRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -266,7 +242,6 @@ const ds = StyleSheet.create({
     letterSpacing: 2,
   },
 
-  // Gözlem
   observeBlock: {
     backgroundColor: '#110d09',
     borderRadius: 8,
@@ -281,7 +256,6 @@ const ds = StyleSheet.create({
     lineHeight: 19,
   },
 
-  // Stat etkileri
   effectBlock: {
     marginBottom: 4,
     minHeight: 32,
@@ -305,7 +279,6 @@ const ds = StyleSheet.create({
   chipVal:  { fontSize: 12, fontWeight: '800' },
   deltaEmpty: { color: '#2a2a2a', fontSize: 12, fontStyle: 'italic' },
 
-  // Kapat butonu
   closeButton: {
     marginHorizontal: 16,
     marginTop: 14,

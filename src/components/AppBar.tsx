@@ -10,7 +10,6 @@ const MONO = Platform.select(themeData.ui.font_mono) as string
 const DOTS = themeData.ui.terminal_dots
 
 interface AppBarProps {
-  /** Oyun içindeyken geçilir — ayarlarda "Ana Menüye Dön" butonunu açar */
   onMainMenu?: () => void
 }
 
@@ -21,7 +20,6 @@ export const AppBar: React.FC<AppBarProps> = ({ onMainMenu }) => {
 
   const openConfirm = () => {
     setSettingsVisible(false)
-    // Küçük gecikme — ayarlar sheet kapanmadan confirm açılmasın
     setTimeout(() => setConfirmVisible(true), 320)
   }
 
@@ -32,7 +30,6 @@ export const AppBar: React.FC<AppBarProps> = ({ onMainMenu }) => {
 
   return (
     <>
-      {/* ── AppBar çubuğu ── */}
       <View style={styles.bar}>
         <View style={styles.dots}>
           <View style={[styles.dot, { backgroundColor: DOTS[0] }]} />
@@ -52,7 +49,6 @@ export const AppBar: React.FC<AppBarProps> = ({ onMainMenu }) => {
         </TouchableOpacity>
       </View>
 
-      {/* ── Ayarlar Modalı ── */}
       <Modal
         visible={settingsVisible}
         transparent
@@ -66,7 +62,6 @@ export const AppBar: React.FC<AppBarProps> = ({ onMainMenu }) => {
         >
           <View style={styles.sheet} onStartShouldSetResponder={() => true}>
 
-            {/* Terminal başlık */}
             <View style={styles.termHeader}>
               <View style={styles.termDots}>
                 <View style={[styles.termDot, { backgroundColor: DOTS[0] }]} />
@@ -83,7 +78,6 @@ export const AppBar: React.FC<AppBarProps> = ({ onMainMenu }) => {
               </TouchableOpacity>
             </View>
 
-            {/* Ses ayarı */}
             <View style={styles.settingRow}>
               <View>
                 <Text style={[styles.settingLabel, { fontFamily: MONO }]}>SES SİSTEMİ</Text>
@@ -103,7 +97,6 @@ export const AppBar: React.FC<AppBarProps> = ({ onMainMenu }) => {
               </TouchableOpacity>
             </View>
 
-            {/* Ana Menüye Dön — sadece oyun içindeyken */}
             {onMainMenu && (
               <TouchableOpacity
                 onPress={openConfirm}
@@ -118,7 +111,6 @@ export const AppBar: React.FC<AppBarProps> = ({ onMainMenu }) => {
               </TouchableOpacity>
             )}
 
-            {/* Versiyon */}
             <Text style={[styles.version, { fontFamily: MONO }]}>LAST GATE  ·  v0.1.0  ·  EARLY ACCESS</Text>
 
             <TouchableOpacity
@@ -133,7 +125,6 @@ export const AppBar: React.FC<AppBarProps> = ({ onMainMenu }) => {
         </TouchableOpacity>
       </Modal>
 
-      {/* ── Onay Modalı — temaya uygun custom dialog ── */}
       <Modal
         visible={confirmVisible}
         transparent
@@ -143,24 +134,19 @@ export const AppBar: React.FC<AppBarProps> = ({ onMainMenu }) => {
         <View style={confirm.backdrop}>
           <View style={confirm.box}>
 
-            {/* Kırmızı üst şerit */}
             <View style={confirm.accentBar} />
 
-            {/* İkon + başlık */}
             <View style={confirm.head}>
               <Text style={confirm.warningIcon}>⚠</Text>
               <Text style={[confirm.title, { fontFamily: MONO }]}>ANA MENÜYE DÖN</Text>
             </View>
 
-            {/* Açıklama */}
             <Text style={confirm.message}>
               Mevcut oyun ilerlemen silinecek.{'\n'}Çıkmak istediğine emin misin?
             </Text>
 
-            {/* Ayraç */}
             <View style={confirm.divider} />
 
-            {/* Butonlar */}
             <View style={confirm.btnRow}>
               <TouchableOpacity
                 onPress={() => setConfirmVisible(false)}
@@ -186,8 +172,6 @@ export const AppBar: React.FC<AppBarProps> = ({ onMainMenu }) => {
   )
 }
 
-// ─── Stiller ─────────────────────────────────────────────────────────────────
-
 const styles = StyleSheet.create({
   bar: {
     height: 48,
@@ -211,7 +195,6 @@ const styles = StyleSheet.create({
   gearBtn:  { width: 40, alignItems: 'flex-end' },
   gearIcon: { fontSize: 20, color: '#555' },
 
-  // Ayarlar modal
   backdrop: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.80)',
@@ -336,8 +319,6 @@ const styles = StyleSheet.create({
   },
 })
 
-// ─── Onay dialog stilleri ─────────────────────────────────────────────────────
-
 const confirm = StyleSheet.create({
   backdrop: {
     flex: 1,
@@ -355,7 +336,6 @@ const confirm = StyleSheet.create({
     overflow: 'hidden',
   },
 
-  // Kırmızı üst şerit
   accentBar: {
     height: 3,
     backgroundColor: '#8b0000',

@@ -30,15 +30,11 @@ interface Props {
   onMainMenu?: () => void
 }
 
-// ─── Efekt chip'i ────────────────────────────────────────────────────────────
-
 const Chip: React.FC<{ label: string; color: string }> = ({ label, color }) => (
   <View style={[ch.wrap, { backgroundColor: color + '18', borderColor: color + '44' }]}>
     <Text style={[ch.text, { color: color + 'cc', fontFamily: MONO }]}>{label}</Text>
   </View>
 )
-
-// ─── Ana bileşen ─────────────────────────────────────────────────────────────
 
 export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
   const progress = useProgressStore()
@@ -52,10 +48,8 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
   return (
     <SafeAreaView style={styles.safe}>
 
-      {/* ── AppBar ── */}
       <AppBar onMainMenu={onMainMenu} />
 
-      {/* ── Header ── */}
       <View style={[styles.header, { paddingTop: Platform.OS === 'android' ? 10 : 2 }]}>
         <TouchableOpacity onPress={goBack} style={styles.backBtn} activeOpacity={0.75}>
           <Text style={styles.backArrow}>←</Text>
@@ -70,7 +64,6 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
         </View>
       </View>
 
-      {/* ── Tab bar ── */}
       <View style={styles.tabBar}>
         {(['buildings', 'skills'] as Tab[]).map(t => (
           <TouchableOpacity
@@ -89,13 +82,11 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
         ))}
       </View>
 
-      {/* ── Liste ── */}
       <ScrollView
         contentContainerStyle={styles.list}
         showsVerticalScrollIndicator={false}
       >
 
-        {/* BİNALAR */}
         {tab === 'buildings' && buildings.map(b => {
           const owned     = progress.hasBuilding(b.id)
           const locked    = game.day < b.unlock_day
@@ -175,7 +166,6 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
           )
         })}
 
-        {/* YETENEKLER */}
         {tab === 'skills' && SKILL_DEFS.map(skill => {
           const used      = progress.hasBuilding(skill.id)
           const locked    = game.day < skill.unlock_day
@@ -272,8 +262,6 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
     </SafeAreaView>
   )
 }
-
-// ─── Stiller ─────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: '#0c0906' },

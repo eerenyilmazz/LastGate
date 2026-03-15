@@ -6,7 +6,6 @@ const FX     = config.trait_effects
 const EXPIRY = config.trait_expiry_days
 const PASS   = config.trait_query_pass_chance
 
-// Strategy pattern: her trait aynı imzayı uygular
 type TraitEffect = (state: StatState, daysSinceAccepted: number) => StatDelta | null
 
 const traitHandlers: Record<HiddenTrait, TraitEffect> = {
@@ -18,14 +17,14 @@ const traitHandlers: Record<HiddenTrait, TraitEffect> = {
   },
 
   spy: (_state, days) => {
-    if (days === EXPIRY.spy) return FX.spy_sabotage    // gün 10: final büyük sabotaj
-    if (days % 3 === 0)      return FX.spy_recurring   // gün 3, 6, 9: süregelen hasar
+    if (days === EXPIRY.spy) return FX.spy_sabotage
+    if (days % 3 === 0)      return FX.spy_recurring
     return null
   },
 
   thief: (_state, days) => {
-    if (days === 2)            return FX.thief_steal_minor  // ilk soygun
-    if (days === EXPIRY.thief) return FX.thief_steal        // gün 5: büyük soygun
+    if (days === 2)            return FX.thief_steal_minor
+    if (days === EXPIRY.thief) return FX.thief_steal
     return null
   },
 

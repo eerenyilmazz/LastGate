@@ -25,8 +25,6 @@ const STATS_INFO = ui.stats_info
 type OverlayType = 'howto' | 'guide' | 'settings' | null
 type GuideTab = 'chars' | 'traits' | 'stats' | 'buildings' | 'skills'
 
-// ─── Alt bileşenler ───────────────────────────────────────────────────────────
-
 const InfoRow: React.FC<{ icon: string; name: string; desc: string; accentColor?: string }> = ({
   icon, name, desc, accentColor = '#333',
 }) => (
@@ -39,7 +37,6 @@ const InfoRow: React.FC<{ icon: string; name: string; desc: string; accentColor?
   </View>
 )
 
-// Panel başlık çubuğu — terminal dots ile
 const PanelHeader: React.FC<{ title: string; onClose: () => void; accentColor?: string }> = ({
   title, onClose, accentColor = '#cc0000',
 }) => (
@@ -56,9 +53,6 @@ const PanelHeader: React.FC<{ title: string; onClose: () => void; accentColor?: 
   </View>
 )
 
-// ─── İçerik bileşenleri ───────────────────────────────────────────────────────
-
-// Swipe kontrol satırı
 const SwipeRow: React.FC<{ gesture: string; action: string; color: string }> = ({ gesture, action, color }) => (
   <View style={content.swipeRow}>
     <View style={[content.swipeGesture, { borderColor: color + '55' }]}>
@@ -74,7 +68,6 @@ const SwipeRow: React.FC<{ gesture: string; action: string; color: string }> = (
 const HowToPlay: React.FC = () => (
   <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
 
-    {/* Kontroller */}
     <View style={content.block}>
       <Text style={[content.blockTitle, { fontFamily: MONO }]}>[ KONTROLLER ]</Text>
       <SwipeRow gesture="SAĞ" action="KABUL ET"  color="#2e7d32" />
@@ -83,7 +76,6 @@ const HowToPlay: React.FC = () => (
       <Text style={content.subNote}>Ya da alttaki butonları kullanabilirsin.</Text>
     </View>
 
-    {/* Değerler */}
     <View style={content.block}>
       <Text style={[content.blockTitle, { fontFamily: MONO }]}>[ HAYATTA KALMA ]</Text>
       <View style={content.statGrid}>
@@ -103,7 +95,6 @@ const HowToPlay: React.FC = () => (
       </View>
     </View>
 
-    {/* Sorgu */}
     <View style={content.block}>
       <Text style={[content.blockTitle, { color: '#f57c00', fontFamily: MONO }]}>[ SORGU SİSTEMİ ]</Text>
       <View style={content.infoCard}>
@@ -114,7 +105,6 @@ const HowToPlay: React.FC = () => (
       </View>
     </View>
 
-    {/* SP */}
     <View style={content.block}>
       <Text style={[content.blockTitle, { color: '#f57c00', fontFamily: MONO }]}>[ SP · HAYATTA KALMA PUANI ]</Text>
       <View style={content.infoCard}>
@@ -124,7 +114,6 @@ const HowToPlay: React.FC = () => (
       </View>
     </View>
 
-    {/* Gizli özellikler */}
     <View style={content.block}>
       <Text style={[content.blockTitle, { color: '#c62828', fontFamily: MONO }]}>[ GİZLİ ÖZELLİKLER ]</Text>
       <View style={[content.warnBox, { borderLeftColor: '#8b0000' }]}>
@@ -153,7 +142,6 @@ const GuideContent: React.FC = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      {/* Tab bar */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -173,7 +161,6 @@ const GuideContent: React.FC = () => {
         ))}
       </ScrollView>
 
-      {/* İçerik */}
       <ScrollView showsVerticalScrollIndicator={false} style={guide.body}>
         {tab === 'chars' && (
           <View>
@@ -242,7 +229,6 @@ const SettingsContent: React.FC = () => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
 
-      {/* Ses */}
       <View style={sett.card}>
         <View style={sett.cardLeft}>
           <Text style={[sett.cardTitle, { fontFamily: MONO }]}>SES SİSTEMİ</Text>
@@ -259,7 +245,6 @@ const SettingsContent: React.FC = () => {
         </TouchableOpacity>
       </View>
 
-      {/* SP Bilgisi */}
       <View style={[sett.card, { borderColor: '#221500' }]}>
         <View style={sett.cardLeft}>
           <Text style={[sett.cardTitle, { color: '#f57c00', fontFamily: MONO }]}>HAYATTA KALMA PUANI</Text>
@@ -271,7 +256,6 @@ const SettingsContent: React.FC = () => {
         </View>
       </View>
 
-      {/* SP kazanım tablosu */}
       <View style={sett.earnBlock}>
         <Text style={[sett.earnTitle, { fontFamily: MONO }]}>SP KAZANIM TABLOSU</Text>
         {[
@@ -287,7 +271,6 @@ const SettingsContent: React.FC = () => {
         ))}
       </View>
 
-      {/* Versiyon */}
       <View style={sett.versionBlock}>
         <Text style={[sett.versionText, { fontFamily: MONO }]}>LAST GATE · BETA v0.1</Text>
         <Text style={[sett.versionSub, { fontFamily: MONO }]}>SEKTOR 7 · KARANTİNA</Text>
@@ -298,8 +281,6 @@ const SettingsContent: React.FC = () => {
   )
 }
 
-// ─── Ana bileşen ──────────────────────────────────────────────────────────────
-
 interface Props {
   onStart: () => void
 }
@@ -309,7 +290,6 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
   const settings = useSettingsStore()
   const [overlay, setOverlay] = useState<OverlayType>(null)
 
-  // Nabız animasyonu (☣ için)
   const emblemPulse = useSharedValue(1)
   useEffect(() => {
     emblemPulse.value = withRepeat(
@@ -328,16 +308,13 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
   return (
     <SafeAreaView style={styles.safe}>
 
-      {/* ── AppBar ── */}
       <AppBar />
 
-      {/* ── Logo alanı ── */}
       <View style={styles.logoArea}>
         <Animated.Text style={[styles.emblem, emblemStyle]}>☣</Animated.Text>
         <Text style={styles.title}>LAST GATE</Text>
         <Text style={styles.titleSub}>— SON KAPI —</Text>
 
-        {/* Run geçmişi */}
         {progress.totalRuns > 0 && (
           <View style={meta.runRow}>
             <View style={meta.runStat}>
@@ -360,10 +337,8 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
         )}
       </View>
 
-      {/* ── Menü butonları ── */}
       <View style={styles.menuArea}>
 
-        {/* Zorluk seçimi */}
         <View style={diff.row}>
           {(['easy', 'normal', 'hard'] as Difficulty[]).map((d) => {
             const labels: Record<Difficulty, string> = { easy: 'KOLAY', normal: 'NORMAL', hard: 'ZOR' }
@@ -382,7 +357,6 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
           })}
         </View>
 
-        {/* YENİ OYUN — birincil, büyük */}
         <TouchableOpacity onPress={onStart} style={styles.startBtn} activeOpacity={0.85}>
           <Text style={styles.startText}>YENİ OYUN</Text>
           <Text style={styles.startArrow}>▶</Text>
@@ -390,7 +364,6 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
 
         <View style={styles.menuSpacer} />
 
-        {/* İkincil butonlar */}
         <TouchableOpacity onPress={() => setOverlay('howto')} style={styles.menuBtn} activeOpacity={0.8}>
           <Text style={styles.menuBtnLabel}>NASIL OYNANIR</Text>
           <Text style={styles.menuBtnArrow}>›</Text>
@@ -408,10 +381,8 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
 
       </View>
 
-      {/* Alt bilgi */}
       <Text style={styles.footer}>BETA v0.1 · SEKTÖR 7 KARANTİNA BÖLGESİ</Text>
 
-      {/* ── OVERLAY PANELLER ── */}
       <Modal
         visible={overlay !== null}
         transparent
@@ -423,7 +394,6 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
           <TouchableOpacity style={panel.dismissArea} onPress={close} activeOpacity={1} />
 
           <View style={panel.container}>
-            {/* Renkli üst kenar çizgisi */}
             <View style={[
               panel.accentBar,
               {
@@ -465,12 +435,9 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
   )
 }
 
-// ─── Stiller ──────────────────────────────────────────────────────────────────
-
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: '#090604' },
 
-  // Logo
   logoArea: {
     flex: 1,
     alignItems: 'center',
@@ -514,14 +481,12 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
 
-  // Menü
   menuArea: {
     paddingHorizontal: 24,
     paddingBottom: Platform.OS === 'android' ? 28 : 20,
     gap: 8,
   },
 
-  // Başlat butonu
   startBtn: {
     backgroundColor: '#8b0000',
     borderRadius: 10,
@@ -553,7 +518,6 @@ const styles = StyleSheet.create({
 
   menuSpacer: { height: 4 },
 
-  // İkincil butonlar
   menuBtn: {
     backgroundColor: '#100e0b',
     borderRadius: 8,
@@ -586,7 +550,6 @@ const styles = StyleSheet.create({
   },
 })
 
-// Panel
 const panel = StyleSheet.create({
   backdrop: {
     flex: 1,
@@ -606,7 +569,6 @@ const panel = StyleSheet.create({
     paddingBottom: Platform.OS === 'android' ? 28 : 20,
     overflow: 'hidden',
   },
-  // Renkli üst şerit
   accentBar: {
     height: 3,
     width: '100%',
@@ -648,9 +610,7 @@ const panel = StyleSheet.create({
   },
 })
 
-// İçerik
 const content = StyleSheet.create({
-  // Yeni blok yapısı
   block: {
     marginBottom: 20,
     gap: 8,
@@ -671,7 +631,6 @@ const content = StyleSheet.create({
     gap: 6,
   },
 
-  // Swipe kontrol satırları
   swipeRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -699,7 +658,6 @@ const content = StyleSheet.create({
   swipeAction: { color: '#666', fontSize: 12, fontWeight: '700', letterSpacing: 1 },
   subNote: { color: '#2a2a2a', fontSize: 11, marginTop: 2 },
 
-  // Stat chips
   statGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -719,7 +677,6 @@ const content = StyleSheet.create({
   statChipIcon: { fontSize: 11 },
   statChipName: { fontSize: 9, fontWeight: '800', letterSpacing: 1 },
 
-  // Kazanma kutusu
   winBox: {
     backgroundColor: '#001800',
     borderWidth: 1,
@@ -732,7 +689,6 @@ const content = StyleSheet.create({
   },
   winText: { color: '#2e7d32', fontSize: 10, fontWeight: '800', letterSpacing: 1.5 },
 
-  // Genel
   section: { marginBottom: 20, gap: 4 },
   sectionTitle: {
     color: '#cc0000',
@@ -757,7 +713,6 @@ const content = StyleSheet.create({
   warnText: { color: '#550000', fontSize: 11, fontWeight: '700' },
 })
 
-// Guide
 const guide = StyleSheet.create({
   tabScroll: { maxHeight: 44 },
   tabContent: {
@@ -781,7 +736,6 @@ const guide = StyleSheet.create({
   sub:  { color: '#333', fontSize: 10, letterSpacing: 0.5 },
 })
 
-// Settings
 const sett = StyleSheet.create({
   card: {
     flexDirection: 'row',
@@ -816,7 +770,6 @@ const sett = StyleSheet.create({
   spStar: { color: '#f57c00', fontSize: 14 },
   spVal:  { color: '#f57c00', fontSize: 20, fontWeight: '900' },
 
-  // SP kazanım tablosu
   earnBlock: {
     backgroundColor: '#0c0906',
     borderWidth: 1,
@@ -844,7 +797,6 @@ const sett = StyleSheet.create({
   earnLabel: { color: '#3a3a3a', fontSize: 11 },
   earnVal:   { color: '#f57c00', fontSize: 12, fontWeight: '800' },
 
-  // Versiyon
   versionBlock: {
     alignItems: 'center',
     marginTop: 24,
@@ -854,7 +806,6 @@ const sett = StyleSheet.create({
   versionSub:  { color: '#111', fontSize: 8, letterSpacing: 3 },
 })
 
-// Run meta
 const meta = StyleSheet.create({
   runRow: {
     flexDirection: 'row',
@@ -874,7 +825,6 @@ const meta = StyleSheet.create({
   runDivider: { width: 1, height: 28, backgroundColor: '#1e1510' },
 })
 
-// Zorluk
 const diff = StyleSheet.create({
   row: {
     flexDirection: 'row',
@@ -893,7 +843,6 @@ const diff = StyleSheet.create({
   label: { fontSize: 10, fontWeight: '900', letterSpacing: 1.5 },
 })
 
-// Satır
 const row = StyleSheet.create({
   container: {
     flexDirection: 'row',

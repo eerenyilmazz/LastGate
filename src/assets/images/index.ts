@@ -1,7 +1,5 @@
-// Haritada olmayan key → kart renk placeholder gösterir.
 
 const ILLUSTRATIONS: Record<string, any> = {
-  // --- TIER 1 ---
   serge_infected_liar: require('./tier1/serge_infected_liar.png'),
   dr_park:             require('./tier1/dr_park.png'),
   little_mia:          require('./tier1/little_mia.jpg'),
@@ -20,7 +18,6 @@ const ILLUSTRATIONS: Record<string, any> = {
   bekir_dede:          require('./tier1/bekir_dede.png'),
   child_group_10:      require('./tier1/child_group_10.jpg'),
 
-  // --- TIER 2 ---
   doctor_female_01:    require('./tier2/doctor_female_01.png'),
   doctor_male_01:      require('./tier2/doctor_male_01.png'),
   farmer_female_01:    require('./tier2/farmer_female_01.png'),

@@ -24,7 +24,7 @@ const SFX_VOLUME     = config.audio_volumes.sfx
 export const useAudio = () => {
   const bgSound        = useRef<Audio.Sound | null>(null)
   const currentKey     = useRef<string>('')
-  const started        = useRef(false)          // kullanıcı etkileşimi sonrası true olur
+  const started        = useRef(false)
 
   const stats          = useStatStore(s => s.stats)
   const isCritical     = useStatStore(s => s.isCritical)
@@ -32,7 +32,6 @@ export const useAudio = () => {
   const gameOverReason = useGameStore(s => s.gameOverReason)
   const soundEnabled   = useSettingsStore(s => s.soundEnabled)
 
-  // Ses modunu ayarla (etkileşim gerekmez)
   useEffect(() => {
     Audio.setAudioModeAsync({
       playsInSilentModeIOS: true,
@@ -42,8 +41,8 @@ export const useAudio = () => {
   }, [])
 
   const loadBg = useCallback(async (key: string) => {
-    if (!started.current) return            // henüz başlatılmadı
-    if (currentKey.current === key) return  // zaten çalıyor
+    if (!started.current) return
+    if (currentKey.current === key) return
     const src = AUDIO_PATHS[key]
     if (!src) return
     try {
@@ -64,7 +63,6 @@ export const useAudio = () => {
     }
   }, [soundEnabled])
 
-  // Kullanıcı ilk etkileşiminde çağrılır (splash tap)
   const startAmbient = useCallback(async () => {
     started.current = true
     await loadBg('ambient_normal')
@@ -85,7 +83,6 @@ export const useAudio = () => {
     }
   }, [soundEnabled])
 
-  // Ses açma/kapama
   useEffect(() => {
     if (!bgSound.current) return
     if (soundEnabled) {
@@ -96,7 +93,6 @@ export const useAudio = () => {
     }
   }, [soundEnabled])
 
-  // Game over — durdur veya zafer müziğine geç
   useEffect(() => {
     if (!isGameOver) return
     if (gameOverReason === 'victory') {
@@ -109,7 +105,6 @@ export const useAudio = () => {
     }
   }, [isGameOver])
 
-  // Kritik stat → danger müziğine geç
   useEffect(() => {
     if (isGameOver || !started.current) return
     const anyCritical =
@@ -118,7 +113,6 @@ export const useAudio = () => {
     loadBg(anyCritical ? 'ambient_danger' : 'ambient_normal')
   }, [stats.immunity, stats.food, stats.defense, stats.economy])
 
-  // Unmount temizlik
   useEffect(() => {
     return () => { bgSound.current?.unloadAsync() }
   }, [])

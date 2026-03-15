@@ -13,8 +13,7 @@ interface Props {
   availableHeight?: number
 }
 
-// Kart en-boy oranı: 3:4 portrait (karakter görselleri için daha uygun)
-const CARD_ASPECT  = 3 / 4   // genişlik / yükseklik
+const CARD_ASPECT  = 3 / 4
 const CARD_PADDING = 8
 
 export const NPCCard: React.FC<Props> = ({ npc, availableHeight }) => {
@@ -27,16 +26,13 @@ export const NPCCard: React.FC<Props> = ({ npc, availableHeight }) => {
   const cardH = Math.min(baseH, maxH)
   const cardW = cardH * CARD_ASPECT
 
-  // Alt gradient yüksekliği — kartın %40'ı ama en az 130px
   const gradH = Math.max(130, Math.round(cardH * 0.40))
 
   return (
     <View style={[styles.card, { width: cardW, height: cardH, borderRadius: 18 }]}>
 
-      {/* Rol rengi arka plan */}
       <View style={[StyleSheet.absoluteFillObject, { backgroundColor: roleColor + '22' }]} />
 
-      {/* Karakter görseli — kart boyutunda kesin ölçü */}
       {ILLUSTRATIONS[npc.illustration_key] ? (
         <Image
           source={ILLUSTRATIONS[npc.illustration_key]}
@@ -51,14 +47,12 @@ export const NPCCard: React.FC<Props> = ({ npc, availableHeight }) => {
         </View>
       )}
 
-      {/* Üst karartma */}
       <LinearGradient
         colors={['rgba(0,0,0,0.50)', 'transparent']}
         style={styles.gradTop}
         pointerEvents="none"
       />
 
-      {/* Alt gradient + isim + diyalog */}
       <LinearGradient
         colors={['transparent', 'rgba(0,0,0,0.95)']}
         style={[styles.gradBottom, { height: gradH }]}
@@ -70,7 +64,6 @@ export const NPCCard: React.FC<Props> = ({ npc, availableHeight }) => {
         </View>
       </LinearGradient>
 
-      {/* Rol rozeti */}
       <View style={[styles.roleBadge, { backgroundColor: roleColor }]}>
         <Text style={styles.roleText}>{ROLE_TR[npc.role] ?? npc.role.toUpperCase()}</Text>
       </View>
