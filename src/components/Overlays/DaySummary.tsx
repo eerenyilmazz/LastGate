@@ -66,7 +66,7 @@ export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
 
                 <Text style={styles.statIcon}>{STAT_ICONS[key]}</Text>
 
-                <Text style={[styles.statShort, { fontFamily: MONO, color: isCrit ? C.stat_critical : '#444' }]}>
+                <Text style={[styles.statShort, { fontFamily: MONO, color: isCrit ? C.stat_critical : STAT_COLORS[key] + 'aa' }]}>
                   {STAT_SHORT[key]}
                 </Text>
 
@@ -141,15 +141,17 @@ const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'flex-end',
-    backgroundColor: 'rgba(0,0,0,0.72)',
+    backgroundColor: 'rgba(0,0,0,0.75)',
   },
 
   sheet: {
-    backgroundColor: '#0c0906',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    backgroundColor: C.background,
+    borderTopLeftRadius: 22,
+    borderTopRightRadius: 22,
     borderTopWidth: 1,
-    borderColor: '#1e1510',
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderColor: '#3d2c1c',
     overflow: 'hidden',
   },
 
@@ -158,16 +160,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 18,
     paddingVertical: 14,
-    backgroundColor: '#110d09',
+    backgroundColor: C.surface,
     borderBottomWidth: 1,
-    borderBottomColor: '#1c1510',
+    borderBottomColor: '#2a1e10',
   },
   dots: { flexDirection: 'row', gap: 5 },
-  dot:  { width: 8, height: 8, borderRadius: 4 },
+  dot:  { width: 9, height: 9, borderRadius: 5 },
   dayLabel: {
     flex: 1,
     textAlign: 'center',
-    color: '#888',
+    color: '#7a6040',
     fontSize: 11,
     fontWeight: '800',
     letterSpacing: 3,
@@ -175,9 +177,9 @@ const styles = StyleSheet.create({
 
   statsBlock: {
     paddingHorizontal: 20,
-    paddingTop: 18,
+    paddingTop: 20,
     paddingBottom: 6,
-    gap: 14,
+    gap: 16,
   },
 
   statRow: {
@@ -186,7 +188,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
 
-  statIcon: { fontSize: 15, width: 22, textAlign: 'center' },
+  statIcon: { fontSize: 16, width: 24, textAlign: 'center' },
 
   statShort: {
     fontSize: 9,
@@ -197,14 +199,16 @@ const styles = StyleSheet.create({
 
   barTrack: {
     flex: 1,
-    height: 8,
-    backgroundColor: '#1e1812',
-    borderRadius: 4,
+    height: 10,
+    backgroundColor: C.surface,
+    borderRadius: 5,
     overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: '#2a1e10',
   },
   barFill: {
     height: '100%',
-    borderRadius: 4,
+    borderRadius: 5,
   },
 
   statNum: {
@@ -215,14 +219,14 @@ const styles = StyleSheet.create({
   },
 
   diffBox: {
-    width: 38,
-    paddingVertical: 2,
-    borderRadius: 4,
+    width: 40,
+    paddingVertical: 3,
+    borderRadius: 5,
     alignItems: 'center',
     backgroundColor: 'transparent',
   },
-  diffBoxPos: { backgroundColor: themeData.colors.diff_pos_bg },
-  diffBoxNeg: { backgroundColor: themeData.colors.diff_neg_bg },
+  diffBoxPos: { backgroundColor: C.diff_pos_bg, borderWidth: 1, borderColor: '#1a3a1a' },
+  diffBoxNeg: { backgroundColor: C.diff_neg_bg, borderWidth: 1, borderColor: '#3a0a0a' },
   diffText: {
     fontSize: 11,
     fontWeight: '800',
@@ -230,11 +234,11 @@ const styles = StyleSheet.create({
 
   divider: {
     marginHorizontal: 20,
-    marginVertical: 16,
+    marginVertical: 14,
   },
   dividerLine: {
     height: 1,
-    backgroundColor: '#1a1410',
+    backgroundColor: '#2a1e10',
   },
 
   roleRow: {
@@ -248,13 +252,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 6,
+    paddingHorizontal: 9,
+    paddingVertical: 5,
+    borderRadius: 8,
     borderWidth: 1,
   },
   roleCount: {
-    fontSize: 11,
+    fontSize: 12,
     fontWeight: '900',
   },
   roleLabel: {
@@ -268,11 +272,11 @@ const styles = StyleSheet.create({
     marginBottom: 14,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#130a00',
-    borderRadius: 12,
+    backgroundColor: '#1a1000',
+    borderRadius: 14,
     borderWidth: 1,
-    borderColor: '#2a1800',
-    borderLeftWidth: 3,
+    borderColor: '#3a2200',
+    borderLeftWidth: 4,
     borderLeftColor: '#cc6600',
     paddingVertical: 14,
     paddingHorizontal: 14,
@@ -283,26 +287,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 12,
   },
-  buildingEmoji: { fontSize: 22 },
+  buildingEmoji: { fontSize: 24 },
   buildingTitle: {
-    color: '#e0a040',
+    color: '#e8a840',
     fontSize: 12,
     fontWeight: '900',
     letterSpacing: 1.5,
     marginBottom: 3,
   },
   buildingSub: {
-    color: '#5a4020',
+    color: '#6a5030',
     fontSize: 10,
   },
   buildingArrow: {
     color: '#cc6600',
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: '900',
   },
 
   hint: {
-    color: '#2a2a2a',
+    color: '#3a2e1e',
     fontSize: 9,
     letterSpacing: 2,
     textAlign: 'center',

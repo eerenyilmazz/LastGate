@@ -68,7 +68,11 @@ const ChoiceRow: React.FC<{
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={[es.choiceBtn, { borderLeftColor: color }]}
+      style={[es.choiceBtn, {
+        borderLeftColor: color,
+        borderColor: color + '33',
+        backgroundColor: color + '0d',
+      }]}
       activeOpacity={0.82}
     >
       <View style={es.choiceTop}>
@@ -166,11 +170,11 @@ const es = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   sheet: {
-    backgroundColor: '#080808',
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
+    backgroundColor: '#1a1208',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
     borderTopWidth: 1,
-    borderColor: '#1a1a1a',
+    borderColor: '#2e1e10',
     maxHeight: '88%',
     paddingBottom: Platform.OS === 'android' ? 28 : 20,
   },
@@ -180,18 +184,18 @@ const es = StyleSheet.create({
     alignItems: 'center',
     gap: 8,
     paddingHorizontal: 16,
-    paddingVertical: 12,
-    backgroundColor: '#0d0d0d',
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
+    paddingVertical: 13,
+    backgroundColor: '#120e07',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
     borderBottomWidth: 1,
-    borderBottomColor: '#161616',
+    borderBottomColor: '#2a1c10',
   },
   dots: { flexDirection: 'row', gap: 5 },
   dot:  { width: 8, height: 8, borderRadius: 4 },
   termTitle: {
     flex: 1,
-    color: '#2a2a2a',
+    color: '#5a4a30',
     fontSize: 9,
     letterSpacing: 2,
     fontWeight: '700',
@@ -206,23 +210,28 @@ const es = StyleSheet.create({
   },
 
   eventTitle: {
-    color: '#ddd',
-    fontSize: 18,
+    color: '#ede8e0',
+    fontSize: 20,
     fontWeight: '800',
     letterSpacing: 0.3,
+    textShadowColor: 'rgba(0,0,0,0.6)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 3,
   },
 
   descBlock: {
-    backgroundColor: '#0d0d0d',
-    borderRadius: 8,
+    backgroundColor: '#120e07',
+    borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#1a1a1a',
+    borderColor: '#2a1c10',
+    borderLeftWidth: 3,
+    borderLeftColor: '#3d2c1c',
     padding: 12,
   },
   descText: {
-    color: '#888',
+    color: '#a08870',
     fontSize: 12,
-    lineHeight: 19,
+    lineHeight: 20,
   },
 
   divider: {
@@ -230,9 +239,9 @@ const es = StyleSheet.create({
     alignItems: 'center',
     gap: 8,
   },
-  dividerLine: { flex: 1, height: 1, backgroundColor: '#1a1a1a' },
+  dividerLine: { flex: 1, height: 1, backgroundColor: '#2a1e10' },
   dividerText: {
-    color: '#2a2a2a',
+    color: '#4a3828',
     fontSize: 9,
     fontWeight: '700',
     letterSpacing: 1.5,
@@ -241,11 +250,9 @@ const es = StyleSheet.create({
   choicesBlock: { gap: 8 },
 
   choiceBtn: {
-    backgroundColor: '#0d0d0d',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#1a1a1a',
-    borderLeftWidth: 3,
+    borderLeftWidth: 4,
     padding: 12,
     gap: 8,
   },
@@ -272,7 +279,7 @@ const es = StyleSheet.create({
 
   choiceLabel: {
     flex: 1,
-    color: '#ccc',
+    color: '#d8d0c4',
     fontSize: 13,
     fontWeight: '600',
     lineHeight: 18,
@@ -308,5 +315,5 @@ const es = StyleSheet.create({
   },
   chipIcon: { fontSize: 11 },
   chipVal:  { fontSize: 11, fontWeight: '800' },
-  none:     { color: '#2a2a2a', fontSize: 11, fontStyle: 'italic' },
+  none:     { color: '#3a2e20', fontSize: 11, fontStyle: 'italic' },
 })

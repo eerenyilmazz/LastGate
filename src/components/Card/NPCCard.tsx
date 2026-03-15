@@ -29,9 +29,13 @@ const NPCCardInner: React.FC<Props> = ({ npc, availableHeight }) => {
   const gradH = Math.max(130, Math.round(cardH * 0.40))
 
   return (
-    <View style={[styles.card, { width: cardW, height: cardH, borderRadius: 18 }]}>
+    <View style={[styles.card, {
+      width: cardW, height: cardH, borderRadius: 18,
+      borderWidth: 1.5, borderColor: roleColor + '66',
+      shadowColor: roleColor,
+    }]}>
 
-      <View style={[StyleSheet.absoluteFillObject, { backgroundColor: roleColor + '22' }]} />
+      <View style={[StyleSheet.absoluteFillObject, { backgroundColor: roleColor + '1a' }]} />
 
       {ILLUSTRATIONS[npc.illustration_key] ? (
         <Image
@@ -64,7 +68,7 @@ const NPCCardInner: React.FC<Props> = ({ npc, availableHeight }) => {
         </View>
       </LinearGradient>
 
-      <View style={[styles.roleBadge, { backgroundColor: roleColor }]}>
+      <View style={[styles.roleBadge, { backgroundColor: roleColor + 'dd', shadowColor: roleColor }]}>
         <Text style={styles.roleText}>{ROLE_TR[npc.role] ?? npc.role.toUpperCase()}</Text>
       </View>
 
@@ -77,11 +81,10 @@ export const NPCCard = React.memo(NPCCardInner)
 const styles = StyleSheet.create({
   card: {
     overflow: 'hidden',
-    shadowColor: '#000',
     shadowOffset: { width: 0, height: 12 },
-    shadowOpacity: 0.60,
-    shadowRadius: 20,
-    elevation: 14,
+    shadowOpacity: 0.55,
+    shadowRadius: 22,
+    elevation: 16,
   },
   placeholder: {
     ...StyleSheet.absoluteFillObject,
@@ -129,14 +132,18 @@ const styles = StyleSheet.create({
   roleBadge: {
     position: 'absolute',
     top: 12, left: 12,
-    paddingHorizontal: 9,
-    paddingVertical: 4,
-    borderRadius: 4,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 6,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.6,
+    shadowRadius: 6,
+    elevation: 4,
   },
   roleText: {
     color: '#fff',
     fontSize: 10,
-    fontWeight: '700',
-    letterSpacing: 1.5,
+    fontWeight: '800',
+    letterSpacing: 1.8,
   },
 })

@@ -1,29 +1,29 @@
 {
   "colors": {
-    "background":      "#0c0906",
-    "surface":         "#18130e",
-    "card_bg":         "#1e1812",
+    "background":      "#161109",
+    "surface":         "#211810",
+    "card_bg":         "#2a1e14",
     "accept":          "#2e7d32",
     "accept_glow":     "#4caf50",
     "reject":          "#b71c1c",
     "reject_glow":     "#ef5350",
-    "query":           "#f57c00",
+    "query":           "#fdd835",
     "text_primary":    "#f0ece6",
-    "text_secondary":  "#9e9080",
+    "text_secondary":  "#a89880",
     "stat_immunity":   "#7c4dff",
     "stat_food":       "#ff8f00",
     "stat_population": "#0288d1",
     "stat_defense":    "#c62828",
-    "stat_economy":    "#2e7d32",
+    "stat_economy":    "#43a047",
     "stat_critical":   "#ff1744",
     "warning_overlay": "#ff000033",
-    "day_summary_bg":  "#0e0b08ee",
-    "button_primary":  "#1e1610",
-    "button_border":   "#332518",
+    "day_summary_bg":  "#161109ee",
+    "button_primary":  "#2a1e14",
+    "button_border":   "#3d2c1c",
     "overlay_bg":      "#00000099",
-    "divider":         "#2a1e14",
-    "diff_pos_bg":     "#0a1a0a",
-    "diff_neg_bg":     "#1a0000"
+    "divider":         "#3d2c1c",
+    "diff_pos_bg":     "#0d200d",
+    "diff_neg_bg":     "#200808"
   },
   "typography": {
     "size_xs": 10,
@@ -104,7 +104,7 @@
       "Soldier": "#c62828",
       "Trader": "#0288d1",
       "Engineer": "#2e7d32",
-      "Scavenger": "#546e7a"
+      "Scavenger": "#607d8b"
     },
     "role_names_tr": {
       "Doctor": "DOKTOR",
