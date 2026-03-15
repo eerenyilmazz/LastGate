@@ -1,7 +1,7 @@
 {
   "initial_stats": {
-    "immunity": 55,
-    "food": 80,
+    "immunity": 65,
+    "food": 100,
     "population": 50,
     "defense": 45,
     "economy": 50
@@ -40,9 +40,9 @@
     "Engineer": { "min_count": 3, "bonus": { "immunity": 1, "economy": 1 } }
   },
   "trait_effects": {
-    "infected_early":    { "immunity": -4 },
-    "infected_crisis":   { "immunity": -25, "population": -8 },
-    "infected_late":     { "immunity": -6 },
+    "infected_early":    { "immunity": -3 },
+    "infected_crisis":   { "immunity": -12, "population": -4 },
+    "infected_late":     { "immunity": -4 },
     "spy_recurring":     { "defense": -6 },
     "spy_sabotage":      { "defense": -15 },
     "thief_steal_minor": { "economy": -6, "food": -4 },
@@ -54,7 +54,7 @@
   "liar_accept_multiplier": 0.3,
   "npcs_per_day_min": 1,
   "npcs_per_day_max": 3,
-  "food_per_population": 0.09,
+  "food_per_population": 0.04,
   "population_starvation_loss": 8,
   "sp_rewards": {
     "day_survived": 4,
