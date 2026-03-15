@@ -12,6 +12,8 @@ const AUDIO_PATHS: Record<string, any> = {
   sfx_critical:    require('../assets/audio/sfx/sfx_critical.wav'),
   sfx_door_open:   require('../assets/audio/sfx/sfx_door_open.wav'),
   sfx_door_close:  require('../assets/audio/sfx/sfx_door_close.mp3'),
+  sfx_accept:      require('../assets/audio/sfx/sfx_accept.mp3'),
+  sfx_reject:      require('../assets/audio/sfx/sfx_reject.mp3'),
 }
 
 import config from '../data/config.json'

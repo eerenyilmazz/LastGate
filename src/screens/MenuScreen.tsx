@@ -10,6 +10,7 @@ import Animated, {
 } from 'react-native-reanimated'
 import { useSettingsStore } from '../store/useSettingsStore'
 import { useProgressStore } from '../store/useProgressStore'
+import { Difficulty } from '../types/game.types'
 import { AppBar } from '../components/AppBar'
 import ui from '../data/ui.json'
 import config from '../data/config.json'
@@ -305,6 +306,7 @@ interface Props {
 
 export const MenuScreen: React.FC<Props> = ({ onStart }) => {
   const progress = useProgressStore()
+  const settings = useSettingsStore()
   const [overlay, setOverlay] = useState<OverlayType>(null)
 
   // Nabız animasyonu (☣ için)
@@ -334,10 +336,51 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
         <Animated.Text style={[styles.emblem, emblemStyle]}>☣</Animated.Text>
         <Text style={styles.title}>LAST GATE</Text>
         <Text style={styles.titleSub}>— SON KAPI —</Text>
+
+        {/* Run geçmişi */}
+        {progress.totalRuns > 0 && (
+          <View style={meta.runRow}>
+            <View style={meta.runStat}>
+              <Text style={meta.runVal}>{progress.bestDay}</Text>
+              <Text style={meta.runLabel}>EN İYİ GÜN</Text>
+            </View>
+            <View style={meta.runDivider} />
+            <View style={meta.runStat}>
+              <Text style={meta.runVal}>{progress.totalRuns}</Text>
+              <Text style={meta.runLabel}>TOPLAM</Text>
+            </View>
+            <View style={meta.runDivider} />
+            <View style={meta.runStat}>
+              <Text style={[meta.runVal, progress.totalWins > 0 && { color: '#4caf50' }]}>
+                {progress.totalWins}
+              </Text>
+              <Text style={meta.runLabel}>ZAFERLİ</Text>
+            </View>
+          </View>
+        )}
       </View>
 
       {/* ── Menü butonları ── */}
       <View style={styles.menuArea}>
+
+        {/* Zorluk seçimi */}
+        <View style={diff.row}>
+          {(['easy', 'normal', 'hard'] as Difficulty[]).map((d) => {
+            const labels: Record<Difficulty, string> = { easy: 'KOLAY', normal: 'NORMAL', hard: 'ZOR' }
+            const active = settings.difficulty === d
+            const colors: Record<Difficulty, string> = { easy: '#2e7d32', normal: '#f57c00', hard: '#8b0000' }
+            return (
+              <TouchableOpacity
+                key={d}
+                onPress={() => settings.setDifficulty(d)}
+                style={[diff.btn, active && { borderColor: colors[d], backgroundColor: colors[d] + '22' }]}
+                activeOpacity={0.75}
+              >
+                <Text style={[diff.label, { color: active ? colors[d] : '#2a2a2a' }]}>{labels[d]}</Text>
+              </TouchableOpacity>
+            )
+          })}
+        </View>
 
         {/* YENİ OYUN — birincil, büyük */}
         <TouchableOpacity onPress={onStart} style={styles.startBtn} activeOpacity={0.85}>
@@ -809,6 +852,45 @@ const sett = StyleSheet.create({
   },
   versionText: { color: '#1a1a1a', fontSize: 10, letterSpacing: 2 },
   versionSub:  { color: '#111', fontSize: 8, letterSpacing: 3 },
+})
+
+// Run meta
+const meta = StyleSheet.create({
+  runRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#0d0a07',
+    borderWidth: 1,
+    borderColor: '#1e1a10',
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    marginTop: 10,
+    gap: 0,
+  },
+  runStat: { flex: 1, alignItems: 'center', gap: 2 },
+  runVal: { color: '#555', fontSize: 16, fontWeight: '900' },
+  runLabel: { color: '#2a2a2a', fontSize: 8, letterSpacing: 1.5, fontWeight: '700' },
+  runDivider: { width: 1, height: 28, backgroundColor: '#1e1510' },
+})
+
+// Zorluk
+const diff = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+    gap: 6,
+    marginBottom: 6,
+  },
+  btn: {
+    flex: 1,
+    paddingVertical: 10,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#1e1a14',
+    backgroundColor: '#100e0b',
+    alignItems: 'center',
+  },
+  label: { fontSize: 10, fontWeight: '900', letterSpacing: 1.5 },
 })
 
 // Satır

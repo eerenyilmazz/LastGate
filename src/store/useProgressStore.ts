@@ -6,9 +6,10 @@ interface ProgressStore extends ProgressState {
   addSP: (amount: number) => void
   spendSP: (amount: number) => boolean
   buyBuilding: (id: string) => boolean
-  markUsed: (id: string) => void        // SP ödemeden "satın alındı" işaretle (yetenekler için)
+  markUsed: (id: string) => void
   hasBuilding: (id: string) => boolean
   canUnlockBuilding: (id: string, currentDay: number) => boolean
+  updateBestRun: (day: number, isVictory: boolean) => void
   reset: () => void
   _load: (state: ProgressState) => void
 }
@@ -19,6 +20,8 @@ const INITIAL: ProgressState = {
   unlockedNPCPacks: 0,
   unlockedEventPacks: 0,
   totalRuns: 0,
+  bestDay: 0,
+  totalWins: 0,
 }
 
 export const useProgressStore = create<ProgressStore>((set, get) => ({
@@ -58,11 +61,23 @@ export const useProgressStore = create<ProgressStore>((set, get) => ({
     return currentDay >= building.unlock_day && !get().buildings.includes(id)
   },
 
+  updateBestRun(day, isVictory) {
+    set(s => ({
+      bestDay:   Math.max(s.bestDay, day),
+      totalWins: isVictory ? s.totalWins + 1 : s.totalWins,
+    }))
+  },
+
   reset() {
-    set(s => ({ ...INITIAL, totalRuns: s.totalRuns + 1 }))
+    set(s => ({
+      ...INITIAL,
+      totalRuns: s.totalRuns + 1,
+      bestDay:   s.bestDay,
+      totalWins: s.totalWins,
+    }))
   },
 
   _load(state) {
-    set(state)
+    set({ ...INITIAL, ...state })
   },
 }))

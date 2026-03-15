@@ -2,6 +2,7 @@ import { useCallback, useRef } from 'react'
 import { useGameStore } from '../store/useGameStore'
 import { useStatStore } from '../store/useStatStore'
 import { useProgressStore } from '../store/useProgressStore'
+import { useSettingsStore } from '../store/useSettingsStore'
 import { NPCGenerator } from '../domain/NPCGenerator'
 import { HiddenSystem } from '../domain/HiddenSystem'
 import { EventManager } from '../domain/EventManager'
@@ -43,6 +44,7 @@ export const useGameLoop = () => {
   const game     = useGameStore()
   const stats    = useStatStore()
   const progress = useProgressStore()
+  const settings = useSettingsStore()
 
   // Günde kaç NPC gelecek
   const npcsLeft = useRef(1)
@@ -86,6 +88,7 @@ export const useGameLoop = () => {
     // 6. Game over kontrolü
     const reason = stats.getGameOverReason()
     if (reason) {
+      progress.updateBestRun(game.day, false)
       game.setGameOver(reason as any)
       progress.addSP(config.sp_rewards.game_over)
       saveAll()
@@ -94,6 +97,7 @@ export const useGameLoop = () => {
 
     // 7. Zafer kontrolü
     if (game.day >= config.win_condition_day) {
+      progress.updateBestRun(game.day, true)
       game.setGameOver('victory' as any)
       progress.addSP(config.sp_rewards.game_over)
       saveAll()
@@ -147,6 +151,7 @@ export const useGameLoop = () => {
 
     const overReason = stats.getGameOverReason()
     if (overReason) {
+      progress.updateBestRun(game.day, false)
       game.setGameOver(overReason as any)
       progress.addSP(config.sp_rewards.game_over)
       saveAll()
@@ -169,6 +174,7 @@ export const useGameLoop = () => {
 
     const overReason = stats.getGameOverReason()
     if (overReason) {
+      progress.updateBestRun(game.day, false)
       game.setGameOver(overReason as any)
       progress.addSP(config.sp_rewards.game_over)
       saveAll()
@@ -241,17 +247,31 @@ export const useGameLoop = () => {
 
   // --- YARDIMCILAR ---
 
+  const DIFF_MULT: Record<string, number> = { easy: 0.3, normal: 0.0, hard: -0.25 }
+
   const startGame = useCallback(() => {
     generator.reset()
     game.reset()
     stats.reset()
     progress.reset()
+
+    // Zorluk başlangıç stat ayarı
+    const mult = DIFF_MULT[settings.difficulty] ?? 0
+    if (mult !== 0) {
+      const initial = config.initial_stats as Record<string, number>
+      const delta: Record<string, number> = {}
+      for (const key of Object.keys(initial)) {
+        delta[key] = Math.round(initial[key] * mult)
+      }
+      stats.apply(delta as any)
+    }
+
     game.setQueryCharges(computeQueryCharges(progress.buildings))
     rollDay()
     const firstNPC = generator.getNext()
     game.setActiveNPC(firstNPC)
     game.setPhase('intro')
-  }, [game, stats, progress])
+  }, [game, stats, progress, settings.difficulty])
 
   const saveAll = useCallback(async () => {
     await SaveSystem.save({
@@ -273,6 +293,8 @@ export const useGameLoop = () => {
         unlockedNPCPacks: progress.unlockedNPCPacks,
         unlockedEventPacks: progress.unlockedEventPacks,
         totalRuns: progress.totalRuns,
+        bestDay: progress.bestDay,
+        totalWins: progress.totalWins,
       },
       [SaveSystem.KEYS.NPC_QUEUE]: generator.getState(),
     })

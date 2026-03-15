@@ -4,6 +4,7 @@ import {
   Platform, useWindowDimensions,
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import * as Haptics from 'expo-haptics'
 import Animated, {
   useSharedValue, useAnimatedStyle, useAnimatedReaction, runOnJS,
   withRepeat, withSequence, withTiming, cancelAnimation,
@@ -202,6 +203,15 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
     dragX.value = 0
   }, [npc?.npc_id])
 
+  useEffect(() => {
+    if (!game.isGameOver) return
+    if (game.gameOverReason === 'victory') {
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
+    } else {
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error)
+    }
+  }, [game.isGameOver])
+
   const onQuery = () => {
     if (!npc) return
     if (queryWarnPending) {
@@ -289,8 +299,8 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
             <SwipeHandler
               key={npc.npc_id}
               dragX={dragX}
-              onSwipeRight={() => { handleAccept(npc); setQueryResult(null); setQueryWarnPending(false) }}
-              onSwipeLeft={()  => { handleReject(npc); setQueryResult(null); setQueryWarnPending(false) }}
+              onSwipeRight={() => { playSFX('sfx_accept'); Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); handleAccept(npc); setQueryResult(null); setQueryWarnPending(false) }}
+              onSwipeLeft={()  => { playSFX('sfx_reject'); Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); handleReject(npc); setQueryResult(null); setQueryWarnPending(false) }}
               onSwipeUp={onQuery}
               disabled={game.phase !== 'npc_decision'}
             >
@@ -322,7 +332,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
           opacity: (npc && game.phase === 'npc_decision') ? 1 : 0,
         }]}>
           <TouchableOpacity
-            onPress={() => { handleReject(npc!); setQueryResult(null); setQueryWarnPending(false) }}
+            onPress={() => { playSFX('sfx_reject'); Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); handleReject(npc!); setQueryResult(null); setQueryWarnPending(false) }}
             disabled={!npc || game.phase !== 'npc_decision'}
             style={[styles.actionBtn, styles.rejectBtn, { paddingVertical: btnPadV }]}
             activeOpacity={0.85}
@@ -358,7 +368,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => { handleAccept(npc!); setQueryResult(null); setQueryWarnPending(false) }}
+            onPress={() => { playSFX('sfx_accept'); Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); handleAccept(npc!); setQueryResult(null); setQueryWarnPending(false) }}
             disabled={!npc || game.phase !== 'npc_decision'}
             style={[styles.actionBtn, styles.acceptBtn, { paddingVertical: btnPadV }]}
             activeOpacity={0.85}

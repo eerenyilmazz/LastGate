@@ -44,4 +44,8 @@ export interface ProgressState {
   unlockedNPCPacks: number
   unlockedEventPacks: number
   totalRuns: number
+  bestDay: number
+  totalWins: number
 }
+
+export type Difficulty = 'easy' | 'normal' | 'hard'
