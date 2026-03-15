@@ -1,0 +1,125 @@
+{
+  "colors": {
+    "background":      "#0c0906",
+    "surface":         "#18130e",
+    "card_bg":         "#1e1812",
+    "accept":          "#2e7d32",
+    "accept_glow":     "#4caf50",
+    "reject":          "#b71c1c",
+    "reject_glow":     "#ef5350",
+    "query":           "#f57c00",
+    "text_primary":    "#f0ece6",
+    "text_secondary":  "#9e9080",
+    "stat_immunity":   "#7c4dff",
+    "stat_food":       "#ff8f00",
+    "stat_population": "#0288d1",
+    "stat_defense":    "#c62828",
+    "stat_economy":    "#2e7d32",
+    "stat_critical":   "#ff1744",
+    "warning_overlay": "#ff000033",
+    "day_summary_bg":  "#0e0b08ee",
+    "button_primary":  "#1e1610",
+    "button_border":   "#332518",
+    "overlay_bg":      "#00000099",
+    "divider":         "#2a1e14",
+    "diff_pos_bg":     "#0a1a0a",
+    "diff_neg_bg":     "#1a0000"
+  },
+  "typography": {
+    "size_xs": 10,
+    "size_sm": 12,
+    "size_md": 14,
+    "size_lg": 18,
+    "size_xl": 24,
+    "size_xxl": 32,
+    "weight_regular": "400",
+    "weight_bold": "700",
+    "font_family": "System"
+  },
+  "spacing": {
+    "xs": 4,
+    "sm": 8,
+    "md": 16,
+    "lg": 24,
+    "xl": 40
+  },
+  "card": {
+    "width_ratio": 0.88,
+    "height_ratio": 0.52,
+    "border_radius": 16,
+    "shadow_opacity": 0.4
+  },
+  "animation": {
+    "swipe_duration_ms": 300,
+    "stat_bar_duration_ms": 500,
+    "overlay_fade_ms": 200,
+    "card_enter_ms": 250,
+    "swipe_threshold": 80
+  },
+  "stat_bar": {
+    "height": 8,
+    "border_radius": 4,
+    "label_width": 90
+  },
+  "ui": {
+    "stat_keys": ["immunity", "food", "population", "defense", "economy"],
+    "stat_icons": {
+      "immunity": "💊",
+      "food": "🌾",
+      "population": "👥",
+      "defense": "🛡",
+      "economy": "💰"
+    },
+    "stat_names_tr": {
+      "immunity": "Bağışıklık",
+      "food": "Yiyecek",
+      "population": "Nüfus",
+      "defense": "Savunma",
+      "economy": "Ekonomi"
+    },
+    "stat_names_upper": {
+      "immunity": "BAĞIŞIKLIK",
+      "food": "YİYECEK",
+      "population": "NÜFUS",
+      "defense": "SAVUNMA",
+      "economy": "EKONOMİ"
+    },
+    "stat_abbrevs": {
+      "immunity": "BAĞ",
+      "food": "YİY",
+      "population": "NÜF",
+      "defense": "SAV",
+      "economy": "EKO"
+    },
+    "stat_colors": {
+      "immunity": "#9575cd",
+      "food": "#ff9800",
+      "population": "#29b6f6",
+      "defense": "#ef5350",
+      "economy": "#66bb6a"
+    },
+    "role_colors": {
+      "Doctor": "#7c4dff",
+      "Farmer": "#ff8f00",
+      "Soldier": "#c62828",
+      "Trader": "#0288d1",
+      "Engineer": "#2e7d32",
+      "Scavenger": "#546e7a"
+    },
+    "role_names_tr": {
+      "Doctor": "DOKTOR",
+      "Farmer": "ÇIFTÇI",
+      "Soldier": "ASKER",
+      "Trader": "TACIR",
+      "Engineer": "MÜHENDIS",
+      "Scavenger": "TOPLAYICI"
+    },
+    "choice_colors": {
+      "A": "#2e7d32",
+      "B": "#0277bd",
+      "C": "#e65100"
+    },
+    "terminal_dots": ["#c62828", "#f57f17", "#388e3c"],
+    "font_mono": { "ios": "Courier New", "android": "monospace" }
+  }
+}

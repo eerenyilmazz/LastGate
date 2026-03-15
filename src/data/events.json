@@ -1,0 +1,2511 @@
+{
+  "events": [
+    {
+      "event_id": "ev_001",
+      "category": "zombi_savas",
+      "title": "Gece Baskını",
+      "description": "Gece yarısı karakoldan alarm sesleri yükseliyor. Yüzlerce zombi çevre duvarlarına saldırıyor; savunma hatları zorlanıyor.",
+      "weight": 1.8,
+      "trigger_condition": {
+        "stat": "defense",
+        "below": 40
+      },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Tüm askerleri savunmaya çağır",
+          "requires_role": "Soldier",
+          "role_bonus": {
+            "defense": 8
+          },
+          "effects": {
+            "defense": 15,
+            "food": -8,
+            "population": -2
+          },
+          "outcome": "Askerler duvarı tutuyor; ağır kayıpla da olsa saldırı püskürtüldü."
+        },
+        {
+          "id": "B",
+          "label": "Ateş tuzakları kur ve geri çekil",
+          "requires_role": "Engineer",
+          "role_bonus": {
+            "defense": 5
+          },
+          "effects": {
+            "defense": 8,
+            "food": -4,
+            "economy": -3
+          },
+          "outcome": "Tuzaklar birçok zombiyi imha etti; kayıplar minimum tutuldu."
+        },
+        {
+          "id": "C",
+          "label": "Kapıları kilitleyip beklemeye geç",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "defense": -5,
+            "population": -4,
+            "immunity": -3
+          },
+          "outcome": "Zombiler duvarı aşıyor; birkaç kişi kaçarken kayboldu."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_002",
+      "category": "zombi_savas",
+      "title": "Tek Zombi Tanıdık Yüz",
+      "description": "Karakolun önünde dolaşan zombi, eski bir topluluk üyesine benziyor. İnsanlar ne yapacaklarını şaşırdı.",
+      "weight": 1.4,
+      "trigger_condition": null,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Hemen etkisiz hale getir",
+          "requires_role": "Soldier",
+          "role_bonus": {
+            "defense": 3
+          },
+          "effects": {
+            "defense": 4,
+            "population": -1
+          },
+          "outcome": "Asker soğukkanlılıkla görevi yerine getirdi; moral düştü ama tehlike geçti."
+        },
+        {
+          "id": "B",
+          "label": "Yakalayıp doktora götür",
+          "requires_role": "Doctor",
+          "role_bonus": {
+            "immunity": 5
+          },
+          "effects": {
+            "immunity": 5,
+            "food": -3,
+            "population": -1
+          },
+          "outcome": "Doktor zombiyi inceliyor; enfeksiyon hakkında yeni bilgiler elde edildi."
+        },
+        {
+          "id": "C",
+          "label": "Yas tut ve serbest bırak",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "defense": -4,
+            "population": -2
+          },
+          "outcome": "Serbest bırakılan zombi birkaç saate diğerlerini çekmeye başladı."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_003",
+      "category": "zombi_savas",
+      "title": "Koşan Sürü",
+      "description": "Koşan zombi sürüsü şehir merkezinden geliyor. Önlem almazsanız üssünüzün önünden geçerken çok şey harap olabilir.",
+      "weight": 1.6,
+      "trigger_condition": {
+        "stat": "defense",
+        "below": 50
+      },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Kaçış yolu aç, sürüyü yönlendir",
+          "requires_role": "Scavenger",
+          "role_bonus": {
+            "defense": 4
+          },
+          "effects": {
+            "defense": 6,
+            "food": -3
+          },
+          "outcome": "Sürü ana üssü geçti; küçük hasarla atlatıldı."
+        },
+        {
+          "id": "B",
+          "label": "Savunma mevzisi kurarak karşıla",
+          "requires_role": "Soldier",
+          "role_bonus": {
+            "defense": 7
+          },
+          "effects": {
+            "defense": 10,
+            "food": -8,
+            "population": -3
+          },
+          "outcome": "Sürü durduruldu ama ağır kayıp verildi."
+        },
+        {
+          "id": "C",
+          "label": "Gürültü çıkararak dikkatlerini dağıt",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "defense": 3,
+            "food": -2,
+            "population": -1
+          },
+          "outcome": "Gürültü kısmen işe yaradı; sürünün bir kısmı dağıtıldı."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_004",
+      "category": "zombi_savas",
+      "title": "Duvar Gedik Verdi",
+      "description": "Çevre duvarında büyük bir gedik oluştu. Zombiler her an içeri girebilir; acil müdahale gerekiyor.",
+      "weight": 1.7,
+      "trigger_condition": {
+        "stat": "defense",
+        "below": 35
+      },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Mühendisleri gedik için görevlendir",
+          "requires_role": "Engineer",
+          "role_bonus": {
+            "defense": 10
+          },
+          "effects": {
+            "defense": 15,
+            "economy": -5,
+            "food": -3
+          },
+          "outcome": "Mühendisler duvarı onarıyor; topluluk nefes alabildi."
+        },
+        {
+          "id": "B",
+          "label": "Geçici barikat kur, askerlerle bekle",
+          "requires_role": "Soldier",
+          "role_bonus": {
+            "defense": 5
+          },
+          "effects": {
+            "defense": 8,
+            "food": -6,
+            "population": -2
+          },
+          "outcome": "Barikat kısa süre tuttu; kalıcı çözüm hâlâ gerekiyor."
+        },
+        {
+          "id": "C",
+          "label": "Gedikten gireceklere karşı tuzak kur",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "defense": 4,
+            "food": -4,
+            "population": -3
+          },
+          "outcome": "Tuzaklar birçok zombiyi yavaşlattı ama bazıları sızdı."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_005",
+      "category": "hastalik_salgin",
+      "title": "Gizemli Öksürük",
+      "description": "Topluluk içinde birden fazla kişi şiddetli öksürük ve ateşle yatağa düştü. Hastalığın kaynağı henüz bilinmiyor.",
+      "weight": 1.5,
+      "trigger_condition": {
+        "stat": "immunity",
+        "below": 40
+      },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Hastaları karantinaya al",
+          "requires_role": "Doctor",
+          "role_bonus": {
+            "immunity": 8
+          },
+          "effects": {
+            "immunity": 12,
+            "food": -4,
+            "population": -1
+          },
+          "outcome": "Karantina sayesinde hastalık kontrol altına alındı; kayıplar minimumda kaldı."
+        },
+        {
+          "id": "B",
+          "label": "Herkese ilaç dağıt",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "immunity": 7,
+            "economy": -8,
+            "food": -2
+          },
+          "outcome": "İlaçlar hastalığı yavaşlattı ama ilaç stoğu kritik seviyeye düştü."
+        },
+        {
+          "id": "C",
+          "label": "İyileşmeleri için dua et ve bekle",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "immunity": -10,
+            "population": -5,
+            "food": -2
+          },
+          "outcome": "Hastalık topluluk içinde yayıldı; birçok kişi hayatını kaybetti."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_006",
+      "category": "hastalik_salgin",
+      "title": "Kirli Su Kaynağı",
+      "description": "Ana su kaynağının kirlendiği tespit edildi. İçen herkes hastalanma riskiyle karşı karşıya.",
+      "weight": 1.4,
+      "trigger_condition": {
+        "stat": "immunity",
+        "below": 50
+      },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Suyu arıt ve kaynağı temizle",
+          "requires_role": "Engineer",
+          "role_bonus": {
+            "immunity": 6
+          },
+          "effects": {
+            "immunity": 10,
+            "economy": -6,
+            "food": -2
+          },
+          "outcome": "Su arıtma sistemi kuruldu; sağlık durumu iyileşmeye başladı."
+        },
+        {
+          "id": "B",
+          "label": "Alternatif su kaynağı ara",
+          "requires_role": "Scavenger",
+          "role_bonus": {
+            "food": 4
+          },
+          "effects": {
+            "immunity": 5,
+            "food": 3,
+            "defense": -2
+          },
+          "outcome": "Yeni su kaynağı bulundu ama savunma açığı oluştu."
+        },
+        {
+          "id": "C",
+          "label": "Suyu kaynat ve içmeye devam et",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "immunity": -5,
+            "food": -3,
+            "population": -2
+          },
+          "outcome": "Kaynatma yeterli olmadı; hastalık yavaş yavaş yayıldı."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_007",
+      "category": "hastalik_salgin",
+      "title": "Veba Benzeri Hastalık",
+      "description": "Tüm belirtiler veba hastalığına işaret ediyor. Topluluk içinde panik başladı.",
+      "weight": 2.0,
+      "trigger_condition": {
+        "stat": "immunity",
+        "below": 30
+      },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Doktoru tam yetkiyle görevlendir",
+          "requires_role": "Doctor",
+          "role_bonus": {
+            "immunity": 12
+          },
+          "effects": {
+            "immunity": 18,
+            "food": -8,
+            "economy": -5
+          },
+          "outcome": "Doktorun müdahalesiyle hastalık yavaşladı; topluluk nefes aldı."
+        },
+        {
+          "id": "B",
+          "label": "Hasta bölgesini tamamen kapat",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "immunity": 8,
+            "population": -6,
+            "food": -4
+          },
+          "outcome": "Karantina uygulaması hastalığın yayılmasını kısmen engelledi."
+        },
+        {
+          "id": "C",
+          "label": "Hasta olanları yerleşimden çıkar",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "immunity": 5,
+            "population": -10,
+            "defense": -3
+          },
+          "outcome": "İnsanlar sürgüne gönderildi; topluluk morali ağır hasar gördü."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_008",
+      "category": "hastalik_salgin",
+      "title": "Çürümüş Gıda Stoğu",
+      "description": "Gıda deposundaki büyük bir bölümün çürüdüğü ortaya çıktı. Hem gıda krizi hem hastalık riski baş gösterdi.",
+      "weight": 1.3,
+      "trigger_condition": {
+        "stat": "food",
+        "below": 35
+      },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Çürüyen kısmı imha et, kalanı koru",
+          "requires_role": "Farmer",
+          "role_bonus": {
+            "food": 5
+          },
+          "effects": {
+            "food": -8,
+            "immunity": 6
+          },
+          "outcome": "İmha sayesinde hastalık yayılmadı ama gıda stoğu iyice azaldı."
+        },
+        {
+          "id": "B",
+          "label": "Bozulmayan kısmı acil dağıt",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "food": -5,
+            "immunity": -3,
+            "population": -1
+          },
+          "outcome": "Dağıtım sırasında birkaç kişi bozuk yiyecek yedi; hafif hasta oldu."
+        },
+        {
+          "id": "C",
+          "label": "Yeni gıda için acil arama başlat",
+          "requires_role": "Scavenger",
+          "role_bonus": {
+            "food": 8
+          },
+          "effects": {
+            "food": 5,
+            "defense": -3,
+            "economy": -2
+          },
+          "outcome": "Arama ekibi kısmen başarılı oldu; acil gıda ihtiyacı karşılandı."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_009",
+      "category": "hastalik_salgin",
+      "title": "Bulaşıcı Yara Enfeksiyonu",
+      "description": "Son savaştan dönen askerlerden birinin yarası enfekte olmuş ve başkalarına yayılmaya başlamış.",
+      "weight": 1.5,
+      "trigger_condition": {
+        "stat": "immunity",
+        "below": 45
+      },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Doktor acil müdahale etsin",
+          "requires_role": "Doctor",
+          "role_bonus": {
+            "immunity": 9
+          },
+          "effects": {
+            "immunity": 14,
+            "food": -5,
+            "economy": -3
+          },
+          "outcome": "Erken müdahale enfeksiyonun yayılmasını engelledi."
+        },
+        {
+          "id": "B",
+          "label": "Yaralıları izole et",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "immunity": 6,
+            "defense": -3,
+            "population": -2
+          },
+          "outcome": "İzolasyon kısmen işe yaradı; birkaç kişi daha hastalandı."
+        },
+        {
+          "id": "C",
+          "label": "Bitkisel tedavi dene",
+          "requires_role": "Farmer",
+          "role_bonus": {
+            "immunity": 4
+          },
+          "effects": {
+            "immunity": 3,
+            "food": -2
+          },
+          "outcome": "Bitkisel tedavi semptomları azalttı ama tam iyileşme sağlayamadı."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_010",
+      "category": "hastalik_salgin",
+      "title": "Sıtma Salgını",
+      "description": "Yakın çevredeki bataklıktan gelen sivrisinekler sıtma salgınına yol açtı. Önlem alınmazsa topluluk büyük kayıp verir.",
+      "weight": 1.4,
+      "trigger_condition": null,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Sineklerle mücadele ilacı üret",
+          "requires_role": "Engineer",
+          "role_bonus": {
+            "immunity": 7
+          },
+          "effects": {
+            "immunity": 11,
+            "economy": -6,
+            "food": -2
+          },
+          "outcome": "İlaçlama sonuç verdi; salgın kontrol altına alındı."
+        },
+        {
+          "id": "B",
+          "label": "Bataklığı kurutma çalışması başlat",
+          "requires_role": "Farmer",
+          "role_bonus": {
+            "immunity": 5
+          },
+          "effects": {
+            "immunity": 8,
+            "food": -5,
+            "defense": -2
+          },
+          "outcome": "Uzun çalışma sonucu bataklık kurutuldu; kalıcı çözüm sağlandı."
+        },
+        {
+          "id": "C",
+          "label": "Geçici koruyucu kıyafet dağıt",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "immunity": 3,
+            "economy": -4
+          },
+          "outcome": "Koruyucu kıyafetler kısmen koruma sağladı; yeterli değil ama faydalı."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_011",
+      "category": "hastalik_salgin",
+      "title": "Zehirlenme Şüphesi",
+      "description": "Son yemeğin ardından toplulukta toplu kusma ve baş dönmesi yaşanıyor. Zehirlenme mi yoksa sabotaj mı belli değil.",
+      "weight": 1.6,
+      "trigger_condition": {
+        "stat": "immunity",
+        "below": 55
+      },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Doktor acil müdahale etsin",
+          "requires_role": "Doctor",
+          "role_bonus": {
+            "immunity": 10
+          },
+          "effects": {
+            "immunity": 14,
+            "food": -5,
+            "population": -1
+          },
+          "outcome": "Zehirlenme tedavi edildi; kayıplar önlendi."
+        },
+        {
+          "id": "B",
+          "label": "Tüm gıda stoğunu kontrol et",
+          "requires_role": "Farmer",
+          "role_bonus": {
+            "food": 4
+          },
+          "effects": {
+            "food": -6,
+            "immunity": 5
+          },
+          "outcome": "Zehirli kaynaklar tespit edildi ve imha edildi."
+        },
+        {
+          "id": "C",
+          "label": "Sabotajı araştır",
+          "requires_role": "Soldier",
+          "role_bonus": {
+            "defense": 4
+          },
+          "effects": {
+            "defense": 5,
+            "immunity": -3,
+            "population": -2
+          },
+          "outcome": "Araştırma sürerken hastalık yayılmaya devam etti."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_012",
+      "category": "hastalik_salgin",
+      "title": "Uyku Hastalığı",
+      "description": "Topluluk üyeleri giderek artan uyku ihtiyacından yakınıyor. Üretim ve savunma kapasitesi düşüyor.",
+      "weight": 1.2,
+      "trigger_condition": null,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Kaynağı araştır ve tedavi uygula",
+          "requires_role": "Doctor",
+          "role_bonus": {
+            "immunity": 8
+          },
+          "effects": {
+            "immunity": 12,
+            "food": -5,
+            "economy": -3
+          },
+          "outcome": "Doktor nedeni buldu; özel bir su kirliliğiymiş, tedavi edildi."
+        },
+        {
+          "id": "B",
+          "label": "Çalışma programını azalt",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "food": -6,
+            "economy": -5,
+            "immunity": 3
+          },
+          "outcome": "Dinlenme semptomları azalttı ama üretkenlik ciddi düştü."
+        },
+        {
+          "id": "C",
+          "label": "Uyku ilacı ver",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "immunity": -5,
+            "economy": -4,
+            "population": -1
+          },
+          "outcome": "İlaç hastalığa değil semptomlara müdahale etti; durum kötüleşti."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_013",
+      "category": "politik_sosyal",
+      "title": "İç İsyan",
+      "description": "Toplulukta bir grup, liderin kararlarını sorgulayarak iktidarı devralmak istiyor. Gerilim tırmandı.",
+      "weight": 1.5,
+      "trigger_condition": {
+        "stat": "population",
+        "below": 30
+      },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Diyalog kur ve uzlaşmayı sağla",
+          "requires_role": "Trader",
+          "role_bonus": {
+            "economy": 5
+          },
+          "effects": {
+            "economy": 7,
+            "population": 2,
+            "defense": -2
+          },
+          "outcome": "Uzlaşma sağlandı; topluluk bütünlüğü korundu."
+        },
+        {
+          "id": "B",
+          "label": "İsyancıları topluluğun dışına çıkar",
+          "requires_role": "Soldier",
+          "role_bonus": {
+            "defense": 5
+          },
+          "effects": {
+            "defense": 7,
+            "population": -5,
+            "economy": -4
+          },
+          "outcome": "İsyancılar kovuldu; topluluk küçüldü ama birlik sağlandı."
+        },
+        {
+          "id": "C",
+          "label": "Demokratik oylama yap",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": 3,
+            "economy": -2,
+            "defense": -3
+          },
+          "outcome": "Seçim yapıldı; yeni liderlik belirsizliği kısa süre savunmayı zayıflattı."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_014",
+      "category": "politik_sosyal",
+      "title": "Kaynak Paylaşım Kavgası",
+      "description": "Gıda ve ilaç dağıtımında adaletsizlik algısı kavgaya dönüştü. İki grup arasında gerilim tırmandı.",
+      "weight": 1.3,
+      "trigger_condition": {
+        "stat": "food",
+        "below": 40
+      },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Adil paylaşım planı hazırla",
+          "requires_role": "Farmer",
+          "role_bonus": {
+            "food": 5
+          },
+          "effects": {
+            "food": 4,
+            "population": 2,
+            "economy": -3
+          },
+          "outcome": "Adil plan uygulandı; gerilim yatıştı ve topluluk birliği güçlendi."
+        },
+        {
+          "id": "B",
+          "label": "Askerlerle düzeni sağla",
+          "requires_role": "Soldier",
+          "role_bonus": {
+            "defense": 4
+          },
+          "effects": {
+            "defense": 5,
+            "population": -2,
+            "economy": -2
+          },
+          "outcome": "Düzen sağlandı ama zorla uygulanan çözüm kırgınlık yarattı."
+        },
+        {
+          "id": "C",
+          "label": "Kavgacıları dışarı çıkar",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": -4,
+            "food": 3,
+            "defense": -2
+          },
+          "outcome": "Kavgacılar çıkarıldı; gıda stoğu nispeten arttı ama topluluk küçüldü."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_015",
+      "category": "politik_sosyal",
+      "title": "Komşu Toplulukla İttifak Teklifi",
+      "description": "Yakın çevredeki bir topluluk ittifak teklifi yapıyor. Ancak koşulları tartışmalı.",
+      "weight": 1.2,
+      "trigger_condition": null,
+      "choices": [
+        {
+          "id": "A",
+          "label": "İttifakı kabul et ve kaynakları paylaş",
+          "requires_role": "Trader",
+          "role_bonus": {
+            "economy": 6
+          },
+          "effects": {
+            "economy": 10,
+            "food": -5,
+            "defense": 3
+          },
+          "outcome": "İttifak kuruldu; ticaret güçlendi ve savunma kapasitesi arttı."
+        },
+        {
+          "id": "B",
+          "label": "Koşulları müzakere et",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "economy": 5,
+            "food": -2,
+            "defense": 2
+          },
+          "outcome": "Daha iyi koşullarda anlaşma yapıldı; her iki taraf da kazançlı çıktı."
+        },
+        {
+          "id": "C",
+          "label": "Teklifi reddet",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "economy": -5,
+            "defense": -3
+          },
+          "outcome": "Reddetme karşı topluluğu düşman yaptı; ticaret fırsatı kaçırıldı."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_016",
+      "category": "politik_sosyal",
+      "title": "Din Adamı Nüfuzu",
+      "description": "Toplulukta etkili bir din adamı, liderin bazı kararlarını günah ilan ederek halkı etkilemeye başladı.",
+      "weight": 1.1,
+      "trigger_condition": null,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Din adamıyla uzlaş ve ortak karar al",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": 3,
+            "economy": 2,
+            "defense": -2
+          },
+          "outcome": "Uzlaşma halkı sakinleştirdi; ortak karar birliği güçlendirdi."
+        },
+        {
+          "id": "B",
+          "label": "Din adamını topluluğun dışına çıkar",
+          "requires_role": "Soldier",
+          "role_bonus": {
+            "defense": 3
+          },
+          "effects": {
+            "defense": 4,
+            "population": -3,
+            "economy": -3
+          },
+          "outcome": "Din adamı çıkarıldı; sadakatçi grup morali bozuldu."
+        },
+        {
+          "id": "C",
+          "label": "Halkı bilinçlendirme kampanyası yap",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": 2,
+            "economy": -2,
+            "food": -1
+          },
+          "outcome": "Bilinçlendirme işe yaradı; halk aklını kullanmaya başladı."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_017",
+      "category": "kesif_firsat",
+      "title": "Yakında Süpermarket Deposu",
+      "description": "Kaşifler yakın bir süpermarketin arka deposunda büyük miktarda işlenmiş gıda keşfetti. Ama zombi aktivitesi de yüksek.",
+      "weight": 1.3,
+      "trigger_condition": null,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Silahlı grup gönder ve güvenli çıkar",
+          "requires_role": "Soldier",
+          "role_bonus": {
+            "food": 6
+          },
+          "effects": {
+            "food": 20,
+            "defense": -4,
+            "population": -2
+          },
+          "outcome": "Ağır kayıpla da olsa gıdanın tamamı getirildi."
+        },
+        {
+          "id": "B",
+          "label": "Kaşifleri sessizce gönder",
+          "requires_role": "Scavenger",
+          "role_bonus": {
+            "food": 8
+          },
+          "effects": {
+            "food": 15,
+            "defense": -2
+          },
+          "outcome": "Kaşifler sessizce girip büyük kısmı getirdi; kayıp yok."
+        },
+        {
+          "id": "C",
+          "label": "Tuzak kurup zombileri dağıt, sonra gir",
+          "requires_role": "Engineer",
+          "role_bonus": {
+            "food": 5
+          },
+          "effects": {
+            "food": 18,
+            "economy": -4,
+            "defense": -1
+          },
+          "outcome": "Tuzaklar etkili oldu; gıdanın büyük kısmı güvenle alındı."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_018",
+      "category": "kesif_firsat",
+      "title": "Terk Edilmiş Hastane",
+      "description": "Yakın çevrede terk edilmiş bir hastane bulundu. İlaç ve ekipman bakımından zengin olabilir; ama tehlike yüksek.",
+      "weight": 1.5,
+      "trigger_condition": {
+        "stat": "immunity",
+        "below": 45
+      },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Doktor önderliğinde küçük ekip gönder",
+          "requires_role": "Doctor",
+          "role_bonus": {
+            "immunity": 10
+          },
+          "effects": {
+            "immunity": 18,
+            "food": -3,
+            "defense": -2
+          },
+          "outcome": "Doktor en kritik ilaçları buldu; topluluk sağlık açısından rahifhetti."
+        },
+        {
+          "id": "B",
+          "label": "Büyük silahlı grup gönder",
+          "requires_role": "Soldier",
+          "role_bonus": {
+            "defense": 3
+          },
+          "effects": {
+            "immunity": 12,
+            "food": -6,
+            "population": -3
+          },
+          "outcome": "Güvenlik sağlandı ama kayıp verildi; ilaçların bir kısmı alındı."
+        },
+        {
+          "id": "C",
+          "label": "Gece baskını yap",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "immunity": 8,
+            "defense": -3,
+            "population": -1
+          },
+          "outcome": "Gece baskını kısmen başarılı; bazı ilaçlar alındı ama tehlike geçmedi."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_019",
+      "category": "kesif_firsat",
+      "title": "Çiftlik Arazisi Keşfi",
+      "description": "Savunulabilir durumda, sulama altyapısı mevcut geniş bir çiftlik arazisi keşfedildi. Yerleşim için ideal.",
+      "weight": 1.2,
+      "trigger_condition": null,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Çiftliğe taşın ve güçlendir",
+          "requires_role": "Farmer",
+          "role_bonus": {
+            "food": 10
+          },
+          "effects": {
+            "food": 20,
+            "defense": -5,
+            "economy": -4
+          },
+          "outcome": "Taşınma riskli oldu ama çiftlik büyük gıda artışı sağladı."
+        },
+        {
+          "id": "B",
+          "label": "Üssü koruyarak yan üs kur",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "food": 12,
+            "defense": -3,
+            "economy": -3
+          },
+          "outcome": "İkili yapı yavaş gelişti; ama kalıcı gıda kaynağı oluşturuldu."
+        },
+        {
+          "id": "C",
+          "label": "Çiftliği araştır, kararı ertele",
+          "requires_role": "Scavenger",
+          "role_bonus": {
+            "food": 3
+          },
+          "effects": {
+            "food": 4,
+            "defense": -1
+          },
+          "outcome": "Araştırma yapıldı; daha iyi kararlar için veri toplandı."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_020",
+      "category": "kesif_firsat",
+      "title": "Askeri Depo Koordinatları",
+      "description": "Eski bir askeri harita ele geçirildi. Haritalarda bir mühimmat ve iaşe deposunun yeri işaretlenmiş.",
+      "weight": 1.6,
+      "trigger_condition": {
+        "stat": "defense",
+        "below": 45
+      },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Hızlı ekip gönder",
+          "requires_role": "Soldier",
+          "role_bonus": {
+            "defense": 8
+          },
+          "effects": {
+            "defense": 15,
+            "food": 6,
+            "population": -2
+          },
+          "outcome": "Depo bulundu; silah ve yiyecekler üsse taşındı."
+        },
+        {
+          "id": "B",
+          "label": "İzci gönder, önce güvenliği kontrol et",
+          "requires_role": "Scavenger",
+          "role_bonus": {
+            "defense": 4
+          },
+          "effects": {
+            "defense": 10,
+            "food": 4
+          },
+          "outcome": "İzci güvenli rotayı buldu; depo verimli biçimde boşaltıldı."
+        },
+        {
+          "id": "C",
+          "label": "Haritayı başka bir grupla paylaş",
+          "requires_role": "Trader",
+          "role_bonus": {
+            "economy": 7
+          },
+          "effects": {
+            "economy": 12,
+            "defense": -3
+          },
+          "outcome": "Ticaret anlaşması yapıldı; ekonomi güçlendi ama depo paylaşıldı."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_021",
+      "category": "kesif_firsat",
+      "title": "Radyo Sinyali",
+      "description": "Uzak bir noktadan düzenli radyo sinyali geliyor. Kaynak yardım mı istiyor, tuzak mı kuruyor, yoksa bilgi mi veriyor; bilinmiyor.",
+      "weight": 1.1,
+      "trigger_condition": null,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Kaynağa git ve araştır",
+          "requires_role": "Soldier",
+          "role_bonus": {
+            "defense": 4
+          },
+          "effects": {
+            "defense": 5,
+            "economy": 4,
+            "population": -1
+          },
+          "outcome": "Kaynak bir hayatta kalandı; değerli bilgi ve malzemeyle geri döndü."
+        },
+        {
+          "id": "B",
+          "label": "Karşılıklı iletişim kur",
+          "requires_role": "Engineer",
+          "role_bonus": {
+            "economy": 5
+          },
+          "effects": {
+            "economy": 8,
+            "defense": 2
+          },
+          "outcome": "İletişim kuruldu; bilgi alışverişi başladı."
+        },
+        {
+          "id": "C",
+          "label": "Tuzak olabilir, sinyali yoksay",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "economy": -3,
+            "defense": 2
+          },
+          "outcome": "Sinyal yok sayıldı; potansiyel müttefik kaçırılmış olabilir."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_022",
+      "category": "kesif_firsat",
+      "title": "Eski Fabrika Kompleksi",
+      "description": "Yakınlarda kullanılmaz hale gelmiş bir fabrika kompleksi keşfedildi. İçindeki makineler bazı ihtiyaçları karşılayabilir.",
+      "weight": 1.2,
+      "trigger_condition": null,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Mühendisleri gönder ve değerlendir",
+          "requires_role": "Engineer",
+          "role_bonus": {
+            "economy": 9
+          },
+          "effects": {
+            "economy": 14,
+            "defense": -3,
+            "food": -4
+          },
+          "outcome": "Mühendisler fabrikayı kısmen çalışır hale getirdi; üretim başladı."
+        },
+        {
+          "id": "B",
+          "label": "Kullanılabilir parçaları söküp getir",
+          "requires_role": "Scavenger",
+          "role_bonus": {
+            "economy": 5
+          },
+          "effects": {
+            "economy": 8,
+            "defense": -2
+          },
+          "outcome": "Değerli parçalar toplandı; ekipman stoğu güçlendi."
+        },
+        {
+          "id": "C",
+          "label": "Fabrikayı üs olarak kullan",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "defense": 8,
+            "economy": 3,
+            "food": -5
+          },
+          "outcome": "Fabrika savunulabilir bir üsse dönüştürüldü."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_023",
+      "category": "kesif_firsat",
+      "title": "Gizli Yeraltı Geçidi",
+      "description": "Şehrin altında gizli bir tünel ağı keşfedildi. Kaçış veya saldırı için kullanılabilir.",
+      "weight": 1.3,
+      "trigger_condition": null,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Tüneli haritala ve güvenli hale getir",
+          "requires_role": "Engineer",
+          "role_bonus": {
+            "defense": 7
+          },
+          "effects": {
+            "defense": 12,
+            "economy": -4,
+            "food": -3
+          },
+          "outcome": "Tünel ağı güvenli kaçış ve tedarik yolu sağladı."
+        },
+        {
+          "id": "B",
+          "label": "Keşif timi gönder",
+          "requires_role": "Scavenger",
+          "role_bonus": {
+            "food": 5
+          },
+          "effects": {
+            "food": 8,
+            "defense": 4,
+            "population": -1
+          },
+          "outcome": "Keşif başarılı; eski depolara ulaşan geçitler bulundu."
+        },
+        {
+          "id": "C",
+          "label": "Tüneli kapat, tehlike olabilir",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "defense": 3,
+            "economy": -2
+          },
+          "outcome": "Tünel kapatıldı; potansiyel fırsat kaçırıldı ama tehlike de önlendi."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_024",
+      "category": "kesif_firsat",
+      "title": "Güneş Paneli Deposu",
+      "description": "Terk edilmiş bir inşaat firmasının deposunda büyük miktarda güneş paneli ve batarya bulundu.",
+      "weight": 1.4,
+      "trigger_condition": null,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Hepsini al ve kur",
+          "requires_role": "Engineer",
+          "role_bonus": {
+            "economy": 10
+          },
+          "effects": {
+            "economy": 16,
+            "defense": -3,
+            "food": -4
+          },
+          "outcome": "Güneş enerjisi sistemi kuruldu; topluluk enerji bağımsızlığı kazandı."
+        },
+        {
+          "id": "B",
+          "label": "Bir kısmını al, gerisini sakla",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "economy": 8,
+            "defense": -1
+          },
+          "outcome": "Kısmi enerji üretimi başladı; rezerv depo güvende kaldı."
+        },
+        {
+          "id": "C",
+          "label": "Başka toplulukla takas et",
+          "requires_role": "Trader",
+          "role_bonus": {
+            "economy": 7
+          },
+          "effects": {
+            "economy": 12,
+            "food": 5
+          },
+          "outcome": "Paneller takasla gıda ve ilaça çevrildi; ekonomi güçlendi."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_025",
+      "category": "kesif_firsat",
+      "title": "Hayatta Kalan Uzman",
+      "description": "Yalnız yaşayan ve nadiren görünen bir uzman kişi keşfedildi. Teknoloji ve hayatta kalma bilgisi çok değerli.",
+      "weight": 1.2,
+      "trigger_condition": null,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Topluluğa davet et",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "economy": 10,
+            "defense": 5,
+            "food": -3
+          },
+          "outcome": "Uzman topluluğa katıldı; bilgisiyle büyük katkı sağladı."
+        },
+        {
+          "id": "B",
+          "label": "Düzenli ziyarete davet et",
+          "requires_role": "Trader",
+          "role_bonus": {
+            "economy": 5
+          },
+          "effects": {
+            "economy": 7,
+            "defense": 2
+          },
+          "outcome": "Yarı resmi iş birliği kuruldu; bilgi ve kaynak paylaşımı başladı."
+        },
+        {
+          "id": "C",
+          "label": "Yalnız kalmak istiyorsa zorlamayın",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "economy": -3
+          },
+          "outcome": "Uzman kendi haline bırakıldı; potansiyel iş birliği fırsatı kaçırıldı."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_026",
+      "category": "moral_psikoloji",
+      "title": "Kahraman Yas Tutma",
+      "description": "Geçen hafta hayatını kaybeden cesur bir savaşçı için yas töreni yapılmak isteniyor. Halk anmak istiyor.",
+      "weight": 1.1,
+      "trigger_condition": null,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Büyük bir anma töreni düzenle",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": 4,
+            "food": -3,
+            "economy": -2
+          },
+          "outcome": "Anma töreni topluluk ruhunu güçlendirdi; moral yükseldi."
+        },
+        {
+          "id": "B",
+          "label": "Sessiz bir anma yap",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": 2,
+            "food": -1
+          },
+          "outcome": "Sessiz anma saygılı bir ortam yarattı; topluluk duygusal olarak rahatladı."
+        },
+        {
+          "id": "C",
+          "label": "Anmayı ertele, iş var",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": -3,
+            "economy": 2
+          },
+          "outcome": "Yas tutamayan topluluk üyeleri mutsuz ve verimsiz hale geldi."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_027",
+      "category": "moral_psikoloji",
+      "title": "Çocukların Eğitimi",
+      "description": "Çocuklar eğitimsiz büyüyor. Bazı ebeveynler bu konuda liderden bir şeyler yapmasını istiyor.",
+      "weight": 1.0,
+      "trigger_condition": null,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Okul benzeri bir yapı kur",
+          "requires_role": "Engineer",
+          "role_bonus": {
+            "economy": 3
+          },
+          "effects": {
+            "economy": 5,
+            "population": 3,
+            "food": -3
+          },
+          "outcome": "Küçük eğitim alanı oluşturuldu; çocuklar hem öğreniyor hem mutlu."
+        },
+        {
+          "id": "B",
+          "label": "Uzmanları öğretmen olarak görevlendir",
+          "requires_role": "Doctor",
+          "role_bonus": {
+            "immunity": 4
+          },
+          "effects": {
+            "immunity": 5,
+            "population": 4,
+            "economy": -2
+          },
+          "outcome": "Uzman öğretmenler topluluğun geleceğine yatırım yapıyor."
+        },
+        {
+          "id": "C",
+          "label": "Şimdilik ertelenmeli; hayatta kalmak önce",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": -2,
+            "economy": 1
+          },
+          "outcome": "Eğitim ertelendi; çocuklar mutsuz ve topluluk morali düştü."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_028",
+      "category": "moral_psikoloji",
+      "title": "Toplu Çöküntü",
+      "description": "Uzun süredir devam eden zorluklar karşısında topluluk üyelerinde ciddi depresyon ve umutsuzluk belirtileri gözlemleniyor.",
+      "weight": 1.4,
+      "trigger_condition": {
+        "stat": "population",
+        "below": 25
+      },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Psikolojik destek sistemi kur",
+          "requires_role": "Doctor",
+          "role_bonus": {
+            "population": 5
+          },
+          "effects": {
+            "population": 7,
+            "food": -4,
+            "economy": -2
+          },
+          "outcome": "Destek sistemi morale katkıda bulundu; topluluk toparlanmaya başladı."
+        },
+        {
+          "id": "B",
+          "label": "Umut vaat eden konuşma yap",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": 4,
+            "food": -2
+          },
+          "outcome": "Motivasyon konuşması kısa vadeli etki yarattı; moral geçici de olsa düzeldi."
+        },
+        {
+          "id": "C",
+          "label": "Festif bir etkinlik düzenle",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": 5,
+            "food": -5,
+            "economy": -3
+          },
+          "outcome": "Eğlenceli etkinlik topluluk ruhunu canlandırdı; gıda harcandı ama değdi."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_029",
+      "category": "moral_psikoloji",
+      "title": "Zalim Karar",
+      "description": "Bir grubu kurtarmak için çok az erzak harcandı, ancak başarısız olundu. Halk lideri suçluyor.",
+      "weight": 1.3,
+      "trigger_condition": {
+        "stat": "food",
+        "below": 30
+      },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Hatayı kabul et ve özür dile",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": 4,
+            "economy": -2,
+            "defense": -2
+          },
+          "outcome": "Özür halkın bir kısmını sakinleştirdi; liderlik meşruiyeti kısmen korundu."
+        },
+        {
+          "id": "B",
+          "label": "Kararın doğru olduğunu savun",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "defense": 3,
+            "population": -4
+          },
+          "outcome": "Savunma bir grubu ikna etti ama diğerleri liderden soğudu."
+        },
+        {
+          "id": "C",
+          "label": "Sorumluluğu başkasına yükle",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": -6,
+            "economy": -3,
+            "defense": -2
+          },
+          "outcome": "Suçlama gerçeği bilenleri öfkelendirdi; topluluk içi çatışma büyüdü."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_030",
+      "category": "moral_psikoloji",
+      "title": "İlk Doğum",
+      "description": "Toplulukta bir bebek dünyaya geliyor. Zor zamanlarda umut verici bir haber.",
+      "weight": 1.0,
+      "trigger_condition": null,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Büyük kutlama yap",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": 5,
+            "food": -4,
+            "economy": -2
+          },
+          "outcome": "Kutlama topluluk ruhunu canlandırdı; bebek umudu simgeliyor."
+        },
+        {
+          "id": "B",
+          "label": "Anneye ve bebeğe özel destek ver",
+          "requires_role": "Doctor",
+          "role_bonus": {
+            "immunity": 5
+          },
+          "effects": {
+            "population": 4,
+            "immunity": 5,
+            "food": -3
+          },
+          "outcome": "Anne ve bebek sağlıklı; topluluk bu haberi iyi karşıladı."
+        },
+        {
+          "id": "C",
+          "label": "Sessizce devam et",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": 1,
+            "food": -1
+          },
+          "outcome": "Fırsat kaçırıldı; moral artışı gerçekleşmedi."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_031",
+      "category": "moral_psikoloji",
+      "title": "Eski Dünya Özlemi",
+      "description": "İnsanlar geçmişi arıyor; bazıları eski yaşamlarını düşünerek çalışmaktan kaçınıyor.",
+      "weight": 1.1,
+      "trigger_condition": null,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Eski anıları paylaşma etkinliği düzenle",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": 3,
+            "food": -2
+          },
+          "outcome": "Anı paylaşımı insanları hem hüzünlendirdi hem de birbirine yaklaştırdı."
+        },
+        {
+          "id": "B",
+          "label": "Geleceği inşa etmenin motivasyonunu anlat",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": 4,
+            "economy": 2
+          },
+          "outcome": "Geleceğe yönelik konuşma insanları harekete geçirdi."
+        },
+        {
+          "id": "C",
+          "label": "Sert bir şekilde gerçekle yüzleştir",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": -3,
+            "economy": 3,
+            "defense": 2
+          },
+          "outcome": "Sertlik bazılarını ayıltı; ama birçoğu kırgınlık duydu."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_032",
+      "category": "moral_psikoloji",
+      "title": "İki Grubun Rekabeti",
+      "description": "Topluluk içindeki iki alt grup arasında ciddi bir rekabet ve gerginlik oluştu; bu durum verimliliği düşürüyor.",
+      "weight": 1.2,
+      "trigger_condition": {
+        "stat": "population",
+        "below": 35
+      },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Her iki gruba da ortak görev ver",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": 4,
+            "food": -2,
+            "defense": 2
+          },
+          "outcome": "Ortak görev iki grubu birbirine yaklaştırdı; gerilim büyük ölçüde azaldı."
+        },
+        {
+          "id": "B",
+          "label": "Grupları ayır ve farklı bölgelere ata",
+          "requires_role": "Soldier",
+          "role_bonus": {
+            "defense": 4
+          },
+          "effects": {
+            "defense": 5,
+            "economy": -3,
+            "population": -2
+          },
+          "outcome": "Ayrım kısa vadede işe yaradı; uzun vadede ayrışma riskini artırdı."
+        },
+        {
+          "id": "C",
+          "label": "Liderleriyle birebir konuş",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": 5,
+            "economy": 2
+          },
+          "outcome": "Liderlerle görüşme kök nedeni çözdü; topluluk bütünleşti."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_033",
+      "category": "zombi_savas",
+      "title": "Zehirli Zombi",
+      "description": "Saldırıda bulunan zombinin vücudundan yeşil bir sıvı akıyor. Temas edenler hızla hastalanıyor.",
+      "weight": 1.7,
+      "trigger_condition": {
+        "stat": "immunity",
+        "below": 40
+      },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Kimyasal koruma ekipmanıyla yaklaş",
+          "requires_role": "Engineer",
+          "role_bonus": {
+            "defense": 6
+          },
+          "effects": {
+            "defense": 10,
+            "immunity": 5,
+            "economy": -5
+          },
+          "outcome": "Koruma ekipmanı işe yaradı; zombi etkisiz kılındı, bulaşma önlendi."
+        },
+        {
+          "id": "B",
+          "label": "Uzak mesafeden ateş aç",
+          "requires_role": "Soldier",
+          "role_bonus": {
+            "defense": 7
+          },
+          "effects": {
+            "defense": 12,
+            "food": -5,
+            "population": -1
+          },
+          "outcome": "Uzak mesafe saldırısı başarılı; kimyasal temastan kaçınıldı."
+        },
+        {
+          "id": "C",
+          "label": "Bölgeyi terk et",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "defense": -5,
+            "food": -3,
+            "economy": -3
+          },
+          "outcome": "Bölge terk edildi; değerli alan kaybedildi."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_034",
+      "category": "zombi_savas",
+      "title": "Zombi Liderinin İzinde",
+      "description": "Diğerlerini yönlendiriyor gibi görünen, koordineli davranan bir zombi keşfedildi. Bu alışılmadık bir tehlike.",
+      "weight": 1.9,
+      "trigger_condition": {
+        "stat": "defense",
+        "below": 50
+      },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Öncelikle lider zombiyi hedef al",
+          "requires_role": "Soldier",
+          "role_bonus": {
+            "defense": 10
+          },
+          "effects": {
+            "defense": 16,
+            "food": -7,
+            "population": -2
+          },
+          "outcome": "Lider zombi etkisiz kılındı; sürü dağıldı."
+        },
+        {
+          "id": "B",
+          "label": "Doktor inceleme için yakala",
+          "requires_role": "Doctor",
+          "role_bonus": {
+            "immunity": 8
+          },
+          "effects": {
+            "immunity": 14,
+            "defense": -4,
+            "food": -5
+          },
+          "outcome": "Lider zombi yakalandı; araştırma önemli bulgular sağladı."
+        },
+        {
+          "id": "C",
+          "label": "Tüm grubu bir arada imha et",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "defense": 8,
+            "food": -8,
+            "population": -4
+          },
+          "outcome": "Büyük saldırı sürüyü dağıttı ama ağır kayıp verildi."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_035",
+      "category": "moral_psikoloji",
+      "title": "Çocuk Kayboldu",
+      "description": "Toplulukta sevilen küçük bir çocuk sabahtan beri kayıp. Herkes endişeli ve arama başlatılması gerekiyor.",
+      "weight": 1.3,
+      "trigger_condition": null,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Geniş arama ekibi gönder",
+          "requires_role": "Soldier",
+          "role_bonus": {
+            "defense": 3
+          },
+          "effects": {
+            "population": 5,
+            "defense": -4,
+            "food": -3
+          },
+          "outcome": "Çocuk bulundu; topluluk morali yükseldi ama savunma geçici zayıfladı."
+        },
+        {
+          "id": "B",
+          "label": "Küçük ama deneyimli ekip gönder",
+          "requires_role": "Scavenger",
+          "role_bonus": {
+            "food": 4
+          },
+          "effects": {
+            "population": 4,
+            "defense": -2
+          },
+          "outcome": "Deneyimli kaşifler çocuğu güvenli şekilde buldu."
+        },
+        {
+          "id": "C",
+          "label": "Savunmayı koruyarak bekle",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": -5,
+            "defense": 3
+          },
+          "outcome": "Bekleme kararı aileyi ve topluluğu derinden sarstı; moral çöktü."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_036",
+      "category": "politik_sosyal",
+      "title": "Kaçakçılık İhbarı",
+      "description": "Topluluk içinde birinin kaynakları dışarıya sattığına dair ihbar geldi. Kanıt henüz yok.",
+      "weight": 1.4,
+      "trigger_condition": {
+        "stat": "economy",
+        "below": 35
+      },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Soruşturma başlat",
+          "requires_role": "Soldier",
+          "role_bonus": {
+            "defense": 4
+          },
+          "effects": {
+            "economy": 8,
+            "defense": 4,
+            "population": -2
+          },
+          "outcome": "Suçlu bulundu; kaynaklar geri alındı ama güven sarsıldı."
+        },
+        {
+          "id": "B",
+          "label": "Herkesi toplayıp açık konuş",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "economy": 5,
+            "population": -1
+          },
+          "outcome": "Açık konuşma suçluyu utandırdı; ihbar edilmeden itiraf etti."
+        },
+        {
+          "id": "C",
+          "label": "İhbarı görmezden gel",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "economy": -8,
+            "population": -3
+          },
+          "outcome": "Kaçakçılık devam etti; kaynaklar eriyor, güven sıfıra düştü."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_037",
+      "category": "politik_sosyal",
+      "title": "Seçim Zamanı",
+      "description": "Topluluk üyeleri liderliğin yenilenmesi gerektiğini düşünüyor; demokratik bir seçim talep ediliyor.",
+      "weight": 1.2,
+      "trigger_condition": null,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Seçimi kabul et ve katıl",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": 5,
+            "economy": 2,
+            "defense": -2
+          },
+          "outcome": "Demokratik seçim topluluk güvenini artırdı."
+        },
+        {
+          "id": "B",
+          "label": "Seçimi ertele; önce güvenlik",
+          "requires_role": "Soldier",
+          "role_bonus": {
+            "defense": 4
+          },
+          "effects": {
+            "defense": 5,
+            "population": -3,
+            "economy": -2
+          },
+          "outcome": "Erteleme kararı muhalefet oluşturdu; liderlik meşruiyeti zayıfladı."
+        },
+        {
+          "id": "C",
+          "label": "Seçim yerine konsey oluştur",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": 3,
+            "economy": 3,
+            "defense": 2
+          },
+          "outcome": "Konsey dengeli bir yönetim yapısı kurdu; tüm gruplar temsil edildi."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_038",
+      "category": "politik_sosyal",
+      "title": "Rakip Grup Tehdidi",
+      "description": "Komşu rakip grup topraklarınızı genişletmek istiyor; diplomatik ya da askeri çözüm gerekiyor.",
+      "weight": 1.6,
+      "trigger_condition": {
+        "stat": "defense",
+        "below": 45
+      },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Müzakere masasına otur",
+          "requires_role": "Trader",
+          "role_bonus": {
+            "economy": 6
+          },
+          "effects": {
+            "economy": 9,
+            "defense": 2,
+            "food": -3
+          },
+          "outcome": "Müzakere anlaşmazlığı barışçıl çözdü; ticaret ilişkisi kuruldu."
+        },
+        {
+          "id": "B",
+          "label": "Güç gösterisi yap",
+          "requires_role": "Soldier",
+          "role_bonus": {
+            "defense": 8
+          },
+          "effects": {
+            "defense": 12,
+            "food": -6,
+            "economy": -4
+          },
+          "outcome": "Güç gösterisi rakip grubu geri çekti; ama gerilim sürüyor."
+        },
+        {
+          "id": "C",
+          "label": "Topraklardan çekil",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "defense": -8,
+            "food": -3,
+            "economy": -3
+          },
+          "outcome": "Çekilme rakip grubu güçlendirdi; gelecekte daha büyük sorun oluşabilir."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_039",
+      "category": "zombi_savas",
+      "title": "Zombi Surumu Zombi Sürüsü Enkaj",
+      "description": "Eski bir köprü üzerinde mahsur kalan zombi sürüsü köprü yıkılırsa şehre dolabilir.",
+      "weight": 1.5,
+      "trigger_condition": {
+        "stat": "defense",
+        "below": 40
+      },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Köprüyü kontrollü olarak yık",
+          "requires_role": "Engineer",
+          "role_bonus": {
+            "defense": 9
+          },
+          "effects": {
+            "defense": 14,
+            "economy": -5,
+            "food": -2
+          },
+          "outcome": "Köprü yıkıldı; sürü nehre düştü, tehlike kalıcı olarak geçti."
+        },
+        {
+          "id": "B",
+          "label": "Askerlerle sürüyü imha et",
+          "requires_role": "Soldier",
+          "role_bonus": {
+            "defense": 8
+          },
+          "effects": {
+            "defense": 12,
+            "food": -9,
+            "population": -3
+          },
+          "outcome": "Sürü büyük kayıpla imha edildi; köprü hâlâ ayakta."
+        },
+        {
+          "id": "C",
+          "label": "Köprüyü bariyerle kapat",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "defense": 7,
+            "food": -4,
+            "economy": -3
+          },
+          "outcome": "Bariyer geçici çözüm sağladı; köprü sorunu hâlâ devam ediyor."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_040",
+      "category": "zombi_savas",
+      "title": "İçeriden Sızdı",
+      "description": "Bir zombi bir şekilde üssün içine girdi. Panik başladı ve kayıplar artıyor.",
+      "weight": 1.8,
+      "trigger_condition": {
+        "stat": "defense",
+        "below": 35
+      },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Acil kilit altına al ve avla",
+          "requires_role": "Soldier",
+          "role_bonus": {
+            "defense": 7
+          },
+          "effects": {
+            "defense": 8,
+            "population": -1,
+            "food": -4
+          },
+          "outcome": "Zombi bulundu ve imha edildi; güvenlik protokolleri gözden geçirildi."
+        },
+        {
+          "id": "B",
+          "label": "Bölümleri kapat, insanları tahliye et",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "defense": 5,
+            "food": -5,
+            "population": -2
+          },
+          "outcome": "Tahliye sırasında kayıp yaşandı; zombi sonunda bulundu."
+        },
+        {
+          "id": "C",
+          "label": "Mühendis kapanları devreye alsın",
+          "requires_role": "Engineer",
+          "role_bonus": {
+            "defense": 8
+          },
+          "effects": {
+            "defense": 12,
+            "economy": -4,
+            "population": -1
+          },
+          "outcome": "Kapan sistemi zombiyi durdurdu; en az kayıpla sorun çözüldü."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_041",
+      "category": "zombi_savas",
+      "title": "Gece Yarısı Ses",
+      "description": "Dışarıdan tuhaf sesler geliyor. Zombi mi, hayatta kalan mı yoksa tuzak mı olduğu bilinmiyor.",
+      "weight": 1.3,
+      "trigger_condition": null,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Küçük keşif grubu gönder",
+          "requires_role": "Scavenger",
+          "role_bonus": {
+            "food": 5
+          },
+          "effects": {
+            "food": 6,
+            "defense": 3,
+            "population": -1
+          },
+          "outcome": "Hayatta kalanlar bulundu ve kurtarıldı; değerli kaynaklar getirildi."
+        },
+        {
+          "id": "B",
+          "label": "Savunmayı güçlendir ve bekle",
+          "requires_role": "Soldier",
+          "role_bonus": {
+            "defense": 5
+          },
+          "effects": {
+            "defense": 7,
+            "food": -3
+          },
+          "outcome": "Bekleme seçeneği güvenli oldu; ama dışarıdaki olası müttefik kaçırdı."
+        },
+        {
+          "id": "C",
+          "label": "Işık yakıp sinyal ver",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "defense": -3,
+            "population": 2,
+            "food": -2
+          },
+          "outcome": "Işık hem müttefikler hem zombileri çekti; riskli ama sonuç belirsiz."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_042",
+      "category": "zombi_savas",
+      "title": "Yeni Mutasyon",
+      "description": "Araştırmacılar yeni bir zombi mutasyonu raporluyor: Bu türler çok daha hızlı ve organizeli hareket ediyor.",
+      "weight": 2.0,
+      "trigger_condition": {
+        "stat": "immunity",
+        "below": 35
+      },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Savunmayı acilen güçlendir",
+          "requires_role": "Engineer",
+          "role_bonus": {
+            "defense": 10
+          },
+          "effects": {
+            "defense": 18,
+            "economy": -7,
+            "food": -5
+          },
+          "outcome": "Güçlendirilmiş savunma yeni tehdide karşı koyabildi."
+        },
+        {
+          "id": "B",
+          "label": "Doktor mutasyonu araştırsın",
+          "requires_role": "Doctor",
+          "role_bonus": {
+            "immunity": 10
+          },
+          "effects": {
+            "immunity": 16,
+            "food": -6,
+            "economy": -4
+          },
+          "outcome": "Araştırma yeni zayıf noktaları buldu; gelecekteki mücadelede kritik bilgi."
+        },
+        {
+          "id": "C",
+          "label": "Bölgeyi terk et",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "defense": -6,
+            "food": -6,
+            "economy": -4
+          },
+          "outcome": "Taşınma sırasında büyük kayıp yaşandı; yeni yer daha az güvenli."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_043",
+      "category": "politik_sosyal",
+      "title": "Çocuk İşçi Tartışması",
+      "description": "Kaynaklar tükenince bazı ebeveynler çocukların çalışması gerektiğini savunuyor. Karşı çıkanlar ise bunu etik bulmadığını söylüyor.",
+      "weight": 1.1,
+      "trigger_condition": {
+        "stat": "food",
+        "below": 30
+      },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Eğitim ve hafif iş kombinasyonu",
+          "requires_role": "Farmer",
+          "role_bonus": {
+            "food": 4
+          },
+          "effects": {
+            "food": 5,
+            "population": 2,
+            "economy": -2
+          },
+          "outcome": "Dengeli yaklaşım hem çocuklara hem topluluğa fayda sağladı."
+        },
+        {
+          "id": "B",
+          "label": "Çocukları çalıştırma; başka çözüm bul",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "food": -4,
+            "population": 4,
+            "economy": -3
+          },
+          "outcome": "Çocuklar korundu ama kaynak sıkıntısı derinleşti."
+        },
+        {
+          "id": "C",
+          "label": "Çocuklar tam zamanlı çalışsın",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "food": 8,
+            "population": -5,
+            "immunity": -3
+          },
+          "outcome": "Kısa vadeli kazanç büyük etik maliyetle geldi; topluluk vicdanı sarsıldı."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_044",
+      "category": "hastalik_salgin",
+      "title": "Yeni Hayatta Kalan Grup",
+      "description": "Uzaktan yaklaşan büyük bir hayatta kalan grubu gözlemlendi. Kabul edilirse topluluk büyüyecek; ama kaynaklar zorlanacak.",
+      "weight": 1.4,
+      "trigger_condition": null,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Herkesi kabul et",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": 8,
+            "food": -10,
+            "economy": -4
+          },
+          "outcome": "Büyük topluluk güçlendi ama gıda sıkıntısı ciddi hale geldi."
+        },
+        {
+          "id": "B",
+          "label": "Karantina uygula, sonra karar ver",
+          "requires_role": "Doctor",
+          "role_bonus": {
+            "immunity": 6
+          },
+          "effects": {
+            "population": 5,
+            "food": -5,
+            "immunity": 7
+          },
+          "outcome": "Karantina hastalıkları filtreledi; topluluk güvenli biçimde büyüdü."
+        },
+        {
+          "id": "C",
+          "label": "Sadece uzmanları al",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": 3,
+            "food": -3,
+            "economy": 5
+          },
+          "outcome": "Seçici kabul ekonomiyi ve savunmayı güçlendirdi ama etik tartışma yarattı."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_045",
+      "category": "hastalik_salgin",
+      "title": "Antidot Haberi",
+      "description": "Uzak bir yerleşimde hastalığa karşı antidot üretildiğine dair haber geliyor. Elde etmek için büyük riskler alınması gerekiyor.",
+      "weight": 1.8,
+      "trigger_condition": {
+        "stat": "immunity",
+        "below": 30
+      },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Ekip gönder ve antidotu al",
+          "requires_role": "Soldier",
+          "role_bonus": {
+            "immunity": 8
+          },
+          "effects": {
+            "immunity": 20,
+            "food": -7,
+            "population": -3
+          },
+          "outcome": "Antidot getirildi; topluluk sağlık açısından büyük iyileşme yaşadı."
+        },
+        {
+          "id": "B",
+          "label": "Bilgi doğrulansın önce",
+          "requires_role": "Doctor",
+          "role_bonus": {
+            "immunity": 5
+          },
+          "effects": {
+            "immunity": 8,
+            "food": -3
+          },
+          "outcome": "Doğrulama ek zaman aldı ama yanlış antidot almak önlendi."
+        },
+        {
+          "id": "C",
+          "label": "Kendi antidotunu üret",
+          "requires_role": "Engineer",
+          "role_bonus": {
+            "immunity": 7
+          },
+          "effects": {
+            "immunity": 12,
+            "economy": -8,
+            "food": -4
+          },
+          "outcome": "Yerli üretim kısmi başarı sağladı; bağımsızlık kazanıldı."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_046",
+      "category": "kesif_firsat",
+      "title": "Eski Kütüphane Hazinesi",
+      "description": "Yakınlardaki harabenin altında büyük bir kütüphane bulundu. Teknik kitaplar ve bilgi kaynakları kurtarılabilir.",
+      "weight": 1.1,
+      "trigger_condition": null,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Mühendisler ve doktorlar için kitap topla",
+          "requires_role": "Scavenger",
+          "role_bonus": {
+            "food": 4
+          },
+          "effects": {
+            "economy": 8,
+            "immunity": 4,
+            "defense": 3
+          },
+          "outcome": "Teknik bilgiler topluluğun tüm alanlarında gelişme sağladı."
+        },
+        {
+          "id": "B",
+          "label": "Sadece hayatta kalma rehberlerini al",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "food": 4,
+            "defense": 3,
+            "economy": 2
+          },
+          "outcome": "Pratik rehberler topluluk kapasitesini artırdı."
+        },
+        {
+          "id": "C",
+          "label": "Kitapları başka gruba sat",
+          "requires_role": "Trader",
+          "role_bonus": {
+            "economy": 8
+          },
+          "effects": {
+            "economy": 14,
+            "food": 3
+          },
+          "outcome": "Kitaplar karlı biçimde satıldı; ekonomi güçlendi ama bilgi kaybedildi."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_047",
+      "category": "zombi_savas",
+      "title": "Silahlı Hayatta Kalan Rakipler",
+      "description": "Yakındaki silahlı bir grup sizin topraklarınıza girmeye çalışıyor; amaçları belirsiz.",
+      "weight": 1.6,
+      "trigger_condition": {
+        "stat": "defense",
+        "below": 50
+      },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Silahlı karşıla ve sınırı koru",
+          "requires_role": "Soldier",
+          "role_bonus": {
+            "defense": 9
+          },
+          "effects": {
+            "defense": 14,
+            "food": -7,
+            "population": -2
+          },
+          "outcome": "Silahlı karşılık onları geri çekti; topraklar korundu."
+        },
+        {
+          "id": "B",
+          "label": "Müzakere için temsilci gönder",
+          "requires_role": "Trader",
+          "role_bonus": {
+            "economy": 5
+          },
+          "effects": {
+            "economy": 8,
+            "defense": 2,
+            "food": -3
+          },
+          "outcome": "Müzakere barışçıl çözüm buldu; ittifak kuruldu."
+        },
+        {
+          "id": "C",
+          "label": "Geri çekil ve pusu kur",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "defense": 8,
+            "food": -6,
+            "population": -3
+          },
+          "outcome": "Pusu başarılı oldu; rakip grup ağır kayıp verdi ve geri çekildi."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_048",
+      "category": "politik_sosyal",
+      "title": "Ticaret Yolu Kavşağı",
+      "description": "Kritik bir ticaret yolu kavşağına sahip olunca hem fırsat hem de sorumluluk ortaya çıktı; birçok grup üzerinde hak iddia ediyor.",
+      "weight": 1.3,
+      "trigger_condition": null,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Kavşağı kontrol et ve vergi al",
+          "requires_role": "Trader",
+          "role_bonus": {
+            "economy": 9
+          },
+          "effects": {
+            "economy": 16,
+            "defense": -3,
+            "food": -3
+          },
+          "outcome": "Gümrük noktası büyük gelir sağladı; ticaret ağı güçlendi."
+        },
+        {
+          "id": "B",
+          "label": "Herkesin serbestçe geçmesine izin ver",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "economy": 6,
+            "defense": -2,
+            "population": 2
+          },
+          "outcome": "Açık geçit iyi niyet yarattı; ittifaklar güçlendi ama gelir düşük kaldı."
+        },
+        {
+          "id": "C",
+          "label": "Kavşağı kapat ve güvenliği artır",
+          "requires_role": "Soldier",
+          "role_bonus": {
+            "defense": 7
+          },
+          "effects": {
+            "defense": 11,
+            "economy": -5
+          },
+          "outcome": "Kapatma güvenliği artırdı ama ticaret ilişkileri zarar gördü."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_049",
+      "category": "zombi_savas",
+      "title": "Gönüllü Fedakârlık",
+      "description": "Bir topluluk üyesi hayatını feda ederek grubu kurtardı. Nasıl hatırlanacağı ve bu fedakârlığın nasıl değerlendirileceği merak konusu.",
+      "weight": 1.2,
+      "trigger_condition": null,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Kalıcı bir anıt yap",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": 6,
+            "economy": -3,
+            "food": -2
+          },
+          "outcome": "Anıt topluluk ruhunu ve bağlılığını güçlendirdi."
+        },
+        {
+          "id": "B",
+          "label": "Ailesine ekstra pay ver",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": 4,
+            "food": -3,
+            "economy": -2
+          },
+          "outcome": "Maddi destek ailenin moralini kısmen düzeltti; topluluk takdir etti."
+        },
+        {
+          "id": "C",
+          "label": "Devam et; fedakârlık beklenen bir şeydi",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": -5,
+            "economy": 2,
+            "defense": 2
+          },
+          "outcome": "Soğuk tutum topluluk bağlılığını zayıflattı; sadakat sorgulanıyor."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_050",
+      "category": "politik_sosyal",
+      "title": "Sığınak Krizi",
+      "description": "Mevcut barınak kapasitesi yetersiz; insanlar yer kapma kavgasına girişiyor. Adaletli çözüm gerekiyor.",
+      "weight": 1.3,
+      "trigger_condition": {
+        "stat": "population",
+        "below": 40
+      },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Acil inşaat başlat",
+          "requires_role": "Engineer",
+          "role_bonus": {
+            "defense": 5
+          },
+          "effects": {
+            "defense": 7,
+            "population": 4,
+            "economy": -8
+          },
+          "outcome": "Yeni alanlar inşa edildi; herkes barınak buldu."
+        },
+        {
+          "id": "B",
+          "label": "Adil kura sistemi uygula",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": 3,
+            "economy": -2,
+            "food": -1
+          },
+          "outcome": "Kura sistemi adaletli görüldü; çatışmalar büyük ölçüde azaldı."
+        },
+        {
+          "id": "C",
+          "label": "Önceliği ailelere ver",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": {
+            "population": 5,
+            "food": -3,
+            "economy": -2
+          },
+          "outcome": "Aile önceliği çoğunluğu memnun etti; ama bekâr üyeler kırgın hissetti."
+        }
+      ]
+    }
+  ]
+}

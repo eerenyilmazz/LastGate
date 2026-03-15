@@ -1,0 +1,224 @@
+{
+  "initial_stats": {
+    "immunity": 55,
+    "food": 80,
+    "population": 50,
+    "defense": 45,
+    "economy": 50
+  },
+  "critical_thresholds": {
+    "immunity": 15,
+    "food": 35,
+    "population": 10,
+    "defense": 10,
+    "economy": 5
+  },
+  "stat_max": {
+    "immunity": 100,
+    "food": 200,
+    "population": 500,
+    "defense": 100,
+    "economy": 100
+  },
+  "stat_min": {
+    "immunity": 0,
+    "food": 0,
+    "population": 0,
+    "defense": 0,
+    "economy": 0
+  },
+  "event_trigger_chance": 0.5,
+  "query_charges_per_day": 2,
+  "win_condition_day": 100,
+  "event_trigger_chance_late": 0.75,
+  "late_game_day": 50,
+  "role_synergy": {
+    "Doctor":   { "min_count": 3, "bonus": { "immunity": 1 } },
+    "Farmer":   { "min_count": 2, "bonus": { "food": 1 } },
+    "Soldier":  { "min_count": 2, "bonus": { "defense": 1 } },
+    "Trader":   { "min_count": 2, "bonus": { "economy": 1 } },
+    "Engineer": { "min_count": 3, "bonus": { "immunity": 1, "economy": 1 } }
+  },
+  "trait_effects": {
+    "infected_early":    { "immunity": -4 },
+    "infected_crisis":   { "immunity": -25, "population": -8 },
+    "infected_late":     { "immunity": -6 },
+    "spy_recurring":     { "defense": -6 },
+    "spy_sabotage":      { "defense": -15 },
+    "thief_steal_minor": { "economy": -6, "food": -4 },
+    "thief_steal":       { "economy": -10, "food": -8 },
+    "protector_bonus":   { "immunity": 5, "defense": 3, "economy": 2 }
+  },
+  "trait_expiry_days": { "spy": 10, "thief": 5, "protector": 1 },
+  "trait_query_pass_chance": { "liar": 0.3, "spy": 0.15, "infected": 0.1 },
+  "liar_accept_multiplier": 0.3,
+  "npcs_per_day_min": 1,
+  "npcs_per_day_max": 3,
+  "food_per_population": 0.09,
+  "population_starvation_loss": 8,
+  "sp_rewards": {
+    "day_survived": 4,
+    "correct_npc_decision": 1,
+    "event_survived": 3,
+    "perfect_day": 6,
+    "game_over": 5
+  },
+  "query_food_cost": 5,
+  "infection_reduction_cap": 0.9,
+  "query_result_timeout_ms": 4000,
+  "audio_volumes": { "ambient": 0.22, "sfx": 0.75 },
+  "buildings": [
+    {
+      "id": "farm",
+      "label": "Çiftlik",
+      "description": "Her gün Yiyecek +3, gıda krizi olasılığı -%15",
+      "cost": 40, "unlock_day": 3,
+      "icon": "🌾", "color": "#ff8f00",
+      "chips": ["🌾 +3 / gün", "Gıda krizi −15%"],
+      "passive": { "food": 3 },
+      "crisis_reduction": 0.15
+    },
+    {
+      "id": "market",
+      "label": "Pazar",
+      "description": "Her gün Ekonomi +2, ticaret olayları +%20",
+      "cost": 45, "unlock_day": 4,
+      "icon": "🏪", "color": "#2e7d32",
+      "chips": ["💰 +2 / gün", "Ticaret +20%"],
+      "passive": { "economy": 2 },
+      "trade_event_bonus": 0.2
+    },
+    {
+      "id": "hospital",
+      "label": "Hastane",
+      "description": "Her gün Bağışıklık +2, enfeksiyon şansı -%20",
+      "cost": 55, "unlock_day": 5,
+      "icon": "🏥", "color": "#7c4dff",
+      "chips": ["💊 +2 / gün", "Enfeksiyon −20%"],
+      "passive": { "immunity": 2 },
+      "infection_reduction": 0.2
+    },
+    {
+      "id": "shelter",
+      "label": "Barınak",
+      "description": "Her gün Nüfus +3, göç edenlere sığınak sağlar",
+      "cost": 50, "unlock_day": 6,
+      "icon": "⛺", "color": "#0288d1",
+      "chips": ["👥 +3 / gün", "Göç bonusu"],
+      "passive": { "population": 3 }
+    },
+    {
+      "id": "watchtower",
+      "label": "Gözetleme Kulesi",
+      "description": "Her gün Savunma +3, günlük sorgu hakkı +1",
+      "cost": 65, "unlock_day": 7,
+      "icon": "🗼", "color": "#c62828",
+      "chips": ["🛡 +3 / gün", "+1 sorgu / gün"],
+      "passive": { "defense": 3 },
+      "extra_query_charge": 1
+    },
+    {
+      "id": "water_treatment",
+      "label": "Su Arıtma Tesisi",
+      "description": "Her gün Bağışıklık +1 ve Nüfus +2, salgın riskini azaltır",
+      "cost": 70, "unlock_day": 9,
+      "icon": "💧", "color": "#00838f",
+      "chips": ["💊 +1 / gün", "👥 +2 / gün", "Salgın −10%"],
+      "passive": { "immunity": 1, "population": 2 },
+      "infection_reduction": 0.1
+    },
+    {
+      "id": "laboratory",
+      "label": "Laboratuvar",
+      "description": "Enfekte tespit +%30, salgın süresi -%40, sorgu doğruluğu artar",
+      "cost": 85, "unlock_day": 11,
+      "icon": "🔬", "color": "#5c6bc0",
+      "chips": ["Enfekte tespiti +30%", "Salgın −40%"],
+      "infection_detect_bonus": 0.30,
+      "plague_duration_reduction": 0.4
+    },
+    {
+      "id": "armory",
+      "label": "Silah Deposu",
+      "description": "Her gün Savunma +5, dış saldırı hasarını yarıya indirir",
+      "cost": 80, "unlock_day": 14,
+      "icon": "⚔️", "color": "#b71c1c",
+      "chips": ["🛡 +5 / gün", "Saldırı hasarı −50%"],
+      "passive": { "defense": 5 }
+    },
+    {
+      "id": "nuclear_generator",
+      "label": "Nükleer Jeneratör",
+      "description": "Tüm değerlere her gün +1, tüm pasif bonuslar +%10 artışla çalışır",
+      "cost": 140, "unlock_day": 22,
+      "icon": "☢️", "color": "#558b2f",
+      "chips": ["💊🌾👥🛡💰 +1 / gün", "Tüm pasif +10%"],
+      "passive": { "immunity": 1, "food": 1, "population": 1, "defense": 1, "economy": 1 }
+    }
+  ],
+  "skills": [
+    {
+      "id": "skill_supply", "icon": "📦", "color": "#ff8f00", "label": "Acil İkmal",
+      "cost": 40, "unlock_day": 1,
+      "desc": "Yiyecek depolarına acil +40 takviye. Açlık krizini anında durdurur.",
+      "chips": ["🌾 +40 Yiyecek"],
+      "effect": { "food": 40 }
+    },
+    {
+      "id": "skill_evacuation", "icon": "🚨", "color": "#e53935", "label": "Tahliye Operasyonu",
+      "cost": 65, "unlock_day": 5,
+      "desc": "Çevre bölgelerden acil tahliye. Nüfus büyük sıçrama yapar.",
+      "chips": ["👥 +50 Nüfus"],
+      "effect": { "population": 50 }
+    },
+    {
+      "id": "skill_trade", "icon": "💎", "color": "#2e7d32", "label": "Ticaret Anlaşması",
+      "cost": 35, "unlock_day": 7,
+      "desc": "Dış ticaret hattı açılır. Ekonomi güçlenir.",
+      "chips": ["💰 +20 Ekonomi"],
+      "effect": { "economy": 20 }
+    },
+    {
+      "id": "skill_biohazard", "icon": "🧪", "color": "#6a1b9a", "label": "Biyohazard Müdahalesi",
+      "cost": 60, "unlock_day": 9,
+      "desc": "Salgın karşıtı acil ilaç dağıtımı. Bağışıklık büyük artış yapar.",
+      "chips": ["💊 +40 Bağışıklık"],
+      "effect": { "immunity": 40 }
+    },
+    {
+      "id": "skill_recruit", "icon": "📣", "color": "#0288d1", "label": "Halk Çağrısı",
+      "cost": 55, "unlock_day": 10,
+      "desc": "Çevre bölgelerden gönüllü göçmenler çekilir.",
+      "chips": ["👥 +25 Nüfus"],
+      "effect": { "population": 25 }
+    },
+    {
+      "id": "skill_defense_line", "icon": "🛡", "color": "#b71c1c", "label": "Savunma Hattı",
+      "cost": 75, "unlock_day": 13,
+      "desc": "Barikat ve silahlı savunma pozisyonları kurulur.",
+      "chips": ["🛡 +35 Savunma"],
+      "effect": { "defense": 35 }
+    },
+    {
+      "id": "skill_medkit", "icon": "💉", "color": "#7c4dff", "label": "Tıbbi Müdahale",
+      "cost": 45, "unlock_day": 15,
+      "desc": "Toplu aşılama ve acil sağlık müdahalesi.",
+      "chips": ["💊 +20 Bağışıklık"],
+      "effect": { "immunity": 20 }
+    },
+    {
+      "id": "skill_economic_rescue", "icon": "💹", "color": "#00695c", "label": "Ekonomik Kurtarma",
+      "cost": 85, "unlock_day": 18,
+      "desc": "Dış yardım anlaşması ve acil kaynak transferi.",
+      "chips": ["💰 +35 Ekonomi", "🌾 +20 Yiyecek"],
+      "effect": { "economy": 35, "food": 20 }
+    },
+    {
+      "id": "skill_mobilization", "icon": "⚡", "color": "#f9a825", "label": "Genel Seferberlik",
+      "cost": 130, "unlock_day": 30,
+      "desc": "Şehir tam kapasite seferber edilir. Tüm değerler güçlenir.",
+      "chips": ["💊🌾👥🛡💰 +10"],
+      "effect": { "immunity": 10, "food": 10, "population": 10, "defense": 10, "economy": 10 }
+    }
+  ]
+}

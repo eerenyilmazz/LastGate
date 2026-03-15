@@ -1,0 +1,38 @@
+// Haritada olmayan key → kart renk placeholder gösterir.
+
+const ILLUSTRATIONS: Record<string, any> = {
+  // --- TIER 1 ---
+  serge_infected_liar: require('./tier1/serge_infected_liar.png'),
+  dr_park:             require('./tier1/dr_park.png'),
+  little_mia:          require('./tier1/little_mia.jpg'),
+  abandoned_baby:      require('./tier1/abandoned_baby.png'),
+  gizmo:               require('./tier1/gizmo.png'),
+  dr_keiko:            require('./tier1/dr_keiko.png'),
+  marcus_group_5:      require('./tier1/marcus_group_5.png'),
+  zombie_like_man:     require('./tier1/zombie_like_man.png'),
+  radioactive_group:   require('./tier1/radioactive_group.png'),
+  kim_prodigy:         require('./tier1/kim_prodigy.png'),
+  phoenix_cia:         require('./tier1/phoenix_cia.png'),
+  dr_volkov:           require('./tier1/dr_volkov.png'),
+  joe_and_dog:         require('./tier1/joe_and_dog.png'),
+  warrior_mothers:     require('./tier1/warrior_mothers.png'),
+  pastor_john_crowd:   require('./tier1/pastor_john_crowd.png'),
+  bekir_dede:          require('./tier1/bekir_dede.png'),
+  child_group_10:      require('./tier1/child_group_10.jpg'),
+
+  // --- TIER 2 ---
+  doctor_female_01:    require('./tier2/doctor_female_01.png'),
+  doctor_male_01:      require('./tier2/doctor_male_01.png'),
+  farmer_female_01:    require('./tier2/farmer_female_01.png'),
+  farmer_male_01:      require('./tier2/farmer_male_01.jpg'),
+  soldier_female_01:   require('./tier2/soldier_female_01.jpg'),
+  soldier_male_01:     require('./tier2/soldier_male_01.jpg'),
+  engineer_female_01:  require('./tier2/engineer_female_01.jpg'),
+  engineer_male_01:    require('./tier2/engineer_male_01.jpg'),
+  scavenger_female_01: require('./tier2/scavenger_female_01.jpg'),
+  scavenger_male_01:   require('./tier2/scavenger_male_01.jpg'),
+  trader_female_01:    require('./tier2/trader_female_01.jpg'),
+  trader_male_01:      require('./tier2/trader_male_01.jpg'),
+}
+
+export default ILLUSTRATIONS

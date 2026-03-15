@@ -1,0 +1,181 @@
+{
+  "intro": {
+    "header": "[ BAĞLANTI KESİLDİ — GÜN 0 ]",
+    "lines": [
+      "Dünya çöktü.",
+      "Zombi salgını kıtaları haritadan sildi.",
+      "Hükümetler dağıldı. İletişim ağları karardı.",
+      "Senin şehrin hâlâ ayakta —",
+      "ama surların dışında bir şeyler kıpırdıyor.",
+      "Kaçanlar geliyor. Umut edenler, yardım arayanlar.",
+      "Ve tehlike taşıyanlar.",
+      "Hepsinin yüzünde aynı ifade:",
+      "\"Beni içeri al.\"",
+      "Sen bu şehrin son hattısın.",
+      "100 gün boyunca doğru kararı ver.",
+      "Şehir sana emanet."
+    ],
+    "cta": "[ KAPIYI AÇ ]"
+  },
+  "query_messages": {
+    "no_charges":            "Sorgu hakkın kalmadı.",
+    "depth_analysis_prefix": "📋 Derinlemesine analiz: ",
+    "default_scan":          "Kimlik taraması tamamlandı."
+  },
+  "role_surface_scan": {
+    "Doctor":    "Tıbbi kayıtlar incelendi. Kimlik ve lisans bilgileri sistemde kayıtlı.",
+    "Farmer":    "Tarımsal kayıtlar sorgulandı. Temel kimlik doğrulaması tamamlandı.",
+    "Soldier":   "Askerlik sicili tarandı. Görev geçmişi sistemde mevcut.",
+    "Trader":    "Ticari belgeler kontrol edildi. Gümrük kaydı sistemle uyumlu.",
+    "Engineer":  "Teknik belgeler tarandı. Mühendislik sertifikaları sistemde kayıtlı.",
+    "Scavenger": "Temel kimlik taraması yapıldı. Bölge kayıtları sorgulandı."
+  },
+  "trait_final": {
+    "infected":  "⚠ KESİN BULGU: Biyolojik tehlike belirtileri tespit edildi. Enfeksiyon riski kritik!",
+    "spy":       "⚠ KESİN BULGU: Yabancı güçlerle iletişim kayıtları mevcut. Casusluk şüphesi yüksek!",
+    "thief":     "⚠ KESİN BULGU: Çalınan mallarla bağlantılı izler saptandı. Hırsızlık riski!",
+    "liar":      "⚠ KESİN BULGU: Beyan edilen bilgiler kayıtlarla çelişiyor. Yanıltıcı ifadeler mevcut!",
+    "protector": "✓ KESİN BULGU: Kayıtlar olumlu. Topluluğa aktif destek sağlamış, güvenilir.",
+    "none":      "✓ KESİN BULGU: Kapsamlı analiz tamamlandı. Tüm kayıtlar temiz, şüphe yok."
+  },
+  "splash_status_items": [
+    { "tag": "[!]", "label": "ENFEKSİYON",   "value": "KRİTİK SEVİYE", "color": "#666" },
+    { "tag": "[X]", "label": "DIŞ BAĞLANTI", "value": "KESİLDİ",       "color": "#555" },
+    { "tag": "[~]", "label": "ENERJİ",        "value": "DÜŞÜK",         "color": "#886633" },
+    { "tag": "[+]", "label": "SON KAPI",      "value": "AKTİF",         "color": "#336633" }
+  ],
+  "game_over_endings": {
+    "starvation": {
+      "icon": "🌾", "tag": "[AÇLIK]",
+      "title": "ŞEHİR AÇLIKTAN ÖLDÜ",
+      "desc": "Depolar tükendi. Son insanlar hayatını kaybetti.\nSessizlik hüküm sürüyor.",
+      "color": "#ff8f00"
+    },
+    "plague": {
+      "icon": "☣", "tag": "[SALGIN]",
+      "title": "VİRÜS HER ŞEYİ SİLDİ",
+      "desc": "Bağışıklık çöktü. Aldığın biri bunu getirdi —\nama hangi kararındı?",
+      "color": "#7c4dff"
+    },
+    "breach": {
+      "icon": "🧟", "tag": "[İHLAL]",
+      "title": "DUVARLAR DÜŞTÜ",
+      "desc": "Savunma çöktü. Zombiler son kapıdan geçti.\nHer şey bitti.",
+      "color": "#c62828"
+    },
+    "extinction": {
+      "icon": "💀", "tag": "[YOK OLUŞ]",
+      "title": "SON İNSAN DA GİTTİ",
+      "desc": "Şehir artık sadece bir anı.\nKimse kalmadı.",
+      "color": "#546e7a"
+    },
+    "victory": {
+      "icon": "★", "tag": "[ZAFER]",
+      "title": "100 GÜN HAYATTA KALDIN",
+      "desc": "Kapılar hâlâ ayakta. Şehir yaşıyor.\nHayatta kaldın.",
+      "color": "#4caf50"
+    }
+  },
+  "night_report": {
+    "header_prefix": "[ GECE RAPORU — GÜN ",
+    "header_suffix": " ]",
+    "no_events":     "Gece sessiz geçti.",
+    "continue_btn":  "[ GÜNÜ BAŞLAT ]"
+  },
+  "tutorial": {
+    "header":   "[ NASIL OYNANIR ]",
+    "tips": [
+      { "icon": "→", "text": "Sağa kaydır veya KABUL bas: kişiyi şehre al." },
+      { "icon": "←", "text": "Sola kaydır veya RET bas: kişiyi reddet." },
+      { "icon": "↑", "text": "Yukarı kaydır veya SORGU bas: kimliğini araştır." },
+      { "icon": "i", "text": "DETAY bas: etkileri ve gözlemleri gör." },
+      { "icon": "⚠", "text": "Bazı kişiler tehlikeli olabilir. Dikkatli karar ver!" }
+    ],
+    "continue_btn": "[ ANLADIM ]"
+  },
+  "run_stats_labels": {
+    "header":   "OYUN İSTATİSTİKLERİ",
+    "accepted": "Kabul Edilen",
+    "rejected": "Reddedilen",
+    "queries":  "Sorgu Yapılan",
+    "days":     "Hayatta Kalınan Gün"
+  },
+  "role_synergy_labels": {
+    "Doctor":   "Tıbbi Ekip",
+    "Farmer":   "Tarım Birimi",
+    "Soldier":  "Güvenlik Gücü",
+    "Trader":   "Ticaret Ağı",
+    "Engineer": "Mühendis Ekibi"
+  },
+  "labels": {
+    "btn_reject":                  "RET",
+    "btn_query":                   "SORGU",
+    "btn_query_confirm":           "ONAYLA",
+    "btn_detail":                  "DETAY",
+    "btn_accept":                  "KABUL",
+    "day_num_suffix":              ". GÜN",
+    "day_status_survived":         "gündür hayattasın · ",
+    "day_status_remaining":        " gün kaldı",
+    "day_summary_header_prefix":   "GÜN ",
+    "day_summary_header_suffix":   " SONU",
+    "building_management":         "YERLEŞİM YÖNETİMİ",
+    "building_management_sub":     "Bina inşa et · Yetenek kullan",
+    "continue_hint":               "· DEVAM ETMEK İÇİN DOKUN ·",
+    "card_observe":                "GÖZLEM",
+    "card_accept":                 "KABUL",
+    "card_reject":                 "RET",
+    "card_close":                  "[ DOSYAYI KAPAT ]",
+    "building_build":              "İNŞA ET",
+    "building_use":                "KULLAN",
+    "building_active":             "✓ AKTİF",
+    "building_used":               "✓ KULLANILDI",
+    "building_once":               "TEK SEFERLİK",
+    "building_day_prefix":         "GÜN",
+    "tab_buildings":               "BİNALAR",
+    "tab_skills":                  "YETENEKLER",
+    "screen_back":                 "GERİ",
+    "screen_building_title":       "YERLEŞİM",
+    "query_food_warn_prefix":      "⚠ Bu sorgu 🌾 Yiyecek -",
+    "query_food_warn_suffix":      " götürecek · Onaylamak için tekrar bas",
+    "building_sp_needed_suffix":   " SP daha gerekiyor",
+    "earned_sp":                   "KAZANILAN SP",
+    "btn_restart":                 "[ YENİDEN BAŞLA ]",
+    "btn_main_menu":               "↩  ANA MENÜ"
+  },
+  "critical_stat_labels": {
+    "immunity":   "BAĞIŞIKLIK KRİTİK!",
+    "food":       "AÇLIK TEHLİKESİ!",
+    "population": "NÜFUS KRİTİK!",
+    "defense":    "SAVUNMA ÇÖKİYOR!",
+    "economy":    "EKONOMİ DURDU!"
+  },
+  "hidden_notifications": {
+    "infected_warning": "Şehirde hasta vakalar artıyor...",
+    "infected_crisis":  "SALGIN BAŞLADI!",
+    "infected_spread":  "Salgın yayılmaya devam ediyor.",
+    "spy_sabotage":     "Savunma sistemleri çöküyor!",
+    "thief_steal":      "Depolardan hırsızlık yapıldı."
+  },
+  "characters": [
+    { "icon": "👨‍⚕️", "name": "Doktor",   "role": "Doctor",    "desc": "Bağışıklığı güçlendirir, salgınları önler." },
+    { "icon": "🌾",   "name": "Çiftçi",   "role": "Farmer",    "desc": "Yiyecek üretir, gıda krizini azaltır." },
+    { "icon": "⚔️",   "name": "Asker",    "role": "Soldier",   "desc": "Savunmayı güçlendirir." },
+    { "icon": "💰",   "name": "Tüccar",   "role": "Trader",    "desc": "Ekonomiyi canlandırır." },
+    { "icon": "🔧",   "name": "Mühendis", "role": "Engineer",  "desc": "Altyapı ve kaynakları iyileştirir." },
+    { "icon": "🔍",   "name": "Hurdacı",  "role": "Scavenger", "desc": "Her şeyden biraz toplar, belirsizdir." }
+  ],
+  "traits": [
+    { "icon": "😈", "name": "Yalancı",   "desc": "Söylediklerinin tersi gerçek. Sorgu ile tespit et!" },
+    { "icon": "🦠", "name": "Enfekte",   "desc": "Şehre girdikten sonra bağışıklığa zarar verir." },
+    { "icon": "🕵️", "name": "Casus",     "desc": "Savunmayı yavaşça eritir." },
+    { "icon": "🦹", "name": "Hırsız",    "desc": "Ekonomiyi gizlice çalar." },
+    { "icon": "🦸", "name": "Koruyucu",  "desc": "Gizli ekstra bonus sağlar." }
+  ],
+  "stats_info": [
+    { "icon": "💊", "name": "Bağışıklık", "desc": "Hastalık ve salgına direnç. Sıfırlanırsa veba sonu!" },
+    { "icon": "🌾", "name": "Yiyecek",    "desc": "Nüfus her gün yer. Tükenirse açlık başlar." },
+    { "icon": "👥", "name": "Nüfus",      "desc": "Toplam insan sayısı. Sıfırlanırsa yok oluş." },
+    { "icon": "🛡", "name": "Savunma",    "desc": "Dış tehditler karşısında duvar. Düşerse surlar çöker." },
+    { "icon": "💰", "name": "Ekonomi",    "desc": "Ticaret ve kaynak kapasitesi." }
+  ]
+}

@@ -1,0 +1,3132 @@
+{
+  "scenarios": [
+    {
+      "npc_id": "npc_001",
+      "name": "Serge Morel",
+      "role": "Doctor",
+      "hidden_trait": "infected",
+      "dialogue": "Elimdeki ilaçlarla sizi iyileştirebilirim. Küçük bir ücreti hak ettiğimi düşünüyorum.",
+      "clue_text": "Adam sürekli ellerini oğuşturuyor ve gözleri hafifçe kızarmış görünüyor.",
+      "illustration_tier": "tier1",
+      "illustration_key": "serge",
+      "accept": {
+        "immunity": 14,
+        "food": -5,
+        "economy": 3
+      },
+      "reject": {
+        "immunity": -5
+      },
+      "delayed_effect": {
+        "day": 4,
+        "immunity": -22,
+        "population": -10,
+        "event": "plague"
+      }
+    },
+    {
+      "npc_id": "npc_002",
+      "name": "Dr. Ji-hun Park",
+      "role": "Doctor",
+      "hidden_trait": "none",
+      "dialogue": "Koreli bir virolog olarak bu salgını durdurmanın yolunu biliyorum. Güvenin bana.",
+      "clue_text": "Titiz notlar tutan bu adam, her detayı kayıt altına alıyor; son derece metodolojik.",
+      "illustration_tier": "tier1",
+      "illustration_key": "dr_park",
+      "accept": {
+        "immunity": 18,
+        "food": -6,
+        "economy": 4
+      },
+      "reject": {
+        "immunity": -6
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_003",
+      "name": "Dr. Keiko Tanaka",
+      "role": "Doctor",
+      "hidden_trait": "none",
+      "dialogue": "Uzayda görev yaparken öğrendiğim hayatta kalma protokolleri burada da işe yarayacak.",
+      "clue_text": "Bu kadın hem tıp hem mühendislik bilgisiyle donatılmış; duruşu güven veriyor.",
+      "illustration_tier": "tier1",
+      "illustration_key": "dr_keiko",
+      "accept": {
+        "immunity": 20,
+        "food": -7,
+        "economy": 5
+      },
+      "reject": {
+        "immunity": -7
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_004",
+      "name": "Dr. Alexei Volkov",
+      "role": "Doctor",
+      "hidden_trait": "spy",
+      "dialogue": "Nükleer radyasyona karşı antidot üretebilirim; ama önce bir yere yerleşmem gerekiyor.",
+      "clue_text": "Sözleri mantıklı gelse de göz temasından kaçınıyor ve çantasını hiç bırakmıyor.",
+      "illustration_tier": "tier1",
+      "illustration_key": "dr_volkov",
+      "accept": {
+        "immunity": 16,
+        "food": -4,
+        "economy": 3
+      },
+      "reject": {
+        "immunity": -4
+      },
+      "delayed_effect": {
+        "day": 10,
+        "economy": -20,
+        "event": "spy_caught"
+      }
+    },
+    {
+      "npc_id": "npc_005",
+      "name": "Ayşe Kaya",
+      "role": "Doctor",
+      "hidden_trait": "none",
+      "dialogue": "Yıllarca köy kliniğinde çalıştım; kaynağı sınırlı ortamlarda tıp uygulamayı bilirim.",
+      "clue_text": "Elleri nasırlı ama hareketleri son derece kesin ve emin; gerçek bir pratisyen.",
+      "illustration_tier": "tier2",
+      "illustration_key": "doctor_female_01",
+      "accept": {
+        "immunity": 13,
+        "food": -4,
+        "economy": 2
+      },
+      "reject": {
+        "immunity": -4
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_006",
+      "name": "Murat Demir",
+      "role": "Doctor",
+      "hidden_trait": "liar",
+      "dialogue": "On yıllık cerrahi deneyimim var; sizi her türlü yaralanmadan kurtarabilirim.",
+      "clue_text": "Ellerinde ameliyat izi yok ve tıbbi terminolojiyi biraz yanlış kullanıyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "doctor_male_01",
+      "accept": {
+        "immunity": 19,
+        "food": -5,
+        "economy": 3
+      },
+      "reject": {
+        "immunity": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_007",
+      "name": "Fatma Arslan",
+      "role": "Doctor",
+      "hidden_trait": "infected",
+      "dialogue": "Ateşimi düşürmeye çalışıyorum ama sizi iyileştirecek gücüm var, yemin ederim.",
+      "clue_text": "Kadın açıkça hasta; solgun ve terliyor, ama bunu gizlemeye çalışıyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "doctor_female_01",
+      "accept": {
+        "immunity": 11,
+        "food": -3,
+        "economy": 2
+      },
+      "reject": {
+        "immunity": -3
+      },
+      "delayed_effect": {
+        "day": 3,
+        "immunity": -18,
+        "population": -8,
+        "event": "plague"
+      }
+    },
+    {
+      "npc_id": "npc_008",
+      "name": "Emre Şahin",
+      "role": "Doctor",
+      "hidden_trait": "protector",
+      "dialogue": "Hastalarımı hiçbir zaman bırakmadım. Topluluğunuzu da bırakmayacağım.",
+      "clue_text": "Yanında getirdiği ilaçların bir kısmını zaten paylaşmış; eli açık biri.",
+      "illustration_tier": "tier2",
+      "illustration_key": "doctor_male_01",
+      "accept": {
+        "immunity": 22,
+        "food": -5,
+        "economy": 5
+      },
+      "reject": {
+        "immunity": -6
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_009",
+      "name": "Leyla Öztürk",
+      "role": "Doctor",
+      "hidden_trait": "none",
+      "dialogue": "Pediatri uzmanıyım; çocuklarınızı enfeksiyonlardan koruyabilirim.",
+      "clue_text": "Çocuklara yaklaşımı son derece şefkatli; güvenilir bir anne profili çiziyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "doctor_female_01",
+      "accept": {
+        "immunity": 15,
+        "food": -5,
+        "economy": 3
+      },
+      "reject": {
+        "immunity": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_010",
+      "name": "Burak Yıldız",
+      "role": "Doctor",
+      "hidden_trait": "thief",
+      "dialogue": "İlaç depom var ve sizinle paylaşmaya hazırım, yeter ki bana yer açın.",
+      "clue_text": "İddiasına göre büyük ilaç stoğu var ama yanında neredeyse hiç ilaç taşımıyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "doctor_male_01",
+      "accept": {
+        "immunity": 12,
+        "food": -4,
+        "economy": 2
+      },
+      "reject": {
+        "immunity": -4
+      },
+      "delayed_effect": {
+        "day": 2,
+        "economy": -15,
+        "food": -7,
+        "event": "theft"
+      }
+    },
+    {
+      "npc_id": "npc_011",
+      "name": "Sibel Çelik",
+      "role": "Doctor",
+      "hidden_trait": "liar",
+      "dialogue": "Eczacılık doktorasım var; ilaç formüllerini ezberden biliyorum.",
+      "clue_text": "Formülleri hatırlamakta zorlanıyor ve bazı ilaç adlarını yanlış telaffuz ediyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "doctor_female_01",
+      "accept": {
+        "immunity": 17,
+        "food": -5,
+        "economy": 4
+      },
+      "reject": {
+        "immunity": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_012",
+      "name": "Tarık Güneş",
+      "role": "Doctor",
+      "hidden_trait": "infected",
+      "dialogue": "Beni kabul edin, karşılığında tüm tıp bilgimi sizinle paylaşacağım.",
+      "clue_text": "Konuşurken ara ara duraksıyor ve nefes alışverişi normalden daha hızlı.",
+      "illustration_tier": "tier2",
+      "illustration_key": "doctor_male_01",
+      "accept": {
+        "immunity": 10,
+        "food": -3,
+        "economy": 2
+      },
+      "reject": {
+        "immunity": -3
+      },
+      "delayed_effect": {
+        "day": 5,
+        "immunity": -20,
+        "population": -9,
+        "event": "plague"
+      }
+    },
+    {
+      "npc_id": "npc_013",
+      "name": "Nalan Koç",
+      "role": "Doctor",
+      "hidden_trait": "none",
+      "dialogue": "Travma cerrahisinde uzmanlaştım; savaş yaralanmalarını tedavi etmeyi bilirim.",
+      "clue_text": "Sakin ve soğukkanlı; en zor durumları bile paniklemeden karşılayabilecek biri.",
+      "illustration_tier": "tier2",
+      "illustration_key": "doctor_female_01",
+      "accept": {
+        "immunity": 16,
+        "food": -6,
+        "economy": 3
+      },
+      "reject": {
+        "immunity": -6
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_014",
+      "name": "Hasan Aydın",
+      "role": "Doctor",
+      "hidden_trait": "spy",
+      "dialogue": "Sizi iyileştiririm ama hangi grupların nerede olduğunu da bilmem gerekiyor.",
+      "clue_text": "Diğer gruplar hakkında fazla soru soruyor; bilgi toplamak gibi davranıyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "doctor_male_01",
+      "accept": {
+        "immunity": 13,
+        "food": -4,
+        "economy": 2
+      },
+      "reject": {
+        "immunity": -4
+      },
+      "delayed_effect": {
+        "day": 9,
+        "economy": -18,
+        "event": "spy_caught"
+      }
+    },
+    {
+      "npc_id": "npc_015",
+      "name": "Zehra Polat",
+      "role": "Doctor",
+      "hidden_trait": "none",
+      "dialogue": "Hemşirelik yaptım ama ihtiyaç duyunca doktor gibi davranmayı öğrendim.",
+      "clue_text": "Pratik ve çok yönlü; elimdeki malzemeyle mucizeler yaratır gibi görünüyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "doctor_female_01",
+      "accept": {
+        "immunity": 12,
+        "food": -4,
+        "economy": 2
+      },
+      "reject": {
+        "immunity": -4
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_016",
+      "name": "Kemal Özkan",
+      "role": "Doctor",
+      "hidden_trait": "liar",
+      "dialogue": "Virüsün tam antidotunu geliştirdim; sadece uygun bir laboratuvar lazım.",
+      "clue_text": "Antidot hakkında sorulunca açıklayamıyor ve konuyu değiştirmeye çalışıyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "doctor_male_01",
+      "accept": {
+        "immunity": 20,
+        "food": -6,
+        "economy": 4
+      },
+      "reject": {
+        "immunity": -6
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_017",
+      "name": "Duygu Yılmaz",
+      "role": "Doctor",
+      "hidden_trait": "infected",
+      "dialogue": "Lütfen beni kabul edin; hâlâ çok şey yapabilirim, sadece biraz zaman lazım.",
+      "clue_text": "Elleri titriyor ve gözaltları mosmor; açıkça dinlenmeye ihtiyacı var.",
+      "illustration_tier": "tier2",
+      "illustration_key": "doctor_female_01",
+      "accept": {
+        "immunity": 10,
+        "food": -3,
+        "economy": 2
+      },
+      "reject": {
+        "immunity": -3
+      },
+      "delayed_effect": {
+        "day": 3,
+        "immunity": -25,
+        "population": -12,
+        "event": "plague"
+      }
+    },
+    {
+      "npc_id": "npc_018",
+      "name": "Serhat Doğan",
+      "role": "Doctor",
+      "hidden_trait": "none",
+      "dialogue": "Epidemiyolog olarak bu salgının seyrini öngörebilir ve önlem alabilirim.",
+      "clue_text": "Hastalık yayılma haritaları çiziyor; gerçekten bilgili ve hazırlıklı biri.",
+      "illustration_tier": "tier2",
+      "illustration_key": "doctor_male_01",
+      "accept": {
+        "immunity": 17,
+        "food": -5,
+        "economy": 4
+      },
+      "reject": {
+        "immunity": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_019",
+      "name": "Aslı Erdoğan",
+      "role": "Doctor",
+      "hidden_trait": "thief",
+      "dialogue": "Benim ilaç çantam sizin için hayat kurtarıcı olabilir, güvenin bana.",
+      "clue_text": "İlaç çantası beklenenden çok daha hafif görünüyor; sanki içi boş.",
+      "illustration_tier": "tier2",
+      "illustration_key": "doctor_female_01",
+      "accept": {
+        "immunity": 11,
+        "food": -3,
+        "economy": 2
+      },
+      "reject": {
+        "immunity": -3
+      },
+      "delayed_effect": {
+        "day": 3,
+        "economy": -12,
+        "food": -6,
+        "event": "theft"
+      }
+    },
+    {
+      "npc_id": "npc_020",
+      "name": "Oğuzhan Turan",
+      "role": "Doctor",
+      "hidden_trait": "none",
+      "dialogue": "Psikiyatri alanında çalışıyordum; hayatta kalanların ruhsal sağlığını koruyabilirim.",
+      "clue_text": "İnsanları dikkatle dinliyor ve empatiyle yaklaşıyor; topluluklar için değerli biri.",
+      "illustration_tier": "tier2",
+      "illustration_key": "doctor_male_01",
+      "accept": {
+        "immunity": 12,
+        "food": -4,
+        "economy": 3
+      },
+      "reject": {
+        "immunity": -4
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_021",
+      "name": "Gülnur Aksoy",
+      "role": "Doctor",
+      "hidden_trait": "infected",
+      "dialogue": "Bilgim ve ilaçlarımla katkı sağlayabilirim; sadece beni yalnız bırakmayın.",
+      "clue_text": "Yalnız kalmaktan korkuyor gibi; bu durum şüphe uyandırıyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "doctor_female_01",
+      "accept": {
+        "immunity": 10,
+        "food": -3,
+        "economy": 2
+      },
+      "reject": {
+        "immunity": -3
+      },
+      "delayed_effect": {
+        "day": 4,
+        "immunity": -17,
+        "population": -7,
+        "event": "plague"
+      }
+    },
+    {
+      "npc_id": "npc_022",
+      "name": "Caner Işık",
+      "role": "Doctor",
+      "hidden_trait": "liar",
+      "dialogue": "Genel cerrahi ve kardiyoloji alanında uzmanım; birden fazla alanda katkı sunabilirim.",
+      "clue_text": "İki farklı uzmanlık alanı iddiası biraz fazla geliyor; bilgisi yüzeysel görünüyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "doctor_male_01",
+      "accept": {
+        "immunity": 18,
+        "food": -5,
+        "economy": 4
+      },
+      "reject": {
+        "immunity": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_023",
+      "name": "Pınar Kılıç",
+      "role": "Doctor",
+      "hidden_trait": "none",
+      "dialogue": "Bir hastanede kalan son doktorlardandım; her şeyi gördüm ve öğrendim.",
+      "clue_text": "Gözlerindeki yorgunluk gerçek; ama kararlılığı da o kadar gerçek.",
+      "illustration_tier": "tier2",
+      "illustration_key": "doctor_female_01",
+      "accept": {
+        "immunity": 15,
+        "food": -5,
+        "economy": 3
+      },
+      "reject": {
+        "immunity": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_024",
+      "name": "Alper Şen",
+      "role": "Doctor",
+      "hidden_trait": "spy",
+      "dialogue": "Size hem tıbbi hem de istihbarat desteği verebilirim; her iki alanda da deneyimliyim.",
+      "clue_text": "İstihbarat kelimesini kullanması ilginç; bu kadar açık sözlülük şüphe uyandırıyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "doctor_male_01",
+      "accept": {
+        "immunity": 14,
+        "food": -4,
+        "economy": 3
+      },
+      "reject": {
+        "immunity": -4
+      },
+      "delayed_effect": {
+        "day": 11,
+        "economy": -22,
+        "event": "spy_caught"
+      }
+    },
+    {
+      "npc_id": "npc_025",
+      "name": "Dilek Ercan",
+      "role": "Doctor",
+      "hidden_trait": "infected",
+      "dialogue": "Yıllarca dağ köylerinde seyyar hekim olarak çalıştım; zorluklara alışkınım.",
+      "clue_text": "Dağ yolculuğu sonrası soluk benzi ve sürekli öksürüğü dikkat çekiyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "doctor_female_01",
+      "accept": {
+        "immunity": 11,
+        "food": -3,
+        "economy": 2
+      },
+      "reject": {
+        "immunity": -3
+      },
+      "delayed_effect": {
+        "day": 5,
+        "immunity": -28,
+        "population": -13,
+        "event": "plague"
+      }
+    },
+    {
+      "npc_id": "npc_026",
+      "name": "Bekir Dede",
+      "role": "Farmer",
+      "hidden_trait": "protector",
+      "dialogue": "Tohumlarım var, toprağı nasıl işleyeceğimi biliyorum. Birlikte yetiştiririz.",
+      "clue_text": "Yaşlı adam elleri nasırlı ve çantasında gerçek tohumlar taşıyor; dürüst biri.",
+      "illustration_tier": "tier1",
+      "illustration_key": "bekir_dede",
+      "accept": {
+        "food": 28,
+        "population": 3
+      },
+      "reject": {
+        "food": -6
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_027",
+      "name": "Hatice Yıldırım",
+      "role": "Farmer",
+      "hidden_trait": "none",
+      "dialogue": "Otuz yıldır çiftçiyim; bu toprakları tanıyorum ve ne ekeceğimi biliyorum.",
+      "clue_text": "Toprağa bakarken gözleri parlıyor; bu kadın gerçekten toprakla bütünleşmiş.",
+      "illustration_tier": "tier2",
+      "illustration_key": "farmer_female_01",
+      "accept": {
+        "food": 20,
+        "population": 2
+      },
+      "reject": {
+        "food": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_028",
+      "name": "Mehmet Çiftçi",
+      "role": "Farmer",
+      "hidden_trait": "none",
+      "dialogue": "Yetiştirdiğim sebzelerle kışı atlattınız. Şimdi de atlatırız.",
+      "clue_text": "Güçlü yapılı, elleri toprak kokuyor; sözleri abartısız ve net.",
+      "illustration_tier": "tier2",
+      "illustration_key": "farmer_male_01",
+      "accept": {
+        "food": 22,
+        "population": 2
+      },
+      "reject": {
+        "food": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_029",
+      "name": "Fatma Güler",
+      "role": "Farmer",
+      "hidden_trait": "liar",
+      "dialogue": "Büyük bir çiftliğim var; yüzlerce kişiyi besleyebilecek kadar ürün yetiştiririm.",
+      "clue_text": "Bahsettiği çiftlik hakkında sorulunca belirsiz cevaplar veriyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "farmer_female_01",
+      "accept": {
+        "food": 26,
+        "population": 3
+      },
+      "reject": {
+        "food": -6
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_030",
+      "name": "Ahmet Toprak",
+      "role": "Farmer",
+      "hidden_trait": "infected",
+      "dialogue": "Tarlam hazır, ama biraz yorgunum. Yine de çalışırım.",
+      "clue_text": "Soluk ve bitkin görünüyor; verimli çalışıp çalışamayacağı şüpheli.",
+      "illustration_tier": "tier2",
+      "illustration_key": "farmer_male_01",
+      "accept": {
+        "food": 12,
+        "population": 1
+      },
+      "reject": {
+        "food": -4
+      },
+      "delayed_effect": {
+        "day": 4,
+        "immunity": -15,
+        "population": -6,
+        "event": "plague"
+      }
+    },
+    {
+      "npc_id": "npc_031",
+      "name": "Emine Sarı",
+      "role": "Farmer",
+      "hidden_trait": "none",
+      "dialogue": "Hidroponik tarım yöntemlerini biliyorum; topraksız da yetiştiririm.",
+      "clue_text": "Yanında taşıdığı küçük hidroponik kurulum gerçek ve çalışıyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "farmer_female_01",
+      "accept": {
+        "food": 18,
+        "population": 2
+      },
+      "reject": {
+        "food": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_032",
+      "name": "Osman Tarlacı",
+      "role": "Farmer",
+      "hidden_trait": "thief",
+      "dialogue": "Gıda depom var; paylaşmak istiyorum ama önce güvenli bir yer lazım.",
+      "clue_text": "Depoya götürmeyi sürekli erteliyor; bir bahane arıyor gibi.",
+      "illustration_tier": "tier2",
+      "illustration_key": "farmer_male_01",
+      "accept": {
+        "food": 14,
+        "population": 1
+      },
+      "reject": {
+        "food": -4
+      },
+      "delayed_effect": {
+        "day": 2,
+        "economy": -11,
+        "food": -8,
+        "event": "theft"
+      }
+    },
+    {
+      "npc_id": "npc_033",
+      "name": "Rukiye Bozkurt",
+      "role": "Farmer",
+      "hidden_trait": "none",
+      "dialogue": "Kurutulmuş sebze ve meyve stokum var; uzun süre dayanır.",
+      "clue_text": "Gösterdiği kurutulmuş gıdalar gerçek ve iyi saklanmış görünüyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "farmer_female_01",
+      "accept": {
+        "food": 19,
+        "population": 2
+      },
+      "reject": {
+        "food": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_034",
+      "name": "İbrahim Ekici",
+      "role": "Farmer",
+      "hidden_trait": "spy",
+      "dialogue": "Gıda yetiştiririm ama çevredeki gruplar hakkında da bilgi toplarım.",
+      "clue_text": "Tarım bilgisi yüzeysel; asıl ilgisi çevredeki grupların hareketleri.",
+      "illustration_tier": "tier2",
+      "illustration_key": "farmer_male_01",
+      "accept": {
+        "food": 13,
+        "population": 1
+      },
+      "reject": {
+        "food": -4
+      },
+      "delayed_effect": {
+        "day": 8,
+        "economy": -16,
+        "event": "spy_caught"
+      }
+    },
+    {
+      "npc_id": "npc_035",
+      "name": "Nurcan Avcı",
+      "role": "Farmer",
+      "hidden_trait": "none",
+      "dialogue": "Arıcılık yapıyorum; bal hem gıda hem de ilaç olarak kullanılabilir.",
+      "clue_text": "Gerçekten arı peteği ve bal kavanozu taşıyor; bilgisi gerçek.",
+      "illustration_tier": "tier2",
+      "illustration_key": "farmer_female_01",
+      "accept": {
+        "food": 17,
+        "population": 2
+      },
+      "reject": {
+        "food": -4
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_036",
+      "name": "Hüseyin Bahçevan",
+      "role": "Farmer",
+      "hidden_trait": "liar",
+      "dialogue": "Bin çeşit tohum getirdim; tüm iklim koşullarına uygun ürünler yetiştiririm.",
+      "clue_text": "Tohum çantası aslında neredeyse boş; iddiaları çok abartılı.",
+      "illustration_tier": "tier2",
+      "illustration_key": "farmer_male_01",
+      "accept": {
+        "food": 24,
+        "population": 3
+      },
+      "reject": {
+        "food": -6
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_037",
+      "name": "Selma Tarhan",
+      "role": "Farmer",
+      "hidden_trait": "infected",
+      "dialogue": "Çiftliğimden kaçtım; hâlâ tarım bilgim var, kullanabilirim.",
+      "clue_text": "Kaçış hikayesi eksik parçalar içeriyor; görünüşü de endişe verici.",
+      "illustration_tier": "tier2",
+      "illustration_key": "farmer_female_01",
+      "accept": {
+        "food": 11,
+        "population": 1
+      },
+      "reject": {
+        "food": -4
+      },
+      "delayed_effect": {
+        "day": 5,
+        "immunity": -16,
+        "population": -7,
+        "event": "plague"
+      }
+    },
+    {
+      "npc_id": "npc_038",
+      "name": "Kamil Bahçeci",
+      "role": "Farmer",
+      "hidden_trait": "none",
+      "dialogue": "Meyve bahçesi kuruyorum; yeterince vaktiniz olsa bol meyve yersiniz.",
+      "clue_text": "Uzun vadeli düşünen biri; bu topluluk için değerli bir bakış açısı.",
+      "illustration_tier": "tier2",
+      "illustration_key": "farmer_male_01",
+      "accept": {
+        "food": 16,
+        "population": 2
+      },
+      "reject": {
+        "food": -4
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_039",
+      "name": "Songül Çelik",
+      "role": "Farmer",
+      "hidden_trait": "thief",
+      "dialogue": "Gıda dağıtımını ben organize ederim; adil paylaştırırım herkese.",
+      "clue_text": "Dağıtım konusunda çok hevesli; kontrolü ele almak istiyor gibi.",
+      "illustration_tier": "tier2",
+      "illustration_key": "farmer_female_01",
+      "accept": {
+        "food": 13,
+        "population": 1
+      },
+      "reject": {
+        "food": -3
+      },
+      "delayed_effect": {
+        "day": 3,
+        "economy": -10,
+        "food": -9,
+        "event": "theft"
+      }
+    },
+    {
+      "npc_id": "npc_040",
+      "name": "Yaşar Ekmen",
+      "role": "Farmer",
+      "hidden_trait": "none",
+      "dialogue": "Hayvancılık yapıyorum; süt, et ve yün sağlayabilirim.",
+      "clue_text": "Hayvanlarıyla kurduğu bağ gerçek; güvenilir ve çalışkan biri.",
+      "illustration_tier": "tier2",
+      "illustration_key": "farmer_male_01",
+      "accept": {
+        "food": 23,
+        "population": 2
+      },
+      "reject": {
+        "food": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_041",
+      "name": "Gönül Kaya",
+      "role": "Farmer",
+      "hidden_trait": "none",
+      "dialogue": "Şifalı otları tanıyorum; hem gıda hem ilaç olarak kullanabiliriz.",
+      "clue_text": "Bitki bilgisi gerçek; yanında taşıdığı ot koleksiyonu etkileyici.",
+      "illustration_tier": "tier2",
+      "illustration_key": "farmer_female_01",
+      "accept": {
+        "food": 15,
+        "population": 2
+      },
+      "reject": {
+        "food": -4
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_042",
+      "name": "Ramazan Koru",
+      "role": "Farmer",
+      "hidden_trait": "liar",
+      "dialogue": "Devlet çiftliğini yönetiyordum; endüstriyel ölçekte üretim yapabilirim.",
+      "clue_text": "Endüstriyel tarım hakkında temel bilgisi yok; iddiası fazla büyük.",
+      "illustration_tier": "tier2",
+      "illustration_key": "farmer_male_01",
+      "accept": {
+        "food": 22,
+        "population": 3
+      },
+      "reject": {
+        "food": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_043",
+      "name": "Müjde Yurt",
+      "role": "Farmer",
+      "hidden_trait": "infected",
+      "dialogue": "Tohumlarımı korudum, ama tarlaya gidecek halim yok şu an.",
+      "clue_text": "Açıkça yorgun ve hasta; tohumları gerçek ama kendisi çalışamaz durumda.",
+      "illustration_tier": "tier2",
+      "illustration_key": "farmer_female_01",
+      "accept": {
+        "food": 10,
+        "population": 1
+      },
+      "reject": {
+        "food": -3
+      },
+      "delayed_effect": {
+        "day": 3,
+        "immunity": -20,
+        "population": -10,
+        "event": "plague"
+      }
+    },
+    {
+      "npc_id": "npc_044",
+      "name": "Coşkun Akın",
+      "role": "Farmer",
+      "hidden_trait": "none",
+      "dialogue": "Balık yetiştiriyorum; nehir kenarında bir balık çiftliği kurabiliriz.",
+      "clue_text": "Nehir haritasını biliyor ve balıkçılık ekipmanı taşıyor; gerçek bir uzman.",
+      "illustration_tier": "tier2",
+      "illustration_key": "farmer_male_01",
+      "accept": {
+        "food": 21,
+        "population": 2
+      },
+      "reject": {
+        "food": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_045",
+      "name": "Sevim Doğru",
+      "role": "Farmer",
+      "hidden_trait": "spy",
+      "dialogue": "Çiftçiyim ama yolu iyi bilirim; başka grupların yerini de söyleyebilirim.",
+      "clue_text": "Tarım yerine diğer grupların yerleri hakkında konuşmakta çok istekli.",
+      "illustration_tier": "tier2",
+      "illustration_key": "farmer_female_01",
+      "accept": {
+        "food": 12,
+        "population": 1
+      },
+      "reject": {
+        "food": -4
+      },
+      "delayed_effect": {
+        "day": 9,
+        "economy": -17,
+        "event": "spy_caught"
+      }
+    },
+    {
+      "npc_id": "npc_046",
+      "name": "Orhan Gürbüz",
+      "role": "Farmer",
+      "hidden_trait": "none",
+      "dialogue": "Kompost ve organik gübreleme biliyorum; toprağı verimli hale getiririm.",
+      "clue_text": "Uygulamalı tarım bilgisi sağlam; ellerindeki toprak lekesi bunu doğruluyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "farmer_male_01",
+      "accept": {
+        "food": 18,
+        "population": 2
+      },
+      "reject": {
+        "food": -4
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_047",
+      "name": "Filiz Başar",
+      "role": "Farmer",
+      "hidden_trait": "protector",
+      "dialogue": "Komşularım açken uyuyamam; sizinle birlikte herkesi doyururum.",
+      "clue_text": "Yanında getirdiği gıdaları zaten dağıtmaya başlamış; eli açık ve cömert.",
+      "illustration_tier": "tier2",
+      "illustration_key": "farmer_female_01",
+      "accept": {
+        "food": 26,
+        "population": 3
+      },
+      "reject": {
+        "food": -6
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_048",
+      "name": "Tuncay Öz",
+      "role": "Farmer",
+      "hidden_trait": "liar",
+      "dialogue": "Seracılık yapıyorum; yıl boyu üretim yapabilirim ve depom dolu.",
+      "clue_text": "Sera teknolojisi hakkında bilgisi yetersiz; depodaki ürün miktarı şüpheli.",
+      "illustration_tier": "tier2",
+      "illustration_key": "farmer_male_01",
+      "accept": {
+        "food": 25,
+        "population": 3
+      },
+      "reject": {
+        "food": -6
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_049",
+      "name": "Nebahat Uz",
+      "role": "Farmer",
+      "hidden_trait": "none",
+      "dialogue": "Fermente gıda yaparım; turşu ve sirke uzun süre bozulmaz.",
+      "clue_text": "Fermentasyon kaplarını özenle taşıyor; gerçek bir gıda koruma uzmanı.",
+      "illustration_tier": "tier2",
+      "illustration_key": "farmer_female_01",
+      "accept": {
+        "food": 17,
+        "population": 2
+      },
+      "reject": {
+        "food": -4
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_050",
+      "name": "Fikret Demir",
+      "role": "Farmer",
+      "hidden_trait": "infected",
+      "dialogue": "Hasatı toplayabildim ama kendimi pek iyi hissetmiyorum son günlerde.",
+      "clue_text": "Ateşi var; hasadın bir kısmına dokunmuş olması endişe verici.",
+      "illustration_tier": "tier2",
+      "illustration_key": "farmer_male_01",
+      "accept": {
+        "food": 10,
+        "population": 1
+      },
+      "reject": {
+        "food": -3
+      },
+      "delayed_effect": {
+        "day": 4,
+        "immunity": -19,
+        "population": -8,
+        "event": "plague"
+      }
+    },
+    {
+      "npc_id": "npc_051",
+      "name": "Marcus ve Grubu",
+      "role": "Soldier",
+      "hidden_trait": "none",
+      "dialogue": "Beş kişilik grubumla savunmanızı güçlendirebiliriz. Disiplinli ve deneyimliyiz.",
+      "clue_text": "Beş kişilik bu grup iyi organize edilmiş; ekipmanları gerçek ve düzenli.",
+      "illustration_tier": "tier1",
+      "illustration_key": "marcus_group_5",
+      "accept": {
+        "defense": 20,
+        "food": -7,
+        "economy": -4
+      },
+      "reject": {
+        "defense": -7
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_052",
+      "name": "Savaşan Anneler",
+      "role": "Soldier",
+      "hidden_trait": "protector",
+      "dialogue": "Çocuklarımızı korumak için her şeyi öğrendik. Sizin topluluğunuzu da koruruz.",
+      "clue_text": "Üç annenin kararlılığı ve birlik duygusu gerçekten etkileyici ve güçlü.",
+      "illustration_tier": "tier1",
+      "illustration_key": "warrior_mothers",
+      "accept": {
+        "defense": 24,
+        "food": -5,
+        "economy": -3
+      },
+      "reject": {
+        "defense": -7
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_053",
+      "name": "Phoenix",
+      "role": "Soldier",
+      "hidden_trait": "spy",
+      "dialogue": "İstihbarat ve savaş konusunda eğitildim. Görünürde olmak istemiyorum.",
+      "clue_text": "Kimliği konusunda çok az bilgi paylaşıyor; ajanlar bu kadar dikkatli davranır.",
+      "illustration_tier": "tier1",
+      "illustration_key": "phoenix_cia",
+      "accept": {
+        "defense": 16,
+        "food": -4,
+        "economy": -3
+      },
+      "reject": {
+        "defense": -5
+      },
+      "delayed_effect": {
+        "day": 12,
+        "economy": -24,
+        "event": "spy_caught"
+      }
+    },
+    {
+      "npc_id": "npc_054",
+      "name": "Kenan Arslan",
+      "role": "Soldier",
+      "hidden_trait": "none",
+      "dialogue": "Eski bir komandoyum; gözetleme ve savunma hattı kurma konusunda uzmanım.",
+      "clue_text": "Çevreyi otomatik olarak tarıyor; profesyonel bir asker profili.",
+      "illustration_tier": "tier2",
+      "illustration_key": "soldier_male_01",
+      "accept": {
+        "defense": 18,
+        "food": -5,
+        "economy": -4
+      },
+      "reject": {
+        "defense": -6
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_055",
+      "name": "Ceyda Yılmaz",
+      "role": "Soldier",
+      "hidden_trait": "none",
+      "dialogue": "Poliste çalışırken çok şey öğrendim; düzeni ve güvenliği sağlarım.",
+      "clue_text": "Sakin ve otoriteli; kalabalığı kontrol etme konusunda deneyimli.",
+      "illustration_tier": "tier2",
+      "illustration_key": "soldier_female_01",
+      "accept": {
+        "defense": 15,
+        "food": -4,
+        "economy": -3
+      },
+      "reject": {
+        "defense": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_056",
+      "name": "Baran Kaya",
+      "role": "Soldier",
+      "hidden_trait": "liar",
+      "dialogue": "Özel kuvvetler mensubuydum; tek başıma bir orduya bedelim.",
+      "clue_text": "Özel kuvvetler protokollerini bilmiyor; iddiaları gerçekle örtüşmüyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "soldier_male_01",
+      "accept": {
+        "defense": 22,
+        "food": -6,
+        "economy": -4
+      },
+      "reject": {
+        "defense": -7
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_057",
+      "name": "Şule Demirci",
+      "role": "Soldier",
+      "hidden_trait": "infected",
+      "dialogue": "Savaşmak istiyorum; ama önce biraz iyileşmem gerekiyor.",
+      "clue_text": "Yüzünde ve ellerinde şüpheli lekeler var; tedaviye ihtiyacı açık.",
+      "illustration_tier": "tier2",
+      "illustration_key": "soldier_female_01",
+      "accept": {
+        "defense": 10,
+        "food": -3,
+        "economy": -3
+      },
+      "reject": {
+        "defense": -4
+      },
+      "delayed_effect": {
+        "day": 3,
+        "immunity": -22,
+        "population": -10,
+        "event": "plague"
+      }
+    },
+    {
+      "npc_id": "npc_058",
+      "name": "Volkan Tekin",
+      "role": "Soldier",
+      "hidden_trait": "thief",
+      "dialogue": "Silah depom var; size karşılıksız bırakabilirim, yeter ki güven olsun.",
+      "clue_text": "Silah deposunu sormaya başlayınca konu değiştiriyor; şüpheli bir tutum.",
+      "illustration_tier": "tier2",
+      "illustration_key": "soldier_male_01",
+      "accept": {
+        "defense": 14,
+        "food": -4,
+        "economy": -3
+      },
+      "reject": {
+        "defense": -5
+      },
+      "delayed_effect": {
+        "day": 2,
+        "economy": -14,
+        "food": -6,
+        "event": "theft"
+      }
+    },
+    {
+      "npc_id": "npc_059",
+      "name": "Eda Şahin",
+      "role": "Soldier",
+      "hidden_trait": "none",
+      "dialogue": "Keskin nişancıyım; gece görüşlü tüfeğim var ve iyi kullanırım.",
+      "clue_text": "Silahını ve mermisini özenle taşıyor; gerçek bir nişancı disiplini.",
+      "illustration_tier": "tier2",
+      "illustration_key": "soldier_female_01",
+      "accept": {
+        "defense": 19,
+        "food": -5,
+        "economy": -4
+      },
+      "reject": {
+        "defense": -6
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_060",
+      "name": "Fuat Doğan",
+      "role": "Soldier",
+      "hidden_trait": "none",
+      "dialogue": "Uzun yıllar sınır korumasında görev yaptım; tehlikeyi önceden hissederim.",
+      "clue_text": "Dikkatli ve temkinli; sınır güvenliği konusunda gerçek deneyim taşıyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "soldier_male_01",
+      "accept": {
+        "defense": 16,
+        "food": -5,
+        "economy": -4
+      },
+      "reject": {
+        "defense": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_061",
+      "name": "Melek Avcı",
+      "role": "Soldier",
+      "hidden_trait": "spy",
+      "dialogue": "Size yardım ederim; karşılığında sadece bilgi akışına erişmemi sağlayın.",
+      "clue_text": "Bilgi akışına erişim talebi çok doğrudan; bu bir ajan tutumudur.",
+      "illustration_tier": "tier2",
+      "illustration_key": "soldier_female_01",
+      "accept": {
+        "defense": 13,
+        "food": -3,
+        "economy": -3
+      },
+      "reject": {
+        "defense": -4
+      },
+      "delayed_effect": {
+        "day": 10,
+        "economy": -19,
+        "event": "spy_caught"
+      }
+    },
+    {
+      "npc_id": "npc_062",
+      "name": "Tolga Çetin",
+      "role": "Soldier",
+      "hidden_trait": "liar",
+      "dialogue": "Subay olarak görev yaptım; tüm savunma protokollerini biliyorum.",
+      "clue_text": "Subaylık hiyerarşisi hakkında temel bilgileri eksik; tutarsız anlatı.",
+      "illustration_tier": "tier2",
+      "illustration_key": "soldier_male_01",
+      "accept": {
+        "defense": 20,
+        "food": -5,
+        "economy": -4
+      },
+      "reject": {
+        "defense": -6
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_063",
+      "name": "Pervin Aktaş",
+      "role": "Soldier",
+      "hidden_trait": "none",
+      "dialogue": "Gerilla savaşı taktiklerini bilirim; az kişiyle çok etkili savunma kurarım.",
+      "clue_text": "Arazi kullanımı ve pusu teknikleri konusunda gerçekten bilgili.",
+      "illustration_tier": "tier2",
+      "illustration_key": "soldier_female_01",
+      "accept": {
+        "defense": 17,
+        "food": -4,
+        "economy": -3
+      },
+      "reject": {
+        "defense": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_064",
+      "name": "Gökhan Yıldız",
+      "role": "Soldier",
+      "hidden_trait": "none",
+      "dialogue": "Patlayıcı imha uzmanıyım; tehlikeli bölgeleri güvenli hale getiririm.",
+      "clue_text": "Patlayıcı işaret ve uyarılarını anında tanıyor; uzmanlığı gerçek.",
+      "illustration_tier": "tier2",
+      "illustration_key": "soldier_male_01",
+      "accept": {
+        "defense": 18,
+        "food": -5,
+        "economy": -4
+      },
+      "reject": {
+        "defense": -6
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_065",
+      "name": "Derya Keskin",
+      "role": "Soldier",
+      "hidden_trait": "infected",
+      "dialogue": "Savaşmak istiyorum ama vücudum çok yorgun; bir süre dinlenebilirsem iyileşirim.",
+      "clue_text": "Kas güçsüzlüğü ve düşük ateş; bu kombinasyon erken enfeksiyon belirtisi.",
+      "illustration_tier": "tier2",
+      "illustration_key": "soldier_female_01",
+      "accept": {
+        "defense": 9,
+        "food": -3,
+        "economy": -3
+      },
+      "reject": {
+        "defense": -4
+      },
+      "delayed_effect": {
+        "day": 5,
+        "immunity": -18,
+        "population": -8,
+        "event": "plague"
+      }
+    },
+    {
+      "npc_id": "npc_066",
+      "name": "Rıfat Duman",
+      "role": "Soldier",
+      "hidden_trait": "none",
+      "dialogue": "Tank ve zırhlı araç operatörüyüm; mekanik savunma kurulumunu da bilirim.",
+      "clue_text": "Mekanik sistemler hakkında detaylı bilgisi var; gerçek bir teknik asker.",
+      "illustration_tier": "tier2",
+      "illustration_key": "soldier_male_01",
+      "accept": {
+        "defense": 15,
+        "food": -4,
+        "economy": -3
+      },
+      "reject": {
+        "defense": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_067",
+      "name": "Aylin Başaran",
+      "role": "Soldier",
+      "hidden_trait": "thief",
+      "dialogue": "Silah bakım uzmanıyım; tüm silahlarınızı onarır ve güçlendiririm.",
+      "clue_text": "Silah parçalarına çok ilgiyle bakıyor; tamire değil, almaya çalışıyor gibi.",
+      "illustration_tier": "tier2",
+      "illustration_key": "soldier_female_01",
+      "accept": {
+        "defense": 13,
+        "food": -3,
+        "economy": -3
+      },
+      "reject": {
+        "defense": -4
+      },
+      "delayed_effect": {
+        "day": 3,
+        "economy": -16,
+        "food": -7,
+        "event": "theft"
+      }
+    },
+    {
+      "npc_id": "npc_068",
+      "name": "Celal Özer",
+      "role": "Soldier",
+      "hidden_trait": "none",
+      "dialogue": "Onlarca yıl güvenlik danışmanlığı yaptım; riski önceden görebilirim.",
+      "clue_text": "Risk değerlendirme konuşması gerçekten etkileyici; deneyimi yüzünden okunuyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "soldier_male_01",
+      "accept": {
+        "defense": 14,
+        "food": -3,
+        "economy": -3
+      },
+      "reject": {
+        "defense": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_069",
+      "name": "Beril Aslan",
+      "role": "Soldier",
+      "hidden_trait": "liar",
+      "dialogue": "Uluslararası barış gücünde görev yaptım; bölge bölge tüm haritaları biliyorum.",
+      "clue_text": "Bahsettiği bölgelerde bulunmamış gibi görünüyor; haritaları yanlış çiziyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "soldier_female_01",
+      "accept": {
+        "defense": 19,
+        "food": -5,
+        "economy": -4
+      },
+      "reject": {
+        "defense": -6
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_070",
+      "name": "Nihat Kılıç",
+      "role": "Soldier",
+      "hidden_trait": "spy",
+      "dialogue": "Birlikte daha güçlüyüz; ama ben zaman zaman istihbarat toplama görevine çıkacağım.",
+      "clue_text": "İstihbarat görevleri için sık sık ayrılacak olması şüphe uyandırıyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "soldier_male_01",
+      "accept": {
+        "defense": 12,
+        "food": -3,
+        "economy": -3
+      },
+      "reject": {
+        "defense": -4
+      },
+      "delayed_effect": {
+        "day": 8,
+        "economy": -20,
+        "event": "spy_caught"
+      }
+    },
+    {
+      "npc_id": "npc_071",
+      "name": "Gülay Çakır",
+      "role": "Soldier",
+      "hidden_trait": "none",
+      "dialogue": "Halkı korumak için yemin ettim; o yemini hâlâ taşıyorum.",
+      "clue_text": "Samimiyeti ve kararlılığı tartışmasız; topluluğa gerçekten bağlı biri.",
+      "illustration_tier": "tier2",
+      "illustration_key": "soldier_female_01",
+      "accept": {
+        "defense": 17,
+        "food": -5,
+        "economy": -4
+      },
+      "reject": {
+        "defense": -6
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_072",
+      "name": "Suat Turan",
+      "role": "Soldier",
+      "hidden_trait": "none",
+      "dialogue": "Şehir savaşı taktiklerinde uzmanlaştım; bu ortamda çok işe yararım.",
+      "clue_text": "Sokak ve bina güvenliği hakkında bilgisi gerçekten derinlemesine.",
+      "illustration_tier": "tier2",
+      "illustration_key": "soldier_male_01",
+      "accept": {
+        "defense": 16,
+        "food": -4,
+        "economy": -3
+      },
+      "reject": {
+        "defense": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_073",
+      "name": "Nazan Korkmaz",
+      "role": "Soldier",
+      "hidden_trait": "infected",
+      "dialogue": "Korkmuyorum; sadece biraz hasta gibiyim, ama savaşabilirim.",
+      "clue_text": "Konuşurken öksürüyor ve rengi soluk; savaşmak bir yana, tedaviye ihtiyacı var.",
+      "illustration_tier": "tier2",
+      "illustration_key": "soldier_female_01",
+      "accept": {
+        "defense": 8,
+        "food": -2,
+        "economy": -3
+      },
+      "reject": {
+        "defense": -3
+      },
+      "delayed_effect": {
+        "day": 4,
+        "immunity": -25,
+        "population": -11,
+        "event": "plague"
+      }
+    },
+    {
+      "npc_id": "npc_074",
+      "name": "Hakan Özdemir",
+      "role": "Soldier",
+      "hidden_trait": "none",
+      "dialogue": "Savaşı iyi bilirim; ama daha önemlisi, nasıl hayatta kalınacağını bilirim.",
+      "clue_text": "Pragmatik ve deneyimli; savaştan çok hayatta kalma odaklı düşünüyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "soldier_male_01",
+      "accept": {
+        "defense": 15,
+        "food": -4,
+        "economy": -3
+      },
+      "reject": {
+        "defense": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_075",
+      "name": "Zeynep Karataş",
+      "role": "Soldier",
+      "hidden_trait": "liar",
+      "dialogue": "NATO tatbikatlarında yer aldım; uluslararası savunma standartlarını biliyorum.",
+      "clue_text": "NATO prosedürleri hakkında temel bilgisi yok; iddiası doğrulanamıyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "soldier_female_01",
+      "accept": {
+        "defense": 21,
+        "food": -5,
+        "economy": -4
+      },
+      "reject": {
+        "defense": -6
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_076",
+      "name": "Papaz John ve Cemaati",
+      "role": "Trader",
+      "hidden_trait": "none",
+      "dialogue": "İnancımız bizi bir arada tutuyor; ticaret yaparak toplumu besleriz.",
+      "clue_text": "Cemaati gerçekten bağlı ve organize; ticaret ağları sağlam görünüyor.",
+      "illustration_tier": "tier1",
+      "illustration_key": "pastor_john_crowd",
+      "accept": {
+        "economy": 18,
+        "food": -4
+      },
+      "reject": {
+        "economy": -6
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_077",
+      "name": "Fuat Sarraf",
+      "role": "Trader",
+      "hidden_trait": "thief",
+      "dialogue": "Bölgenin en büyük ticaret ağını kurdum; sizin için en iyi fırsatları getiririm.",
+      "clue_text": "Ticaret şartlarını konuşurken çok avantajlı bir pozisyon için bastırıyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "trader_male_01",
+      "accept": {
+        "economy": 14,
+        "food": -4
+      },
+      "reject": {
+        "economy": -5
+      },
+      "delayed_effect": {
+        "day": 3,
+        "economy": -18,
+        "food": -6,
+        "event": "theft"
+      }
+    },
+    {
+      "npc_id": "npc_078",
+      "name": "Dilara Özcan",
+      "role": "Trader",
+      "hidden_trait": "none",
+      "dialogue": "Piyasayı okumayı bilirim; neyin değerli olduğunu ve nerede bulunacağını bilirim.",
+      "clue_text": "Gözlemci ve analitik; piyasa hareketlerini gerçekten iyi değerlendiriyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "trader_female_01",
+      "accept": {
+        "economy": 16,
+        "food": -3
+      },
+      "reject": {
+        "economy": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_079",
+      "name": "Cemil Akyüz",
+      "role": "Trader",
+      "hidden_trait": "liar",
+      "dialogue": "Altın ve değerli taşları takas edebilirim; servetim kurtarıcı olacak.",
+      "clue_text": "Değerli taşlar hakkında temel bilgisi yok; gösterdiği şeyler sahte görünüyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "trader_male_01",
+      "accept": {
+        "economy": 22,
+        "food": -4
+      },
+      "reject": {
+        "economy": -6
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_080",
+      "name": "Hacer Uysal",
+      "role": "Trader",
+      "hidden_trait": "none",
+      "dialogue": "Tekstil ve giyim ticareti yapıyorum; insanların giymediği şeyleri görmemek zor.",
+      "clue_text": "Takas için getirdiği giysiler gerçek ve kullanılabilir; ciddi bir tüccar.",
+      "illustration_tier": "tier2",
+      "illustration_key": "trader_female_01",
+      "accept": {
+        "economy": 15,
+        "food": -3
+      },
+      "reject": {
+        "economy": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_081",
+      "name": "Ertuğrul Demir",
+      "role": "Trader",
+      "hidden_trait": "spy",
+      "dialogue": "Ticaret rotalarımı paylaşabilirim; karşılığında sizin kaynaklarınızı görmeliyim.",
+      "clue_text": "Kaynak bilgisine odaklanıyor; ticari kaygıdan çok istihbarat peşinde.",
+      "illustration_tier": "tier2",
+      "illustration_key": "trader_male_01",
+      "accept": {
+        "economy": 13,
+        "food": -3
+      },
+      "reject": {
+        "economy": -4
+      },
+      "delayed_effect": {
+        "day": 9,
+        "economy": -21,
+        "event": "spy_caught"
+      }
+    },
+    {
+      "npc_id": "npc_082",
+      "name": "Sevgi Akar",
+      "role": "Trader",
+      "hidden_trait": "none",
+      "dialogue": "İlaç ve medikal malzeme ticareti yapıyorum; stokum var.",
+      "clue_text": "Gösterdiği medikal malzemeler gerçek ve çeşitli; güvenilir bir kaynak.",
+      "illustration_tier": "tier2",
+      "illustration_key": "trader_female_01",
+      "accept": {
+        "economy": 17,
+        "food": -3
+      },
+      "reject": {
+        "economy": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_083",
+      "name": "Necmi Parlak",
+      "role": "Trader",
+      "hidden_trait": "infected",
+      "dialogue": "Mallarım sizin işinize yarar; sadece pazarınıza girmeme izin verin.",
+      "clue_text": "Mallarını sergilerken öksürüyor; mallara temas etmiş olması endişe verici.",
+      "illustration_tier": "tier2",
+      "illustration_key": "trader_male_01",
+      "accept": {
+        "economy": 11,
+        "food": -3
+      },
+      "reject": {
+        "economy": -4
+      },
+      "delayed_effect": {
+        "day": 4,
+        "immunity": -15,
+        "population": -6,
+        "event": "plague"
+      }
+    },
+    {
+      "npc_id": "npc_084",
+      "name": "Nazlı Erdal",
+      "role": "Trader",
+      "hidden_trait": "none",
+      "dialogue": "Komşu gruplarla çoktan anlaştım; size de aracılık edebilirim.",
+      "clue_text": "Gerçekten birkaç grubu tanıyor; ilişkileri ve bağlantıları somut görünüyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "trader_female_01",
+      "accept": {
+        "economy": 19,
+        "food": -4
+      },
+      "reject": {
+        "economy": -6
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_085",
+      "name": "Bahadır Uygun",
+      "role": "Trader",
+      "hidden_trait": "liar",
+      "dialogue": "Komşu bölgede büyük bir depo var; sizi oraya götürebilirim.",
+      "clue_text": "Deponun yerini sorulunca her seferinde farklı bir yön gösteriyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "trader_male_01",
+      "accept": {
+        "economy": 24,
+        "food": -5
+      },
+      "reject": {
+        "economy": -7
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_086",
+      "name": "Tuba Öztaş",
+      "role": "Trader",
+      "hidden_trait": "thief",
+      "dialogue": "Tüm bu bölgenin takas ekonomisini yönetirim; size en iyi anlaşmaları yaparım.",
+      "clue_text": "Anlaşmaları her zaman kendi lehine döndürüyor; kazancı diğerlerinin kaybı.",
+      "illustration_tier": "tier2",
+      "illustration_key": "trader_female_01",
+      "accept": {
+        "economy": 12,
+        "food": -3
+      },
+      "reject": {
+        "economy": -4
+      },
+      "delayed_effect": {
+        "day": 2,
+        "economy": -13,
+        "food": -5,
+        "event": "theft"
+      }
+    },
+    {
+      "npc_id": "npc_087",
+      "name": "Sami Güngör",
+      "role": "Trader",
+      "hidden_trait": "none",
+      "dialogue": "Akaryakıt ve enerji kaynakları konusunda bağlantılarım var.",
+      "clue_text": "Gösterdiği akaryakıt kontakları gerçek; nadir ve değerli bir kaynak.",
+      "illustration_tier": "tier2",
+      "illustration_key": "trader_male_01",
+      "accept": {
+        "economy": 20,
+        "food": -4
+      },
+      "reject": {
+        "economy": -6
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_088",
+      "name": "Ayten Bulut",
+      "role": "Trader",
+      "hidden_trait": "none",
+      "dialogue": "El sanatları ve takas maddesi üretirim; ekonomiyi canlı tutarım.",
+      "clue_text": "Yanında getirdiği el ürünleri kaliteli; gerçek bir zanaatkâr.",
+      "illustration_tier": "tier2",
+      "illustration_key": "trader_female_01",
+      "accept": {
+        "economy": 14,
+        "food": -3
+      },
+      "reject": {
+        "economy": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_089",
+      "name": "Erdal Keskin",
+      "role": "Trader",
+      "hidden_trait": "protector",
+      "dialogue": "Kâr etmekten değil, herkese ulaşmaktan zevk alıyorum; adil ticaret yaparım.",
+      "clue_text": "Kendi mallarını zaten paylaşmaya başlamış; gerçekten cömert bir tüccar.",
+      "illustration_tier": "tier2",
+      "illustration_key": "trader_male_01",
+      "accept": {
+        "economy": 23,
+        "food": -4
+      },
+      "reject": {
+        "economy": -6
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_090",
+      "name": "Nur Tekin",
+      "role": "Trader",
+      "hidden_trait": "spy",
+      "dialogue": "Ticaret bilgilerimle sizin pazarınızı büyütürüm; ama bilgi almam da lazım.",
+      "clue_text": "Bilgi alışverişinde ısrar ediyor; bu talebi ticari değil, istihbarat amaçlı.",
+      "illustration_tier": "tier2",
+      "illustration_key": "trader_female_01",
+      "accept": {
+        "economy": 12,
+        "food": -3
+      },
+      "reject": {
+        "economy": -4
+      },
+      "delayed_effect": {
+        "day": 11,
+        "economy": -23,
+        "event": "spy_caught"
+      }
+    },
+    {
+      "npc_id": "npc_091",
+      "name": "Ferit Aksoy",
+      "role": "Trader",
+      "hidden_trait": "none",
+      "dialogue": "Elektronik ve batarya ticareti yapıyorum; iletişim ekipmanlarım var.",
+      "clue_text": "Gösterdiği elektronik parçalar gerçek ve çalışır durumda.",
+      "illustration_tier": "tier2",
+      "illustration_key": "trader_male_01",
+      "accept": {
+        "economy": 16,
+        "food": -3
+      },
+      "reject": {
+        "economy": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_092",
+      "name": "Belgin Yurt",
+      "role": "Trader",
+      "hidden_trait": "infected",
+      "dialogue": "Taze mallarım var; ama uzun yoldan geldiğim için biraz yoruldum.",
+      "clue_text": "Yolculuktan gelmesine rağmen malları beklenenden çok daha az; bir şeyler eksik.",
+      "illustration_tier": "tier2",
+      "illustration_key": "trader_female_01",
+      "accept": {
+        "economy": 10,
+        "food": -3
+      },
+      "reject": {
+        "economy": -4
+      },
+      "delayed_effect": {
+        "day": 5,
+        "immunity": -17,
+        "population": -7,
+        "event": "plague"
+      }
+    },
+    {
+      "npc_id": "npc_093",
+      "name": "Mustafa Pala",
+      "role": "Trader",
+      "hidden_trait": "liar",
+      "dialogue": "Birden fazla yerleşim yeriyle anlaşmam var; sizin için de yapabilirim.",
+      "clue_text": "Söylediği yerleşim yerleri konuşulunca hiçbirini ayrıntılı tanımıyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "trader_male_01",
+      "accept": {
+        "economy": 21,
+        "food": -4
+      },
+      "reject": {
+        "economy": -6
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_094",
+      "name": "Yeliz Çoban",
+      "role": "Trader",
+      "hidden_trait": "none",
+      "dialogue": "Tıbbi malzeme ve gıda takas edebilirim; iyi ilişkilerle her ikisi de mümkün.",
+      "clue_text": "Çift taraflı ticaret anlayışı pratik; kazan-kazan yaklaşımı güven verici.",
+      "illustration_tier": "tier2",
+      "illustration_key": "trader_female_01",
+      "accept": {
+        "economy": 15,
+        "food": -3
+      },
+      "reject": {
+        "economy": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_095",
+      "name": "Özgür Kaya",
+      "role": "Trader",
+      "hidden_trait": "thief",
+      "dialogue": "Tüm ticaret yollarını biliyorum; sizin için en kısa sürede mal getiririm.",
+      "clue_text": "Ticaret yollarını biliyor ama bunları başka amaçlarla kullandığı seziliyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "trader_male_01",
+      "accept": {
+        "economy": 13,
+        "food": -3
+      },
+      "reject": {
+        "economy": -4
+      },
+      "delayed_effect": {
+        "day": 3,
+        "economy": -15,
+        "food": -8,
+        "event": "theft"
+      }
+    },
+    {
+      "npc_id": "npc_096",
+      "name": "Selin Demirbaş",
+      "role": "Trader",
+      "hidden_trait": "none",
+      "dialogue": "Tohum ve tarım malzemesi ticareti yapıyorum; uzun vadeli yatırım bu.",
+      "clue_text": "Tohum çeşitliliği gerçekten geniş; uzun vadeli düşünen bir tüccar.",
+      "illustration_tier": "tier2",
+      "illustration_key": "trader_female_01",
+      "accept": {
+        "economy": 18,
+        "food": -4
+      },
+      "reject": {
+        "economy": -6
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_097",
+      "name": "Burhan Çiçek",
+      "role": "Trader",
+      "hidden_trait": "none",
+      "dialogue": "Su arıtma ekipmanı getirdim; temiz su en değerli ticaret malı.",
+      "clue_text": "Su arıtma bilgisi gerçek; getirdiği ekipman çalışır durumda.",
+      "illustration_tier": "tier2",
+      "illustration_key": "trader_male_01",
+      "accept": {
+        "economy": 19,
+        "food": -4
+      },
+      "reject": {
+        "economy": -6
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_098",
+      "name": "Gizem Altun",
+      "role": "Trader",
+      "hidden_trait": "liar",
+      "dialogue": "Silah ve mühimmat ticareti yapıyorum; büyük stokum var.",
+      "clue_text": "Silah konusunda temel bilgisi yok; bu iddia çok tehlikeli ve şüpheli.",
+      "illustration_tier": "tier2",
+      "illustration_key": "trader_female_01",
+      "accept": {
+        "economy": 23,
+        "food": -5
+      },
+      "reject": {
+        "economy": -7
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_099",
+      "name": "Yusuf Polat",
+      "role": "Trader",
+      "hidden_trait": "none",
+      "dialogue": "İletişim cihazları ve harita ticareti yapıyorum; bilgi en değerli meta.",
+      "clue_text": "Bölge haritaları gerçekten detaylı; gerçek bir bilgi tüccarı.",
+      "illustration_tier": "tier2",
+      "illustration_key": "trader_male_01",
+      "accept": {
+        "economy": 17,
+        "food": -3
+      },
+      "reject": {
+        "economy": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_100",
+      "name": "Hande Yılmaz",
+      "role": "Trader",
+      "hidden_trait": "spy",
+      "dialogue": "Size bölge haberlerini de aktarırım; bilgi akışı ticaret kadar önemli.",
+      "clue_text": "Haber akışı konusundaki aşırı hevesi, ticari kaygıdan değil başka amaçlardan.",
+      "illustration_tier": "tier2",
+      "illustration_key": "trader_female_01",
+      "accept": {
+        "economy": 13,
+        "food": -3
+      },
+      "reject": {
+        "economy": -4
+      },
+      "delayed_effect": {
+        "day": 10,
+        "economy": -22,
+        "event": "spy_caught"
+      }
+    },
+    {
+      "npc_id": "npc_101",
+      "name": "Gizmo",
+      "role": "Engineer",
+      "hidden_trait": "none",
+      "dialogue": "Bu çöpten bir güç jeneratörü yapabilirim; dünyayı kurtarmak güzel olmaz mıydı?",
+      "clue_text": "Atölye çantası inanılmaz derecede düzenli; her aletin yeri belirlenmiş.",
+      "illustration_tier": "tier1",
+      "illustration_key": "gizmo",
+      "accept": {
+        "defense": 14,
+        "economy": 10,
+        "food": -4
+      },
+      "reject": {
+        "economy": -4
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_102",
+      "name": "Kim Ji-young",
+      "role": "Engineer",
+      "hidden_trait": "none",
+      "dialogue": "On dört yaşındayım ama elektrik mühendisliği alanında üniversite düzeyinde bilgim var.",
+      "clue_text": "Küçük bir devre kartını saniyeler içinde çözdü; dahiyane bir zeka.",
+      "illustration_tier": "tier1",
+      "illustration_key": "kim_prodigy",
+      "accept": {
+        "defense": 12,
+        "economy": 12,
+        "food": -3
+      },
+      "reject": {
+        "economy": -4
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_103",
+      "name": "Tarkan Bilgin",
+      "role": "Engineer",
+      "hidden_trait": "none",
+      "dialogue": "İnşaat mühendisiyim; savunma duvarları ve sığınak inşa ederim.",
+      "clue_text": "Yapı statik hesaplarını zihninden yapıyor; gerçek bir inşaat uzmanı.",
+      "illustration_tier": "tier2",
+      "illustration_key": "engineer_male_01",
+      "accept": {
+        "defense": 15,
+        "economy": 8,
+        "food": -4
+      },
+      "reject": {
+        "economy": -4
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_104",
+      "name": "Ayla Kesen",
+      "role": "Engineer",
+      "hidden_trait": "liar",
+      "dialogue": "Nükleer mühendisim; reaktör bilgimle sonsuz enerji sağlarım.",
+      "clue_text": "Nükleer fizik hakkında temel sorulara cevap veremiyor; iddiaları şüpheli.",
+      "illustration_tier": "tier2",
+      "illustration_key": "engineer_female_01",
+      "accept": {
+        "defense": 19,
+        "economy": 14,
+        "food": -6
+      },
+      "reject": {
+        "economy": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_105",
+      "name": "Serkan Boztaş",
+      "role": "Engineer",
+      "hidden_trait": "none",
+      "dialogue": "Yazılım ve donanım mühendisiyim; eski cihazları yeniden çalıştırabilirim.",
+      "clue_text": "Elindeki bozuk radyoyu kısa sürede tamir etti; uzmanlığı gerçek.",
+      "illustration_tier": "tier2",
+      "illustration_key": "engineer_male_01",
+      "accept": {
+        "defense": 10,
+        "economy": 12,
+        "food": -3
+      },
+      "reject": {
+        "economy": -4
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_106",
+      "name": "Burcu Sönmez",
+      "role": "Engineer",
+      "hidden_trait": "infected",
+      "dialogue": "Sistemleri kurabilirim; ama şu an biraz yoruldum, birkaç güne iyileşirim.",
+      "clue_text": "Avuç içlerinde kızarmış lekeler var; bu belirtiler tanıdık geliyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "engineer_female_01",
+      "accept": {
+        "defense": 9,
+        "economy": 8,
+        "food": -2
+      },
+      "reject": {
+        "economy": -3
+      },
+      "delayed_effect": {
+        "day": 4,
+        "immunity": -20,
+        "population": -9,
+        "event": "plague"
+      }
+    },
+    {
+      "npc_id": "npc_107",
+      "name": "Mert Karaman",
+      "role": "Engineer",
+      "hidden_trait": "none",
+      "dialogue": "Savunma sistemleri tasarımı konusunda deneyimliyim; tuzaklar ve alarmlar kurarım.",
+      "clue_text": "Tuzak mekanizmaları hakkında detaylı bilgi veriyor; bu iş ona göre.",
+      "illustration_tier": "tier2",
+      "illustration_key": "engineer_male_01",
+      "accept": {
+        "defense": 16,
+        "economy": 9,
+        "food": -4
+      },
+      "reject": {
+        "economy": -4
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_108",
+      "name": "Seda Kırmızı",
+      "role": "Engineer",
+      "hidden_trait": "spy",
+      "dialogue": "Elektrik ağı kurulumu yapabilirim; sisteminizi incelemem gerekiyor tabii.",
+      "clue_text": "Sistem incelemesi talebinde çok ısrarcı; altyapıyı haritalamak istiyor gibi.",
+      "illustration_tier": "tier2",
+      "illustration_key": "engineer_female_01",
+      "accept": {
+        "defense": 11,
+        "economy": 9,
+        "food": -3
+      },
+      "reject": {
+        "economy": -3
+      },
+      "delayed_effect": {
+        "day": 9,
+        "economy": -19,
+        "event": "spy_caught"
+      }
+    },
+    {
+      "npc_id": "npc_109",
+      "name": "Cem Altıntaş",
+      "role": "Engineer",
+      "hidden_trait": "thief",
+      "dialogue": "Ekipmanlarım var; sizin depolarınızla birleştirirsek çok daha güçlü oluruz.",
+      "clue_text": "Depolarınıza erişimi tartışırken gözleri parlıyor; ihtiyatlı olmak gerekir.",
+      "illustration_tier": "tier2",
+      "illustration_key": "engineer_male_01",
+      "accept": {
+        "defense": 10,
+        "economy": 8,
+        "food": -2
+      },
+      "reject": {
+        "economy": -3
+      },
+      "delayed_effect": {
+        "day": 2,
+        "economy": -12,
+        "food": -5,
+        "event": "theft"
+      }
+    },
+    {
+      "npc_id": "npc_110",
+      "name": "Özge Fidan",
+      "role": "Engineer",
+      "hidden_trait": "none",
+      "dialogue": "Su arıtma mühendisiyim; temiz su temini konusunda uzmanım.",
+      "clue_text": "Su kalitesi testleri için gerçek ekipman taşıyor; uzmanlığı doğrulanabilir.",
+      "illustration_tier": "tier2",
+      "illustration_key": "engineer_female_01",
+      "accept": {
+        "defense": 8,
+        "economy": 11,
+        "food": -3
+      },
+      "reject": {
+        "economy": -4
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_111",
+      "name": "Kaan Erdem",
+      "role": "Engineer",
+      "hidden_trait": "liar",
+      "dialogue": "Roket mühendisliği bilgimle savunma sistemleri yaparım; hayal değil gerçek.",
+      "clue_text": "Roket dinamiği hakkında soru sorulunca konuyu değiştiriyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "engineer_male_01",
+      "accept": {
+        "defense": 22,
+        "economy": 15,
+        "food": -6
+      },
+      "reject": {
+        "economy": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_112",
+      "name": "Pınar Aksoy",
+      "role": "Engineer",
+      "hidden_trait": "protector",
+      "dialogue": "Güneş enerjisi sistemleri kuruyorum; toplumu uzun vadede besleyecek enerji sağlarım.",
+      "clue_text": "Güneş paneli hesaplarını hızlıca yapıyor; gerçekten iyi niyetli ve yetenekli.",
+      "illustration_tier": "tier2",
+      "illustration_key": "engineer_female_01",
+      "accept": {
+        "defense": 14,
+        "economy": 15,
+        "food": -4
+      },
+      "reject": {
+        "economy": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_113",
+      "name": "Volkan Çınar",
+      "role": "Engineer",
+      "hidden_trait": "none",
+      "dialogue": "Makine mühendisliği bilgimle üretim tesisi kurabiliriz; bağımsız oluruz.",
+      "clue_text": "Üretim süreci hakkında gerçekten ayrıntılı ve pratik bir bilgisi var.",
+      "illustration_tier": "tier2",
+      "illustration_key": "engineer_male_01",
+      "accept": {
+        "defense": 12,
+        "economy": 13,
+        "food": -4
+      },
+      "reject": {
+        "economy": -4
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_114",
+      "name": "Nesrin Kaplan",
+      "role": "Engineer",
+      "hidden_trait": "none",
+      "dialogue": "Kimya mühendisiyim; hem yakıt hem deterjan üretimi yapabilirim.",
+      "clue_text": "Kimyasal reaksiyonları güvenli şekilde yönetiyor; bilgisi gerçek.",
+      "illustration_tier": "tier2",
+      "illustration_key": "engineer_female_01",
+      "accept": {
+        "defense": 9,
+        "economy": 11,
+        "food": -3
+      },
+      "reject": {
+        "economy": -4
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_115",
+      "name": "Barbaros Yıldız",
+      "role": "Engineer",
+      "hidden_trait": "infected",
+      "dialogue": "Sizi besleyen sistemler kurabilirim; sadece bana bir şans verin.",
+      "clue_text": "Konuşurken eli titriyor ve yüzü solgun; fiziksel durumu endişe verici.",
+      "illustration_tier": "tier2",
+      "illustration_key": "engineer_male_01",
+      "accept": {
+        "defense": 8,
+        "economy": 7,
+        "food": -2
+      },
+      "reject": {
+        "economy": -3
+      },
+      "delayed_effect": {
+        "day": 5,
+        "immunity": -16,
+        "population": -7,
+        "event": "plague"
+      }
+    },
+    {
+      "npc_id": "npc_116",
+      "name": "Işıl Keskin",
+      "role": "Engineer",
+      "hidden_trait": "none",
+      "dialogue": "Medikal cihaz mühendisiyim; tıbbi ekipmanları tamir ve üretebilirim.",
+      "clue_text": "Medikal cihaz bakımı konusunda gerçek ve pratik bilgi taşıyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "engineer_female_01",
+      "accept": {
+        "defense": 8,
+        "economy": 12,
+        "food": -3
+      },
+      "reject": {
+        "economy": -4
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_117",
+      "name": "Altan Mercan",
+      "role": "Engineer",
+      "hidden_trait": "liar",
+      "dialogue": "Yapay zeka ve otomasyon sistemleri kuruyorum; her şeyi otomatikleştiririm.",
+      "clue_text": "Yapay zeka terminolojisi yanlış kullanıyor; gerçek bilgisi sınırlı.",
+      "illustration_tier": "tier2",
+      "illustration_key": "engineer_male_01",
+      "accept": {
+        "defense": 18,
+        "economy": 16,
+        "food": -6
+      },
+      "reject": {
+        "economy": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_118",
+      "name": "Cansu Özer",
+      "role": "Engineer",
+      "hidden_trait": "none",
+      "dialogue": "Biyomedikal mühendislik bilgimle protez ve tıbbi yardımcı cihaz üretebilirim.",
+      "clue_text": "Protez tasarımı hakkında ayrıntılı ve etkileyici bir bilgi sunuyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "engineer_female_01",
+      "accept": {
+        "defense": 7,
+        "economy": 10,
+        "food": -2
+      },
+      "reject": {
+        "economy": -3
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_119",
+      "name": "Emrah Sağlam",
+      "role": "Engineer",
+      "hidden_trait": "spy",
+      "dialogue": "Ağ ve iletişim sistemleri kuruyorum; tüm haberleşmenizi organize ederim.",
+      "clue_text": "İletişim ağına erişimi çok önemsiyor; sisteme sızmak istiyor gibi.",
+      "illustration_tier": "tier2",
+      "illustration_key": "engineer_male_01",
+      "accept": {
+        "defense": 10,
+        "economy": 9,
+        "food": -2
+      },
+      "reject": {
+        "economy": -3
+      },
+      "delayed_effect": {
+        "day": 10,
+        "economy": -20,
+        "event": "spy_caught"
+      }
+    },
+    {
+      "npc_id": "npc_120",
+      "name": "Tuba Avcı",
+      "role": "Engineer",
+      "hidden_trait": "thief",
+      "dialogue": "Elektronik parça stoğum var; sizin deponuzla birleştirirsek muazzam olur.",
+      "clue_text": "Depo birleştirme ısrarı naif görünüyor ama amaç farklı olabilir.",
+      "illustration_tier": "tier2",
+      "illustration_key": "engineer_female_01",
+      "accept": {
+        "defense": 9,
+        "economy": 8,
+        "food": -2
+      },
+      "reject": {
+        "economy": -3
+      },
+      "delayed_effect": {
+        "day": 3,
+        "economy": -13,
+        "food": -5,
+        "event": "theft"
+      }
+    },
+    {
+      "npc_id": "npc_121",
+      "name": "Cengiz Bayrak",
+      "role": "Engineer",
+      "hidden_trait": "none",
+      "dialogue": "Jeoteknik mühendisliği bilgimle güvenli zemin ve tünel sistemleri kurarım.",
+      "clue_text": "Zemin analizi yapıyor; kaçış tüneli için gerçekten değerli bir uzmanlık.",
+      "illustration_tier": "tier2",
+      "illustration_key": "engineer_male_01",
+      "accept": {
+        "defense": 13,
+        "economy": 10,
+        "food": -3
+      },
+      "reject": {
+        "economy": -4
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_122",
+      "name": "Sevda Uçar",
+      "role": "Engineer",
+      "hidden_trait": "none",
+      "dialogue": "Tekstil mühendisliği bilgimle koruyucu giysiler üretebilirim.",
+      "clue_text": "Kumaş ve malzeme bilgisi gerçek; koruyucu ekipman üretimi mümkün görünüyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "engineer_female_01",
+      "accept": {
+        "defense": 11,
+        "economy": 9,
+        "food": -2
+      },
+      "reject": {
+        "economy": -3
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_123",
+      "name": "Sinan Öztürk",
+      "role": "Engineer",
+      "hidden_trait": "none",
+      "dialogue": "Endüstriyel atık yönetimi konusunda uzmanım; çevreyi temiz tutarım.",
+      "clue_text": "Atık yönetimi planı yapıyor; hijyen ve çevre güvenliği için gerçekten önemli.",
+      "illustration_tier": "tier2",
+      "illustration_key": "engineer_male_01",
+      "accept": {
+        "defense": 8,
+        "economy": 10,
+        "food": -3
+      },
+      "reject": {
+        "economy": -3
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_124",
+      "name": "Gamze Yıldırım",
+      "role": "Engineer",
+      "hidden_trait": "liar",
+      "dialogue": "Biyomühendislik ve genetik alanında araştırmalar yaptım; hastalıkları çözebilirim.",
+      "clue_text": "Genetik bilgisi için çok temel sorular soruyor; iddiası abartılı.",
+      "illustration_tier": "tier2",
+      "illustration_key": "engineer_female_01",
+      "accept": {
+        "defense": 14,
+        "economy": 13,
+        "food": -4
+      },
+      "reject": {
+        "economy": -5
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_125",
+      "name": "Tolga Başaran",
+      "role": "Engineer",
+      "hidden_trait": "infected",
+      "dialogue": "Jeneratör ve güç sistemleri konusunda uzmanım; sadece bir mola lazım.",
+      "clue_text": "Mola isteğinin arkasında sadece yorgunluk değil, hastalık olduğu seziliyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "engineer_male_01",
+      "accept": {
+        "defense": 8,
+        "economy": 7,
+        "food": -2
+      },
+      "reject": {
+        "economy": -3
+      },
+      "delayed_effect": {
+        "day": 3,
+        "immunity": -22,
+        "population": -10,
+        "event": "plague"
+      }
+    },
+    {
+      "npc_id": "npc_126",
+      "name": "Melis Çetin",
+      "role": "Engineer",
+      "hidden_trait": "none",
+      "dialogue": "Mimarlık ve kentsel planlama bilgimle güvenli yaşam alanları tasarlarım.",
+      "clue_text": "Savunma mimarisi için hızlıca eskizler çiziyor; gerçek bir tasarımcı.",
+      "illustration_tier": "tier2",
+      "illustration_key": "engineer_female_01",
+      "accept": {
+        "defense": 14,
+        "economy": 8,
+        "food": -3
+      },
+      "reject": {
+        "economy": -3
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_127",
+      "name": "Küçük Mia",
+      "role": "Scavenger",
+      "hidden_trait": "none",
+      "dialogue": "Şehirde her yeri biliyorum; nerede ne olduğunu size gösterebilirim.",
+      "clue_text": "Sekiz yaşında bir çocuk ama şehrin her köşesini gerçekten biliyor.",
+      "illustration_tier": "tier1",
+      "illustration_key": "little_mia",
+      "accept": {
+        "food": 12,
+        "population": 2,
+        "defense": -3
+      },
+      "reject": {
+        "food": -3
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_128",
+      "name": "Terk Edilmiş Bebek",
+      "role": "Scavenger",
+      "hidden_trait": "none",
+      "dialogue": "(Bebek tek başına bulunmuş; konuşamıyor ama bakıma muhtaç.)",
+      "clue_text": "Bebek görünürde sağlıklı ama yalnız; bakımı kaynaklar gerektiriyor.",
+      "illustration_tier": "tier1",
+      "illustration_key": "abandoned_baby",
+      "accept": {
+        "food": 0,
+        "population": 1,
+        "defense": -2
+      },
+      "reject": {
+        "food": -2,
+        "population": -1
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_129",
+      "name": "Çocuk Grubu",
+      "role": "Scavenger",
+      "hidden_trait": "none",
+      "dialogue": "Hepimiz ailelerimizi kaybettik; birlikte daha güçlü olacağız.",
+      "clue_text": "On çocukluk grubun dayanışması gerçekten etkileyici; birbirlerine bakıyorlar.",
+      "illustration_tier": "tier1",
+      "illustration_key": "child_group_10",
+      "accept": {
+        "food": 8,
+        "population": 2,
+        "defense": -4
+      },
+      "reject": {
+        "food": -4,
+        "population": -2
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_130",
+      "name": "Radyoaktif Grup",
+      "role": "Scavenger",
+      "hidden_trait": "infected",
+      "dialogue": "Bizi kabul edin; hâlâ çalışabiliriz ve faydalı olabiliriz.",
+      "clue_text": "Grubun tamamında radyasyon maruziyetinin belirtileri var; tehlikeli olabilirler.",
+      "illustration_tier": "tier1",
+      "illustration_key": "radioactive_group",
+      "accept": {
+        "food": 7,
+        "population": 1,
+        "defense": -5
+      },
+      "reject": {
+        "food": -3
+      },
+      "delayed_effect": {
+        "day": 3,
+        "immunity": -30,
+        "population": -15,
+        "event": "plague"
+      }
+    },
+    {
+      "npc_id": "npc_131",
+      "name": "Zombi Görünümlü Adam",
+      "role": "Scavenger",
+      "hidden_trait": "none",
+      "dialogue": "Biliyorum, görünüşüm korkutucu; ama insan olduğumu, tehlike olmadığımı söylüyorum.",
+      "clue_text": "Görünüşü korkunç ama gözleri bilinçli ve netliğini koruyor.",
+      "illustration_tier": "tier1",
+      "illustration_key": "zombie_like_man",
+      "accept": {
+        "food": 10,
+        "population": 1,
+        "defense": -3
+      },
+      "reject": {
+        "food": -3
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_132",
+      "name": "Joe ve Köpeği",
+      "role": "Scavenger",
+      "hidden_trait": "protector",
+      "dialogue": "Ben ve Rex her yere gideriz; kaşif ve koruyucu olarak hizmetinizdeyiz.",
+      "clue_text": "Adam ve köpek mükemmel bir uyum içinde; güvenilir bir ekip görüntüsü.",
+      "illustration_tier": "tier1",
+      "illustration_key": "joe_and_dog",
+      "accept": {
+        "food": 16,
+        "population": 2,
+        "defense": -2
+      },
+      "reject": {
+        "food": -3
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_133",
+      "name": "Erol Taş",
+      "role": "Scavenger",
+      "hidden_trait": "none",
+      "dialogue": "Enkaz altında ne bulunacağını bilirim; risk alırım ama geri dönerim.",
+      "clue_text": "Üzerindeki yara izleri anlattığı riskleri doğruluyor; deneyimli bir avcı.",
+      "illustration_tier": "tier2",
+      "illustration_key": "scavenger_male_01",
+      "accept": {
+        "food": 13,
+        "population": 1,
+        "defense": -3
+      },
+      "reject": {
+        "food": -3
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_134",
+      "name": "Ayşen Koçak",
+      "role": "Scavenger",
+      "hidden_trait": "liar",
+      "dialogue": "Büyük bir gıda deposu buldum; sizi oraya götürürüm, çok yakın.",
+      "clue_text": "Deponun yeri hakkında verdiği bilgiler her seferinde değişiyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "scavenger_female_01",
+      "accept": {
+        "food": 19,
+        "population": 2,
+        "defense": -4
+      },
+      "reject": {
+        "food": -4
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_135",
+      "name": "Celil Duman",
+      "role": "Scavenger",
+      "hidden_trait": "none",
+      "dialogue": "Harabeyi mesleğim olarak gördüm; neyin değerli neyin zararlı olduğunu bilirim.",
+      "clue_text": "Enkazdan topladığı malzemeler gerçekten kullanışlı; seçici bir göz var.",
+      "illustration_tier": "tier2",
+      "illustration_key": "scavenger_male_01",
+      "accept": {
+        "food": 11,
+        "population": 1,
+        "defense": -3
+      },
+      "reject": {
+        "food": -2
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_136",
+      "name": "Rana Güzel",
+      "role": "Scavenger",
+      "hidden_trait": "thief",
+      "dialogue": "Sizin için depolara sızabilirim; karşılığında bir şey istemiyorum.",
+      "clue_text": "Karşılıksız yardım teklifi çok cömert görünüyor; bu kadar cömertlik şüphe uyandırır.",
+      "illustration_tier": "tier2",
+      "illustration_key": "scavenger_female_01",
+      "accept": {
+        "food": 10,
+        "population": 1,
+        "defense": -3
+      },
+      "reject": {
+        "food": -3
+      },
+      "delayed_effect": {
+        "day": 2,
+        "economy": -10,
+        "food": -6,
+        "event": "theft"
+      }
+    },
+    {
+      "npc_id": "npc_137",
+      "name": "Tahsin Yurt",
+      "role": "Scavenger",
+      "hidden_trait": "none",
+      "dialogue": "Şehrin alt katmanlarını bilirim; sığınak ve geçiş noktalarım var.",
+      "clue_text": "Gerçekten yıllarca yeraltında geçirmiş; bilgisi somut ve güvenilir.",
+      "illustration_tier": "tier2",
+      "illustration_key": "scavenger_male_01",
+      "accept": {
+        "food": 10,
+        "population": 1,
+        "defense": -3
+      },
+      "reject": {
+        "food": -2
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_138",
+      "name": "Sevinç Doğan",
+      "role": "Scavenger",
+      "hidden_trait": "infected",
+      "dialogue": "Harabelerden ilaç ve malzeme toplayabildim; iyi olacağım, merak etmeyin.",
+      "clue_text": "Topladığı ilaçların bir kısmı kendisi için; hastalığını gizlemeye çalışıyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "scavenger_female_01",
+      "accept": {
+        "food": 8,
+        "population": 1,
+        "defense": -3
+      },
+      "reject": {
+        "food": -2
+      },
+      "delayed_effect": {
+        "day": 5,
+        "immunity": -18,
+        "population": -8,
+        "event": "plague"
+      }
+    },
+    {
+      "npc_id": "npc_139",
+      "name": "Rıdvan Taş",
+      "role": "Scavenger",
+      "hidden_trait": "none",
+      "dialogue": "Kimsenin giremediği bölgelere girerim; tehlikeyi seviyorum.",
+      "clue_text": "Riski seven insanlar topluluklar için hem değerli hem tehlikelidir.",
+      "illustration_tier": "tier2",
+      "illustration_key": "scavenger_male_01",
+      "accept": {
+        "food": 14,
+        "population": 1,
+        "defense": -4
+      },
+      "reject": {
+        "food": -3
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_140",
+      "name": "Döndü Yıldız",
+      "role": "Scavenger",
+      "hidden_trait": "liar",
+      "dialogue": "Devlet depoları hâlâ dolu; yerini biliyorum ve sizi götürürüm.",
+      "clue_text": "Devlet depolarının tamamının çoktan yağmalandığı herkesçe biliniyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "scavenger_female_01",
+      "accept": {
+        "food": 18,
+        "population": 2,
+        "defense": -4
+      },
+      "reject": {
+        "food": -4
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_141",
+      "name": "Sinan Karaca",
+      "role": "Scavenger",
+      "hidden_trait": "none",
+      "dialogue": "Kimyasal atık bölgelerinden bile değerli malzeme çıkarabilirim.",
+      "clue_text": "Kimyasal tehlike konusunda gerçekten bilgili; önlemlerini alarak çalışıyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "scavenger_male_01",
+      "accept": {
+        "food": 12,
+        "population": 1,
+        "defense": -3
+      },
+      "reject": {
+        "food": -2
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_142",
+      "name": "Feyza Bozkurt",
+      "role": "Scavenger",
+      "hidden_trait": "spy",
+      "dialogue": "Şehri çok iyi biliyorum; istediğiniz her yerden haber getirebilirim.",
+      "clue_text": "Haber getirme konusundaki aşırı istekli tutumu merak uyandırıyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "scavenger_female_01",
+      "accept": {
+        "food": 9,
+        "population": 1,
+        "defense": -3
+      },
+      "reject": {
+        "food": -2
+      },
+      "delayed_effect": {
+        "day": 8,
+        "economy": -16,
+        "event": "spy_caught"
+      }
+    },
+    {
+      "npc_id": "npc_143",
+      "name": "Musa Özdemir",
+      "role": "Scavenger",
+      "hidden_trait": "none",
+      "dialogue": "Hastane enkazından ilaç ve malzeme çıkardım; getirdim işte.",
+      "clue_text": "Yanında getirdiği medikal malzeme gerçek ve kullanışlı.",
+      "illustration_tier": "tier2",
+      "illustration_key": "scavenger_male_01",
+      "accept": {
+        "food": 11,
+        "population": 1,
+        "defense": -3
+      },
+      "reject": {
+        "food": -2
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_144",
+      "name": "Berrin Aydın",
+      "role": "Scavenger",
+      "hidden_trait": "thief",
+      "dialogue": "Ticaret karavanlarının uğrak yerlerini bilirim; birlikte gidebiliriz.",
+      "clue_text": "Karavanların zayıf noktalarını da çok iyi biliyor gibi; bu tehlikeli.",
+      "illustration_tier": "tier2",
+      "illustration_key": "scavenger_female_01",
+      "accept": {
+        "food": 9,
+        "population": 1,
+        "defense": -3
+      },
+      "reject": {
+        "food": -2
+      },
+      "delayed_effect": {
+        "day": 3,
+        "economy": -11,
+        "food": -5,
+        "event": "theft"
+      }
+    },
+    {
+      "npc_id": "npc_145",
+      "name": "Kazım Kır",
+      "role": "Scavenger",
+      "hidden_trait": "protector",
+      "dialogue": "Su kaynaklarını biliyorum; temiz su bulmak en büyük becerim.",
+      "clue_text": "Bulduğu su kaynaklarını hemen topluluğa getiriyor; biriktirmiyor ve cömert davranıyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "scavenger_male_01",
+      "accept": {
+        "food": 16,
+        "population": 1,
+        "defense": -3
+      },
+      "reject": {
+        "food": -3
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_146",
+      "name": "Serap Kılınç",
+      "role": "Scavenger",
+      "hidden_trait": "liar",
+      "dialogue": "Çevredeki zombi yoğunluğunu çok iyi biliyorum; güvenli geçiş sağlarım.",
+      "clue_text": "Anlattığı güzergahlar gerçek tehlikelerle örtüşmüyor; bilgisi güncel değil.",
+      "illustration_tier": "tier2",
+      "illustration_key": "scavenger_female_01",
+      "accept": {
+        "food": 15,
+        "population": 2,
+        "defense": -4
+      },
+      "reject": {
+        "food": -3
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_147",
+      "name": "Kadir Demirtaş",
+      "role": "Scavenger",
+      "hidden_trait": "infected",
+      "dialogue": "Araç ve makine enkazı bilirim; motor parçaları toplayabilirim.",
+      "clue_text": "Araç enkazından dönerken üzerinde şüpheli lekeler ve titreme var; kontrol altına alınmalı.",
+      "illustration_tier": "tier2",
+      "illustration_key": "scavenger_male_01",
+      "accept": {
+        "food": 10,
+        "population": 1,
+        "defense": -2
+      },
+      "reject": {
+        "food": -2
+      },
+      "delayed_effect": {
+        "day": 5,
+        "immunity": -17,
+        "population": -7,
+        "event": "plague"
+      }
+    },
+    {
+      "npc_id": "npc_148",
+      "name": "Nilay Özkan",
+      "role": "Scavenger",
+      "hidden_trait": "infected",
+      "dialogue": "Tüm gece arama yaptım; çok yoruldum ama getirdiklerim işinize yarar.",
+      "clue_text": "Aşırı yorgunluk ve hafif titreme sadece uykusuzluktan değil, hastalıktan kaynaklanıyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "scavenger_female_01",
+      "accept": {
+        "food": 7,
+        "population": 1,
+        "defense": -3
+      },
+      "reject": {
+        "food": -2
+      },
+      "delayed_effect": {
+        "day": 4,
+        "immunity": -20,
+        "population": -9,
+        "event": "plague"
+      }
+    },
+    {
+      "npc_id": "npc_149",
+      "name": "Ümit Güneş",
+      "role": "Scavenger",
+      "hidden_trait": "thief",
+      "dialogue": "Elektrik altyapısından hâlâ çalışan sistemler buluyorum; geri getirebilirim.",
+      "clue_text": "Elektrik sistemlerine ilgisi kablo ve ekipman çalmakla da açıklanabilir.",
+      "illustration_tier": "tier2",
+      "illustration_key": "scavenger_male_01",
+      "accept": {
+        "food": 11,
+        "population": 1,
+        "defense": -3
+      },
+      "reject": {
+        "food": -2
+      },
+      "delayed_effect": {
+        "day": 2,
+        "economy": -10,
+        "food": -5,
+        "event": "theft"
+      }
+    },
+    {
+      "npc_id": "npc_150",
+      "name": "Ferda Çakır",
+      "role": "Scavenger",
+      "hidden_trait": "infected",
+      "dialogue": "Gıda fabrikası kalıntılarını bilirim; işlenmiş gıda çıkarabilirim.",
+      "clue_text": "Gıda fabrikalarından dönerken içinde bulunduğu ortam enfeksiyon için ideal; görünüşü kaygı verici.",
+      "illustration_tier": "tier2",
+      "illustration_key": "scavenger_female_01",
+      "accept": {
+        "food": 15,
+        "population": 1,
+        "defense": -3
+      },
+      "reject": {
+        "food": -3
+      },
+      "delayed_effect": {
+        "day": 4,
+        "immunity": -19,
+        "population": -8,
+        "event": "plague"
+      }
+    },
+    {
+      "npc_id": "npc_151",
+      "name": "Erdoğan Kaya",
+      "role": "Scavenger",
+      "hidden_trait": "spy",
+      "dialogue": "Gözlem görevleri yapabilirim; her köşeyi takip ederim sizin için.",
+      "clue_text": "Takip etme konusundaki isteklilik, topluluk çıkarları için değil gibi görünüyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "scavenger_male_01",
+      "accept": {
+        "food": 8,
+        "population": 1,
+        "defense": -3
+      },
+      "reject": {
+        "food": -2
+      },
+      "delayed_effect": {
+        "day": 9,
+        "economy": -17,
+        "event": "spy_caught"
+      }
+    },
+    {
+      "npc_id": "npc_152",
+      "name": "Levent Arslan",
+      "role": "Scavenger",
+      "hidden_trait": "none",
+      "dialogue": "Askeri üs enkazında çok değerli silah ve ekipman gördüm; size getiririm.",
+      "clue_text": "Askeri üssün gerçek konumunu biliyor; bu bilgi değerli.",
+      "illustration_tier": "tier2",
+      "illustration_key": "scavenger_male_01",
+      "accept": {
+        "food": 12,
+        "population": 1,
+        "defense": -3
+      },
+      "reject": {
+        "food": -3
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_153",
+      "name": "Gülden Avcı",
+      "role": "Scavenger",
+      "hidden_trait": "protector",
+      "dialogue": "Başkalarını bulamadığımda kendim giderim; topluluğuma vermeden yiyemem.",
+      "clue_text": "Topladığı malzemelerin tamamını gruba bırakıyor; hiçbir şey saklamıyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "scavenger_female_01",
+      "accept": {
+        "food": 17,
+        "population": 2,
+        "defense": -3
+      },
+      "reject": {
+        "food": -3
+      },
+      "delayed_effect": null
+    },
+    {
+      "npc_id": "npc_154",
+      "name": "Barış Koç",
+      "role": "Engineer",
+      "hidden_trait": "thief",
+      "dialogue": "Enerji sistemleri kurulumunda deneyimliyim; depolarınızla beraber çok daha verimli çalışırız.",
+      "clue_text": "Depo erişimi için çok ısrarcı; sistemi incelemekteki amacı şüpheli görünüyor.",
+      "illustration_tier": "tier2",
+      "illustration_key": "engineer_male_01",
+      "accept": {
+        "defense": 9,
+        "economy": 8,
+        "food": -4
+      },
+      "reject": {
+        "economy": -3
+      },
+      "delayed_effect": {
+        "day": 3,
+        "economy": -14,
+        "food": -6,
+        "event": "theft"
+      }
+    }
+  ]
+}
