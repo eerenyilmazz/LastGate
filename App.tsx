@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
 import { useGameStore } from './src/store/useGameStore'
 import { useGameLoop } from './src/hooks/useGameLoop'
@@ -46,10 +47,12 @@ export default function App() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <StatusBar style="light" />
-      {appScreen === 'splash' && <SplashScreen onDone={() => { startAmbient(); setAppScreen('menu') }} />}
-      {appScreen === 'menu'   && <MenuScreen onStart={handleStart} />}
-      {appScreen === 'game'   && renderGame()}
+      <SafeAreaProvider>
+        <StatusBar style="light" />
+        {appScreen === 'splash' && <SplashScreen onDone={() => { startAmbient(); setAppScreen('menu') }} />}
+        {appScreen === 'menu'   && <MenuScreen onStart={handleStart} />}
+        {appScreen === 'game'   && renderGame()}
+      </SafeAreaProvider>
     </GestureHandlerRootView>
   )
 }

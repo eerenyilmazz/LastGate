@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import {
   View, Text, TouchableOpacity, ScrollView, StyleSheet,
-  SafeAreaView, Platform, Modal, Dimensions, Switch,
+  Platform, Modal, Dimensions, Switch,
 } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import Animated, {
   useSharedValue, useAnimatedStyle,
   withRepeat, withSequence, withTiming, withDelay,

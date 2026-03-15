@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Platform, Dimensions } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import Animated, {
   useSharedValue, useAnimatedStyle,
   withTiming, withDelay, withRepeat, withSequence, Easing,
@@ -76,7 +77,7 @@ export const GameOverScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
     ? 'rgba(0,60,0,0.10)' : 'rgba(80,0,0,0.12)'
 
   return (
-    <View style={styles.root}>
+    <SafeAreaView style={styles.root}>
 
       {/* CRT scan */}
       <Animated.View style={[styles.scanline, scanStyle]} pointerEvents="none" />
@@ -156,7 +157,7 @@ export const GameOverScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
         )}
 
       </Animated.View>
-    </View>
+    </SafeAreaView>
   )
 }
 

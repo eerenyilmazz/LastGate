@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import {
   View, Text, TouchableOpacity, ScrollView,
-  StyleSheet, SafeAreaView, Platform,
+  StyleSheet, Platform,
 } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { useProgressStore } from '../store/useProgressStore'
 import { useStatStore } from '../store/useStatStore'
 import { useGameStore } from '../store/useGameStore'
