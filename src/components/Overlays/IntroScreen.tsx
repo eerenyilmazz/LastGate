@@ -118,7 +118,7 @@ export const IntroScreen: React.FC<Props> = ({ onStart }) => {
 const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: '#060402',
+    backgroundColor: '#0d1117',
     zIndex: 100,
   },
   safe: { flex: 1 },
@@ -128,16 +128,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 18,
     paddingVertical: 14,
-    backgroundColor: '#0a0705',
+    backgroundColor: '#111827',
     borderBottomWidth: 1,
-    borderBottomColor: '#180f06',
+    borderBottomColor: '#1f2937',
   },
   dots: { flexDirection: 'row', gap: 5 },
   dot:  { width: 8, height: 8, borderRadius: 4 },
   headerText: {
     flex: 1,
     textAlign: 'center',
-    color: '#251c10',
+    color: '#4b5563',
     fontSize: 9,
     letterSpacing: 2,
     fontWeight: '700',
@@ -162,10 +162,10 @@ const styles = StyleSheet.create({
   dividerLine: {
     flex: 1,
     height: 1,
-    backgroundColor: '#1e1408',
+    backgroundColor: '#1e2535',
   },
   dividerLabel: {
-    color: '#2e2010',
+    color: '#4b5563',
     fontSize: 8,
     letterSpacing: 2.5,
     fontWeight: '800',
@@ -175,14 +175,14 @@ const styles = StyleSheet.create({
 
   linesBlock: {},
   line: {
-    color: '#6a5a3e',
+    color: '#9ca3af',
     fontSize: 14,
     lineHeight: 26,
     fontWeight: '400',
     letterSpacing: 0.2,
   },
   cursorLine: {
-    color: '#4a3a22',
+    color: '#6b7280',
     fontSize: 14,
     lineHeight: 22,
     marginTop: 2,
@@ -197,15 +197,15 @@ const styles = StyleSheet.create({
   ctaBtn: {
     paddingVertical: 18,
     borderRadius: 10,
-    backgroundColor: '#0d0905',
+    backgroundColor: '#111827',
     borderWidth: 1,
-    borderColor: '#3a2a10',
+    borderColor: '#374151',
     borderLeftWidth: 3,
-    borderLeftColor: '#7a5520',
+    borderLeftColor: '#f59e0b',
     alignItems: 'center',
   },
   ctaText: {
-    color: '#b8902a',
+    color: '#f59e0b',
     fontSize: 13,
     fontWeight: '900',
     letterSpacing: 3.5,

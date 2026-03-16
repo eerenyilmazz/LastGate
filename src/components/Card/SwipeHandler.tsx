@@ -111,15 +111,15 @@ const SwipeHandlerInner: React.FC<Props> = ({
         {children}
 
         <Animated.View style={[styles.dirLabel, styles.acceptLabel, acceptLabelStyle]}>
-          <Text style={[styles.dirText, { color: '#4caf50' }]}>KABUL ✓</Text>
+          <Text style={[styles.dirText, { color: '#4ade80' }]}>KABUL ✓</Text>
         </Animated.View>
 
         <Animated.View style={[styles.dirLabel, styles.rejectLabel, rejectLabelStyle]}>
-          <Text style={[styles.dirText, { color: '#ef5350' }]}>✕ RET</Text>
+          <Text style={[styles.dirText, { color: '#f87171' }]}>✕ RET</Text>
         </Animated.View>
 
         <Animated.View style={[styles.dirLabel, styles.queryLabel, queryLabelStyle]}>
-          <Text style={[styles.dirText, { color: '#ff9800' }]}>SORGU ↑</Text>
+          <Text style={[styles.dirText, { color: '#f59e0b' }]}>SORGU ↑</Text>
         </Animated.View>
       </Animated.View>
     </GestureDetector>
@@ -137,12 +137,12 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     borderWidth: 2,
   },
-  acceptLabel: { right: 16, borderColor: '#4caf50', backgroundColor: '#4caf5022' },
-  rejectLabel: { left: 16,  borderColor: '#ef5350', backgroundColor: '#ef535022' },
+  acceptLabel: { right: 16, borderColor: '#4ade80', backgroundColor: '#4ade8022' },
+  rejectLabel: { left: 16,  borderColor: '#f87171', backgroundColor: '#f8717122' },
   queryLabel:  {
     alignSelf: 'center',
     left: '30%',
-    borderColor: '#ff9800',
+    borderColor: '#f59e0b',
     backgroundColor: '#ff980022',
   },
   dirText: { fontWeight: '900', fontSize: 14, letterSpacing: 1 },

@@ -36,11 +36,11 @@ const EffectChips: React.FC<{ effects: Record<string, number | undefined> }> = (
             key={stat}
             style={[es.chip, {
               borderColor: pos ? '#1b5e2055' : '#b71c1c55',
-              backgroundColor: pos ? '#0a1a0a' : '#1a0000',
+              backgroundColor: pos ? '#052e16' : '#450a0a',
             }]}
           >
             <Text style={es.chipIcon}>{STAT_ICONS[stat] ?? stat}</Text>
-            <Text style={[es.chipVal, { color: pos ? '#4caf50' : '#ef5350' }]}>
+            <Text style={[es.chipVal, { color: pos ? '#4ade80' : '#f87171' }]}>
               {pos ? '+' : ''}{val}
             </Text>
           </View>
@@ -170,11 +170,11 @@ const es = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   sheet: {
-    backgroundColor: '#1a1208',
+    backgroundColor: '#1e2535',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderTopWidth: 1,
-    borderColor: '#2e1e10',
+    borderColor: '#374151',
     maxHeight: '88%',
     paddingBottom: Platform.OS === 'android' ? 28 : 20,
   },
@@ -185,17 +185,17 @@ const es = StyleSheet.create({
     gap: 8,
     paddingHorizontal: 16,
     paddingVertical: 13,
-    backgroundColor: '#120e07',
+    backgroundColor: '#1f2937',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderBottomWidth: 1,
-    borderBottomColor: '#2a1c10',
+    borderBottomColor: '#374151',
   },
   dots: { flexDirection: 'row', gap: 5 },
   dot:  { width: 8, height: 8, borderRadius: 4 },
   termTitle: {
     flex: 1,
-    color: '#5a4a30',
+    color: '#9ca3af',
     fontSize: 9,
     letterSpacing: 2,
     fontWeight: '700',
@@ -210,7 +210,7 @@ const es = StyleSheet.create({
   },
 
   eventTitle: {
-    color: '#ede8e0',
+    color: '#f9fafb',
     fontSize: 20,
     fontWeight: '800',
     letterSpacing: 0.3,
@@ -220,16 +220,16 @@ const es = StyleSheet.create({
   },
 
   descBlock: {
-    backgroundColor: '#120e07',
+    backgroundColor: '#1f2937',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#2a1c10',
+    borderColor: '#374151',
     borderLeftWidth: 3,
-    borderLeftColor: '#3d2c1c',
+    borderLeftColor: '#374151',
     padding: 12,
   },
   descText: {
-    color: '#a08870',
+    color: '#9ca3af',
     fontSize: 12,
     lineHeight: 20,
   },
@@ -239,9 +239,9 @@ const es = StyleSheet.create({
     alignItems: 'center',
     gap: 8,
   },
-  dividerLine: { flex: 1, height: 1, backgroundColor: '#2a1e10' },
+  dividerLine: { flex: 1, height: 1, backgroundColor: '#374151' },
   dividerText: {
-    color: '#4a3828',
+    color: '#6b7280',
     fontSize: 9,
     fontWeight: '700',
     letterSpacing: 1.5,
@@ -279,14 +279,14 @@ const es = StyleSheet.create({
 
   choiceLabel: {
     flex: 1,
-    color: '#d8d0c4',
+    color: '#e5e7eb',
     fontSize: 13,
     fontWeight: '600',
     lineHeight: 18,
   },
 
   bonusBadge: {
-    backgroundColor: '#1a1400',
+    backgroundColor: '#1e2535',
     borderRadius: 4,
     borderWidth: 1,
     borderColor: '#f57f1744',
@@ -295,7 +295,7 @@ const es = StyleSheet.create({
     flexShrink: 0,
   },
   bonusText: {
-    color: '#f57f17',
+    color: '#f59e0b',
     fontSize: 8,
     fontWeight: '800',
     letterSpacing: 0.5,
@@ -315,5 +315,5 @@ const es = StyleSheet.create({
   },
   chipIcon: { fontSize: 11 },
   chipVal:  { fontSize: 11, fontWeight: '800' },
-  none:     { color: '#3a2e20', fontSize: 11, fontStyle: 'italic' },
+  none:     { color: '#4b5563', fontSize: 11, fontStyle: 'italic' },
 })

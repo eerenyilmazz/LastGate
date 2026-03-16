@@ -114,7 +114,7 @@ const StatBarItem = React.memo<{
         <Animated.View style={[barStyles.fill, fillStyle, isCrit && animStyle]} />
       </View>
 
-      <Animated.Text style={[barStyles.val, { color: isCrit ? themeData.colors.stat_critical : '#5a4a38' }, isCrit && animStyle]}>
+      <Animated.Text style={[barStyles.val, { color: isCrit ? themeData.colors.stat_critical : '#6b7280' }, isCrit && animStyle]}>
         {displayVal > 999 ? '999+' : displayVal}
       </Animated.Text>
     </View>
@@ -127,8 +127,8 @@ const barStyles = StyleSheet.create({
   track: {
     flex: 1, width: '100%', borderRadius: 5,
     overflow: 'hidden', justifyContent: 'flex-end',
-    backgroundColor: '#1e1610',
-    borderWidth: 1, borderColor: '#322414',
+    backgroundColor: '#1e2535',
+    borderWidth: 1, borderColor: '#2d3748',
   },
   fill:  { width: '100%', borderRadius: 3 },
   val:   { fontSize: 8, fontWeight: '800' },
@@ -400,9 +400,9 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingTop: 4,
     gap: 6,
-    backgroundColor: '#110d08',
+    backgroundColor: themeData.colors.surface,
     borderBottomWidth: 1,
-    borderBottomColor: '#2a1e10',
+    borderBottomColor: themeData.colors.divider,
   },
   hudRow1: {
     flexDirection: 'row',
@@ -410,21 +410,21 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   dayNum: { fontSize: 16, fontWeight: '800', letterSpacing: 0.3 },
-  daySub: { fontSize: 9, letterSpacing: 0.2, marginTop: 1, color: '#6a5838' },
+  daySub: { fontSize: 9, letterSpacing: 0.2, marginTop: 1, color: themeData.colors.text_secondary },
   spBox: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    backgroundColor: '#1c1400',
+    backgroundColor: '#2d3748',
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#3a2800',
+    borderColor: '#4b5563',
     paddingHorizontal: 12,
     paddingVertical: 6,
   },
   spStar:  { fontSize: 14 },
   spNum:   { fontSize: 17, fontWeight: '800' },
-  spLabel: { fontSize: 10, fontWeight: '700', color: '#5a4818' },
+  spLabel: { fontSize: 10, fontWeight: '700', color: '#9ca3af' },
 
   statStrip: { flexDirection: 'row', gap: 5 },
 
@@ -434,10 +434,10 @@ const styles = StyleSheet.create({
   queryToast: {
     paddingHorizontal: 14, paddingVertical: 10,
     borderRadius: 10, borderWidth: 1,
-    backgroundColor: '#160f00',
+    backgroundColor: '#1f2937',
   },
   queryToastText: { fontSize: 12, lineHeight: 18 },
-  queryWarnToast: { backgroundColor: '#160a00', borderColor: themeData.colors.stat_food },
+  queryWarnToast: { backgroundColor: '#1f2937', borderColor: themeData.colors.stat_food },
   queryWarnText:  { color: '#ff8f00', fontSize: 11, fontWeight: '700', lineHeight: 16 },
 
   actionBar: {
@@ -446,9 +446,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingTop: 10,
     paddingBottom: 6,
-    backgroundColor: '#110d08',
+    backgroundColor: themeData.colors.surface,
     borderTopWidth: 1,
-    borderTopColor: '#2a1e10',
+    borderTopColor: themeData.colors.divider,
   },
   actionBtn: {
     flex: 1,
@@ -458,11 +458,11 @@ const styles = StyleSheet.create({
     gap: 3,
     borderWidth: 1,
   },
-  rejectBtn:    { backgroundColor: '#200000', borderColor: '#4a0000' },
-  queryBtn:     { backgroundColor: '#181000', borderColor: '#302000' },
-  queryBtnWarn: { backgroundColor: '#180a00', borderColor: themeData.colors.stat_food },
-  detailBtn:    { backgroundColor: '#1a1610', borderColor: '#2e2418' },
-  acceptBtn:    { backgroundColor: '#001e00', borderColor: '#003200' },
+  rejectBtn:    { backgroundColor: '#2d1a1a', borderColor: '#5c2020' },
+  queryBtn:     { backgroundColor: '#2d2515', borderColor: '#5c4820' },
+  queryBtnWarn: { backgroundColor: '#2d2010', borderColor: themeData.colors.stat_food },
+  detailBtn:    { backgroundColor: '#252d3d', borderColor: '#374151' },
+  acceptBtn:    { backgroundColor: '#1a2d1a', borderColor: '#205c20' },
   btnDisabled:  { opacity: 0.35 },
 
   rejectMark:  { fontSize: 20, color: themeData.colors.reject_glow, fontWeight: '900' },

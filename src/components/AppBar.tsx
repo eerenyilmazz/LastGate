@@ -87,11 +87,11 @@ export const AppBar: React.FC<AppBarProps> = ({ onMainMenu }) => {
                 onPress={toggleSound}
                 style={[styles.toggle, {
                   borderColor: soundEnabled ? '#2e7d3266' : '#33333366',
-                  backgroundColor: soundEnabled ? '#0a1a0a' : '#111',
+                  backgroundColor: soundEnabled ? '#052e16' : '#111',
                 }]}
                 activeOpacity={0.8}
               >
-                <Text style={[styles.toggleText, { color: soundEnabled ? '#4caf50' : '#555' }]}>
+                <Text style={[styles.toggleText, { color: soundEnabled ? '#4ade80' : '#555' }]}>
                   {soundEnabled ? '● AÇIK' : '○ KAPALI'}
                 </Text>
               </TouchableOpacity>
@@ -201,11 +201,11 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   sheet: {
-    backgroundColor: '#0c0906',
+    backgroundColor: '#111827',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderTopWidth: 1,
-    borderColor: '#1e1510',
+    borderColor: '#2d3748',
     paddingBottom: Platform.OS === 'android' ? 32 : 24,
   },
 
@@ -215,17 +215,17 @@ const styles = StyleSheet.create({
     gap: 8,
     paddingHorizontal: 18,
     paddingVertical: 14,
-    backgroundColor: '#110d09',
+    backgroundColor: '#1f2937',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderBottomWidth: 1,
-    borderBottomColor: '#1c1510',
+    borderBottomColor: '#2d3748',
   },
   termDots: { flexDirection: 'row', gap: 5 },
   termDot:  { width: 9, height: 9, borderRadius: 5 },
   termTitle: {
     flex: 1,
-    color: '#3a3a3a',
+    color: '#6b7280',
     fontSize: 10,
     fontWeight: '800',
     letterSpacing: 2.5,
@@ -234,11 +234,11 @@ const styles = StyleSheet.create({
   closeBtn: {
     width: 30, height: 30,
     borderRadius: 15,
-    backgroundColor: '#1a1a1a',
+    backgroundColor: '#252d3d',
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: '#2a2a2a',
+    borderColor: '#374151',
   },
   closeText: { color: '#555', fontSize: 12, fontWeight: '900' },
 
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1.5,
     marginBottom: 3,
   },
-  settingSub: { color: '#2a2a2a', fontSize: 11 },
+  settingSub: { color: '#374151', fontSize: 11 },
   toggle: {
     paddingHorizontal: 16,
     paddingVertical: 9,
@@ -306,13 +306,13 @@ const styles = StyleSheet.create({
     marginTop: 2,
     paddingVertical: 14,
     borderRadius: 10,
-    backgroundColor: '#140f0b',
+    backgroundColor: '#1f2937',
     borderWidth: 1,
-    borderColor: '#231912',
+    borderColor: '#374151',
     alignItems: 'center',
   },
   closeButtonText: {
-    color: '#3a3a3a',
+    color: '#6b7280',
     fontSize: 11,
     fontWeight: '900',
     letterSpacing: 2,
@@ -370,7 +370,7 @@ const confirm = StyleSheet.create({
 
   divider: {
     height: 1,
-    backgroundColor: '#1e1510',
+    backgroundColor: '#2d3748',
     marginHorizontal: 0,
   },
 
@@ -385,7 +385,7 @@ const confirm = StyleSheet.create({
   },
   btnCancel: {
     borderRightWidth: 1,
-    borderRightColor: '#1e1510',
+    borderRightColor: '#2d3748',
     backgroundColor: '#120f0b',
   },
   btnExit: {

@@ -66,7 +66,7 @@ export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
 
                 <Text style={styles.statIcon}>{STAT_ICONS[key]}</Text>
 
-                <Text style={[styles.statShort, { fontFamily: MONO, color: isCrit ? C.stat_critical : '#5a4a30' }]}>
+                <Text style={[styles.statShort, { fontFamily: MONO, color: isCrit ? C.stat_critical : '#9ca3af' }]}>
                   {STAT_SHORT[key]}
                 </Text>
 
@@ -85,7 +85,7 @@ export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
                 ]}>
                   <Text style={[
                     styles.diffText,
-                    { color: diff > 0 ? C.accept_glow : diff < 0 ? C.reject_glow : '#2a2a2a' },
+                    { color: diff > 0 ? C.accept_glow : diff < 0 ? C.reject_glow : '#4b5563' },
                   ]}>
                     {diff > 0 ? `+${diff}` : diff < 0 ? `${diff}` : '—'}
                   </Text>
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderLeftWidth: 1,
     borderRightWidth: 1,
-    borderColor: '#3d2c1c',
+    borderColor: C.divider,
     overflow: 'hidden',
   },
 
@@ -162,14 +162,14 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     backgroundColor: C.surface,
     borderBottomWidth: 1,
-    borderBottomColor: '#2a1e10',
+    borderBottomColor: C.divider,
   },
   dots: { flexDirection: 'row', gap: 5 },
   dot:  { width: 9, height: 9, borderRadius: 5 },
   dayLabel: {
     flex: 1,
     textAlign: 'center',
-    color: '#7a6040',
+    color: '#6b7280',
     fontSize: 11,
     fontWeight: '800',
     letterSpacing: 3,
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     overflow: 'hidden',
     borderWidth: 1,
-    borderColor: '#2a1e10',
+    borderColor: C.divider,
   },
   barFill: {
     height: '100%',
@@ -225,8 +225,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'transparent',
   },
-  diffBoxPos: { backgroundColor: C.diff_pos_bg, borderWidth: 1, borderColor: '#1a3a1a' },
-  diffBoxNeg: { backgroundColor: C.diff_neg_bg, borderWidth: 1, borderColor: '#3a0a0a' },
+  diffBoxPos: { backgroundColor: C.diff_pos_bg, borderWidth: 1, borderColor: '#1a3d1a' },
+  diffBoxNeg: { backgroundColor: C.diff_neg_bg, borderWidth: 1, borderColor: '#3d0f0f' },
   diffText: {
     fontSize: 11,
     fontWeight: '800',
@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
   },
   dividerLine: {
     height: 1,
-    backgroundColor: '#2a1e10',
+    backgroundColor: C.divider,
   },
 
   roleRow: {
@@ -272,12 +272,12 @@ const styles = StyleSheet.create({
     marginBottom: 14,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#1a1000',
+    backgroundColor: '#1e2535',
     borderRadius: 14,
     borderWidth: 1,
-    borderColor: '#3a2200',
+    borderColor: '#374151',
     borderLeftWidth: 4,
-    borderLeftColor: '#cc6600',
+    borderLeftColor: '#f59e0b',
     paddingVertical: 14,
     paddingHorizontal: 14,
   },
@@ -289,24 +289,24 @@ const styles = StyleSheet.create({
   },
   buildingEmoji: { fontSize: 24 },
   buildingTitle: {
-    color: '#e8a840',
+    color: '#f59e0b',
     fontSize: 12,
     fontWeight: '900',
     letterSpacing: 1.5,
     marginBottom: 3,
   },
   buildingSub: {
-    color: '#6a5030',
+    color: '#9ca3af',
     fontSize: 10,
   },
   buildingArrow: {
-    color: '#cc6600',
+    color: '#f59e0b',
     fontSize: 26,
     fontWeight: '900',
   },
 
   hint: {
-    color: '#3a2e1e',
+    color: '#4b5563',
     fontSize: 9,
     letterSpacing: 2,
     textAlign: 'center',
