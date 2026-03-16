@@ -22,6 +22,22 @@ const BUILDINGS = config.buildings as Array<{
   infection_reduction?: number
 }>
 
+type DiffMod = { daily_food_bonus: number; starvation_extra: number; npc_neg_scale: number }
+const DIFF_MODS = (config as any).difficulty_modifiers as Record<string, DiffMod>
+
+function scaleDelta(delta: StatDelta, difficulty: string): StatDelta {
+  const mod = DIFF_MODS[difficulty]
+  if (!mod || mod.npc_neg_scale === 1.0) return delta
+  const result: Partial<StatDelta> = {}
+  for (const [key, val] of Object.entries(delta)) {
+    const v = val as number
+    result[key as keyof StatDelta] = v < 0
+      ? (mod.npc_neg_scale > 1 ? Math.floor(v * mod.npc_neg_scale) : Math.ceil(v * mod.npc_neg_scale))
+      : v
+  }
+  return result as StatDelta
+}
+
 function computeQueryCharges(ownedBuildings: string[]): number {
   return BUILDINGS
     .filter(b => ownedBuildings.includes(b.id) && b.extra_query_charge)
@@ -62,7 +78,18 @@ export const useGameLoop = () => {
 
     stats.applyFoodConsumption()
 
+    // Zorluk: günlük yemek bonusu/cezası
+    const diffMod = DIFF_MODS[settings.difficulty]
+    if (diffMod?.daily_food_bonus !== 0) {
+      stats.apply({ food: diffMod.daily_food_bonus })
+    }
+
     stats.applyStarvation()
+
+    // Zorluk: ekstra kıtlık hasarı (hard)
+    if (diffMod?.starvation_extra > 0 && stats.stats.food <= 0) {
+      stats.apply({ population: -diffMod.starvation_extra })
+    }
 
     const infectionReduction = computeInfectionReduction(progress.buildings)
     const { deltas, notifications, remaining } = HiddenSystem.tick(
@@ -122,10 +149,11 @@ export const useGameLoop = () => {
   }, [game, stats, progress])
 
   const handleAccept = useCallback((npc: NPC) => {
-    const effectiveStats = npc.hidden_trait === 'liar'
+    const rawStats = npc.hidden_trait === 'liar'
       ? TraitHandler.getLiarAcceptStats(npc.accept)
       : npc.accept
 
+    const effectiveStats = scaleDelta(rawStats as StatDelta, settings.difficulty)
     stats.apply(effectiveStats as StatDelta)
     game.addAcceptedRole(npc.role)
     game.incrementRunStat('accepted')
@@ -155,10 +183,10 @@ export const useGameLoop = () => {
     } else {
       game.setPhase('day_summary')
     }
-  }, [game, stats, progress, endDay])
+  }, [game, stats, progress, endDay, settings.difficulty])
 
   const handleReject = useCallback((npc: NPC) => {
-    stats.apply(npc.reject as StatDelta)
+    stats.apply(scaleDelta(npc.reject as StatDelta, settings.difficulty))
     game.incrementRunStat('rejected')
 
     const overReason = stats.getGameOverReason()
@@ -178,7 +206,7 @@ export const useGameLoop = () => {
     } else {
       game.setPhase('day_summary')
     }
-  }, [game, stats, progress, endDay])
+  }, [game, stats, progress, endDay, settings.difficulty])
 
   const handleQuery = useCallback((npc: NPC): string => {
     const result = game.consumeQueryCharge()
@@ -231,7 +259,7 @@ export const useGameLoop = () => {
     game.setActiveNPC(nextNPC)
 
     saveAll()
-  }, [game, stats, progress])
+  }, [game, stats, progress, settings.difficulty])
 
   const DIFF_MULT: Record<string, number> = { easy: 0.3, normal: 0.0, hard: -0.25 }
 
