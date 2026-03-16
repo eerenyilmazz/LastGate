@@ -4,7 +4,10 @@ import { useGameStore } from '../../store/useGameStore'
 import themeData from '../../data/theme.json'
 import uiData from '../../data/ui.json'
 
-const C = themeData.colors
+const C  = themeData.colors
+const TY = themeData.typography
+const SP = themeData.spacing
+const R  = themeData.radius
 const MONO   = Platform.select(themeData.ui.font_mono) as string
 const DOTS   = themeData.ui.terminal_dots
 const REPORT = uiData.night_report as { header_prefix: string; header_suffix: string; no_events: string; continue_btn: string }
@@ -85,13 +88,13 @@ const styles = StyleSheet.create({
     borderBottomColor: C.card_bg,
   },
   dots:       { flexDirection: 'row', gap: 5 },
-  dot:        { width: 8, height: 8, borderRadius: 4 },
+  dot:        { width: 8, height: 8, borderRadius: R.xs },
   headerText: {
     flex: 1,
     textAlign: 'center',
     color: C.text_muted,
-    fontSize: 10,
-    fontWeight: '800',
+    fontSize: TY.size_xs,
+    fontWeight: TY.weight_heavy,
     letterSpacing: 2.5,
   },
   scroll: { maxHeight: 240 },
@@ -103,20 +106,20 @@ const styles = StyleSheet.create({
   },
   bullet: {
     color: C.text_muted,
-    fontSize: 14,
+    fontSize: TY.size_md,
     lineHeight: 19,
   },
   noteText: {
     flex: 1,
     color: C.text_muted,
-    fontSize: 12,
+    fontSize: TY.size_sm,
     lineHeight: 19,
   },
   btn: {
     marginHorizontal: 16,
     marginTop: 14,
     paddingVertical: 14,
-    borderRadius: 8,
+    borderRadius: R.md,
     backgroundColor: C.diff_pos_bg,
     borderWidth: 1,
     borderColor: C.border_pos,
@@ -124,8 +127,8 @@ const styles = StyleSheet.create({
   },
   btnText: {
     color: C.accept,
-    fontSize: 11,
-    fontWeight: '900',
+    fontSize: TY.size_note,
+    fontWeight: TY.weight_black,
     letterSpacing: 2,
   },
 })

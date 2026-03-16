@@ -14,6 +14,8 @@ import Animated, {
 import { useTheme } from '../../hooks/useTheme'
 import themeData from '../../data/theme.json'
 const TC = themeData.colors
+const TY = themeData.typography
+const R  = themeData.radius
 
 interface Props {
   children: React.ReactNode
@@ -137,7 +139,7 @@ const styles = StyleSheet.create({
     top: 60,
     paddingHorizontal: 12,
     paddingVertical: 6,
-    borderRadius: 6,
+    borderRadius: R.sm,
     borderWidth: 2,
   },
   acceptLabel: { right: 16, borderColor: TC.accept_glow, backgroundColor: TC.accept_glow + '22' },
@@ -148,5 +150,5 @@ const styles = StyleSheet.create({
     borderColor: C.query,
     backgroundColor: (C.query + '22'),
   },
-  dirText: { fontWeight: '900', fontSize: 14, letterSpacing: 1 },
+  dirText: { fontWeight: TY.weight_black, fontSize: TY.size_md, letterSpacing: 1 },
 })

@@ -6,6 +6,9 @@ import { StatType } from '../../types/stat.types'
 import themeData from '../../data/theme.json'
 import config from '../../data/config.json'
 
+const TY = themeData.typography
+const SP = themeData.spacing
+const R  = themeData.radius
 const STAT_ICONS = themeData.ui.stat_icons as Record<StatType, string>
 const STAT_MAX   = config.stat_max as Record<StatType, number>
 
@@ -73,8 +76,8 @@ export const StatBar: React.FC<Props> = ({ stat, value, isCritical }) => {
 
 const styles = StyleSheet.create({
   row:   { flexDirection: 'row', alignItems: 'center', marginBottom: 4 },
-  icon:  { width: 22, fontSize: 13, textAlign: 'center', marginRight: 6 },
+  icon:  { width: 22, fontSize: TY.size_body, textAlign: 'center', marginRight: 6 },
   track: { flex: 1, marginRight: 6 },
   fill:  {},
-  value: { width: 28, textAlign: 'right', fontWeight: '600' },
+  value: { width: 28, textAlign: 'right', fontWeight: TY.weight_semi },
 })

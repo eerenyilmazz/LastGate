@@ -5,6 +5,9 @@ import { NPC } from '../../types/npc.types'
 import ILLUSTRATIONS from '../../assets/images'
 import themeData from '../../data/theme.json'
 
+const TY = themeData.typography
+const SP = themeData.spacing
+const R  = themeData.radius
 const ROLE_COLORS = themeData.ui.role_colors as Record<string, string>
 const ROLE_TR     = themeData.ui.role_names_tr as Record<string, string>
 
@@ -93,7 +96,7 @@ const styles = StyleSheet.create({
   },
   placeholderChar: {
     fontSize: 100,
-    fontWeight: '900',
+    fontWeight: TY.weight_black,
     opacity: 0.10,
   },
   gradTop: {
@@ -112,8 +115,8 @@ const styles = StyleSheet.create({
   },
   name: {
     color: C.text_primary,
-    fontSize: 20,
-    fontWeight: '800',
+    fontSize: TY.size_h5,
+    fontWeight: TY.weight_heavy,
     letterSpacing: 0.2,
     marginBottom: 5,
     textShadowColor: 'rgba(0,0,0,0.95)',
@@ -122,7 +125,7 @@ const styles = StyleSheet.create({
   },
   dialogue: {
     color: 'rgba(255,255,255,0.82)',
-    fontSize: 12,
+    fontSize: TY.size_sm,
     lineHeight: 18,
     fontStyle: 'italic',
     textShadowColor: 'rgba(0,0,0,0.95)',
@@ -134,7 +137,7 @@ const styles = StyleSheet.create({
     top: 12, left: 12,
     paddingHorizontal: 10,
     paddingVertical: 5,
-    borderRadius: 6,
+    borderRadius: R.sm,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.6,
     shadowRadius: 6,
@@ -142,8 +145,8 @@ const styles = StyleSheet.create({
   },
   roleText: {
     color: C.text_primary,
-    fontSize: 10,
-    fontWeight: '800',
+    fontSize: TY.size_xs,
+    fontWeight: TY.weight_heavy,
     letterSpacing: 1.8,
   },
 })

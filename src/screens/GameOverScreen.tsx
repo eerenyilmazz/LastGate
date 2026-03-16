@@ -11,7 +11,10 @@ import { GameOverReason } from '../types/game.types'
 import ui from '../data/ui.json'
 import themeData from '../data/theme.json'
 
-const C = themeData.colors
+const C  = themeData.colors
+const TY = themeData.typography
+const SP = themeData.spacing
+const R  = themeData.radius
 const MONO    = Platform.select(themeData.ui.font_mono) as string
 const { height } = Dimensions.get('window')
 const ENDINGS   = ui.game_over_endings as Record<GameOverReason, { title: string; desc: string; color: string; icon: string; tag: string }>
@@ -179,19 +182,19 @@ const styles = StyleSheet.create({
 
   dayTag: {
     color: C.text_muted,
-    fontSize: 9,
+    fontSize: TY.size_caption,
     letterSpacing: 3,
     marginBottom: 22,
   },
 
   icon: {
-    fontSize: 58,
+    fontSize: TY.size_hero,
     marginBottom: 18,
   },
 
   title: {
-    fontSize: 17,
-    fontWeight: '900',
+    fontSize: TY.size_h6_alt,
+    fontWeight: TY.weight_black,
     letterSpacing: 2.5,
     textAlign: 'center',
     marginBottom: 16,
@@ -205,7 +208,7 @@ const styles = StyleSheet.create({
 
   desc: {
     color: C.text_muted,
-    fontSize: 11,
+    fontSize: TY.size_note,
     lineHeight: 20,
     textAlign: 'center',
     marginBottom: 26,
@@ -215,7 +218,7 @@ const styles = StyleSheet.create({
   statsBox: {
     width: '100%',
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: R.md,
     paddingHorizontal: 18,
     paddingVertical: 14,
     marginBottom: 14,
@@ -223,8 +226,8 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   statsHeader: {
-    fontSize: 8,
-    fontWeight: '800',
+    fontSize: TY.size_2xs,
+    fontWeight: TY.weight_heavy,
     letterSpacing: 2,
     textAlign: 'center',
     marginBottom: 4,
@@ -235,8 +238,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  statLabel: { color: C.text_muted, fontSize: 10, letterSpacing: 0.5 },
-  statValue: { fontSize: 14, fontWeight: '800' },
+  statLabel: { color: C.text_muted, fontSize: TY.size_xs, letterSpacing: 0.5 },
+  statValue: { fontSize: TY.size_md, fontWeight: TY.weight_heavy },
 
   spBox: {
     flexDirection: 'row',
@@ -244,29 +247,29 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: R.md,
     paddingHorizontal: 18,
     paddingVertical: 14,
     marginBottom: 22,
     backgroundColor: C.bg_deeper,
   },
-  spLabel: { color: C.text_muted, fontSize: 9, letterSpacing: 2 },
-  spNum:   { fontSize: 20, fontWeight: '900' },
+  spLabel: { color: C.text_muted, fontSize: TY.size_caption, letterSpacing: 2 },
+  spNum:   { fontSize: TY.size_h5, fontWeight: TY.weight_black },
 
   btn: {
     width: '100%',
     paddingVertical: 16,
-    borderRadius: 8,
+    borderRadius: R.md,
     borderWidth: 1,
     alignItems: 'center',
     marginBottom: 8,
   },
   btnText: {
-    fontSize: 12,
-    fontWeight: '900',
+    fontSize: TY.size_sm,
+    fontWeight: TY.weight_black,
     letterSpacing: 2,
   },
 
   btnGhost: { paddingVertical: 14, alignItems: 'center' },
-  btnGhostText: { color: C.text_muted, fontSize: 11, letterSpacing: 1.5 },
+  btnGhostText: { color: C.text_muted, fontSize: TY.size_note, letterSpacing: 1.5 },
 })

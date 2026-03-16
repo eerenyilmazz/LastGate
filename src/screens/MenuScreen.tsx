@@ -17,6 +17,9 @@ import config from '../data/config.json'
 import themeData from '../data/theme.json'
 
 const { height: SCREEN_H } = Dimensions.get('window')
+const TY = themeData.typography
+const SP = themeData.spacing
+const R  = themeData.radius
 const MONO       = Platform.select(themeData.ui.font_mono) as string
 const CHARACTERS = ui.characters
 const TRAITS     = ui.traits
@@ -98,8 +101,8 @@ const HowToPlay: React.FC = () => (
     <View style={content.block}>
       <Text style={[content.blockTitle, { color: C.query, fontFamily: MONO }]}>[ SORGU SİSTEMİ ]</Text>
       <View style={content.infoCard}>
-        <Text style={content.line}>›  Her gün <Text style={{ color: C.query, fontWeight: '700' }}>3 sorgu</Text> hakkın var.</Text>
-        <Text style={content.line}>›  İlk sorgu <Text style={{ color: C.accept_glow, fontWeight: '700' }}>ücretsiz</Text>, 2. ve 3. yiyecek götürür.</Text>
+        <Text style={content.line}>›  Her gün <Text style={{ color: C.query, fontWeight: TY.weight_bold }}>3 sorgu</Text> hakkın var.</Text>
+        <Text style={content.line}>›  İlk sorgu <Text style={{ color: C.accept_glow, fontWeight: TY.weight_bold }}>ücretsiz</Text>, 2. ve 3. yiyecek götürür.</Text>
         <Text style={content.line}>›  Sorgu, karakter hakkında ipucu verir.</Text>
         <Text style={content.line}>›  Aynı karaktere tekrar sorgu yapabilirsin.</Text>
       </View>
@@ -445,7 +448,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   emblem: {
-    fontSize: 48,
+    fontSize: TY.size_display,
     color: C.danger_dark,
     textShadowColor: C.danger + '66',
     textShadowOffset: { width: 0, height: 0 },
@@ -453,8 +456,8 @@ const styles = StyleSheet.create({
   },
   title: {
     color: C.text_bright,
-    fontSize: 38,
-    fontWeight: '900',
+    fontSize: TY.size_display,
+    fontWeight: TY.weight_black,
     letterSpacing: 10,
     textShadowColor: C.danger + '44',
     textShadowOffset: { width: 0, height: 2 },
@@ -462,7 +465,7 @@ const styles = StyleSheet.create({
   },
   titleSub: {
     color: C.border_neg,
-    fontSize: 11,
+    fontSize: TY.size_note,
     letterSpacing: 8,
     marginTop: -2,
   },
@@ -477,7 +480,7 @@ const styles = StyleSheet.create({
   },
   spText: {
     color: C.text_muted,
-    fontSize: 11,
+    fontSize: TY.size_note,
     letterSpacing: 1,
   },
 
@@ -489,7 +492,7 @@ const styles = StyleSheet.create({
 
   startBtn: {
     backgroundColor: C.danger_dark,
-    borderRadius: 10,
+    borderRadius: R.pill,
     paddingVertical: 18,
     paddingHorizontal: 24,
     flexDirection: 'row',
@@ -506,21 +509,21 @@ const styles = StyleSheet.create({
   },
   startText: {
     color: C.text_primary,
-    fontSize: 17,
-    fontWeight: '900',
+    fontSize: TY.size_h6_alt,
+    fontWeight: TY.weight_black,
     letterSpacing: 4,
   },
   startArrow: {
     color: C.reject_glow,
-    fontSize: 16,
-    fontWeight: '900',
+    fontSize: TY.size_h6,
+    fontWeight: TY.weight_black,
   },
 
   menuSpacer: { height: 4 },
 
   menuBtn: {
     backgroundColor: C.bg_deeper,
-    borderRadius: 8,
+    borderRadius: R.md,
     paddingVertical: 14,
     paddingHorizontal: 20,
     flexDirection: 'row',
@@ -531,19 +534,19 @@ const styles = StyleSheet.create({
   },
   menuBtnLabel: {
     color: C.text_muted,
-    fontSize: 13,
-    fontWeight: '700',
+    fontSize: TY.size_body,
+    fontWeight: TY.weight_bold,
     letterSpacing: 2,
   },
   menuBtnArrow: {
     color: C.text_muted,
-    fontSize: 18,
-    fontWeight: '900',
+    fontSize: TY.size_lg,
+    fontWeight: TY.weight_black,
   },
 
   footer: {
     color: C.danger_dark,
-    fontSize: 8,
+    fontSize: TY.size_2xs,
     letterSpacing: 2,
     textAlign: 'center',
     paddingBottom: Platform.OS === 'android' ? 12 : 8,
@@ -584,19 +587,19 @@ const panel = StyleSheet.create({
     backgroundColor: C.bg_deeper,
   },
   dots: { flexDirection: 'row', gap: 5 },
-  dot:  { width: 7, height: 7, borderRadius: 4 },
+  dot:  { width: 7, height: 7, borderRadius: R.xs },
   title: {
     flex: 1,
     color: C.danger,
-    fontSize: 11,
-    fontWeight: '900',
+    fontSize: TY.size_note,
+    fontWeight: TY.weight_black,
     letterSpacing: 2,
     textAlign: 'center',
   },
   closeBtn: {
     width: 28,
     height: 28,
-    borderRadius: 14,
+    borderRadius: R.lg,
     backgroundColor: C.card_dark,
     alignItems: 'center',
     justifyContent: 'center',
@@ -605,8 +608,8 @@ const panel = StyleSheet.create({
   },
   closeText: {
     color: C.text_muted,
-    fontSize: 11,
-    fontWeight: '900',
+    fontSize: TY.size_note,
+    fontWeight: TY.weight_black,
   },
 })
 
@@ -617,8 +620,8 @@ const content = StyleSheet.create({
   },
   blockTitle: {
     color: C.danger,
-    fontSize: 10,
-    fontWeight: '900',
+    fontSize: TY.size_xs,
+    fontWeight: TY.weight_black,
     letterSpacing: 2,
     marginBottom: 4,
   },
@@ -626,7 +629,7 @@ const content = StyleSheet.create({
     backgroundColor: C.bg_deeper,
     borderWidth: 1,
     borderColor: C.card_dark,
-    borderRadius: 8,
+    borderRadius: R.md,
     padding: 12,
     gap: 6,
   },
@@ -640,13 +643,13 @@ const content = StyleSheet.create({
   swipeGesture: {
     width: 40,
     height: 28,
-    borderRadius: 5,
+    borderRadius: R.xs,
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: C.bg_deeper,
   },
-  swipeGestureText: { fontSize: 9, fontWeight: '900', letterSpacing: 0.5 },
+  swipeGestureText: { fontSize: TY.size_caption, fontWeight: TY.weight_black, letterSpacing: 0.5 },
   swipeArrow: {
     width: 22,
     height: 22,
@@ -654,9 +657,9 @@ const content = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  swipeArrowText: { fontSize: 16, fontWeight: '900', lineHeight: 20 },
-  swipeAction: { color: C.text_muted, fontSize: 12, fontWeight: '700', letterSpacing: 1 },
-  subNote: { color: C.text_muted, fontSize: 11, marginTop: 2 },
+  swipeArrowText: { fontSize: TY.size_h6, fontWeight: TY.weight_black, lineHeight: 20 },
+  swipeAction: { color: C.text_muted, fontSize: TY.size_sm, fontWeight: TY.weight_bold, letterSpacing: 1 },
+  subNote: { color: C.text_muted, fontSize: TY.size_note, marginTop: 2 },
 
   statGrid: {
     flexDirection: 'row',
@@ -670,47 +673,47 @@ const content = StyleSheet.create({
     gap: 4,
     paddingHorizontal: 8,
     paddingVertical: 5,
-    borderRadius: 6,
+    borderRadius: R.sm,
     borderWidth: 1,
     backgroundColor: C.bg_deeper,
   },
-  statChipIcon: { fontSize: 11 },
-  statChipName: { fontSize: 9, fontWeight: '800', letterSpacing: 1 },
+  statChipIcon: { fontSize: TY.size_note },
+  statChipName: { fontSize: TY.size_caption, fontWeight: TY.weight_heavy, letterSpacing: 1 },
 
   winBox: {
     backgroundColor: C.diff_pos_bg,
     borderWidth: 1,
     borderColor: (C.accept + '55'),
-    borderRadius: 6,
+    borderRadius: R.sm,
     paddingHorizontal: 12,
     paddingVertical: 8,
     alignItems: 'center',
     marginTop: 4,
   },
-  winText: { color: C.accept, fontSize: 10, fontWeight: '800', letterSpacing: 1.5 },
+  winText: { color: C.accept, fontSize: TY.size_xs, fontWeight: TY.weight_heavy, letterSpacing: 1.5 },
 
   section: { marginBottom: 20, gap: 4 },
   sectionTitle: {
     color: C.danger,
-    fontSize: 10,
-    fontWeight: '900',
+    fontSize: TY.size_xs,
+    fontWeight: TY.weight_black,
     letterSpacing: 3,
     marginBottom: 8,
     marginTop: 4,
   },
-  line: { color: C.text_muted, fontSize: 12, lineHeight: 21 },
-  hi:   { color: C.query, fontWeight: '700' },
-  note: { color: C.text_muted, fontSize: 12, lineHeight: 18, marginBottom: 12, fontStyle: 'italic' },
+  line: { color: C.text_muted, fontSize: TY.size_sm, lineHeight: 21 },
+  hi:   { color: C.query, fontWeight: TY.weight_bold },
+  note: { color: C.text_muted, fontSize: TY.size_sm, lineHeight: 18, marginBottom: 12, fontStyle: 'italic' },
   warnBox: {
     backgroundColor: C.danger_dark,
     borderLeftWidth: 2,
     borderLeftColor: C.danger_dark,
-    borderRadius: 4,
+    borderRadius: R.xs,
     paddingHorizontal: 10,
     paddingVertical: 8,
     marginBottom: 4,
   },
-  warnText: { color: C.danger_dark, fontSize: 11, fontWeight: '700' },
+  warnText: { color: C.danger_dark, fontSize: TY.size_note, fontWeight: TY.weight_bold },
 })
 
 const guide = StyleSheet.create({
@@ -724,16 +727,16 @@ const guide = StyleSheet.create({
   tabBtn: {
     paddingHorizontal: 12,
     paddingVertical: 5,
-    borderRadius: 6,
+    borderRadius: R.sm,
     backgroundColor: C.bg_deeper,
     borderWidth: 1,
     borderColor: C.card_dark,
   },
   tabBtnActive:  { backgroundColor: C.danger_dark, borderColor: C.danger_dark },
-  tabText:       { color: C.text_muted, fontSize: 12, fontWeight: '600' },
+  tabText:       { color: C.text_muted, fontSize: TY.size_sm, fontWeight: TY.weight_semi },
   tabTextActive: { color: C.reject_glow },
   body: { flex: 1, paddingHorizontal: 16, paddingTop: 8 },
-  sub:  { color: C.text_muted, fontSize: 10, letterSpacing: 0.5 },
+  sub:  { color: C.text_muted, fontSize: TY.size_xs, letterSpacing: 0.5 },
 })
 
 const sett = StyleSheet.create({
@@ -744,14 +747,14 @@ const sett = StyleSheet.create({
     backgroundColor: C.bg_deeper,
     borderWidth: 1,
     borderColor: C.card_dark,
-    borderRadius: 10,
+    borderRadius: R.pill,
     padding: 14,
     marginTop: 12,
     gap: 10,
   },
   cardLeft: { flex: 1 },
-  cardTitle: { color: C.text_muted, fontSize: 10, fontWeight: '800', letterSpacing: 1.5, marginBottom: 3 },
-  cardSub:   { color: C.text_muted, fontSize: 11, lineHeight: 15 },
+  cardTitle: { color: C.text_muted, fontSize: TY.size_xs, fontWeight: TY.weight_heavy, letterSpacing: 1.5, marginBottom: 3 },
+  cardSub:   { color: C.text_muted, fontSize: TY.size_note, lineHeight: 15 },
 
   toggle: {
     paddingHorizontal: 14,
@@ -764,27 +767,27 @@ const sett = StyleSheet.create({
     alignItems: 'center',
   },
   toggleOn:   { backgroundColor: C.diff_pos_bg, borderColor: (C.accept + '55') },
-  toggleText: { fontSize: 10, fontWeight: '800', letterSpacing: 1 },
+  toggleText: { fontSize: TY.size_xs, fontWeight: TY.weight_heavy, letterSpacing: 1 },
 
   spBox:  { alignItems: 'center' },
-  spStar: { color: C.query, fontSize: 14 },
-  spVal:  { color: C.query, fontSize: 20, fontWeight: '900' },
+  spStar: { color: C.query, fontSize: TY.size_md },
+  spVal:  { color: C.query, fontSize: TY.size_h5, fontWeight: TY.weight_black },
 
   earnBlock: {
     backgroundColor: C.bg_deeper,
     borderWidth: 1,
     borderColor: C.card_dark,
-    borderRadius: 8,
+    borderRadius: R.md,
     padding: 12,
     marginTop: 12,
     gap: 0,
   },
   earnTitle: {
     color: C.text_muted,
-    fontSize: 9,
+    fontSize: TY.size_caption,
     letterSpacing: 2,
     marginBottom: 10,
-    fontWeight: '700',
+    fontWeight: TY.weight_bold,
   },
   earnRow: {
     flexDirection: 'row',
@@ -794,16 +797,16 @@ const sett = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: C.card_dark,
   },
-  earnLabel: { color: C.text_muted, fontSize: 11 },
-  earnVal:   { color: C.query, fontSize: 12, fontWeight: '800' },
+  earnLabel: { color: C.text_muted, fontSize: TY.size_note },
+  earnVal:   { color: C.query, fontSize: TY.size_sm, fontWeight: TY.weight_heavy },
 
   versionBlock: {
     alignItems: 'center',
     marginTop: 24,
     gap: 4,
   },
-  versionText: { color: C.card_dark, fontSize: 10, letterSpacing: 2 },
-  versionSub:  { color: C.bg_deeper, fontSize: 8, letterSpacing: 3 },
+  versionText: { color: C.card_dark, fontSize: TY.size_xs, letterSpacing: 2 },
+  versionSub:  { color: C.bg_deeper, fontSize: TY.size_2xs, letterSpacing: 3 },
 })
 
 const meta = StyleSheet.create({
@@ -813,15 +816,15 @@ const meta = StyleSheet.create({
     backgroundColor: C.bg_deeper,
     borderWidth: 1,
     borderColor: C.divider,
-    borderRadius: 8,
+    borderRadius: R.md,
     paddingHorizontal: 16,
     paddingVertical: 10,
     marginTop: 10,
     gap: 0,
   },
   runStat: { flex: 1, alignItems: 'center', gap: 2 },
-  runVal: { color: C.text_muted, fontSize: 16, fontWeight: '900' },
-  runLabel: { color: C.text_muted, fontSize: 8, letterSpacing: 1.5, fontWeight: '700' },
+  runVal: { color: C.text_muted, fontSize: TY.size_h6, fontWeight: TY.weight_black },
+  runLabel: { color: C.text_muted, fontSize: TY.size_2xs, letterSpacing: 1.5, fontWeight: TY.weight_bold },
   runDivider: { width: 1, height: 28, backgroundColor: C.card_dark },
 })
 
@@ -834,13 +837,13 @@ const diff = StyleSheet.create({
   btn: {
     flex: 1,
     paddingVertical: 10,
-    borderRadius: 8,
+    borderRadius: R.md,
     borderWidth: 1,
     borderColor: C.card_dark,
     backgroundColor: C.bg_deeper,
     alignItems: 'center',
   },
-  label: { fontSize: 10, fontWeight: '900', letterSpacing: 1.5 },
+  label: { fontSize: TY.size_xs, fontWeight: TY.weight_black, letterSpacing: 1.5 },
 })
 
 const row = StyleSheet.create({
@@ -853,8 +856,8 @@ const row = StyleSheet.create({
     borderLeftWidth: 2,
     borderLeftColor: C.text_muted,
   },
-  icon: { fontSize: 18, width: 26, textAlign: 'center' },
+  icon: { fontSize: TY.size_lg, width: 26, textAlign: 'center' },
   text: { flex: 1 },
-  name: { color: C.text_bright, fontSize: 13, fontWeight: '700', marginBottom: 2 },
-  desc: { color: C.text_muted, fontSize: 11, lineHeight: 16 },
+  name: { color: C.text_bright, fontSize: TY.size_body, fontWeight: TY.weight_bold, marginBottom: 2 },
+  desc: { color: C.text_muted, fontSize: TY.size_note, lineHeight: 16 },
 })

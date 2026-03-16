@@ -8,6 +8,9 @@ import { StatDelta } from '../../types/stat.types'
 import themeData from '../../data/theme.json'
 import uiData from '../../data/ui.json'
 
+const TY = themeData.typography
+const SP = themeData.spacing
+const R  = themeData.radius
 const C      = themeData.colors
 const LABELS = uiData.labels
 
@@ -171,26 +174,26 @@ const ds = StyleSheet.create({
     borderBottomColor: C.card_bg,
   },
   dots: { flexDirection: 'row', gap: 5 },
-  dot:  { width: 8, height: 8, borderRadius: 4 },
+  dot:  { width: 8, height: 8, borderRadius: R.xs },
   termTitle: {
     flex: 1,
     color: C.divider,
-    fontSize: 9,
+    fontSize: TY.size_caption,
     letterSpacing: 2,
-    fontWeight: '700',
+    fontWeight: TY.weight_bold,
     textAlign: 'center',
   },
   closeBtn: {
     width: 28,
     height: 28,
-    borderRadius: 14,
+    borderRadius: R.lg,
     backgroundColor: C.card_bg,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: C.divider,
   },
-  closeText: { color: C.text_muted, fontSize: 11, fontWeight: '900' },
+  closeText: { color: C.text_muted, fontSize: TY.size_note, fontWeight: TY.weight_black },
 
   body: { paddingHorizontal: 16, paddingTop: 14, gap: 0 },
 
@@ -208,23 +211,23 @@ const ds = StyleSheet.create({
     alignSelf: 'flex-start',
     paddingHorizontal: 8,
     paddingVertical: 3,
-    borderRadius: 4,
+    borderRadius: R.xs,
     borderWidth: 1,
   },
   roleText: {
-    fontSize: 9,
-    fontWeight: '700',
+    fontSize: TY.size_caption,
+    fontWeight: TY.weight_bold,
     letterSpacing: 1.5,
   },
   name: {
     color: C.text_primary,
-    fontSize: 22,
-    fontWeight: '800',
+    fontSize: TY.size_h4,
+    fontWeight: TY.weight_heavy,
     letterSpacing: 0.3,
   },
   dialogue: {
     color: C.text_muted,
-    fontSize: 12,
+    fontSize: TY.size_sm,
     lineHeight: 18,
     fontStyle: 'italic',
   },
@@ -237,14 +240,14 @@ const ds = StyleSheet.create({
   },
   sectionLine: { flex: 1, height: 1 },
   sectionText: {
-    fontSize: 9,
-    fontWeight: '800',
+    fontSize: TY.size_caption,
+    fontWeight: TY.weight_heavy,
     letterSpacing: 2,
   },
 
   observeBlock: {
     backgroundColor: C.surface,
-    borderRadius: 8,
+    borderRadius: R.md,
     borderWidth: 1,
     borderColor: C.divider,
     padding: 12,
@@ -252,7 +255,7 @@ const ds = StyleSheet.create({
   },
   observeText: {
     color: C.text_muted,
-    fontSize: 12,
+    fontSize: TY.size_sm,
     lineHeight: 19,
   },
 
@@ -271,19 +274,19 @@ const ds = StyleSheet.create({
     gap: 4,
     paddingHorizontal: 8,
     paddingVertical: 5,
-    borderRadius: 6,
+    borderRadius: R.sm,
     borderWidth: 1,
   },
-  chipIcon: { fontSize: 12 },
-  chipName: { color: C.text_muted, fontSize: 10, fontWeight: '600' },
-  chipVal:  { fontSize: 12, fontWeight: '800' },
-  deltaEmpty: { color: C.divider, fontSize: 12, fontStyle: 'italic' },
+  chipIcon: { fontSize: TY.size_sm },
+  chipName: { color: C.text_muted, fontSize: TY.size_xs, fontWeight: TY.weight_semi },
+  chipVal:  { fontSize: TY.size_sm, fontWeight: TY.weight_heavy },
+  deltaEmpty: { color: C.divider, fontSize: TY.size_sm, fontStyle: 'italic' },
 
   closeButton: {
     marginHorizontal: 16,
     marginTop: 14,
     paddingVertical: 13,
-    borderRadius: 8,
+    borderRadius: R.md,
     backgroundColor: C.surface,
     borderWidth: 1,
     borderColor: C.divider,
@@ -291,8 +294,8 @@ const ds = StyleSheet.create({
   },
   closeButtonText: {
     color: C.text_muted,
-    fontSize: 11,
-    fontWeight: '800',
+    fontSize: TY.size_note,
+    fontWeight: TY.weight_heavy,
     letterSpacing: 2,
   },
 })

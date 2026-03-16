@@ -6,6 +6,9 @@ import {
 import uiData from '../../data/ui.json'
 import themeData from '../../data/theme.json'
 
+const TY = themeData.typography
+const SP = themeData.spacing
+const R  = themeData.radius
 const MONO  = Platform.select(themeData.ui.font_mono) as string
 const INTRO = uiData.intro
 const DOTS  = themeData.ui.terminal_dots
@@ -133,14 +136,14 @@ const styles = StyleSheet.create({
     borderBottomColor: C.surface,
   },
   dots: { flexDirection: 'row', gap: 5 },
-  dot:  { width: 8, height: 8, borderRadius: 4 },
+  dot:  { width: 8, height: 8, borderRadius: R.xs },
   headerText: {
     flex: 1,
     textAlign: 'center',
     color: C.button_border,
-    fontSize: 9,
+    fontSize: TY.size_caption,
     letterSpacing: 2,
-    fontWeight: '700',
+    fontWeight: TY.weight_bold,
   },
 
   mainArea: {
@@ -166,9 +169,9 @@ const styles = StyleSheet.create({
   },
   dividerLabel: {
     color: C.button_border,
-    fontSize: 8,
+    fontSize: TY.size_2xs,
     letterSpacing: 2.5,
-    fontWeight: '800',
+    fontWeight: TY.weight_heavy,
   },
 
   gap: { height: 22 },
@@ -176,14 +179,14 @@ const styles = StyleSheet.create({
   linesBlock: {},
   line: {
     color: C.text_secondary,
-    fontSize: 14,
+    fontSize: TY.size_md,
     lineHeight: 26,
-    fontWeight: '400',
+    fontWeight: TY.weight_regular,
     letterSpacing: 0.2,
   },
   cursorLine: {
     color: C.text_muted,
-    fontSize: 14,
+    fontSize: TY.size_md,
     lineHeight: 22,
     marginTop: 2,
   },
@@ -196,7 +199,7 @@ const styles = StyleSheet.create({
   },
   ctaBtn: {
     paddingVertical: 18,
-    borderRadius: 10,
+    borderRadius: R.pill,
     backgroundColor: C.background,
     borderWidth: 1,
     borderColor: C.divider,
@@ -206,8 +209,8 @@ const styles = StyleSheet.create({
   },
   ctaText: {
     color: C.query,
-    fontSize: 13,
-    fontWeight: '900',
+    fontSize: TY.size_body,
+    fontWeight: TY.weight_black,
     letterSpacing: 3.5,
   },
   ctaPlaceholder: {

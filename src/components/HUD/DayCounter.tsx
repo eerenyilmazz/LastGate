@@ -21,6 +21,6 @@ export const DayCounter: React.FC<Props> = ({ day }) => {
 
 const styles = StyleSheet.create({
   container: { flexDirection: 'row', alignItems: 'baseline', gap: 4 },
-  label:     { fontSize: 11, letterSpacing: 1 },
-  day:       { fontSize: 22, fontWeight: '800', letterSpacing: -0.5 },
+  label:     { fontSize: TY.size_note, letterSpacing: 1 },
+  day:       { fontSize: TY.size_h4, fontWeight: TY.weight_heavy, letterSpacing: -0.5 },
 })

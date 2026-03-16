@@ -37,23 +37,50 @@ export interface ThemeColors {
 }
 
 export interface ThemeTypography {
-  size_xs: number
-  size_sm: number
-  size_md: number
-  size_lg: number
-  size_xl: number
-  size_xxl: number
-  weight_regular: string
-  weight_bold: string
+  size_2xs:      number
+  size_caption:  number
+  size_xs:       number
+  size_note:     number
+  size_sm:       number
+  size_body:     number
+  size_md:       number
+  size_h6:       number
+  size_h5:       number
+  size_h4:       number
+  size_lg:       number
+  size_xl:       number
+  size_xxl:      number
+  size_h7:       number
+  size_h6_alt:   number
+  size_xl_alt:   number
+  size_banner:   number
+  size_display:  number
+  size_hero:     number
+  weight_regular:  string
+  weight_semi:     string
+  weight_bold:     string
+  weight_heavy:    string
+  weight_black:    string
   font_family: string
 }
 
 export interface ThemeSpacing {
-  xs: number
-  sm: number
-  md: number
-  lg: number
-  xl: number
+  xxs: number
+  xs:  number
+  sm:  number
+  md:  number
+  lg:  number
+  xl:  number
+}
+
+export interface ThemeRadius {
+  xs:   number
+  sm:   number
+  md:   number
+  pill: number
+  lg:   number
+  xl:   number
+  xxl:  number
 }
 
 export interface ThemeCard {
@@ -105,6 +132,7 @@ export interface Theme {
   colors: ThemeColors
   typography: ThemeTypography
   spacing: ThemeSpacing
+  radius: ThemeRadius
   card: ThemeCard
   animation: ThemeAnimation
   stat_bar: ThemeStatBar

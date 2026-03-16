@@ -7,6 +7,9 @@ import themeData from '../../data/theme.json'
 import config from '../../data/config.json'
 import uiData from '../../data/ui.json'
 
+const TY = themeData.typography
+const SP = themeData.spacing
+const R  = themeData.radius
 const C           = themeData.colors
 const LABELS      = uiData.labels
 const ROLE_LABELS = uiData.role_synergy_labels as Record<string, string>
@@ -165,13 +168,13 @@ const styles = StyleSheet.create({
     borderBottomColor: C.divider,
   },
   dots: { flexDirection: 'row', gap: 5 },
-  dot:  { width: 9, height: 9, borderRadius: 5 },
+  dot:  { width: 9, height: 9, borderRadius: R.xs },
   dayLabel: {
     flex: 1,
     textAlign: 'center',
     color: C.text_muted,
-    fontSize: 11,
-    fontWeight: '800',
+    fontSize: TY.size_note,
+    fontWeight: TY.weight_heavy,
     letterSpacing: 3,
   },
 
@@ -188,11 +191,11 @@ const styles = StyleSheet.create({
     gap: 8,
   },
 
-  statIcon: { fontSize: 16, width: 24, textAlign: 'center' },
+  statIcon: { fontSize: TY.size_h6, width: 24, textAlign: 'center' },
 
   statShort: {
-    fontSize: 9,
-    fontWeight: '800',
+    fontSize: TY.size_caption,
+    fontWeight: TY.weight_heavy,
     letterSpacing: 0.5,
     width: 72,
   },
@@ -201,19 +204,19 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 10,
     backgroundColor: C.surface,
-    borderRadius: 5,
+    borderRadius: R.xs,
     overflow: 'hidden',
     borderWidth: 1,
     borderColor: C.divider,
   },
   barFill: {
     height: '100%',
-    borderRadius: 5,
+    borderRadius: R.xs,
   },
 
   statNum: {
-    fontSize: 13,
-    fontWeight: '700',
+    fontSize: TY.size_body,
+    fontWeight: TY.weight_bold,
     width: 36,
     textAlign: 'right',
   },
@@ -221,15 +224,15 @@ const styles = StyleSheet.create({
   diffBox: {
     width: 40,
     paddingVertical: 3,
-    borderRadius: 5,
+    borderRadius: R.xs,
     alignItems: 'center',
     backgroundColor: 'transparent',
   },
   diffBoxPos: { backgroundColor: C.diff_pos_bg, borderWidth: 1, borderColor: C.border_pos },
   diffBoxNeg: { backgroundColor: C.diff_neg_bg, borderWidth: 1, borderColor: C.border_neg },
   diffText: {
-    fontSize: 11,
-    fontWeight: '800',
+    fontSize: TY.size_note,
+    fontWeight: TY.weight_heavy,
   },
 
   divider: {
@@ -254,16 +257,16 @@ const styles = StyleSheet.create({
     gap: 4,
     paddingHorizontal: 9,
     paddingVertical: 5,
-    borderRadius: 8,
+    borderRadius: R.md,
     borderWidth: 1,
   },
   roleCount: {
-    fontSize: 12,
-    fontWeight: '900',
+    fontSize: TY.size_sm,
+    fontWeight: TY.weight_black,
   },
   roleLabel: {
-    fontSize: 9,
-    fontWeight: '700',
+    fontSize: TY.size_caption,
+    fontWeight: TY.weight_bold,
     letterSpacing: 0.5,
   },
 
@@ -273,7 +276,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: C.card_dark,
-    borderRadius: 14,
+    borderRadius: R.lg,
     borderWidth: 1,
     borderColor: C.divider,
     borderLeftWidth: 4,
@@ -287,27 +290,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 12,
   },
-  buildingEmoji: { fontSize: 24 },
+  buildingEmoji: { fontSize: TY.size_xl },
   buildingTitle: {
     color: C.query,
-    fontSize: 12,
-    fontWeight: '900',
+    fontSize: TY.size_sm,
+    fontWeight: TY.weight_black,
     letterSpacing: 1.5,
     marginBottom: 3,
   },
   buildingSub: {
     color: C.text_secondary,
-    fontSize: 10,
+    fontSize: TY.size_xs,
   },
   buildingArrow: {
     color: C.query,
-    fontSize: 26,
-    fontWeight: '900',
+    fontSize: TY.size_xl_alt,
+    fontWeight: TY.weight_black,
   },
 
   hint: {
     color: C.button_border,
-    fontSize: 9,
+    fontSize: TY.size_caption,
     letterSpacing: 2,
     textAlign: 'center',
     marginBottom: 4,

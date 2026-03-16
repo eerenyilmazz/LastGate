@@ -7,6 +7,9 @@ import { GameEvent, EventChoice } from '../../types/event.types'
 import { NPCRole } from '../../types/npc.types'
 import themeData from '../../data/theme.json'
 
+const TY = themeData.typography
+const SP = themeData.spacing
+const R  = themeData.radius
 const MONO        = Platform.select(themeData.ui.font_mono) as string
 const STAT_ICONS  = themeData.ui.stat_icons as Record<string, string>
 const CHOICE_COLOR = themeData.ui.choice_colors as Record<string, string>
@@ -192,13 +195,13 @@ const es = StyleSheet.create({
     borderBottomColor: C.divider,
   },
   dots: { flexDirection: 'row', gap: 5 },
-  dot:  { width: 8, height: 8, borderRadius: 4 },
+  dot:  { width: 8, height: 8, borderRadius: R.xs },
   termTitle: {
     flex: 1,
     color: C.text_secondary,
-    fontSize: 9,
+    fontSize: TY.size_caption,
     letterSpacing: 2,
-    fontWeight: '700',
+    fontWeight: TY.weight_bold,
     textAlign: 'center',
   },
 
@@ -211,8 +214,8 @@ const es = StyleSheet.create({
 
   eventTitle: {
     color: C.text_primary,
-    fontSize: 20,
-    fontWeight: '800',
+    fontSize: TY.size_h5,
+    fontWeight: TY.weight_heavy,
     letterSpacing: 0.3,
     textShadowColor: 'rgba(0,0,0,0.6)',
     textShadowOffset: { width: 0, height: 1 },
@@ -221,7 +224,7 @@ const es = StyleSheet.create({
 
   descBlock: {
     backgroundColor: C.surface,
-    borderRadius: 10,
+    borderRadius: R.pill,
     borderWidth: 1,
     borderColor: C.divider,
     borderLeftWidth: 3,
@@ -230,7 +233,7 @@ const es = StyleSheet.create({
   },
   descText: {
     color: C.text_secondary,
-    fontSize: 12,
+    fontSize: TY.size_sm,
     lineHeight: 20,
   },
 
@@ -242,15 +245,15 @@ const es = StyleSheet.create({
   dividerLine: { flex: 1, height: 1, backgroundColor: C.divider },
   dividerText: {
     color: C.text_muted,
-    fontSize: 9,
-    fontWeight: '700',
+    fontSize: TY.size_caption,
+    fontWeight: TY.weight_bold,
     letterSpacing: 1.5,
   },
 
   choicesBlock: { gap: 8 },
 
   choiceBtn: {
-    borderRadius: 10,
+    borderRadius: R.pill,
     borderWidth: 1,
     borderLeftWidth: 4,
     padding: 12,
@@ -266,28 +269,28 @@ const es = StyleSheet.create({
   badge: {
     width: 26,
     height: 26,
-    borderRadius: 6,
+    borderRadius: R.sm,
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
     flexShrink: 0,
   },
   badgeLetter: {
-    fontSize: 12,
-    fontWeight: '900',
+    fontSize: TY.size_sm,
+    fontWeight: TY.weight_black,
   },
 
   choiceLabel: {
     flex: 1,
     color: C.text_bright,
-    fontSize: 13,
-    fontWeight: '600',
+    fontSize: TY.size_body,
+    fontWeight: TY.weight_semi,
     lineHeight: 18,
   },
 
   bonusBadge: {
     backgroundColor: C.card_dark,
-    borderRadius: 4,
+    borderRadius: R.xs,
     borderWidth: 1,
     borderColor: (C.query + '44'),
     paddingHorizontal: 5,
@@ -296,8 +299,8 @@ const es = StyleSheet.create({
   },
   bonusText: {
     color: C.query,
-    fontSize: 8,
-    fontWeight: '800',
+    fontSize: TY.size_2xs,
+    fontWeight: TY.weight_heavy,
     letterSpacing: 0.5,
   },
 
@@ -310,10 +313,10 @@ const es = StyleSheet.create({
     gap: 3,
     paddingHorizontal: 7,
     paddingVertical: 4,
-    borderRadius: 5,
+    borderRadius: R.xs,
     borderWidth: 1,
   },
-  chipIcon: { fontSize: 11 },
-  chipVal:  { fontSize: 11, fontWeight: '800' },
-  none:     { color: C.button_border, fontSize: 11, fontStyle: 'italic' },
+  chipIcon: { fontSize: TY.size_note },
+  chipVal:  { fontSize: TY.size_note, fontWeight: TY.weight_heavy },
+  none:     { color: C.button_border, fontSize: TY.size_note, fontStyle: 'italic' },
 })

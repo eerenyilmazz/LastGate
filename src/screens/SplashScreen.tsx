@@ -11,7 +11,10 @@ import themeData from '../data/theme.json'
 interface Props { onDone: () => void }
 
 const { height } = Dimensions.get('window')
-const C = themeData.colors
+const C  = themeData.colors
+const TY = themeData.typography
+const SP = themeData.spacing
+const R  = themeData.radius
 const MONO         = Platform.select(themeData.ui.font_mono) as string
 const STATUS_ITEMS = ui.splash_status_items
 
@@ -175,7 +178,7 @@ const styles = StyleSheet.create({
     borderColor: C.bg_deeper,
     overflow: 'hidden',
   },
-  alertText: { color: C.text_muted, fontSize: 9, fontWeight: '800', letterSpacing: 2 },
+  alertText: { color: C.text_muted, fontSize: TY.size_caption, fontWeight: TY.weight_heavy, letterSpacing: 2 },
 
   center: {
     flex: 1,
@@ -187,21 +190,21 @@ const styles = StyleSheet.create({
   },
 
   logoBlock: { alignItems: 'center', gap: 8 },
-  emblem: { fontSize: 42, color: C.text_muted },
+  emblem: { fontSize: TY.size_display, color: C.text_muted },
   title: {
-    fontSize: 44,
-    fontWeight: '900',
+    fontSize: TY.size_display,
+    fontWeight: TY.weight_black,
     color: C.text_bright,
     letterSpacing: 9,
   },
-  subtitle: { fontSize: 10, fontWeight: '700', color: C.text_muted, letterSpacing: 8 },
+  subtitle: { fontSize: TY.size_xs, fontWeight: TY.weight_bold, color: C.text_muted, letterSpacing: 8 },
 
   terminal: {
     width: '100%',
     backgroundColor: C.bg_deeper,
     borderWidth: 1,
     borderColor: C.bg_deeper,
-    borderRadius: 6,
+    borderRadius: R.sm,
     overflow: 'hidden',
   },
   termHeader: {
@@ -209,30 +212,30 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12, paddingVertical: 8,
     backgroundColor: C.bg_deeper,
   },
-  termDot:    { width: 7, height: 7, borderRadius: 4, backgroundColor: C.text_muted },
-  termTitle:  { color: C.text_muted, fontSize: 9, letterSpacing: 2, fontWeight: '700', marginLeft: 6, flex: 1, textAlign: 'right' },
+  termDot:    { width: 7, height: 7, borderRadius: R.xs, backgroundColor: C.text_muted },
+  termTitle:  { color: C.text_muted, fontSize: TY.size_caption, letterSpacing: 2, fontWeight: TY.weight_bold, marginLeft: 6, flex: 1, textAlign: 'right' },
   termDivider:{ height: 1, backgroundColor: C.bg_deeper },
   termBody:   { padding: 12, gap: 10 },
   statusRow:  { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  statusTag:  { fontSize: 9, width: 26, fontWeight: '800' },
-  statusLabel:{ color: C.text_muted, fontSize: 9, fontWeight: '700', letterSpacing: 0.5, flex: 1 },
+  statusTag:  { fontSize: TY.size_caption, width: 26, fontWeight: TY.weight_heavy },
+  statusLabel:{ color: C.text_muted, fontSize: TY.size_caption, fontWeight: TY.weight_bold, letterSpacing: 0.5, flex: 1 },
   dotsRow:    { flexDirection: 'row', gap: 2, alignItems: 'center', marginHorizontal: 4 },
   dot:        { width: 2, height: 2, borderRadius: 1, backgroundColor: C.bg_deeper },
-  statusValue:{ fontSize: 9, fontWeight: '800', letterSpacing: 1.5 },
+  statusValue:{ fontSize: TY.size_caption, fontWeight: TY.weight_heavy, letterSpacing: 1.5 },
 
   taglineWrap: { alignItems: 'center', marginBottom: 14 },
-  tagline: { color: C.text_muted, fontSize: 10, letterSpacing: 2, fontWeight: '700' },
+  tagline: { color: C.text_muted, fontSize: TY.size_xs, letterSpacing: 2, fontWeight: TY.weight_bold },
 
   hintWrap: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 12,
   },
-  hintBracket: { color: C.text_muted, fontSize: 13, fontWeight: '900' },
-  hintText:    { color: C.text_muted, fontSize: 10, fontWeight: '800', letterSpacing: 3 },
+  hintBracket: { color: C.text_muted, fontSize: TY.size_body, fontWeight: TY.weight_black },
+  hintText:    { color: C.text_muted, fontSize: TY.size_xs, fontWeight: TY.weight_heavy, letterSpacing: 3 },
 
   version: {
-    fontSize: 8,
+    fontSize: TY.size_2xs,
     color: C.bg_deeper,
     letterSpacing: 2,
     marginBottom: Platform.OS === 'android' ? 18 : 14,

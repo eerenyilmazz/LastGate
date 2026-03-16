@@ -63,5 +63,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 40,
   },
-  text: { fontWeight: '900', textAlign: 'center', marginBottom: 4 },
+  text: { fontWeight: TY.weight_black, textAlign: 'center', marginBottom: 4 },
 })

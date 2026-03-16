@@ -14,6 +14,9 @@ import config from '../data/config.json'
 import themeData from '../data/theme.json'
 import uiData from '../data/ui.json'
 
+const TY = themeData.typography
+const SP = themeData.spacing
+const R  = themeData.radius
 const UI        = themeData.ui
 const C         = themeData.colors
 const STAT_KEYS = UI.stat_keys as StatType[]
@@ -124,19 +127,19 @@ const styles = StyleSheet.create({
   header: { alignItems: 'center', gap: 6, marginBottom: 24 },
   tag: {
     color: C.accept,
-    fontSize: 9,
-    fontWeight: '900',
+    fontSize: TY.size_caption,
+    fontWeight: TY.weight_black,
     letterSpacing: 3,
     marginBottom: 4,
   },
   emblem: {
-    fontSize: 48,
+    fontSize: TY.size_banner,
     marginVertical: 4,
   },
   title: {
     color: C.text_bright,
-    fontSize: 20,
-    fontWeight: '900',
+    fontSize: TY.size_h5,
+    fontWeight: TY.weight_black,
     letterSpacing: 6,
     textAlign: 'center',
     textShadowColor: (C.accept_glow + '44'),
@@ -145,14 +148,14 @@ const styles = StyleSheet.create({
   },
   dayLine: {
     color: C.accept_glow,
-    fontSize: 13,
-    fontWeight: '700',
+    fontSize: TY.size_body,
+    fontWeight: TY.weight_bold,
     letterSpacing: 1,
     marginTop: 2,
   },
   sub: {
     color: C.text_muted,
-    fontSize: 12,
+    fontSize: TY.size_sm,
     lineHeight: 18,
     textAlign: 'center',
     marginTop: 4,
@@ -167,7 +170,7 @@ const styles = StyleSheet.create({
   section: { gap: 6, marginBottom: 4 },
   sectionLabel: {
     color: C.text_muted,
-    fontSize: 9,
+    fontSize: TY.size_caption,
     letterSpacing: 2,
     textAlign: 'center',
     marginBottom: 8,
@@ -180,8 +183,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: C.bg_deeper,
   },
-  statIcon: { fontSize: 14, width: 20, textAlign: 'center' },
-  statName: { width: 72, color: C.text_muted, fontSize: 10, fontWeight: '700', letterSpacing: 0.5 },
+  statIcon: { fontSize: TY.size_md, width: 20, textAlign: 'center' },
+  statName: { width: 72, color: C.text_muted, fontSize: TY.size_xs, fontWeight: TY.weight_bold, letterSpacing: 0.5 },
   barTrack: {
     flex: 1,
     height: 6,
@@ -190,7 +193,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   barFill: { height: '100%', borderRadius: 3 },
-  statVal: { width: 32, fontSize: 12, fontWeight: '800', textAlign: 'right' },
+  statVal: { width: 32, fontSize: TY.size_sm, fontWeight: TY.weight_heavy, textAlign: 'right' },
 
   spRow: {
     flexDirection: 'row',
@@ -199,22 +202,22 @@ const styles = StyleSheet.create({
     backgroundColor: C.bg_deeper,
     borderWidth: 1,
     borderColor: C.button_border,
-    borderRadius: 10,
+    borderRadius: R.pill,
     paddingHorizontal: 16,
     paddingVertical: 14,
     marginBottom: 20,
   },
-  spLabel: { color: C.text_muted, fontSize: 11, fontWeight: '800', letterSpacing: 2 },
+  spLabel: { color: C.text_muted, fontSize: TY.size_note, fontWeight: TY.weight_heavy, letterSpacing: 2 },
   spRight: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  spStar:  { color: C.query, fontSize: 14 },
-  spNum:   { color: C.query, fontSize: 24, fontWeight: '900' },
+  spStar:  { color: C.query, fontSize: TY.size_md },
+  spNum:   { color: C.query, fontSize: TY.size_xl, fontWeight: TY.weight_black },
 
   btnGroup: { gap: 8 },
   btnPrimary: {
     backgroundColor: C.diff_pos_bg,
     borderWidth: 1,
     borderColor: C.accept,
-    borderRadius: 10,
+    borderRadius: R.pill,
     paddingVertical: 16,
     alignItems: 'center',
   },
@@ -222,10 +225,10 @@ const styles = StyleSheet.create({
     backgroundColor: C.bg_deeper,
     borderWidth: 1,
     borderColor: C.card_dark,
-    borderRadius: 10,
+    borderRadius: R.pill,
     paddingVertical: 14,
     alignItems: 'center',
   },
-  btnText:    { color: C.accept_glow, fontSize: 13, fontWeight: '900', letterSpacing: 2 },
-  btnSecText: { color: C.text_muted, fontSize: 11, fontWeight: '700', letterSpacing: 2 },
+  btnText:    { color: C.accept_glow, fontSize: TY.size_body, fontWeight: TY.weight_black, letterSpacing: 2 },
+  btnSecText: { color: C.text_muted, fontSize: TY.size_note, fontWeight: TY.weight_bold, letterSpacing: 2 },
 })

@@ -6,7 +6,10 @@ import {
 import { useSettingsStore } from '../store/useSettingsStore'
 import themeData from '../data/theme.json'
 
-const C = themeData.colors
+const C  = themeData.colors
+const TY = themeData.typography
+const SP = themeData.spacing
+const R  = themeData.radius
 const MONO = Platform.select(themeData.ui.font_mono) as string
 const DOTS = themeData.ui.terminal_dots
 
@@ -184,17 +187,17 @@ const styles = StyleSheet.create({
     borderBottomColor: C.danger_dark,
   },
   dots: { flexDirection: 'row', gap: 5, width: 40 },
-  dot:  { width: 7, height: 7, borderRadius: 4 },
+  dot:  { width: 7, height: 7, borderRadius: R.xs },
   title: {
     flex: 1,
     textAlign: 'center',
     color: C.danger,
-    fontSize: 13,
-    fontWeight: '900',
+    fontSize: TY.size_body,
+    fontWeight: TY.weight_black,
     letterSpacing: 5,
   },
   gearBtn:  { width: 40, alignItems: 'flex-end' },
-  gearIcon: { fontSize: 20, color: C.text_muted },
+  gearIcon: { fontSize: TY.size_h5, color: C.text_muted },
 
   backdrop: {
     flex: 1,
@@ -223,12 +226,12 @@ const styles = StyleSheet.create({
     borderBottomColor: C.card_bg,
   },
   termDots: { flexDirection: 'row', gap: 5 },
-  termDot:  { width: 9, height: 9, borderRadius: 5 },
+  termDot:  { width: 9, height: 9, borderRadius: R.xs },
   termTitle: {
     flex: 1,
     color: C.text_muted,
-    fontSize: 10,
-    fontWeight: '800',
+    fontSize: TY.size_xs,
+    fontWeight: TY.weight_heavy,
     letterSpacing: 2.5,
     textAlign: 'center',
   },
@@ -241,7 +244,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: C.divider,
   },
-  closeText: { color: C.text_muted, fontSize: 12, fontWeight: '900' },
+  closeText: { color: C.text_muted, fontSize: TY.size_sm, fontWeight: TY.weight_black },
 
   settingRow: {
     flexDirection: 'row',
@@ -254,21 +257,21 @@ const styles = StyleSheet.create({
   },
   settingLabel: {
     color: C.text_muted,
-    fontSize: 11,
-    fontWeight: '800',
+    fontSize: TY.size_note,
+    fontWeight: TY.weight_heavy,
     letterSpacing: 1.5,
     marginBottom: 3,
   },
-  settingSub: { color: C.divider, fontSize: 11 },
+  settingSub: { color: C.divider, fontSize: TY.size_note },
   toggle: {
     paddingHorizontal: 16,
     paddingVertical: 9,
-    borderRadius: 8,
+    borderRadius: R.md,
     borderWidth: 1,
     minWidth: 90,
     alignItems: 'center',
   },
-  toggleText: { fontSize: 12, fontWeight: '800', letterSpacing: 0.5 },
+  toggleText: { fontSize: TY.size_sm, fontWeight: TY.weight_heavy, letterSpacing: 0.5 },
 
   menuExitRow: {
     flexDirection: 'row',
@@ -278,7 +281,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     marginHorizontal: 18,
     marginTop: 8,
-    borderRadius: 10,
+    borderRadius: R.pill,
     borderWidth: 1,
     borderColor: C.border_neg,
     borderLeftWidth: 3,
@@ -287,17 +290,17 @@ const styles = StyleSheet.create({
   },
   menuExitLabel: {
     color: C.danger,
-    fontSize: 11,
-    fontWeight: '800',
+    fontSize: TY.size_note,
+    fontWeight: TY.weight_heavy,
     letterSpacing: 1.5,
     marginBottom: 3,
   },
-  menuExitSub:   { color: C.text_muted, fontSize: 10 },
-  menuExitArrow: { color: C.danger, fontSize: 22, fontWeight: '900' },
+  menuExitSub:   { color: C.text_muted, fontSize: TY.size_xs },
+  menuExitArrow: { color: C.danger, fontSize: TY.size_h4, fontWeight: TY.weight_black },
 
   version: {
     color: C.bg_deeper,
-    fontSize: 9,
+    fontSize: TY.size_caption,
     letterSpacing: 1.5,
     textAlign: 'center',
     paddingVertical: 18,
@@ -306,7 +309,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 18,
     marginTop: 2,
     paddingVertical: 14,
-    borderRadius: 10,
+    borderRadius: R.pill,
     backgroundColor: C.surface,
     borderWidth: 1,
     borderColor: C.divider,
@@ -314,8 +317,8 @@ const styles = StyleSheet.create({
   },
   closeButtonText: {
     color: C.text_muted,
-    fontSize: 11,
-    fontWeight: '900',
+    fontSize: TY.size_note,
+    fontWeight: TY.weight_black,
     letterSpacing: 2,
   },
 })
@@ -331,7 +334,7 @@ const confirm = StyleSheet.create({
   box: {
     width: '100%',
     backgroundColor: C.card_dark,
-    borderRadius: 16,
+    borderRadius: R.xl,
     borderWidth: 1,
     borderColor: C.divider,
     overflow: 'hidden',
@@ -351,19 +354,19 @@ const confirm = StyleSheet.create({
     paddingBottom: 12,
   },
   warningIcon: {
-    fontSize: 18,
+    fontSize: TY.size_lg,
     color: C.danger,
   },
   title: {
     color: C.danger,
-    fontSize: 13,
-    fontWeight: '900',
+    fontSize: TY.size_body,
+    fontWeight: TY.weight_black,
     letterSpacing: 2,
   },
 
   message: {
     color: C.text_secondary,
-    fontSize: 13,
+    fontSize: TY.size_body,
     lineHeight: 20,
     paddingHorizontal: 20,
     paddingBottom: 20,
@@ -393,8 +396,8 @@ const confirm = StyleSheet.create({
     backgroundColor: C.danger_dark,
   },
   btnText: {
-    fontSize: 12,
-    fontWeight: '900',
+    fontSize: TY.size_sm,
+    fontWeight: TY.weight_black,
     letterSpacing: 1.5,
   },
   btnCancelText: { color: C.text_muted },

@@ -30,6 +30,9 @@ import config from '../data/config.json'
 import themeData from '../data/theme.json'
 import uiData from '../data/ui.json'
 
+const TY = themeData.typography
+const SP = themeData.spacing
+const R  = themeData.radius
 const UI       = themeData.ui
 const C        = themeData.colors
 const L        = uiData.labels
@@ -123,15 +126,15 @@ const StatBarItem = React.memo<{
 
 const barStyles = StyleSheet.create({
   col:   { flex: 1, alignItems: 'center', gap: 2 },
-  icon:  { fontSize: 12 },
+  icon:  { fontSize: TY.size_sm },
   track: {
-    flex: 1, width: '100%', borderRadius: 5,
+    flex: 1, width: '100%', borderRadius: R.xs,
     overflow: 'hidden', justifyContent: 'flex-end',
     backgroundColor: C.card_dark,
     borderWidth: 1, borderColor: C.card_bg,
   },
   fill:  { width: '100%', borderRadius: 3 },
-  val:   { fontSize: 8, fontWeight: '800' },
+  val:   { fontSize: TY.size_2xs, fontWeight: TY.weight_heavy },
 })
 
 const CARD_ASPECT = 3 / 4
@@ -409,22 +412,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  dayNum: { fontSize: 16, fontWeight: '800', letterSpacing: 0.3 },
-  daySub: { fontSize: 9, letterSpacing: 0.2, marginTop: 1, color: themeData.colors.text_secondary },
+  dayNum: { fontSize: TY.size_h6, fontWeight: TY.weight_heavy, letterSpacing: 0.3 },
+  daySub: { fontSize: TY.size_caption, letterSpacing: 0.2, marginTop: 1, color: themeData.colors.text_secondary },
   spBox: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
     backgroundColor: C.card_bg,
-    borderRadius: 8,
+    borderRadius: R.md,
     borderWidth: 1,
     borderColor: C.button_border,
     paddingHorizontal: 12,
     paddingVertical: 6,
   },
-  spStar:  { fontSize: 14 },
-  spNum:   { fontSize: 17, fontWeight: '800' },
-  spLabel: { fontSize: 10, fontWeight: '700', color: C.text_secondary },
+  spStar:  { fontSize: TY.size_md },
+  spNum:   { fontSize: TY.size_h6_alt, fontWeight: TY.weight_heavy },
+  spLabel: { fontSize: TY.size_xs, fontWeight: TY.weight_bold, color: C.text_secondary },
 
   statStrip: { flexDirection: 'row', gap: 5 },
 
@@ -433,12 +436,12 @@ const styles = StyleSheet.create({
   toastArea: { height: 50, paddingHorizontal: 16, justifyContent: 'center' },
   queryToast: {
     paddingHorizontal: 14, paddingVertical: 10,
-    borderRadius: 10, borderWidth: 1,
+    borderRadius: R.pill, borderWidth: 1,
     backgroundColor: C.surface,
   },
-  queryToastText: { fontSize: 12, lineHeight: 18 },
+  queryToastText: { fontSize: TY.size_sm, lineHeight: 18 },
   queryWarnToast: { backgroundColor: C.surface, borderColor: themeData.colors.stat_food },
-  queryWarnText:  { color: C.query, fontSize: 11, fontWeight: '700', lineHeight: 16 },
+  queryWarnText:  { color: C.query, fontSize: TY.size_note, fontWeight: TY.weight_bold, lineHeight: 16 },
 
   actionBar: {
     flexDirection: 'row',
@@ -454,7 +457,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 12,
+    borderRadius: R.lg,
     gap: 3,
     borderWidth: 1,
   },
@@ -465,9 +468,9 @@ const styles = StyleSheet.create({
   acceptBtn:    { backgroundColor: '#1a2d1a', borderColor: C.border_pos },
   btnDisabled:  { opacity: 0.35 },
 
-  rejectMark:  { fontSize: 20, color: themeData.colors.reject_glow, fontWeight: '900' },
-  acceptMark:  { fontSize: 20, color: themeData.colors.accept_glow, fontWeight: '900' },
-  queryCharge: { fontSize: 18, fontWeight: '900' },
-  detailMark:  { fontSize: 18, fontWeight: '900', fontStyle: 'italic' },
-  actionLabel: { fontSize: 9, fontWeight: '700', letterSpacing: 0.5 },
+  rejectMark:  { fontSize: TY.size_h5, color: themeData.colors.reject_glow, fontWeight: TY.weight_black },
+  acceptMark:  { fontSize: TY.size_h5, color: themeData.colors.accept_glow, fontWeight: TY.weight_black },
+  queryCharge: { fontSize: TY.size_lg, fontWeight: TY.weight_black },
+  detailMark:  { fontSize: TY.size_lg, fontWeight: TY.weight_black, fontStyle: 'italic' },
+  actionLabel: { fontSize: TY.size_caption, fontWeight: TY.weight_bold, letterSpacing: 0.5 },
 })

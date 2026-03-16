@@ -3,7 +3,10 @@ import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native
 import themeData from '../../data/theme.json'
 import uiData from '../../data/ui.json'
 
-const C = themeData.colors
+const C  = themeData.colors
+const TY = themeData.typography
+const SP = themeData.spacing
+const R  = themeData.radius
 const MONO     = Platform.select(themeData.ui.font_mono) as string
 const DOTS     = themeData.ui.terminal_dots
 const TUTORIAL = uiData.tutorial as {
@@ -74,13 +77,13 @@ const styles = StyleSheet.create({
     borderBottomColor: C.card_bg,
   },
   dots:       { flexDirection: 'row', gap: 5 },
-  dot:        { width: 8, height: 8, borderRadius: 4 },
+  dot:        { width: 8, height: 8, borderRadius: R.xs },
   headerText: {
     flex: 1,
     textAlign: 'center',
     color: C.text_secondary,
-    fontSize: 10,
-    fontWeight: '900',
+    fontSize: TY.size_xs,
+    fontWeight: TY.weight_black,
     letterSpacing: 2,
   },
   list: {
@@ -96,7 +99,7 @@ const styles = StyleSheet.create({
   iconBox: {
     width: 32,
     height: 32,
-    borderRadius: 8,
+    borderRadius: R.md,
     backgroundColor: C.card_dark,
     borderWidth: 1,
     borderColor: C.divider,
@@ -105,20 +108,20 @@ const styles = StyleSheet.create({
   },
   tipIcon: {
     color: C.text_muted,
-    fontSize: 14,
-    fontWeight: '800',
+    fontSize: TY.size_md,
+    fontWeight: TY.weight_heavy,
   },
   tipText: {
     flex: 1,
     color: C.text_muted,
-    fontSize: 12,
+    fontSize: TY.size_sm,
     lineHeight: 18,
   },
   btn: {
     marginHorizontal: 16,
     marginTop: 4,
     paddingVertical: 14,
-    borderRadius: 8,
+    borderRadius: R.md,
     backgroundColor: C.surface,
     borderWidth: 1,
     borderColor: C.divider,
@@ -126,8 +129,8 @@ const styles = StyleSheet.create({
   },
   btnText: {
     color: C.query,
-    fontSize: 11,
-    fontWeight: '900',
+    fontSize: TY.size_note,
+    fontWeight: TY.weight_black,
     letterSpacing: 2,
   },
 })
