@@ -44,7 +44,7 @@ const DeltaChips: React.FC<{ delta: StatDelta }> = ({ delta }) => {
   )
 }
 
-const SectionLabel: React.FC<{ text: string; color?: string }> = ({ text, color = '#333' }) => (
+const SectionLabel: React.FC<{ text: string; color?: string }> = ({ text, color = C.text_muted }) => (
   <View style={ds.sectionRow}>
     <View style={[ds.sectionLine, { backgroundColor: color }]} />
     <Text style={[ds.sectionText, { color, fontFamily: MONO }]}>{text}</Text>
@@ -59,7 +59,7 @@ interface Props {
 }
 
 export const CardDetails: React.FC<Props> = ({ npc, visible, onClose }) => {
-  const roleColor = ROLE_COLORS[npc.role] ?? '#555'
+  const roleColor = ROLE_COLORS[npc.role] ?? C.text_muted
 
   return (
     <Modal
@@ -149,11 +149,11 @@ const ds = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   sheet: {
-    backgroundColor: '#111827',
+    backgroundColor: C.background,
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
     borderTopWidth: 1,
-    borderColor: '#2d3748',
+    borderColor: C.card_bg,
     maxHeight: '80%',
     paddingBottom: Platform.OS === 'android' ? 28 : 20,
   },
@@ -164,17 +164,17 @@ const ds = StyleSheet.create({
     gap: 8,
     paddingHorizontal: 16,
     paddingVertical: 12,
-    backgroundColor: '#1f2937',
+    backgroundColor: C.surface,
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#2d3748',
+    borderBottomColor: C.card_bg,
   },
   dots: { flexDirection: 'row', gap: 5 },
   dot:  { width: 8, height: 8, borderRadius: 4 },
   termTitle: {
     flex: 1,
-    color: '#374151',
+    color: C.divider,
     fontSize: 9,
     letterSpacing: 2,
     fontWeight: '700',
@@ -184,13 +184,13 @@ const ds = StyleSheet.create({
     width: 28,
     height: 28,
     borderRadius: 14,
-    backgroundColor: '#252d3d',
+    backgroundColor: C.card_bg,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: '#374151',
+    borderColor: C.divider,
   },
-  closeText: { color: '#555', fontSize: 11, fontWeight: '900' },
+  closeText: { color: C.text_muted, fontSize: 11, fontWeight: '900' },
 
   body: { paddingHorizontal: 16, paddingTop: 14, gap: 0 },
 
@@ -217,13 +217,13 @@ const ds = StyleSheet.create({
     letterSpacing: 1.5,
   },
   name: {
-    color: '#eee',
+    color: C.text_primary,
     fontSize: 22,
     fontWeight: '800',
     letterSpacing: 0.3,
   },
   dialogue: {
-    color: '#555',
+    color: C.text_muted,
     fontSize: 12,
     lineHeight: 18,
     fontStyle: 'italic',
@@ -243,15 +243,15 @@ const ds = StyleSheet.create({
   },
 
   observeBlock: {
-    backgroundColor: '#1f2937',
+    backgroundColor: C.surface,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#374151',
+    borderColor: C.divider,
     padding: 12,
     marginBottom: 4,
   },
   observeText: {
-    color: '#888',
+    color: C.text_muted,
     fontSize: 12,
     lineHeight: 19,
   },
@@ -275,22 +275,22 @@ const ds = StyleSheet.create({
     borderWidth: 1,
   },
   chipIcon: { fontSize: 12 },
-  chipName: { color: '#555', fontSize: 10, fontWeight: '600' },
+  chipName: { color: C.text_muted, fontSize: 10, fontWeight: '600' },
   chipVal:  { fontSize: 12, fontWeight: '800' },
-  deltaEmpty: { color: '#374151', fontSize: 12, fontStyle: 'italic' },
+  deltaEmpty: { color: C.divider, fontSize: 12, fontStyle: 'italic' },
 
   closeButton: {
     marginHorizontal: 16,
     marginTop: 14,
     paddingVertical: 13,
     borderRadius: 8,
-    backgroundColor: '#1f2937',
+    backgroundColor: C.surface,
     borderWidth: 1,
-    borderColor: '#374151',
+    borderColor: C.divider,
     alignItems: 'center',
   },
   closeButtonText: {
-    color: '#6b7280',
+    color: C.text_muted,
     fontSize: 11,
     fontWeight: '800',
     letterSpacing: 2,

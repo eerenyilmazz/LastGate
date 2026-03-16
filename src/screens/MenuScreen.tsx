@@ -26,7 +26,7 @@ type OverlayType = 'howto' | 'guide' | 'settings' | null
 type GuideTab = 'chars' | 'traits' | 'stats' | 'buildings' | 'skills'
 
 const InfoRow: React.FC<{ icon: string; name: string; desc: string; accentColor?: string }> = ({
-  icon, name, desc, accentColor = '#333',
+  icon, name, desc, accentColor = C.text_muted,
 }) => (
   <View style={[row.container, { borderLeftColor: accentColor + '66' }]}>
     <Text style={row.icon}>{icon}</Text>
@@ -38,7 +38,7 @@ const InfoRow: React.FC<{ icon: string; name: string; desc: string; accentColor?
 )
 
 const PanelHeader: React.FC<{ title: string; onClose: () => void; accentColor?: string }> = ({
-  title, onClose, accentColor = '#cc0000',
+  title, onClose, accentColor = C.danger,
 }) => (
   <View style={[panel.header, { borderBottomColor: accentColor + '33' }]}>
     <View style={panel.dots}>
@@ -96,17 +96,17 @@ const HowToPlay: React.FC = () => (
     </View>
 
     <View style={content.block}>
-      <Text style={[content.blockTitle, { color: '#f57c00', fontFamily: MONO }]}>[ SORGU SİSTEMİ ]</Text>
+      <Text style={[content.blockTitle, { color: C.query, fontFamily: MONO }]}>[ SORGU SİSTEMİ ]</Text>
       <View style={content.infoCard}>
-        <Text style={content.line}>›  Her gün <Text style={{ color: '#f57c00', fontWeight: '700' }}>3 sorgu</Text> hakkın var.</Text>
-        <Text style={content.line}>›  İlk sorgu <Text style={{ color: '#4caf50', fontWeight: '700' }}>ücretsiz</Text>, 2. ve 3. yiyecek götürür.</Text>
+        <Text style={content.line}>›  Her gün <Text style={{ color: C.query, fontWeight: '700' }}>3 sorgu</Text> hakkın var.</Text>
+        <Text style={content.line}>›  İlk sorgu <Text style={{ color: C.accept_glow, fontWeight: '700' }}>ücretsiz</Text>, 2. ve 3. yiyecek götürür.</Text>
         <Text style={content.line}>›  Sorgu, karakter hakkında ipucu verir.</Text>
         <Text style={content.line}>›  Aynı karaktere tekrar sorgu yapabilirsin.</Text>
       </View>
     </View>
 
     <View style={content.block}>
-      <Text style={[content.blockTitle, { color: '#f57c00', fontFamily: MONO }]}>[ SP · HAYATTA KALMA PUANI ]</Text>
+      <Text style={[content.blockTitle, { color: C.query, fontFamily: MONO }]}>[ SP · HAYATTA KALMA PUANI ]</Text>
       <View style={content.infoCard}>
         <Text style={content.line}>›  Her gün hayatta kalmak SP kazandırır.</Text>
         <Text style={content.line}>›  SP ile bina inşa et, yetenek satın al.</Text>
@@ -115,8 +115,8 @@ const HowToPlay: React.FC = () => (
     </View>
 
     <View style={content.block}>
-      <Text style={[content.blockTitle, { color: '#c62828', fontFamily: MONO }]}>[ GİZLİ ÖZELLİKLER ]</Text>
-      <View style={[content.warnBox, { borderLeftColor: '#8b0000' }]}>
+      <Text style={[content.blockTitle, { color: C.danger, fontFamily: MONO }]}>[ GİZLİ ÖZELLİKLER ]</Text>
+      <View style={[content.warnBox, { borderLeftColor: C.danger_dark }]}>
         <Text style={[content.warnText, { fontFamily: MONO }]}>
           UYARI: Yanlış kişiyi kabul etmek şehri çökertebilir.
         </Text>
@@ -239,15 +239,15 @@ const SettingsContent: React.FC = () => {
           style={[sett.toggle, settings.soundEnabled && sett.toggleOn]}
           activeOpacity={0.8}
         >
-          <Text style={[sett.toggleText, { fontFamily: MONO, color: settings.soundEnabled ? '#4caf50' : '#444' }]}>
+          <Text style={[sett.toggleText, { fontFamily: MONO, color: settings.soundEnabled ? C.accept_glow : C.text_muted }]}>
             {settings.soundEnabled ? 'AÇIK' : 'KAPALI'}
           </Text>
         </TouchableOpacity>
       </View>
 
-      <View style={[sett.card, { borderColor: '#221500' }]}>
+      <View style={[sett.card, { borderColor: C.button_border }]}>
         <View style={sett.cardLeft}>
-          <Text style={[sett.cardTitle, { color: '#f57c00', fontFamily: MONO }]}>HAYATTA KALMA PUANI</Text>
+          <Text style={[sett.cardTitle, { color: C.query, fontFamily: MONO }]}>HAYATTA KALMA PUANI</Text>
           <Text style={sett.cardSub}>Bu oyun boyunca birikir · binalar ve yetenekler için</Text>
         </View>
         <View style={sett.spBox}>
@@ -328,7 +328,7 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
             </View>
             <View style={meta.runDivider} />
             <View style={meta.runStat}>
-              <Text style={[meta.runVal, progress.totalWins > 0 && { color: '#4caf50' }]}>
+              <Text style={[meta.runVal, progress.totalWins > 0 && { color: C.accept_glow }]}>
                 {progress.totalWins}
               </Text>
               <Text style={meta.runLabel}>ZAFERLİ</Text>
@@ -343,7 +343,7 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
           {(['easy', 'normal', 'hard'] as Difficulty[]).map((d) => {
             const labels: Record<Difficulty, string> = { easy: 'KOLAY', normal: 'NORMAL', hard: 'ZOR' }
             const active = settings.difficulty === d
-            const colors: Record<Difficulty, string> = { easy: '#2e7d32', normal: '#f57c00', hard: '#8b0000' }
+            const colors: Record<Difficulty, string> = { easy: C.accept, normal: C.query, hard: C.danger_dark }
             return (
               <TouchableOpacity
                 key={d}
@@ -351,7 +351,7 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
                 style={[diff.btn, active && { borderColor: colors[d], backgroundColor: colors[d] + '22' }]}
                 activeOpacity={0.75}
               >
-                <Text style={[diff.label, { color: active ? colors[d] : '#2a2a2a' }]}>{labels[d]}</Text>
+                <Text style={[diff.label, { color: active ? colors[d] : C.text_muted }]}>{labels[d]}</Text>
               </TouchableOpacity>
             )
           })}
@@ -397,9 +397,9 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
             <View style={[
               panel.accentBar,
               {
-                backgroundColor: overlay === 'howto'    ? '#8b0000'
-                               : overlay === 'guide'    ? '#f57c00'
-                               : '#2e7d32',
+                backgroundColor: overlay === 'howto'    ? C.danger_dark
+                               : overlay === 'guide'    ? C.query
+                               : C.accept,
               },
             ]} />
 
@@ -436,7 +436,7 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: '#090604' },
+  safe: { flex: 1, backgroundColor: C.bg_deeper },
 
   logoArea: {
     flex: 1,
@@ -446,37 +446,37 @@ const styles = StyleSheet.create({
   },
   emblem: {
     fontSize: 48,
-    color: '#8b0000',
-    textShadowColor: '#cc000066',
+    color: C.danger_dark,
+    textShadowColor: C.danger + '66',
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: 20,
   },
   title: {
-    color: '#e8e8e8',
+    color: C.text_bright,
     fontSize: 38,
     fontWeight: '900',
     letterSpacing: 10,
-    textShadowColor: '#cc000044',
+    textShadowColor: C.danger + '44',
     textShadowOffset: { width: 0, height: 2 },
     textShadowRadius: 8,
   },
   titleSub: {
-    color: '#4a0000',
+    color: C.border_neg,
     fontSize: 11,
     letterSpacing: 8,
     marginTop: -2,
   },
   spRow: {
     marginTop: 10,
-    backgroundColor: '#0d0800',
+    backgroundColor: C.bg_deeper,
     borderRadius: 20,
     paddingHorizontal: 14,
     paddingVertical: 5,
     borderWidth: 1,
-    borderColor: '#221500',
+    borderColor: C.button_border,
   },
   spText: {
-    color: '#554400',
+    color: C.text_muted,
     fontSize: 11,
     letterSpacing: 1,
   },
@@ -488,7 +488,7 @@ const styles = StyleSheet.create({
   },
 
   startBtn: {
-    backgroundColor: '#8b0000',
+    backgroundColor: C.danger_dark,
     borderRadius: 10,
     paddingVertical: 18,
     paddingHorizontal: 24,
@@ -497,21 +497,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 12,
     borderWidth: 1,
-    borderColor: '#cc000033',
-    shadowColor: '#cc0000',
+    borderColor: C.danger + '33',
+    shadowColor: C.danger,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.4,
     shadowRadius: 10,
     elevation: 8,
   },
   startText: {
-    color: '#fff',
+    color: C.text_primary,
     fontSize: 17,
     fontWeight: '900',
     letterSpacing: 4,
   },
   startArrow: {
-    color: '#ff6666',
+    color: C.reject_glow,
     fontSize: 16,
     fontWeight: '900',
   },
@@ -519,7 +519,7 @@ const styles = StyleSheet.create({
   menuSpacer: { height: 4 },
 
   menuBtn: {
-    backgroundColor: '#100e0b',
+    backgroundColor: C.bg_deeper,
     borderRadius: 8,
     paddingVertical: 14,
     paddingHorizontal: 20,
@@ -527,22 +527,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     borderWidth: 1,
-    borderColor: '#1e1a14',
+    borderColor: C.card_dark,
   },
   menuBtnLabel: {
-    color: '#888',
+    color: C.text_muted,
     fontSize: 13,
     fontWeight: '700',
     letterSpacing: 2,
   },
   menuBtnArrow: {
-    color: '#333',
+    color: C.text_muted,
     fontSize: 18,
     fontWeight: '900',
   },
 
   footer: {
-    color: '#1c0000',
+    color: C.danger_dark,
     fontSize: 8,
     letterSpacing: 2,
     textAlign: 'center',
@@ -560,7 +560,7 @@ const panel = StyleSheet.create({
     flex: 1,
   },
   container: {
-    backgroundColor: '#0c0906',
+    backgroundColor: C.bg_deeper,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderTopWidth: 0,
@@ -580,14 +580,14 @@ const panel = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 14,
     borderBottomWidth: 1,
-    borderBottomColor: '#1a1410',
-    backgroundColor: '#110d09',
+    borderBottomColor: C.card_dark,
+    backgroundColor: C.bg_deeper,
   },
   dots: { flexDirection: 'row', gap: 5 },
   dot:  { width: 7, height: 7, borderRadius: 4 },
   title: {
     flex: 1,
-    color: '#cc0000',
+    color: C.danger,
     fontSize: 11,
     fontWeight: '900',
     letterSpacing: 2,
@@ -597,14 +597,14 @@ const panel = StyleSheet.create({
     width: 28,
     height: 28,
     borderRadius: 14,
-    backgroundColor: '#1a1a1a',
+    backgroundColor: C.card_dark,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: '#2a2a2a',
+    borderColor: C.text_muted,
   },
   closeText: {
-    color: '#555',
+    color: C.text_muted,
     fontSize: 11,
     fontWeight: '900',
   },
@@ -616,16 +616,16 @@ const content = StyleSheet.create({
     gap: 8,
   },
   blockTitle: {
-    color: '#cc3333',
+    color: C.danger,
     fontSize: 10,
     fontWeight: '900',
     letterSpacing: 2,
     marginBottom: 4,
   },
   infoCard: {
-    backgroundColor: '#0f0c08',
+    backgroundColor: C.bg_deeper,
     borderWidth: 1,
-    borderColor: '#1e1810',
+    borderColor: C.card_dark,
     borderRadius: 8,
     padding: 12,
     gap: 6,
@@ -644,7 +644,7 @@ const content = StyleSheet.create({
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#0f0c08',
+    backgroundColor: C.bg_deeper,
   },
   swipeGestureText: { fontSize: 9, fontWeight: '900', letterSpacing: 0.5 },
   swipeArrow: {
@@ -655,8 +655,8 @@ const content = StyleSheet.create({
     justifyContent: 'center',
   },
   swipeArrowText: { fontSize: 16, fontWeight: '900', lineHeight: 20 },
-  swipeAction: { color: '#666', fontSize: 12, fontWeight: '700', letterSpacing: 1 },
-  subNote: { color: '#2a2a2a', fontSize: 11, marginTop: 2 },
+  swipeAction: { color: C.text_muted, fontSize: 12, fontWeight: '700', letterSpacing: 1 },
+  subNote: { color: C.text_muted, fontSize: 11, marginTop: 2 },
 
   statGrid: {
     flexDirection: 'row',
@@ -672,45 +672,45 @@ const content = StyleSheet.create({
     paddingVertical: 5,
     borderRadius: 6,
     borderWidth: 1,
-    backgroundColor: '#0f0c08',
+    backgroundColor: C.bg_deeper,
   },
   statChipIcon: { fontSize: 11 },
   statChipName: { fontSize: 9, fontWeight: '800', letterSpacing: 1 },
 
   winBox: {
-    backgroundColor: '#001800',
+    backgroundColor: C.diff_pos_bg,
     borderWidth: 1,
-    borderColor: '#1b5e2055',
+    borderColor: (C.accept + '55'),
     borderRadius: 6,
     paddingHorizontal: 12,
     paddingVertical: 8,
     alignItems: 'center',
     marginTop: 4,
   },
-  winText: { color: '#2e7d32', fontSize: 10, fontWeight: '800', letterSpacing: 1.5 },
+  winText: { color: C.accept, fontSize: 10, fontWeight: '800', letterSpacing: 1.5 },
 
   section: { marginBottom: 20, gap: 4 },
   sectionTitle: {
-    color: '#cc0000',
+    color: C.danger,
     fontSize: 10,
     fontWeight: '900',
     letterSpacing: 3,
     marginBottom: 8,
     marginTop: 4,
   },
-  line: { color: '#666', fontSize: 12, lineHeight: 21 },
-  hi:   { color: '#ff9800', fontWeight: '700' },
-  note: { color: '#3d3d3d', fontSize: 12, lineHeight: 18, marginBottom: 12, fontStyle: 'italic' },
+  line: { color: C.text_muted, fontSize: 12, lineHeight: 21 },
+  hi:   { color: C.query, fontWeight: '700' },
+  note: { color: C.text_muted, fontSize: 12, lineHeight: 18, marginBottom: 12, fontStyle: 'italic' },
   warnBox: {
-    backgroundColor: '#0d0000',
+    backgroundColor: C.danger_dark,
     borderLeftWidth: 2,
-    borderLeftColor: '#8b0000',
+    borderLeftColor: C.danger_dark,
     borderRadius: 4,
     paddingHorizontal: 10,
     paddingVertical: 8,
     marginBottom: 4,
   },
-  warnText: { color: '#550000', fontSize: 11, fontWeight: '700' },
+  warnText: { color: C.danger_dark, fontSize: 11, fontWeight: '700' },
 })
 
 const guide = StyleSheet.create({
@@ -725,15 +725,15 @@ const guide = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 5,
     borderRadius: 6,
-    backgroundColor: '#120e0a',
+    backgroundColor: C.bg_deeper,
     borderWidth: 1,
-    borderColor: '#1e1812',
+    borderColor: C.card_dark,
   },
-  tabBtnActive:  { backgroundColor: '#1a0000', borderColor: '#330000' },
-  tabText:       { color: '#444', fontSize: 12, fontWeight: '600' },
-  tabTextActive: { color: '#cc6666' },
+  tabBtnActive:  { backgroundColor: C.danger_dark, borderColor: C.danger_dark },
+  tabText:       { color: C.text_muted, fontSize: 12, fontWeight: '600' },
+  tabTextActive: { color: C.reject_glow },
   body: { flex: 1, paddingHorizontal: 16, paddingTop: 8 },
-  sub:  { color: '#333', fontSize: 10, letterSpacing: 0.5 },
+  sub:  { color: C.text_muted, fontSize: 10, letterSpacing: 0.5 },
 })
 
 const sett = StyleSheet.create({
@@ -741,46 +741,46 @@ const sett = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#100e0b',
+    backgroundColor: C.bg_deeper,
     borderWidth: 1,
-    borderColor: '#1e1a14',
+    borderColor: C.card_dark,
     borderRadius: 10,
     padding: 14,
     marginTop: 12,
     gap: 10,
   },
   cardLeft: { flex: 1 },
-  cardTitle: { color: '#888', fontSize: 10, fontWeight: '800', letterSpacing: 1.5, marginBottom: 3 },
-  cardSub:   { color: '#2a2a2a', fontSize: 11, lineHeight: 15 },
+  cardTitle: { color: C.text_muted, fontSize: 10, fontWeight: '800', letterSpacing: 1.5, marginBottom: 3 },
+  cardSub:   { color: C.text_muted, fontSize: 11, lineHeight: 15 },
 
   toggle: {
     paddingHorizontal: 14,
     paddingVertical: 8,
     borderRadius: 20,
-    backgroundColor: '#1a1a1a',
+    backgroundColor: C.card_dark,
     borderWidth: 1,
-    borderColor: '#2a2a2a',
+    borderColor: C.text_muted,
     minWidth: 64,
     alignItems: 'center',
   },
-  toggleOn:   { backgroundColor: '#001800', borderColor: '#1b5e2055' },
+  toggleOn:   { backgroundColor: C.diff_pos_bg, borderColor: (C.accept + '55') },
   toggleText: { fontSize: 10, fontWeight: '800', letterSpacing: 1 },
 
   spBox:  { alignItems: 'center' },
-  spStar: { color: '#f57c00', fontSize: 14 },
-  spVal:  { color: '#f57c00', fontSize: 20, fontWeight: '900' },
+  spStar: { color: C.query, fontSize: 14 },
+  spVal:  { color: C.query, fontSize: 20, fontWeight: '900' },
 
   earnBlock: {
-    backgroundColor: '#0c0906',
+    backgroundColor: C.bg_deeper,
     borderWidth: 1,
-    borderColor: '#1a1410',
+    borderColor: C.card_dark,
     borderRadius: 8,
     padding: 12,
     marginTop: 12,
     gap: 0,
   },
   earnTitle: {
-    color: '#2a2a2a',
+    color: C.text_muted,
     fontSize: 9,
     letterSpacing: 2,
     marginBottom: 10,
@@ -792,27 +792,27 @@ const sett = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 6,
     borderBottomWidth: 1,
-    borderBottomColor: '#160f08',
+    borderBottomColor: C.card_dark,
   },
-  earnLabel: { color: '#3a3a3a', fontSize: 11 },
-  earnVal:   { color: '#f57c00', fontSize: 12, fontWeight: '800' },
+  earnLabel: { color: C.text_muted, fontSize: 11 },
+  earnVal:   { color: C.query, fontSize: 12, fontWeight: '800' },
 
   versionBlock: {
     alignItems: 'center',
     marginTop: 24,
     gap: 4,
   },
-  versionText: { color: '#1a1a1a', fontSize: 10, letterSpacing: 2 },
-  versionSub:  { color: '#111', fontSize: 8, letterSpacing: 3 },
+  versionText: { color: C.card_dark, fontSize: 10, letterSpacing: 2 },
+  versionSub:  { color: C.bg_deeper, fontSize: 8, letterSpacing: 3 },
 })
 
 const meta = StyleSheet.create({
   runRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#0d0a07',
+    backgroundColor: C.bg_deeper,
     borderWidth: 1,
-    borderColor: '#1e1a10',
+    borderColor: C.divider,
     borderRadius: 8,
     paddingHorizontal: 16,
     paddingVertical: 10,
@@ -820,9 +820,9 @@ const meta = StyleSheet.create({
     gap: 0,
   },
   runStat: { flex: 1, alignItems: 'center', gap: 2 },
-  runVal: { color: '#555', fontSize: 16, fontWeight: '900' },
-  runLabel: { color: '#2a2a2a', fontSize: 8, letterSpacing: 1.5, fontWeight: '700' },
-  runDivider: { width: 1, height: 28, backgroundColor: '#1e1510' },
+  runVal: { color: C.text_muted, fontSize: 16, fontWeight: '900' },
+  runLabel: { color: C.text_muted, fontSize: 8, letterSpacing: 1.5, fontWeight: '700' },
+  runDivider: { width: 1, height: 28, backgroundColor: C.card_dark },
 })
 
 const diff = StyleSheet.create({
@@ -836,8 +836,8 @@ const diff = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#1e1a14',
-    backgroundColor: '#100e0b',
+    borderColor: C.card_dark,
+    backgroundColor: C.bg_deeper,
     alignItems: 'center',
   },
   label: { fontSize: 10, fontWeight: '900', letterSpacing: 1.5 },
@@ -851,10 +851,10 @@ const row = StyleSheet.create({
     marginBottom: 10,
     paddingLeft: 8,
     borderLeftWidth: 2,
-    borderLeftColor: '#333',
+    borderLeftColor: C.text_muted,
   },
   icon: { fontSize: 18, width: 26, textAlign: 'center' },
   text: { flex: 1 },
-  name: { color: '#bbb', fontSize: 13, fontWeight: '700', marginBottom: 2 },
-  desc: { color: '#444', fontSize: 11, lineHeight: 16 },
+  name: { color: C.text_bright, fontSize: 13, fontWeight: '700', marginBottom: 2 },
+  desc: { color: C.text_muted, fontSize: 11, lineHeight: 16 },
 })

@@ -23,7 +23,18 @@
     "overlay_bg":      "#00000099",
     "divider":         "#374151",
     "diff_pos_bg":     "#052e16",
-    "diff_neg_bg":     "#450a0a"
+    "diff_neg_bg":     "#450a0a",
+    "bg_deeper":       "#0d1117",
+    "card_dark":       "#1e2535",
+    "text_muted":      "#6b7280",
+    "text_bright":     "#e5e7eb",
+    "danger":          "#c62828",
+    "danger_dark":     "#7f1d1d",
+    "border_pos":      "#205c20",
+    "border_neg":      "#5c2020",
+    "border_warn":     "#5c4820",
+    "border_info":     "#1d4ed8",
+    "info":            "#6366f1"
   },
   "typography": {
     "size_xs": 10,

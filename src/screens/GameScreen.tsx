@@ -114,7 +114,7 @@ const StatBarItem = React.memo<{
         <Animated.View style={[barStyles.fill, fillStyle, isCrit && animStyle]} />
       </View>
 
-      <Animated.Text style={[barStyles.val, { color: isCrit ? themeData.colors.stat_critical : '#6b7280' }, isCrit && animStyle]}>
+      <Animated.Text style={[barStyles.val, { color: isCrit ? themeData.colors.stat_critical : C.text_muted }, isCrit && animStyle]}>
         {displayVal > 999 ? '999+' : displayVal}
       </Animated.Text>
     </View>
@@ -127,8 +127,8 @@ const barStyles = StyleSheet.create({
   track: {
     flex: 1, width: '100%', borderRadius: 5,
     overflow: 'hidden', justifyContent: 'flex-end',
-    backgroundColor: '#1e2535',
-    borderWidth: 1, borderColor: '#2d3748',
+    backgroundColor: C.card_dark,
+    borderWidth: 1, borderColor: C.card_bg,
   },
   fill:  { width: '100%', borderRadius: 3 },
   val:   { fontSize: 8, fontWeight: '800' },
@@ -299,7 +299,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
             </View>
           ) : game.phase === 'npc_decision' && queryResult ? (
             <View style={[styles.queryToast, { borderColor: theme.colors.query }]}>
-              <Text style={[styles.queryToastText, { color: '#ffb300' }]}>
+              <Text style={[styles.queryToastText, { color: C.query }]}>
                 {queryResult}
               </Text>
             </View>
@@ -328,10 +328,10 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
               queryWarnPending && styles.queryBtnWarn]}
             activeOpacity={0.85}
           >
-            <Text style={[styles.queryCharge, { color: queryWarnPending ? C.stat_food : canQuery ? theme.colors.query : '#2a2a2a' }]}>
+            <Text style={[styles.queryCharge, { color: queryWarnPending ? C.stat_food : canQuery ? theme.colors.query : C.text_muted }]}>
               {queryWarnPending ? '!' : game.queryChargesLeft > 0 ? game.queryChargesLeft : '✕'}
             </Text>
-            <Text style={[styles.actionLabel, { color: queryWarnPending ? C.stat_food : canQuery ? theme.colors.query : '#2a2a2a' }]}>
+            <Text style={[styles.actionLabel, { color: queryWarnPending ? C.stat_food : canQuery ? theme.colors.query : C.text_muted }]}>
               {queryWarnPending ? L.btn_query_confirm : L.btn_query}
             </Text>
           </TouchableOpacity>
@@ -342,8 +342,8 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
             style={[styles.actionBtn, styles.detailBtn, { paddingVertical: btnPadV }]}
             activeOpacity={0.85}
           >
-            <Text style={[styles.detailMark, { color: '#555' }]}>i</Text>
-            <Text style={[styles.actionLabel, { color: '#555' }]}>{L.btn_detail}</Text>
+            <Text style={[styles.detailMark, { color: C.text_muted }]}>i</Text>
+            <Text style={[styles.actionLabel, { color: C.text_muted }]}>{L.btn_detail}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -415,16 +415,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    backgroundColor: '#2d3748',
+    backgroundColor: C.card_bg,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#4b5563',
+    borderColor: C.button_border,
     paddingHorizontal: 12,
     paddingVertical: 6,
   },
   spStar:  { fontSize: 14 },
   spNum:   { fontSize: 17, fontWeight: '800' },
-  spLabel: { fontSize: 10, fontWeight: '700', color: '#9ca3af' },
+  spLabel: { fontSize: 10, fontWeight: '700', color: C.text_secondary },
 
   statStrip: { flexDirection: 'row', gap: 5 },
 
@@ -434,11 +434,11 @@ const styles = StyleSheet.create({
   queryToast: {
     paddingHorizontal: 14, paddingVertical: 10,
     borderRadius: 10, borderWidth: 1,
-    backgroundColor: '#1f2937',
+    backgroundColor: C.surface,
   },
   queryToastText: { fontSize: 12, lineHeight: 18 },
-  queryWarnToast: { backgroundColor: '#1f2937', borderColor: themeData.colors.stat_food },
-  queryWarnText:  { color: '#ff8f00', fontSize: 11, fontWeight: '700', lineHeight: 16 },
+  queryWarnToast: { backgroundColor: C.surface, borderColor: themeData.colors.stat_food },
+  queryWarnText:  { color: C.query, fontSize: 11, fontWeight: '700', lineHeight: 16 },
 
   actionBar: {
     flexDirection: 'row',
@@ -458,11 +458,11 @@ const styles = StyleSheet.create({
     gap: 3,
     borderWidth: 1,
   },
-  rejectBtn:    { backgroundColor: '#2d1a1a', borderColor: '#5c2020' },
-  queryBtn:     { backgroundColor: '#2d2515', borderColor: '#5c4820' },
+  rejectBtn:    { backgroundColor: '#2d1a1a', borderColor: C.border_neg },
+  queryBtn:     { backgroundColor: '#2d2515', borderColor: C.border_warn },
   queryBtnWarn: { backgroundColor: '#2d2010', borderColor: themeData.colors.stat_food },
-  detailBtn:    { backgroundColor: '#252d3d', borderColor: '#374151' },
-  acceptBtn:    { backgroundColor: '#1a2d1a', borderColor: '#205c20' },
+  detailBtn:    { backgroundColor: C.card_bg, borderColor: C.divider },
+  acceptBtn:    { backgroundColor: '#1a2d1a', borderColor: C.border_pos },
   btnDisabled:  { opacity: 0.35 },
 
   rejectMark:  { fontSize: 20, color: themeData.colors.reject_glow, fontWeight: '900' },

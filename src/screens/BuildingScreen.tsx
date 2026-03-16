@@ -92,7 +92,7 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
           const locked    = game.day < b.unlock_day
           const canBuy    = !owned && !locked && progress.sp >= b.cost
           const notEnough = !owned && !locked && progress.sp < b.cost
-          const accentClr = owned ? '#1b5e20' : locked ? '#222' : b.color
+          const accentClr = owned ? C.accept : locked ? C.text_muted : b.color
 
           return (
             <View key={b.id} style={[
@@ -133,7 +133,7 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
                   ) : (
                     <View style={[styles.costBox, { borderColor: b.color + '55' }]}>
                       <Text style={[styles.costStar, { color: b.color }]}>★</Text>
-                      <Text style={[styles.costNum, { color: notEnough ? '#2a2a2a' : b.color, fontFamily: MONO }]}>{b.cost}</Text>
+                      <Text style={[styles.costNum, { color: notEnough ? C.text_muted : b.color, fontFamily: MONO }]}>{b.cost}</Text>
                     </View>
                   )}
                 </View>
@@ -142,7 +142,7 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
               {!locked && (
                 <View style={styles.chipRow}>
                   {b.chips.map((c: string, i: number) => (
-                    <Chip key={i} label={c} color={owned ? '#1b5e20' : b.color} />
+                    <Chip key={i} label={c} color={owned ? C.accept : b.color} />
                   ))}
                 </View>
               )}
@@ -171,7 +171,7 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
           const locked    = game.day < skill.unlock_day
           const canBuy    = !used && !locked && progress.sp >= skill.cost
           const notEnough = !used && !locked && progress.sp < skill.cost
-          const accentClr = used ? '#283593' : locked ? '#222' : skill.color
+          const accentClr = used ? '#283593' : locked ? C.text_muted : skill.color
 
           const handleBuy = () => {
             if (!canBuy) return
@@ -213,8 +213,8 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
 
                 <View style={styles.statusCol}>
                   {used ? (
-                    <View style={[styles.ownedBox, { backgroundColor: '#090914', borderColor: '#28348855' }]}>
-                      <Text style={[styles.ownedText, { color: '#5c6bc0', fontFamily: MONO }]}>{L.building_used}</Text>
+                    <View style={[styles.ownedBox, { backgroundColor: C.bg_deeper, borderColor: (C.info + '55') }]}>
+                      <Text style={[styles.ownedText, { color: C.info, fontFamily: MONO }]}>{L.building_used}</Text>
                     </View>
                   ) : locked ? (
                     <View style={styles.lockedBox}>
@@ -224,7 +224,7 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
                   ) : (
                     <View style={[styles.costBox, { borderColor: skill.color + '55' }]}>
                       <Text style={[styles.costStar, { color: skill.color }]}>★</Text>
-                      <Text style={[styles.costNum, { color: notEnough ? '#2a2a2a' : skill.color, fontFamily: MONO }]}>{skill.cost}</Text>
+                      <Text style={[styles.costNum, { color: notEnough ? C.text_muted : skill.color, fontFamily: MONO }]}>{skill.cost}</Text>
                     </View>
                   )}
                 </View>
@@ -264,40 +264,40 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: '#0c0906' },
+  safe: { flex: 1, backgroundColor: C.bg_deeper },
 
   header: {
     flexDirection: 'row', alignItems: 'center',
     paddingHorizontal: 16, paddingVertical: 12,
-    gap: 12, borderBottomWidth: 1, borderBottomColor: '#1a1410',
+    gap: 12, borderBottomWidth: 1, borderBottomColor: C.card_dark,
   },
-  backBtn:     { flexDirection: 'row', alignItems: 'center', gap: 5, paddingHorizontal: 12, paddingVertical: 7, borderRadius: 20, backgroundColor: '#1a1410', borderWidth: 1, borderColor: '#261e14' },
-  backArrow:   { color: '#888', fontSize: 16, lineHeight: 18 },
-  backLabel:   { color: '#888', fontSize: 10, fontWeight: '700', letterSpacing: 1 },
-  headerTitle: { flex: 1, color: '#eee', fontSize: 13, fontWeight: '800', letterSpacing: 3, textAlign: 'center' },
+  backBtn:     { flexDirection: 'row', alignItems: 'center', gap: 5, paddingHorizontal: 12, paddingVertical: 7, borderRadius: 20, backgroundColor: C.card_dark, borderWidth: 1, borderColor: '#261e14' },
+  backArrow:   { color: C.text_muted, fontSize: 16, lineHeight: 18 },
+  backLabel:   { color: C.text_muted, fontSize: 10, fontWeight: '700', letterSpacing: 1 },
+  headerTitle: { flex: 1, color: C.text_primary, fontSize: 13, fontWeight: '800', letterSpacing: 3, textAlign: 'center' },
   spBadge:     { flexDirection: 'row', alignItems: 'center', gap: 2 },
-  spStar:      { color: '#f57c00', fontSize: 15 },
-  spNum:       { color: '#f0f0f0', fontSize: 16, fontWeight: '900' },
+  spStar:      { color: C.query, fontSize: 15 },
+  spNum:       { color: C.text_bright, fontSize: 16, fontWeight: '900' },
 
-  tabBar:        { flexDirection: 'row', marginHorizontal: 16, marginVertical: 10, borderRadius: 8, backgroundColor: '#120e0a', padding: 3, gap: 3, borderWidth: 1, borderColor: '#1c1510' },
+  tabBar:        { flexDirection: 'row', marginHorizontal: 16, marginVertical: 10, borderRadius: 8, backgroundColor: C.bg_deeper, padding: 3, gap: 3, borderWidth: 1, borderColor: C.card_dark },
   tabBtn:        { flex: 1, paddingVertical: 9, alignItems: 'center', borderRadius: 6 },
-  tabActive:     { backgroundColor: '#1e1812', borderWidth: 1, borderColor: '#2a1e14' },
-  tabText:       { color: '#2a2a2a', fontSize: 9, fontWeight: '800', letterSpacing: 1 },
-  tabTextActive: { color: '#aaa' },
+  tabActive:     { backgroundColor: C.card_dark, borderWidth: 1, borderColor: C.divider },
+  tabText:       { color: C.text_muted, fontSize: 9, fontWeight: '800', letterSpacing: 1 },
+  tabTextActive: { color: C.text_secondary },
 
   list: { paddingHorizontal: 16, paddingTop: 4, gap: 10 },
 
   card: {
-    backgroundColor: '#100e0b',
+    backgroundColor: C.bg_deeper,
     borderRadius: 12,
     padding: 14,
     borderWidth: 1,
-    borderColor: '#1e1a14',
+    borderColor: C.card_dark,
     borderLeftWidth: 3,
     gap: 10,
   },
-  cardOwned:  { backgroundColor: '#090f09', borderColor: '#101e10' },
-  cardUsed:   { backgroundColor: '#09090f', borderColor: '#10101e' },
+  cardOwned:  { backgroundColor: C.diff_pos_bg, borderColor: C.border_pos },
+  cardUsed:   { backgroundColor: C.bg_deeper, borderColor: C.border_info },
   cardLocked: { opacity: 0.35 },
 
   cardRow:  { flexDirection: 'row', alignItems: 'flex-start', gap: 12 },
@@ -305,30 +305,30 @@ const styles = StyleSheet.create({
   iconText: { fontSize: 22 },
   cardBody: { flex: 1, gap: 4 },
   labelRow: { flexDirection: 'row', alignItems: 'center', gap: 5, flexWrap: 'wrap' },
-  cardLabel:{ color: '#d0d0d0', fontSize: 11, fontWeight: '800', letterSpacing: 1.5 },
-  cardDesc: { color: '#3a3a3a', fontSize: 11, lineHeight: 16 },
+  cardLabel:{ color: C.text_bright, fontSize: 11, fontWeight: '800', letterSpacing: 1.5 },
+  cardDesc: { color: C.text_muted, fontSize: 11, lineHeight: 16 },
 
   dayTag:     { paddingHorizontal: 5, paddingVertical: 2, borderRadius: 3, borderWidth: 1, backgroundColor: 'transparent' },
   dayTagText: { fontSize: 8, fontWeight: '700', letterSpacing: 0.5 },
 
   statusCol: { alignItems: 'center', justifyContent: 'center' },
 
-  ownedBox:      { backgroundColor: '#081208', borderWidth: 1, borderColor: '#1b5e2066', borderRadius: 4, paddingHorizontal: 5, paddingVertical: 3 },
-  ownedText:     { color: '#2e7d32', fontSize: 8, fontWeight: '800', letterSpacing: 0.5 },
+  ownedBox:      { backgroundColor: C.diff_pos_bg, borderWidth: 1, borderColor: (C.accept + '66'), borderRadius: 4, paddingHorizontal: 5, paddingVertical: 3 },
+  ownedText:     { color: C.accept, fontSize: 8, fontWeight: '800', letterSpacing: 0.5 },
   lockedBox:     { alignItems: 'center', gap: 0 },
-  lockedDayLabel:{ color: '#222', fontSize: 7, fontWeight: '700', letterSpacing: 1 },
+  lockedDayLabel:{ color: C.text_muted, fontSize: 7, fontWeight: '700', letterSpacing: 1 },
   lockedDayNum:  { fontSize: 20, fontWeight: '900' },
   costBox:       { borderWidth: 1, borderRadius: 6, paddingHorizontal: 8, paddingVertical: 5, alignItems: 'center', gap: 1 },
   costStar:      { fontSize: 11 },
   costNum:       { fontSize: 15, fontWeight: '900' },
 
-  onceBadge: { backgroundColor: '#1e1812', borderRadius: 4, paddingHorizontal: 5, paddingVertical: 2, borderWidth: 1, borderColor: '#2a1e14' },
-  onceText:  { color: '#2e2e2e', fontSize: 8, fontWeight: '700', letterSpacing: 0.5 },
+  onceBadge: { backgroundColor: C.card_dark, borderRadius: 4, paddingHorizontal: 5, paddingVertical: 2, borderWidth: 1, borderColor: C.divider },
+  onceText:  { color: C.text_muted, fontSize: 8, fontWeight: '700', letterSpacing: 0.5 },
 
   chipRow:        { flexDirection: 'row', flexWrap: 'wrap', gap: 6 },
   actionBtn:      { borderRadius: 7, paddingVertical: 11, alignItems: 'center', borderWidth: 1, marginTop: 2 },
   actionBtnText:  { fontSize: 11, fontWeight: '800', letterSpacing: 2 },
-  insuffText:     { color: '#2a2a2a', fontSize: 10, textAlign: 'center', letterSpacing: 0.5 },
+  insuffText:     { color: C.text_muted, fontSize: 10, textAlign: 'center', letterSpacing: 0.5 },
 })
 
 const ch = StyleSheet.create({

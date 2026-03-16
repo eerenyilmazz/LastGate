@@ -18,7 +18,7 @@ const CARD_PADDING = 8
 
 const NPCCardInner: React.FC<Props> = ({ npc, availableHeight }) => {
   const { width } = useWindowDimensions()
-  const roleColor = ROLE_COLORS[npc.role] ?? '#555'
+  const roleColor = ROLE_COLORS[npc.role] ?? C.text_muted
 
   const baseW = width * 0.84
   const baseH = baseW / CARD_ASPECT
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     paddingBottom: 18,
   },
   name: {
-    color: '#fff',
+    color: C.text_primary,
     fontSize: 20,
     fontWeight: '800',
     letterSpacing: 0.2,
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   roleText: {
-    color: '#fff',
+    color: C.text_primary,
     fontSize: 10,
     fontWeight: '800',
     letterSpacing: 1.8,

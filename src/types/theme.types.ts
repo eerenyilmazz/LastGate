@@ -21,6 +21,19 @@ export interface ThemeColors {
   button_border: string
   overlay_bg: string
   divider: string
+  diff_pos_bg: string
+  diff_neg_bg: string
+  bg_deeper: string
+  card_dark: string
+  text_muted: string
+  text_bright: string
+  danger: string
+  danger_dark: string
+  border_pos: string
+  border_neg: string
+  border_warn: string
+  border_info: string
+  info: string
 }
 
 export interface ThemeTypography {

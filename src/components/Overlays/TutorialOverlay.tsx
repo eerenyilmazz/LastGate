@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native
 import themeData from '../../data/theme.json'
 import uiData from '../../data/ui.json'
 
+const C = themeData.colors
 const MONO     = Platform.select(themeData.ui.font_mono) as string
 const DOTS     = themeData.ui.terminal_dots
 const TUTORIAL = uiData.tutorial as {
@@ -55,29 +56,29 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.85)',
   },
   sheet: {
-    backgroundColor: '#111827',
+    backgroundColor: C.background,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderTopWidth: 1,
-    borderColor: '#2d3748',
+    borderColor: C.card_bg,
   },
   termHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 18,
     paddingVertical: 14,
-    backgroundColor: '#1f2937',
+    backgroundColor: C.surface,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderBottomWidth: 1,
-    borderBottomColor: '#2d3748',
+    borderBottomColor: C.card_bg,
   },
   dots:       { flexDirection: 'row', gap: 5 },
   dot:        { width: 8, height: 8, borderRadius: 4 },
   headerText: {
     flex: 1,
     textAlign: 'center',
-    color: '#aaa',
+    color: C.text_secondary,
     fontSize: 10,
     fontWeight: '900',
     letterSpacing: 2,
@@ -96,20 +97,20 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 8,
-    backgroundColor: '#1e2535',
+    backgroundColor: C.card_dark,
     borderWidth: 1,
-    borderColor: '#374151',
+    borderColor: C.divider,
     alignItems: 'center',
     justifyContent: 'center',
   },
   tipIcon: {
-    color: '#888',
+    color: C.text_muted,
     fontSize: 14,
     fontWeight: '800',
   },
   tipText: {
     flex: 1,
-    color: '#666',
+    color: C.text_muted,
     fontSize: 12,
     lineHeight: 18,
   },
@@ -118,13 +119,13 @@ const styles = StyleSheet.create({
     marginTop: 4,
     paddingVertical: 14,
     borderRadius: 8,
-    backgroundColor: '#1f2937',
+    backgroundColor: C.surface,
     borderWidth: 1,
-    borderColor: '#374151',
+    borderColor: C.divider,
     alignItems: 'center',
   },
   btnText: {
-    color: '#f59e0b',
+    color: C.query,
     fontSize: 11,
     fontWeight: '900',
     letterSpacing: 2,

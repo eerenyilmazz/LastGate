@@ -4,6 +4,7 @@ import { useGameStore } from '../../store/useGameStore'
 import themeData from '../../data/theme.json'
 import uiData from '../../data/ui.json'
 
+const C = themeData.colors
 const MONO   = Platform.select(themeData.ui.font_mono) as string
 const DOTS   = themeData.ui.terminal_dots
 const REPORT = uiData.night_report as { header_prefix: string; header_suffix: string; no_events: string; continue_btn: string }
@@ -65,11 +66,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.80)',
   },
   sheet: {
-    backgroundColor: '#111827',
+    backgroundColor: C.background,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderTopWidth: 1,
-    borderColor: '#2d3748',
+    borderColor: C.card_bg,
     maxHeight: '70%',
   },
   termHeader: {
@@ -77,18 +78,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 18,
     paddingVertical: 14,
-    backgroundColor: '#1f2937',
+    backgroundColor: C.surface,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderBottomWidth: 1,
-    borderBottomColor: '#2d3748',
+    borderBottomColor: C.card_bg,
   },
   dots:       { flexDirection: 'row', gap: 5 },
   dot:        { width: 8, height: 8, borderRadius: 4 },
   headerText: {
     flex: 1,
     textAlign: 'center',
-    color: '#888',
+    color: C.text_muted,
     fontSize: 10,
     fontWeight: '800',
     letterSpacing: 2.5,
@@ -101,13 +102,13 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   bullet: {
-    color: '#6b7280',
+    color: C.text_muted,
     fontSize: 14,
     lineHeight: 19,
   },
   noteText: {
     flex: 1,
-    color: '#888',
+    color: C.text_muted,
     fontSize: 12,
     lineHeight: 19,
   },
@@ -116,13 +117,13 @@ const styles = StyleSheet.create({
     marginTop: 14,
     paddingVertical: 14,
     borderRadius: 8,
-    backgroundColor: '#052e16',
+    backgroundColor: C.diff_pos_bg,
     borderWidth: 1,
-    borderColor: '#1a3d1a',
+    borderColor: C.border_pos,
     alignItems: 'center',
   },
   btnText: {
-    color: '#2e7d32',
+    color: C.accept,
     fontSize: 11,
     fontWeight: '900',
     letterSpacing: 2,

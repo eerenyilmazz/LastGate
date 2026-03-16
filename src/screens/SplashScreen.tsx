@@ -11,6 +11,7 @@ import themeData from '../data/theme.json'
 interface Props { onDone: () => void }
 
 const { height } = Dimensions.get('window')
+const C = themeData.colors
 const MONO         = Platform.select(themeData.ui.font_mono) as string
 const STATUS_ITEMS = ui.splash_status_items
 
@@ -107,8 +108,8 @@ export const SplashScreen: React.FC<Props> = ({ onDone }) => {
         <Animated.View style={[styles.terminal, termStyle]}>
           <View style={styles.termHeader}>
             <View style={styles.termDot} />
-            <View style={[styles.termDot, { backgroundColor: '#444' }]} />
-            <View style={[styles.termDot, { backgroundColor: '#2a4a2a' }]} />
+            <View style={[styles.termDot, { backgroundColor: C.text_muted }]} />
+            <View style={[styles.termDot, { backgroundColor: C.border_pos }]} />
             <Text style={[styles.termTitle, { fontFamily: MONO }]}>DURUM RAPORU / ZONE-7</Text>
           </View>
 
@@ -149,7 +150,7 @@ export const SplashScreen: React.FC<Props> = ({ onDone }) => {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: '#060606',
+    backgroundColor: C.bg_deeper,
     alignItems: 'center',
   },
 
@@ -164,17 +165,17 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   alertStripe: {
-    backgroundColor: '#0e0e0e',
+    backgroundColor: C.bg_deeper,
     width: '100%',
     paddingVertical: 7,
     paddingHorizontal: 12,
     marginTop: Platform.OS === 'android' ? 40 : 52,
     borderTopWidth: 1,
     borderBottomWidth: 1,
-    borderColor: '#181818',
+    borderColor: C.bg_deeper,
     overflow: 'hidden',
   },
-  alertText: { color: '#252525', fontSize: 9, fontWeight: '800', letterSpacing: 2 },
+  alertText: { color: C.text_muted, fontSize: 9, fontWeight: '800', letterSpacing: 2 },
 
   center: {
     flex: 1,
@@ -186,53 +187,53 @@ const styles = StyleSheet.create({
   },
 
   logoBlock: { alignItems: 'center', gap: 8 },
-  emblem: { fontSize: 42, color: '#3a3a3a' },
+  emblem: { fontSize: 42, color: C.text_muted },
   title: {
     fontSize: 44,
     fontWeight: '900',
-    color: '#e8e8e8',
+    color: C.text_bright,
     letterSpacing: 9,
   },
-  subtitle: { fontSize: 10, fontWeight: '700', color: '#282828', letterSpacing: 8 },
+  subtitle: { fontSize: 10, fontWeight: '700', color: C.text_muted, letterSpacing: 8 },
 
   terminal: {
     width: '100%',
-    backgroundColor: '#080808',
+    backgroundColor: C.bg_deeper,
     borderWidth: 1,
-    borderColor: '#141414',
+    borderColor: C.bg_deeper,
     borderRadius: 6,
     overflow: 'hidden',
   },
   termHeader: {
     flexDirection: 'row', alignItems: 'center', gap: 5,
     paddingHorizontal: 12, paddingVertical: 8,
-    backgroundColor: '#0a0a0a',
+    backgroundColor: C.bg_deeper,
   },
-  termDot:    { width: 7, height: 7, borderRadius: 4, backgroundColor: '#2a2a2a' },
-  termTitle:  { color: '#222', fontSize: 9, letterSpacing: 2, fontWeight: '700', marginLeft: 6, flex: 1, textAlign: 'right' },
-  termDivider:{ height: 1, backgroundColor: '#0f0f0f' },
+  termDot:    { width: 7, height: 7, borderRadius: 4, backgroundColor: C.text_muted },
+  termTitle:  { color: C.text_muted, fontSize: 9, letterSpacing: 2, fontWeight: '700', marginLeft: 6, flex: 1, textAlign: 'right' },
+  termDivider:{ height: 1, backgroundColor: C.bg_deeper },
   termBody:   { padding: 12, gap: 10 },
   statusRow:  { flexDirection: 'row', alignItems: 'center', gap: 6 },
   statusTag:  { fontSize: 9, width: 26, fontWeight: '800' },
-  statusLabel:{ color: '#2e2e2e', fontSize: 9, fontWeight: '700', letterSpacing: 0.5, flex: 1 },
+  statusLabel:{ color: C.text_muted, fontSize: 9, fontWeight: '700', letterSpacing: 0.5, flex: 1 },
   dotsRow:    { flexDirection: 'row', gap: 2, alignItems: 'center', marginHorizontal: 4 },
-  dot:        { width: 2, height: 2, borderRadius: 1, backgroundColor: '#131313' },
+  dot:        { width: 2, height: 2, borderRadius: 1, backgroundColor: C.bg_deeper },
   statusValue:{ fontSize: 9, fontWeight: '800', letterSpacing: 1.5 },
 
   taglineWrap: { alignItems: 'center', marginBottom: 14 },
-  tagline: { color: '#222', fontSize: 10, letterSpacing: 2, fontWeight: '700' },
+  tagline: { color: C.text_muted, fontSize: 10, letterSpacing: 2, fontWeight: '700' },
 
   hintWrap: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 12,
   },
-  hintBracket: { color: '#2a2a2a', fontSize: 13, fontWeight: '900' },
-  hintText:    { color: '#3a3a3a', fontSize: 10, fontWeight: '800', letterSpacing: 3 },
+  hintBracket: { color: C.text_muted, fontSize: 13, fontWeight: '900' },
+  hintText:    { color: C.text_muted, fontSize: 10, fontWeight: '800', letterSpacing: 3 },
 
   version: {
     fontSize: 8,
-    color: '#141414',
+    color: C.bg_deeper,
     letterSpacing: 2,
     marginBottom: Platform.OS === 'android' ? 18 : 14,
   },

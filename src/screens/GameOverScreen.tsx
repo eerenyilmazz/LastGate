@@ -11,6 +11,7 @@ import { GameOverReason } from '../types/game.types'
 import ui from '../data/ui.json'
 import themeData from '../data/theme.json'
 
+const C = themeData.colors
 const MONO    = Platform.select(themeData.ui.font_mono) as string
 const { height } = Dimensions.get('window')
 const ENDINGS   = ui.game_over_endings as Record<GameOverReason, { title: string; desc: string; color: string; icon: string; tag: string }>
@@ -151,7 +152,7 @@ export const GameOverScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: '#040404',
+    backgroundColor: C.bg_deeper,
     justifyContent: 'center',
   },
 
@@ -177,7 +178,7 @@ const styles = StyleSheet.create({
   },
 
   dayTag: {
-    color: '#2e2e2e',
+    color: C.text_muted,
     fontSize: 9,
     letterSpacing: 3,
     marginBottom: 22,
@@ -203,7 +204,7 @@ const styles = StyleSheet.create({
   },
 
   desc: {
-    color: '#333',
+    color: C.text_muted,
     fontSize: 11,
     lineHeight: 20,
     textAlign: 'center',
@@ -218,7 +219,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
     paddingVertical: 14,
     marginBottom: 14,
-    backgroundColor: '#080808',
+    backgroundColor: C.bg_deeper,
     gap: 10,
   },
   statsHeader: {
@@ -234,7 +235,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  statLabel: { color: '#2a2a2a', fontSize: 10, letterSpacing: 0.5 },
+  statLabel: { color: C.text_muted, fontSize: 10, letterSpacing: 0.5 },
   statValue: { fontSize: 14, fontWeight: '800' },
 
   spBox: {
@@ -247,9 +248,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
     paddingVertical: 14,
     marginBottom: 22,
-    backgroundColor: '#080808',
+    backgroundColor: C.bg_deeper,
   },
-  spLabel: { color: '#2a2a2a', fontSize: 9, letterSpacing: 2 },
+  spLabel: { color: C.text_muted, fontSize: 9, letterSpacing: 2 },
   spNum:   { fontSize: 20, fontWeight: '900' },
 
   btn: {
@@ -267,5 +268,5 @@ const styles = StyleSheet.create({
   },
 
   btnGhost: { paddingVertical: 14, alignItems: 'center' },
-  btnGhostText: { color: '#222', fontSize: 11, letterSpacing: 1.5 },
+  btnGhostText: { color: C.text_muted, fontSize: 11, letterSpacing: 1.5 },
 })

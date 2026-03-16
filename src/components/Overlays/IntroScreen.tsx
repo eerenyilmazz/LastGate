@@ -118,7 +118,7 @@ export const IntroScreen: React.FC<Props> = ({ onStart }) => {
 const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: '#0d1117',
+    backgroundColor: C.background,
     zIndex: 100,
   },
   safe: { flex: 1 },
@@ -128,16 +128,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 18,
     paddingVertical: 14,
-    backgroundColor: '#111827',
+    backgroundColor: C.background,
     borderBottomWidth: 1,
-    borderBottomColor: '#1f2937',
+    borderBottomColor: C.surface,
   },
   dots: { flexDirection: 'row', gap: 5 },
   dot:  { width: 8, height: 8, borderRadius: 4 },
   headerText: {
     flex: 1,
     textAlign: 'center',
-    color: '#4b5563',
+    color: C.button_border,
     fontSize: 9,
     letterSpacing: 2,
     fontWeight: '700',
@@ -162,10 +162,10 @@ const styles = StyleSheet.create({
   dividerLine: {
     flex: 1,
     height: 1,
-    backgroundColor: '#1e2535',
+    backgroundColor: C.card_dark,
   },
   dividerLabel: {
-    color: '#4b5563',
+    color: C.button_border,
     fontSize: 8,
     letterSpacing: 2.5,
     fontWeight: '800',
@@ -175,14 +175,14 @@ const styles = StyleSheet.create({
 
   linesBlock: {},
   line: {
-    color: '#9ca3af',
+    color: C.text_secondary,
     fontSize: 14,
     lineHeight: 26,
     fontWeight: '400',
     letterSpacing: 0.2,
   },
   cursorLine: {
-    color: '#6b7280',
+    color: C.text_muted,
     fontSize: 14,
     lineHeight: 22,
     marginTop: 2,
@@ -197,15 +197,15 @@ const styles = StyleSheet.create({
   ctaBtn: {
     paddingVertical: 18,
     borderRadius: 10,
-    backgroundColor: '#111827',
+    backgroundColor: C.background,
     borderWidth: 1,
-    borderColor: '#374151',
+    borderColor: C.divider,
     borderLeftWidth: 3,
-    borderLeftColor: '#f59e0b',
+    borderLeftColor: C.query,
     alignItems: 'center',
   },
   ctaText: {
-    color: '#f59e0b',
+    color: C.query,
     fontSize: 13,
     fontWeight: '900',
     letterSpacing: 3.5,

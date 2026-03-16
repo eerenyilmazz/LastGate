@@ -12,6 +12,8 @@ import Animated, {
   SharedValue,
 } from 'react-native-reanimated'
 import { useTheme } from '../../hooks/useTheme'
+import themeData from '../../data/theme.json'
+const TC = themeData.colors
 
 interface Props {
   children: React.ReactNode
@@ -33,6 +35,7 @@ const SwipeHandlerInner: React.FC<Props> = ({
   dragY,
 }) => {
   const theme    = useTheme()
+  const C        = theme.colors
   const THRESHOLD = theme.animation.swipe_threshold
   const DURATION  = theme.animation.swipe_duration_ms
 
@@ -111,15 +114,15 @@ const SwipeHandlerInner: React.FC<Props> = ({
         {children}
 
         <Animated.View style={[styles.dirLabel, styles.acceptLabel, acceptLabelStyle]}>
-          <Text style={[styles.dirText, { color: '#4ade80' }]}>KABUL ✓</Text>
+          <Text style={[styles.dirText, { color: C.accept_glow }]}>KABUL ✓</Text>
         </Animated.View>
 
         <Animated.View style={[styles.dirLabel, styles.rejectLabel, rejectLabelStyle]}>
-          <Text style={[styles.dirText, { color: '#f87171' }]}>✕ RET</Text>
+          <Text style={[styles.dirText, { color: C.reject_glow }]}>✕ RET</Text>
         </Animated.View>
 
         <Animated.View style={[styles.dirLabel, styles.queryLabel, queryLabelStyle]}>
-          <Text style={[styles.dirText, { color: '#f59e0b' }]}>SORGU ↑</Text>
+          <Text style={[styles.dirText, { color: C.query }]}>SORGU ↑</Text>
         </Animated.View>
       </Animated.View>
     </GestureDetector>
@@ -137,13 +140,13 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     borderWidth: 2,
   },
-  acceptLabel: { right: 16, borderColor: '#4ade80', backgroundColor: '#4ade8022' },
-  rejectLabel: { left: 16,  borderColor: '#f87171', backgroundColor: '#f8717122' },
+  acceptLabel: { right: 16, borderColor: TC.accept_glow, backgroundColor: TC.accept_glow + '22' },
+  rejectLabel: { left: 16,  borderColor: TC.reject_glow, backgroundColor: TC.reject_glow + '22' },
   queryLabel:  {
     alignSelf: 'center',
     left: '30%',
-    borderColor: '#f59e0b',
-    backgroundColor: '#ff980022',
+    borderColor: C.query,
+    backgroundColor: (C.query + '22'),
   },
   dirText: { fontWeight: '900', fontSize: 14, letterSpacing: 1 },
 })

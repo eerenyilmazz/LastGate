@@ -66,7 +66,7 @@ export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
 
                 <Text style={styles.statIcon}>{STAT_ICONS[key]}</Text>
 
-                <Text style={[styles.statShort, { fontFamily: MONO, color: isCrit ? C.stat_critical : '#9ca3af' }]}>
+                <Text style={[styles.statShort, { fontFamily: MONO, color: isCrit ? C.stat_critical : C.text_secondary }]}>
                   {STAT_SHORT[key]}
                 </Text>
 
@@ -74,7 +74,7 @@ export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
                   <View style={[styles.barFill, { width: `${pct * 100}%` as any, backgroundColor: color }]} />
                 </View>
 
-                <Text style={[styles.statNum, { color: isCrit ? C.stat_critical : '#bbb' }]}>
+                <Text style={[styles.statNum, { color: isCrit ? C.stat_critical : C.text_bright }]}>
                   {cur}
                 </Text>
 
@@ -85,7 +85,7 @@ export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
                 ]}>
                   <Text style={[
                     styles.diffText,
-                    { color: diff > 0 ? C.accept_glow : diff < 0 ? C.reject_glow : '#4b5563' },
+                    { color: diff > 0 ? C.accept_glow : diff < 0 ? C.reject_glow : C.button_border },
                   ]}>
                     {diff > 0 ? `+${diff}` : diff < 0 ? `${diff}` : '—'}
                   </Text>
@@ -103,7 +103,7 @@ export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
         {Object.keys(game.acceptedRoleCounts).length > 0 && (
           <View style={styles.roleRow}>
             {Object.entries(game.acceptedRoleCounts).map(([role, count]) => {
-              const color = ROLE_COLORS[role] ?? '#555'
+              const color = ROLE_COLORS[role] ?? C.text_muted
               const label = ROLE_LABELS[role] ?? role
               return (
                 <View key={role} style={[styles.roleChip, { borderColor: color + '44', backgroundColor: color + '11' }]}>
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
   dayLabel: {
     flex: 1,
     textAlign: 'center',
-    color: '#6b7280',
+    color: C.text_muted,
     fontSize: 11,
     fontWeight: '800',
     letterSpacing: 3,
@@ -225,8 +225,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'transparent',
   },
-  diffBoxPos: { backgroundColor: C.diff_pos_bg, borderWidth: 1, borderColor: '#1a3d1a' },
-  diffBoxNeg: { backgroundColor: C.diff_neg_bg, borderWidth: 1, borderColor: '#3d0f0f' },
+  diffBoxPos: { backgroundColor: C.diff_pos_bg, borderWidth: 1, borderColor: C.border_pos },
+  diffBoxNeg: { backgroundColor: C.diff_neg_bg, borderWidth: 1, borderColor: C.border_neg },
   diffText: {
     fontSize: 11,
     fontWeight: '800',
@@ -272,12 +272,12 @@ const styles = StyleSheet.create({
     marginBottom: 14,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#1e2535',
+    backgroundColor: C.card_dark,
     borderRadius: 14,
     borderWidth: 1,
-    borderColor: '#374151',
+    borderColor: C.divider,
     borderLeftWidth: 4,
-    borderLeftColor: '#f59e0b',
+    borderLeftColor: C.query,
     paddingVertical: 14,
     paddingHorizontal: 14,
   },
@@ -289,24 +289,24 @@ const styles = StyleSheet.create({
   },
   buildingEmoji: { fontSize: 24 },
   buildingTitle: {
-    color: '#f59e0b',
+    color: C.query,
     fontSize: 12,
     fontWeight: '900',
     letterSpacing: 1.5,
     marginBottom: 3,
   },
   buildingSub: {
-    color: '#9ca3af',
+    color: C.text_secondary,
     fontSize: 10,
   },
   buildingArrow: {
-    color: '#f59e0b',
+    color: C.query,
     fontSize: 26,
     fontWeight: '900',
   },
 
   hint: {
-    color: '#4b5563',
+    color: C.button_border,
     fontSize: 9,
     letterSpacing: 2,
     textAlign: 'center',
