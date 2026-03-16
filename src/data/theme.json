@@ -1,29 +1,29 @@
 {
   "colors": {
-    "background":      "#161109",
-    "surface":         "#211810",
-    "card_bg":         "#2a1e14",
-    "accept":          "#2e7d32",
-    "accept_glow":     "#4caf50",
-    "reject":          "#b71c1c",
-    "reject_glow":     "#ef5350",
-    "query":           "#fdd835",
-    "text_primary":    "#f0ece6",
-    "text_secondary":  "#a89880",
-    "stat_immunity":   "#7c4dff",
-    "stat_food":       "#ff8f00",
-    "stat_population": "#0288d1",
-    "stat_defense":    "#c62828",
-    "stat_economy":    "#43a047",
+    "background":      "#111827",
+    "surface":         "#1f2937",
+    "card_bg":         "#2d3748",
+    "accept":          "#16a34a",
+    "accept_glow":     "#4ade80",
+    "reject":          "#dc2626",
+    "reject_glow":     "#f87171",
+    "query":           "#f59e0b",
+    "text_primary":    "#f9fafb",
+    "text_secondary":  "#9ca3af",
+    "stat_immunity":   "#a78bfa",
+    "stat_food":       "#fb923c",
+    "stat_population": "#38bdf8",
+    "stat_defense":    "#f87171",
+    "stat_economy":    "#4ade80",
     "stat_critical":   "#ff1744",
     "warning_overlay": "#ff000033",
-    "day_summary_bg":  "#161109ee",
-    "button_primary":  "#2a1e14",
-    "button_border":   "#3d2c1c",
+    "day_summary_bg":  "#111827ee",
+    "button_primary":  "#2d3748",
+    "button_border":   "#4b5563",
     "overlay_bg":      "#00000099",
-    "divider":         "#3d2c1c",
-    "diff_pos_bg":     "#0d200d",
-    "diff_neg_bg":     "#200808"
+    "divider":         "#374151",
+    "diff_pos_bg":     "#052e16",
+    "diff_neg_bg":     "#450a0a"
   },
   "typography": {
     "size_xs": 10,
@@ -92,19 +92,19 @@
       "economy": "EKO"
     },
     "stat_colors": {
-      "immunity": "#9575cd",
-      "food": "#ff9800",
-      "population": "#29b6f6",
-      "defense": "#ef5350",
-      "economy": "#66bb6a"
+      "immunity": "#a78bfa",
+      "food": "#fb923c",
+      "population": "#38bdf8",
+      "defense": "#f87171",
+      "economy": "#4ade80"
     },
     "role_colors": {
-      "Doctor": "#7c4dff",
-      "Farmer": "#ff8f00",
-      "Soldier": "#c62828",
-      "Trader": "#0288d1",
-      "Engineer": "#2e7d32",
-      "Scavenger": "#607d8b"
+      "Doctor": "#a78bfa",
+      "Farmer": "#fb923c",
+      "Soldier": "#f87171",
+      "Trader": "#38bdf8",
+      "Engineer": "#4ade80",
+      "Scavenger": "#fbbf24"
     },
     "role_names_tr": {
       "Doctor": "DOKTOR",
@@ -115,11 +115,11 @@
       "Scavenger": "TOPLAYICI"
     },
     "choice_colors": {
-      "A": "#2e7d32",
-      "B": "#0277bd",
-      "C": "#e65100"
+      "A": "#16a34a",
+      "B": "#0284c7",
+      "C": "#d97706"
     },
-    "terminal_dots": ["#c62828", "#f57f17", "#388e3c"],
+    "terminal_dots": ["#dc2626", "#d97706", "#16a34a"],
     "font_mono": { "ios": "Courier New", "android": "monospace" }
   }
 }
