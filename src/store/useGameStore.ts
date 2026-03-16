@@ -27,6 +27,10 @@ interface GameStore extends GameState {
   addNotification: (text: string) => void
   clearNotifications: () => void
 
+  daySpEarned: number
+  addDaySpEarned: (amount: number) => void
+  resetDaySpEarned: () => void
+
   advanceDay: (queryCharges?: number) => void
   setQueryCharges: (n: number) => void
 
@@ -52,6 +56,7 @@ const INITIAL: GameState & { pendingTraits: PendingTrait[]; usedEventIDs: string
   pendingTraits: [],
   usedEventIDs: [],
   notifications: [],
+  daySpEarned: 0,
 }
 
 export const useGameStore = create<GameStore>((set, get) => ({
@@ -113,6 +118,14 @@ export const useGameStore = create<GameStore>((set, get) => ({
 
   clearNotifications() {
     set({ notifications: [] })
+  },
+
+  addDaySpEarned(amount) {
+    set(s => ({ daySpEarned: s.daySpEarned + amount }))
+  },
+
+  resetDaySpEarned() {
+    set({ daySpEarned: 0 })
   },
 
   advanceDay(queryCharges = config.query_charges_per_day) {

@@ -36,7 +36,7 @@
     "Doctor":   { "min_count": 3, "bonus": { "immunity": 1 } },
     "Farmer":   { "min_count": 2, "bonus": { "food": 1 } },
     "Soldier":  { "min_count": 2, "bonus": { "defense": 1 } },
-    "Trader":   { "min_count": 2, "bonus": { "economy": 1 } },
+    "Trader":   { "min_count": 2, "bonus": { "economy": 2, "food": 1 } },
     "Engineer": { "min_count": 3, "bonus": { "immunity": 1, "economy": 1 } }
   },
   "trait_effects": {
@@ -49,13 +49,13 @@
     "thief_steal":       { "economy": -10, "food": -8 },
     "protector_bonus":   { "immunity": 5, "defense": 3, "economy": 2 }
   },
-  "trait_expiry_days": { "spy": 10, "thief": 5, "protector": 1 },
+  "trait_expiry_days": { "spy": 10, "thief": 5, "protector": 3 },
   "trait_query_pass_chance": { "liar": 0.3, "spy": 0.15, "infected": 0.1 },
   "liar_accept_multiplier": 0.3,
   "npcs_per_day_min": 1,
   "npcs_per_day_max": 3,
   "food_per_population": 0.04,
-  "population_starvation_loss": 8,
+  "population_starvation_loss": 4,
   "sp_rewards": {
     "day_survived": 4,
     "correct_npc_decision": 1,
@@ -65,7 +65,8 @@
   },
   "query_food_cost": 5,
   "infection_reduction_cap": 0.9,
-  "query_result_timeout_ms": 4000,
+  "query_result_timeout_ms": 6000,
+  "economy_food_conversion_rate": 0.05,
   "audio_volumes": { "ambient": 0.22, "sfx": 0.75 },
   "buildings": [
     {
@@ -81,11 +82,11 @@
     {
       "id": "market",
       "label": "Pazar",
-      "description": "Her gün Ekonomi +2, ticaret olayları +%20",
+      "description": "Her gün Ekonomi +3, her 10 ekonomi için +0.5 yiyecek, ticaret olayları +%20",
       "cost": 45, "unlock_day": 4,
       "icon": "🏪", "color": "#2e7d32",
-      "chips": ["💰 +2 / gün", "Ticaret +20%"],
-      "passive": { "economy": 2 },
+      "chips": ["💰 +3 / gün", "Eko→Yiyecek dönüşümü", "Ticaret +20%"],
+      "passive": { "economy": 3 },
       "trade_event_bonus": 0.2
     },
     {
@@ -149,11 +150,11 @@
     {
       "id": "nuclear_generator",
       "label": "Nükleer Jeneratör",
-      "description": "Tüm değerlere her gün +1, tüm pasif bonuslar +%10 artışla çalışır",
-      "cost": 140, "unlock_day": 22,
+      "description": "Bağışıklık ve Yiyecek her gün +2, diğer tüm pasif bonuslar +%5 artışla çalışır",
+      "cost": 175, "unlock_day": 22,
       "icon": "☢️", "color": "#558b2f",
-      "chips": ["💊🌾👥🛡💰 +1 / gün", "Tüm pasif +10%"],
-      "passive": { "immunity": 1, "food": 1, "population": 1, "defense": 1, "economy": 1 }
+      "chips": ["💊 +2 / gün", "🌾 +2 / gün", "Tüm pasif +5%"],
+      "passive": { "immunity": 2, "food": 2 }
     }
   ],
   "skills": [

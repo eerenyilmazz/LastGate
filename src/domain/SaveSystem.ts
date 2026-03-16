@@ -9,18 +9,23 @@ const KEYS = {
 
 export const SaveSystem = {
   async save(data: Record<string, unknown>): Promise<void> {
-    await Promise.all(
-      Object.entries(data).map(([key, value]) =>
-        AsyncStorage.setItem(key, JSON.stringify(value))
+    try {
+      await Promise.all(
+        Object.entries(data).map(([key, value]) =>
+          AsyncStorage.setItem(key, JSON.stringify(value))
+        )
       )
-    )
+    } catch (e) {
+      console.error('[SaveSystem] save failed:', e)
+    }
   },
 
   async load<T>(key: string): Promise<T | null> {
     try {
       const raw = await AsyncStorage.getItem(key)
       return raw ? (JSON.parse(raw) as T) : null
-    } catch {
+    } catch (e) {
+      console.error('[SaveSystem] load failed for key:', key, e)
       return null
     }
   },

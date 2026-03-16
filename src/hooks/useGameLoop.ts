@@ -51,10 +51,14 @@ export const useGameLoop = () => {
   const endDay = useCallback(() => {
     const dayStartStats: StatState = { ...stats.stats }
 
+    game.resetDaySpEarned()
+
     stats.applyPassive(progress.buildings)
 
     const synergyDelta = StatEngine.computeRoleSynergy(game.acceptedRoleCounts)
     stats.apply(synergyDelta)
+
+    stats.applyEconomyConversion(progress.buildings.includes('market'))
 
     stats.applyFoodConsumption()
 
@@ -76,6 +80,7 @@ export const useGameLoop = () => {
       progress.updateBestRun(game.day, false)
       game.setGameOver(reason as any)
       progress.addSP(config.sp_rewards.game_over)
+      game.addDaySpEarned(config.sp_rewards.game_over)
       saveAll()
       return
     }
@@ -84,6 +89,7 @@ export const useGameLoop = () => {
       progress.updateBestRun(game.day, true)
       game.setGameOver('victory' as any)
       progress.addSP(config.sp_rewards.game_over)
+      game.addDaySpEarned(config.sp_rewards.game_over)
       saveAll()
       return
     }
@@ -98,10 +104,14 @@ export const useGameLoop = () => {
     }
 
     progress.addSP(config.sp_rewards.day_survived)
+    game.addDaySpEarned(config.sp_rewards.day_survived)
 
     const cur    = stats.stats
     const noDrop = Object.keys(cur).every(k => cur[k as keyof typeof cur] >= dayStartStats[k as keyof typeof dayStartStats])
-    if (noDrop) progress.addSP(config.sp_rewards.perfect_day)
+    if (noDrop) {
+      progress.addSP(config.sp_rewards.perfect_day)
+      game.addDaySpEarned(config.sp_rewards.perfect_day)
+    }
 
     rollDay()
     game.advanceDay(computeQueryCharges(progress.buildings))
@@ -125,12 +135,14 @@ export const useGameLoop = () => {
     }
 
     progress.addSP(config.sp_rewards.correct_npc_decision)
+    game.addDaySpEarned(config.sp_rewards.correct_npc_decision)
 
     const overReason = stats.getGameOverReason()
     if (overReason) {
       progress.updateBestRun(game.day, false)
       game.setGameOver(overReason as any)
       progress.addSP(config.sp_rewards.game_over)
+      game.addDaySpEarned(config.sp_rewards.game_over)
       saveAll()
       return
     }
@@ -200,16 +212,19 @@ export const useGameLoop = () => {
     game.markEventUsed(event.event_id)
     game.addNotification(choice.outcome)
     progress.addSP(config.sp_rewards.event_survived)
+    game.addDaySpEarned(config.sp_rewards.event_survived)
 
     const overReason = stats.getGameOverReason()
     if (overReason) {
       game.setGameOver(overReason as any)
       progress.addSP(config.sp_rewards.game_over)
+      game.addDaySpEarned(config.sp_rewards.game_over)
       saveAll()
       return
     }
 
     progress.addSP(config.sp_rewards.day_survived)
+    game.addDaySpEarned(config.sp_rewards.day_survived)
     rollDay()
     game.advanceDay(computeQueryCharges(progress.buildings))
     const nextNPC = generator.getNext()

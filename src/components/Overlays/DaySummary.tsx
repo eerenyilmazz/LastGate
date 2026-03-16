@@ -52,7 +52,12 @@ export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
           <Text style={[styles.dayLabel, { fontFamily: MONO }]}>
             {LABELS.day_summary_header_prefix}{game.day}{LABELS.day_summary_header_suffix}
           </Text>
-          <View style={{ width: 40 }} />
+          {game.daySpEarned > 0
+            ? <View style={styles.spBadge}>
+                <Text style={[styles.spBadgeText, { fontFamily: MONO }]}>+{game.daySpEarned} SP</Text>
+              </View>
+            : <View style={{ width: 40 }} />
+          }
         </View>
 
         <View style={styles.statsBlock}>
@@ -102,6 +107,16 @@ export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
         <View style={styles.divider}>
           <View style={styles.dividerLine} />
         </View>
+
+        {game.notifications.length > 0 && (
+          <View style={styles.notifBlock}>
+            {game.notifications.map((note, i) => (
+              <View key={i} style={styles.notifRow}>
+                <Text style={[styles.notifText, { fontFamily: MONO }]}>{'⚠ '}{note}</Text>
+              </View>
+            ))}
+          </View>
+        )}
 
         {Object.keys(game.acceptedRoleCounts).length > 0 && (
           <View style={styles.roleRow}>
@@ -314,5 +329,41 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
     textAlign: 'center',
     marginBottom: 4,
+  },
+
+  spBadge: {
+    backgroundColor: C.query + '22',
+    borderWidth: 1,
+    borderColor: C.query + '88',
+    borderRadius: R.pill,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    minWidth: 52,
+    alignItems: 'center',
+  },
+  spBadgeText: {
+    color: C.query,
+    fontSize: TY.size_caption,
+    fontWeight: TY.weight_black,
+    letterSpacing: 1,
+  },
+
+  notifBlock: {
+    marginHorizontal: 16,
+    marginBottom: 12,
+    gap: 6,
+  },
+  notifRow: {
+    backgroundColor: C.danger_dark + '33',
+    borderLeftWidth: 3,
+    borderLeftColor: C.danger,
+    borderRadius: R.xs,
+    paddingVertical: 7,
+    paddingHorizontal: 10,
+  },
+  notifText: {
+    color: C.danger,
+    fontSize: TY.size_xs,
+    fontWeight: TY.weight_semi,
   },
 })

@@ -12,6 +12,7 @@ import { GameScreen } from './src/screens/GameScreen'
 import { GameOverScreen } from './src/screens/GameOverScreen'
 import { BuildingScreen } from './src/screens/BuildingScreen'
 import { SummaryScreen } from './src/screens/SummaryScreen'
+import { ErrorBoundary } from './src/components/ErrorBoundary'
 
 type AppScreen = 'splash' | 'menu' | 'game'
 
@@ -47,6 +48,7 @@ export default function App() {
   }
 
   return (
+    <ErrorBoundary>
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
         <StatusBar style="light" />
@@ -67,5 +69,6 @@ export default function App() {
         )}
       </SafeAreaProvider>
     </GestureHandlerRootView>
+    </ErrorBoundary>
   )
 }

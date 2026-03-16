@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import {
   View, Text, TouchableOpacity, ScrollView,
-  StyleSheet, Platform,
+  StyleSheet, Platform, Alert,
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useProgressStore } from '../store/useProgressStore'
@@ -152,7 +152,14 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
 
               {canBuy && (
                 <TouchableOpacity
-                  onPress={() => progress.buyBuilding(b.id)}
+                  onPress={() => Alert.alert(
+                    b.label,
+                    `${b.cost} SP harcayarak inşa etmek istiyor musunuz?`,
+                    [
+                      { text: L.confirm_cancel ?? 'Vazgeç', style: 'cancel' },
+                      { text: L.confirm_buy ?? 'İnşa Et', onPress: () => progress.buyBuilding(b.id) },
+                    ]
+                  )}
                   style={[styles.actionBtn, { backgroundColor: b.color + '22', borderColor: b.color + '66' }]}
                   activeOpacity={0.8}
                 >
@@ -178,9 +185,21 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
 
           const handleBuy = () => {
             if (!canBuy) return
-            if (!progress.spendSP(skill.cost)) return
-            progress.markUsed(skill.id)
-            stats.apply(skill.effect)
+            Alert.alert(
+              skill.label,
+              `${skill.cost} SP harcayarak kullanmak istiyor musunuz?`,
+              [
+                { text: L.confirm_cancel ?? 'Vazgeç', style: 'cancel' },
+                {
+                  text: L.confirm_use ?? 'Kullan',
+                  onPress: () => {
+                    if (!progress.spendSP(skill.cost)) return
+                    progress.markUsed(skill.id)
+                    stats.apply(skill.effect)
+                  },
+                },
+              ]
+            )
           }
 
           return (
