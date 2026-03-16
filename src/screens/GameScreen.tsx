@@ -30,7 +30,7 @@ import config from '../data/config.json'
 import themeData from '../data/theme.json'
 import uiData from '../data/ui.json'
 
-const TY = themeData.typography
+const TY = themeData.typography as any
 const SP = themeData.spacing
 const R  = themeData.radius
 const UI       = themeData.ui

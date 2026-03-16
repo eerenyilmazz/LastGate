@@ -35,6 +35,8 @@ export const StatEngine = {
     if (current.food <= 0) {
       return StatEngine.apply(current, { population: -config.population_starvation_loss })
     }
+    return current
+  },
 
   applyEconomyConversion(current: StatState, hasMarket: boolean): StatState {
     if (!hasMarket) return current
@@ -42,8 +44,6 @@ export const StatEngine = {
     const foodBonus = Math.floor(current.economy * rate)
     if (foodBonus <= 0) return current
     return StatEngine.apply(current, { food: foodBonus })
-  },
-    return current
   },
 
   isCritical(state: StatState, stat: StatType): boolean {

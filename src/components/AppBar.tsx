@@ -7,7 +7,7 @@ import { useSettingsStore } from '../store/useSettingsStore'
 import themeData from '../data/theme.json'
 
 const C  = themeData.colors
-const TY = themeData.typography
+const TY = themeData.typography as any
 const SP = themeData.spacing
 const R  = themeData.radius
 const MONO = Platform.select(themeData.ui.font_mono) as string

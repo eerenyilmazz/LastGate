@@ -6,7 +6,8 @@ import {
 import uiData from '../../data/ui.json'
 import themeData from '../../data/theme.json'
 
-const TY = themeData.typography
+const C  = themeData.colors
+const TY = themeData.typography as any
 const SP = themeData.spacing
 const R  = themeData.radius
 const MONO  = Platform.select(themeData.ui.font_mono) as string

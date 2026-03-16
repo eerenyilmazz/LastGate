@@ -6,7 +6,7 @@ import { StatType } from '../../types/stat.types'
 import themeData from '../../data/theme.json'
 import config from '../../data/config.json'
 
-const TY = themeData.typography
+const TY = themeData.typography as any
 const SP = themeData.spacing
 const R  = themeData.radius
 const STAT_ICONS = themeData.ui.stat_icons as Record<StatType, string>

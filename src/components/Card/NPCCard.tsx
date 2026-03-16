@@ -5,7 +5,8 @@ import { NPC } from '../../types/npc.types'
 import ILLUSTRATIONS from '../../assets/images'
 import themeData from '../../data/theme.json'
 
-const TY = themeData.typography
+const C  = themeData.colors
+const TY = themeData.typography as any
 const SP = themeData.spacing
 const R  = themeData.radius
 const ROLE_COLORS = themeData.ui.role_colors as Record<string, string>

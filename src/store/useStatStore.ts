@@ -10,6 +10,7 @@ interface StatStore {
   applyPassive: (buildings: string[]) => void
   applyFoodConsumption: () => void
   applyStarvation: () => void
+  applyEconomyConversion: (hasMarket: boolean) => void
   isCritical: (stat: StatType) => boolean
   getGameOverReason: () => string | null
   reset: () => void
@@ -47,6 +48,13 @@ export const useStatStore = create<StatStore>((set, get) => ({
     set(s => ({
       prevStats: { ...s.stats },
       stats: StatEngine.applyStarvation(s.stats),
+    }))
+  },
+
+  applyEconomyConversion(hasMarket) {
+    set(s => ({
+      prevStats: { ...s.stats },
+      stats: StatEngine.applyEconomyConversion(s.stats, hasMarket),
     }))
   },
 

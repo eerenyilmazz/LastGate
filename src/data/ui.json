@@ -140,7 +140,10 @@
     "building_sp_needed_suffix":   " SP daha gerekiyor",
     "earned_sp":                   "KAZANILAN SP",
     "btn_restart":                 "[ YENİDEN BAŞLA ]",
-    "btn_main_menu":               "↩  ANA MENÜ"
+    "btn_main_menu":               "↩  ANA MENÜ",
+    "confirm_cancel":              "İPTAL",
+    "confirm_buy":                 "SATIN AL",
+    "confirm_use":                 "KULLAN"
   },
   "critical_stat_labels": {
     "immunity":   "BAĞIŞIKLIK KRİTİK!",

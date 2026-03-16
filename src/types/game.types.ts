@@ -36,6 +36,7 @@ export interface GameState {
   runStats: RunStats
   gameOverReason: GameOverReason | null
   isGameOver: boolean
+  daySpEarned: number
 }
 
 export interface ProgressState {

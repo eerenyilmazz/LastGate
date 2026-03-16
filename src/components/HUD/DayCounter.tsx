@@ -2,6 +2,8 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { useTheme } from '../../hooks/useTheme'
 import config from '../../data/config.json'
+import themeData from '../../data/theme.json'
+const TY = themeData.typography as any
 
 interface Props {
   day: number

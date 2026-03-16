@@ -14,7 +14,8 @@ import Animated, {
 import { useTheme } from '../../hooks/useTheme'
 import themeData from '../../data/theme.json'
 const TC = themeData.colors
-const TY = themeData.typography
+const C  = TC
+const TY = themeData.typography as any
 const R  = themeData.radius
 
 interface Props {

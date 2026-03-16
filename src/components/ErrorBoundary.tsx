@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import themeData from '../data/theme.json'
 
 const C  = themeData.colors
-const TY = themeData.typography
+const TY = themeData.typography as any
 const SP = themeData.spacing
 const R  = themeData.radius
 

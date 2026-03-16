@@ -5,6 +5,8 @@ import { useTheme } from '../../hooks/useTheme'
 import { StatType } from '../../types/stat.types'
 import { useStatStore } from '../../store/useStatStore'
 import uiData from '../../data/ui.json'
+import themeData from '../../data/theme.json'
+const TY = themeData.typography as any
 
 const STAT_LABELS = uiData.critical_stat_labels as Record<StatType, string>
 
