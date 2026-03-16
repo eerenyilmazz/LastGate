@@ -283,8 +283,8 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
             <SwipeHandler
               key={npc.npc_id}
               dragX={dragX}
-              onSwipeRight={() => { playSFX('sfx_accept'); Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); handleAccept(npc); setQueryResult(null); setQueryWarnPending(false) }}
-              onSwipeLeft={()  => { playSFX('sfx_reject'); Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); handleReject(npc); setQueryResult(null); setQueryWarnPending(false) }}
+              onSwipeRight={() => { playSFX('sfx_door_open'); Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); handleAccept(npc); setQueryResult(null); setQueryWarnPending(false) }}
+              onSwipeLeft={()  => { playSFX('sfx_door_close'); Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); handleReject(npc); setQueryResult(null); setQueryWarnPending(false) }}
               onSwipeUp={onQuery}
               disabled={game.phase !== 'npc_decision'}
             >
@@ -314,7 +314,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
           opacity: (npc && game.phase === 'npc_decision') ? 1 : 0,
         }]}>
           <TouchableOpacity
-            onPress={() => { playSFX('sfx_reject'); Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); handleReject(npc!); setQueryResult(null); setQueryWarnPending(false) }}
+            onPress={() => { playSFX('sfx_door_close'); Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); handleReject(npc!); setQueryResult(null); setQueryWarnPending(false) }}
             disabled={!npc || game.phase !== 'npc_decision'}
             style={[styles.actionBtn, styles.rejectBtn, { paddingVertical: btnPadV }]}
             activeOpacity={0.85}
@@ -350,7 +350,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => { playSFX('sfx_accept'); Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); handleAccept(npc!); setQueryResult(null); setQueryWarnPending(false) }}
+            onPress={() => { playSFX('sfx_door_open'); Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); handleAccept(npc!); setQueryResult(null); setQueryWarnPending(false) }}
             disabled={!npc || game.phase !== 'npc_decision'}
             style={[styles.actionBtn, styles.acceptBtn, { paddingVertical: btnPadV }]}
             activeOpacity={0.85}
