@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import {
   View, Text, TouchableOpacity, StyleSheet,
-  SafeAreaView, Platform,
+  Platform,
 } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import uiData from '../../data/ui.json'
 import themeData from '../../data/theme.json'
 
@@ -124,8 +125,9 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     backgroundColor: C.background,
     zIndex: 100,
+    elevation: 100,
   },
-  safe: { flex: 1 },
+  safe: { flex: 1, backgroundColor: C.background },
 
   termHeader: {
     flexDirection: 'row',
