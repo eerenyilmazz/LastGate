@@ -315,6 +315,22 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
         )}
       </View>
 
+      {/* ── DIALOGUE STRIP — resets per NPC via key ───────── */}
+      <View style={styles.dialogueStrip} key={npc?.npc_id ?? 'empty'}>
+        {npc && (() => {
+          const roleColor = ROLE_COLORS[npc.role] ?? C.text_muted
+          return (
+            <View style={[styles.dialogueInner, { borderLeftColor: roleColor + 'bb' }]}>
+              <Text style={[styles.dialogueStr, { color: C.text_secondary }]} numberOfLines={3}>
+                <Text style={{ color: roleColor, fontWeight: TY.weight_black }}>"</Text>
+                {npc.dialogue}
+                <Text style={{ color: roleColor, fontWeight: TY.weight_black }}>"</Text>
+              </Text>
+            </View>
+          )
+        })()}
+      </View>
+
       {/* ── INFO BAR ───────────────────────────────────────── */}
       <View style={styles.infoBar}>
         <View style={styles.dayBlock}>
@@ -401,6 +417,23 @@ const styles = StyleSheet.create({
     fontSize: TY.size_sm,
     lineHeight: 18,
     letterSpacing: 0.3,
+  },
+
+  // Dialogue strip
+  dialogueStrip: {
+    height: 72,
+    paddingHorizontal: SP.lg,
+    justifyContent: 'center',
+  },
+  dialogueInner: {
+    borderLeftWidth: 2,
+    paddingLeft: 12,
+  },
+  dialogueStr: {
+    fontSize: TY.size_body,
+    lineHeight: 21,
+    fontStyle: 'italic',
+    letterSpacing: 0.1,
   },
 
   // Info bar
