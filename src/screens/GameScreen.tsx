@@ -30,22 +30,22 @@ import config from '../data/config.json'
 import themeData from '../data/theme.json'
 import uiData from '../data/ui.json'
 
-const TY = themeData.typography as any
-const SP = themeData.spacing
-const R  = themeData.radius
-const UI       = themeData.ui
-const C        = themeData.colors
-const L        = uiData.labels
+const TY   = themeData.typography as any
+const SP   = themeData.spacing
+const R    = themeData.radius
+const UI   = themeData.ui
+const C    = themeData.colors
+const L    = uiData.labels
 const STATS    = UI.stat_keys as StatType[]
 const STAT_MAX = config.stat_max as Record<StatType, number>
-const MONO     = Platform.select(themeData.ui.font_mono) as string
+const MONO = Platform.select(themeData.ui.font_mono) as string
 
-const SWIPE_PREVIEW_THRESHOLD = themeData.animation.swipe_threshold
+const SWIPE_THRESHOLD = themeData.animation.swipe_threshold
 
-// ─── Stat bar (horizontal, monitor style) ───────────────────────────────────
-const StatBarItem = React.memo<{
+// ─── Single stat row ────────────────────────────────────────────────────────
+const StatRow = React.memo<{
   icon:        string
-  label:       string
+  abbrev:      string
   val:         number
   pct:         number
   isCrit:      boolean
@@ -54,12 +54,12 @@ const StatBarItem = React.memo<{
   rejectDelta: number
   max:         number
   dragX:       SharedValue<number>
-}>(({ icon, label, val, pct, isCrit, color, acceptDelta, rejectDelta, max, dragX }) => {
+}>(({ icon, abbrev, val, pct, isCrit, color, acceptDelta, rejectDelta, max, dragX }) => {
 
   const pulse  = useSharedValue(1)
   const trackW = useSharedValue(0)
-
   const [displayVal, setDisplayVal] = useState(val)
+
   useEffect(() => { setDisplayVal(val) }, [val])
 
   useAnimatedReaction(
@@ -67,7 +67,7 @@ const StatBarItem = React.memo<{
       const dx = dragX.value
       if (Math.abs(dx) < 4) return val
       const delta    = dx > 0 ? acceptDelta : rejectDelta
-      const progress = Math.min(1, Math.abs(dx) / SWIPE_PREVIEW_THRESHOLD)
+      const progress = Math.min(1, Math.abs(dx) / SWIPE_THRESHOLD)
       return Math.round(Math.max(0, Math.min(max, val + delta * progress)))
     },
     (cur, prev) => { if (cur !== prev) runOnJS(setDisplayVal)(cur) },
@@ -77,112 +77,67 @@ const StatBarItem = React.memo<{
   useEffect(() => {
     if (isCrit) {
       pulse.value = withRepeat(
-        withSequence(
-          withTiming(0.1, { duration: 350 }),
-          withTiming(1,   { duration: 350 }),
-        ), -1, false)
+        withSequence(withTiming(0.08, { duration: 320 }), withTiming(1, { duration: 320 })),
+        -1, false,
+      )
     } else {
       cancelAnimation(pulse)
       pulse.value = withTiming(1, { duration: 180 })
     }
   }, [isCrit])
 
-  const animStyle = useAnimatedStyle(() => ({ opacity: pulse.value }))
+  const blinkStyle  = useAnimatedStyle(() => ({ opacity: pulse.value }))
+  const activeColor = isCrit ? C.stat_critical : color
 
   const fillStyle = useAnimatedStyle(() => {
     'worklet'
     const w  = trackW.value
     const dx = dragX.value
-    if (w === 0 || Math.abs(dx) < 4) return { width: w * pct, backgroundColor: color }
+    if (w === 0 || Math.abs(dx) < 4) return { width: w * pct, backgroundColor: activeColor }
     const delta        = dx > 0 ? acceptDelta : rejectDelta
-    const progress     = Math.min(1, Math.abs(dx) / SWIPE_PREVIEW_THRESHOLD)
-    const projectedPct = Math.max(0, Math.min(1, (val + delta) / max))
-    return { width: w * (pct + (projectedPct - pct) * progress), backgroundColor: color }
+    const progress     = Math.min(1, Math.abs(dx) / SWIPE_THRESHOLD)
+    const projPct      = Math.max(0, Math.min(1, (val + delta) / max))
+    return { width: w * (pct + (projPct - pct) * progress), backgroundColor: activeColor }
   })
 
-  const activeColor = isCrit ? C.stat_critical : color
-
   return (
-    <View style={barS.wrap}>
-      {/* label row */}
-      <View style={barS.labelRow}>
-        <Text style={[barS.icon]}>{icon}</Text>
-        <Text style={[barS.label, { color: isCrit ? C.stat_critical : C.text_muted }, isCrit && animStyle as any]}>
-          {label}
-        </Text>
-        <Animated.Text style={[barS.val, { color: isCrit ? C.stat_critical : activeColor }, isCrit && animStyle]}>
-          {displayVal > 99 ? '99+' : displayVal}
-        </Animated.Text>
-      </View>
-      {/* bar track */}
-      <View style={[barS.track, { borderColor: activeColor + '30' }]}
+    <View style={sRow.wrap}>
+      <Text style={sRow.icon}>{icon}</Text>
+      <Text style={[sRow.abbrev, { color: isCrit ? C.stat_critical : C.text_muted }, isCrit && blinkStyle as any]}>
+        {abbrev}
+      </Text>
+      <View style={[sRow.track, { borderColor: activeColor + '28' }]}
         onLayout={e => { trackW.value = e.nativeEvent.layout.width }}>
-        <Animated.View style={[barS.fill, fillStyle]} />
-        {isCrit && (
-          <Animated.View style={[barS.critOverlay, animStyle]} />
-        )}
+        <Animated.View style={[sRow.fill, fillStyle]} />
+        {isCrit && <Animated.View style={[sRow.critFlash, blinkStyle]} />}
       </View>
+      <Animated.Text style={[sRow.val, { color: isCrit ? C.stat_critical : activeColor }, isCrit && blinkStyle]}>
+        {displayVal > 999 ? '999' : displayVal}
+      </Animated.Text>
     </View>
   )
 })
 
-const barS = StyleSheet.create({
-  wrap: { flex: 1 },
-  labelRow: {
+const sRow = StyleSheet.create({
+  wrap: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 3,
-    marginBottom: 3,
+    gap: 4,
   },
-  icon:  { fontSize: 9 },
-  label: { flex: 1, fontSize: TY.size_caption, fontWeight: TY.weight_heavy, fontFamily: MONO, letterSpacing: 0.8 },
-  val:   { fontSize: TY.size_caption, fontWeight: TY.weight_black, fontFamily: MONO, minWidth: 22, textAlign: 'right' },
+  icon:   { fontSize: 10, width: 14, textAlign: 'center' },
+  abbrev: { fontSize: TY.size_caption, fontWeight: TY.weight_black, fontFamily: MONO, letterSpacing: 0.5, width: 28 },
   track: {
-    height: 7, borderRadius: 2, overflow: 'hidden',
+    flex: 1, height: 6, borderRadius: 3,
+    overflow: 'hidden', borderWidth: 1,
     backgroundColor: C.card_dark,
-    borderWidth: 1,
   },
-  fill: { height: '100%', borderRadius: 2 },
-  critOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: C.stat_critical + '25',
+  fill:      { height: '100%', borderRadius: 3 },
+  critFlash: { ...StyleSheet.absoluteFillObject, backgroundColor: C.stat_critical + '22' },
+  val: {
+    fontSize: TY.size_caption, fontWeight: TY.weight_black,
+    fontFamily: MONO, width: 26, textAlign: 'right',
   },
 })
-
-// ─── Corner bracket decoration ───────────────────────────────────────────────
-const Corner: React.FC<{ pos: 'tl' | 'tr' | 'bl' | 'br'; color: string }> = ({ pos, color }) => {
-  const isTop    = pos === 'tl' || pos === 'tr'
-  const isLeft   = pos === 'tl' || pos === 'bl'
-  const s = 14
-  const t = 2
-  return (
-    <View style={{
-      position: 'absolute',
-      top:    isTop  ? 0 : undefined,
-      bottom: !isTop ? 0 : undefined,
-      left:   isLeft  ? 0 : undefined,
-      right:  !isLeft ? 0 : undefined,
-      width: s, height: s,
-    }}>
-      {/* horizontal */}
-      <View style={{
-        position: 'absolute',
-        top:    isTop  ? 0 : undefined,
-        bottom: !isTop ? 0 : undefined,
-        left: 0, right: 0, height: t,
-        backgroundColor: color,
-      }} />
-      {/* vertical */}
-      <View style={{
-        position: 'absolute',
-        left:  isLeft  ? 0 : undefined,
-        right: !isLeft ? 0 : undefined,
-        top: 0, bottom: 0, width: t,
-        backgroundColor: color,
-      }} />
-    </View>
-  )
-}
 
 const CARD_ASPECT = 3 / 4
 
@@ -216,12 +171,12 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
   const canQuery  = game.queryChargesLeft > 0
   const isCompact = sh < 700
 
+  // HUD ~100px + infoBar ~34px + toast ~38px + actions ~100px = ~272
   const naturalCardH = Math.round(sw * 0.84 / CARD_ASPECT)
-  const usedH        = isCompact ? 190 : 210
-  const maxCardH     = Math.max(160, innerH - usedH)
+  const maxCardH     = Math.max(180, innerH - (isCompact ? 255 : 280))
   const cardSlotH    = Math.min(naturalCardH, maxCardH)
 
-  const dayPct = (game.day - 1) / (config.win_condition_day - 1)
+  const dayPct = Math.round(((game.day - 1) / Math.max(1, config.win_condition_day - 1)) * 100)
 
   useEffect(() => {
     if (game.phase !== 'npc_arrival') return
@@ -288,25 +243,27 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
   const isDecision = !!(npc && game.phase === 'npc_decision')
 
   return (
-    <SafeAreaView
-      style={[styles.safe, { backgroundColor: theme.colors.background }]}
-      onLayout={onSafeLayout}
-    >
+    <SafeAreaView style={[styles.safe, { backgroundColor: theme.colors.background }]} onLayout={onSafeLayout}>
       <AppBar onMainMenu={onMainMenu} />
 
-      {/* ── HUD: stat monitor ─────────────────────────────── */}
+      {/* ── TACTICAL STATUS HUD ────────────────────────────── */}
       <View style={styles.hud}>
-        {/* left: stat grid */}
-        <View style={styles.statGrid}>
-          {STATS.map(s => (
-            <StatBarItem
-              key={s}
+        <View style={styles.hudHeader}>
+          <View style={styles.hudHeaderLine} />
+          <Text style={[styles.hudHeaderText, { fontFamily: MONO }]}>DURUM MONİTÖRÜ</Text>
+          <View style={styles.hudHeaderLine} />
+        </View>
+
+        {/* 3 + 2 grid */}
+        <View style={styles.statRow}>
+          {STATS.slice(0, 3).map(s => (
+            <StatRow key={s}
               icon={(UI.stat_icons as any)[s]}
-              label={(UI.stat_abbrevs as any)[s] ?? s.slice(0, 3).toUpperCase()}
+              abbrev={(UI.stat_abbrevs as any)[s]}
               val={Math.round(stats.stats[s])}
               pct={Math.min(1, Math.max(0, stats.stats[s] / STAT_MAX[s]))}
               isCrit={stats.isCritical(s)}
-              color={stats.isCritical(s) ? C.stat_critical : (UI.stat_colors as any)[s]}
+              color={(UI.stat_colors as any)[s]}
               acceptDelta={npcAccept[s] ?? 0}
               rejectDelta={npcReject[s] ?? 0}
               max={STAT_MAX[s]}
@@ -314,30 +271,59 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
             />
           ))}
         </View>
-
-        {/* right: terminal readout */}
-        <View style={styles.readout}>
-          <Text style={[styles.readoutLabel, { fontFamily: MONO }]}>GÜN</Text>
-          <Text style={[styles.readoutBig,   { fontFamily: MONO }]}>{game.day}</Text>
-          <View style={styles.progressTrack}>
-            <View style={[styles.progressFill, { width: `${Math.round(dayPct * 100)}%` as any }]} />
-          </View>
-          <Text style={[styles.readoutSub,   { fontFamily: MONO }]}>
-            /{config.win_condition_day}
-          </Text>
-          <View style={styles.readoutDivider} />
-          <Text style={[styles.readoutLabel, { fontFamily: MONO }]}>SP</Text>
-          <Text style={[styles.readoutSp,    { fontFamily: MONO }]}>{progress.sp}</Text>
+        <View style={styles.statRow}>
+          {STATS.slice(3).map(s => (
+            <StatRow key={s}
+              icon={(UI.stat_icons as any)[s]}
+              abbrev={(UI.stat_abbrevs as any)[s]}
+              val={Math.round(stats.stats[s])}
+              pct={Math.min(1, Math.max(0, stats.stats[s] / STAT_MAX[s]))}
+              isCrit={stats.isCritical(s)}
+              color={(UI.stat_colors as any)[s]}
+              acceptDelta={npcAccept[s] ?? 0}
+              rejectDelta={npcReject[s] ?? 0}
+              max={STAT_MAX[s]}
+              dragX={dragX}
+            />
+          ))}
+          {/* spacer to fill 3rd col */}
+          <View style={{ flex: 1 }} />
         </View>
       </View>
 
-      {/* ── card area ─────────────────────────────────────── */}
-      <View style={[styles.cardSlot, { height: cardSlotH }]}>
-        {/* targeting corner brackets */}
-        <Corner pos="tl" color={C.accept_glow + '88'} />
-        <Corner pos="tr" color={C.accept_glow + '88'} />
-        <Corner pos="bl" color={C.accept_glow + '44'} />
-        <Corner pos="br" color={C.accept_glow + '44'} />
+      {/* ── MISSION INFO BAR ───────────────────────────────── */}
+      <View style={styles.infoBar}>
+        {/* day counter */}
+        <View style={styles.infoBlock}>
+          <Text style={[styles.infoLabel, { fontFamily: MONO }]}>GÜN</Text>
+          <Text style={[styles.infoVal,   { fontFamily: MONO, color: C.accept_glow }]}>
+            {String(game.day).padStart(2, '0')}
+            <Text style={[styles.infoValSub, { fontFamily: MONO }]}>/{config.win_condition_day}</Text>
+          </Text>
+        </View>
+
+        {/* progress bar */}
+        <View style={styles.missionTrackWrap}>
+          <Text style={[styles.infoLabel, { fontFamily: MONO, textAlign: 'center' }]}>MİSYON İLERLEMESİ</Text>
+          <View style={styles.missionTrack}>
+            <View style={[styles.missionFill, { width: `${dayPct}%` as any }]} />
+            <Text style={[styles.missionPct, { fontFamily: MONO }]}>{dayPct}%</Text>
+          </View>
+        </View>
+
+        {/* SP */}
+        <View style={[styles.infoBlock, { alignItems: 'flex-end' }]}>
+          <Text style={[styles.infoLabel, { fontFamily: MONO }]}>PUAN</Text>
+          <Text style={[styles.infoVal,   { fontFamily: MONO, color: C.query }]}>
+            {progress.sp}<Text style={[styles.infoValSub, { fontFamily: MONO }]}> SP</Text>
+          </Text>
+        </View>
+      </View>
+
+      {/* ── SUBJECT CARD ───────────────────────────────────── */}
+      <View style={[styles.cardZone, { height: cardSlotH }]}>
+        {/* scan frame corners */}
+        {(['tl','tr','bl','br'] as const).map(p => <ScanCorner key={p} pos={p} />)}
 
         {npc && (
           <SwipeHandler
@@ -353,257 +339,300 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
         )}
       </View>
 
-      {/* ── toast ──────────────────────────────────────────── */}
-      <View style={styles.toastArea}>
+      {/* ── ALERT / QUERY TOAST ────────────────────────────── */}
+      <View style={styles.toastZone}>
         {isDecision && queryWarnPending ? (
-          <View style={[styles.toast, { borderColor: C.query, backgroundColor: C.query + '18' }]}>
-            <Text style={[styles.toastIcon, { color: C.query }]}>⚠</Text>
-            <Text style={[styles.toastText, { color: C.query, fontFamily: MONO }]}>
+          <View style={[styles.alertBox, { borderColor: C.query, backgroundColor: C.query + '14' }]}>
+            <Text style={[styles.alertIcon, { color: C.query }]}>⚠</Text>
+            <Text style={[styles.alertText, { color: C.query, fontFamily: MONO }]}>
               {L.query_food_warn_prefix}{config.query_food_cost}{L.query_food_warn_suffix}
             </Text>
+            <Text style={[styles.alertIcon, { color: C.query }]}>⚠</Text>
           </View>
         ) : isDecision && queryResult ? (
-          <View style={[styles.toast, { borderColor: C.accept, backgroundColor: C.accept + '12' }]}>
-            <Text style={[styles.toastIcon, { color: C.accept }]}>▶</Text>
-            <Text style={[styles.toastText, { color: C.accept_glow, fontFamily: MONO }]}>{queryResult}</Text>
+          <View style={[styles.alertBox, { borderColor: C.accept, backgroundColor: C.accept + '10' }]}>
+            <Text style={[styles.alertIcon, { color: C.accept }]}>▶</Text>
+            <Text style={[styles.alertText, { color: C.accept_glow, fontFamily: MONO }]}>{queryResult}</Text>
           </View>
         ) : null}
       </View>
 
-      {/* ── action bar ─────────────────────────────────────── */}
-      <View style={[styles.actions, {
+      {/* ── CONTROL PANEL ──────────────────────────────────── */}
+      <View style={[styles.panel, {
         paddingBottom: Platform.OS === 'android' ? 14 : 8,
         opacity: isDecision ? 1 : 0,
       }]}>
-        {/* utility row */}
-        <View style={styles.utilRow}>
+        {/* utility strip */}
+        <View style={styles.utilStrip}>
+          <View style={styles.utilStripLine} />
           <TouchableOpacity
             onPress={onQuery}
             disabled={!canQuery || !isDecision}
-            style={[styles.utilBtn, !canQuery && styles.btnOff, queryWarnPending && styles.queryWarn]}
-            activeOpacity={0.8}
+            style={[styles.utilChip, !canQuery && styles.utilChipOff, queryWarnPending && styles.utilChipWarn]}
+            activeOpacity={0.75}
           >
-            <Text style={[styles.utilIcon, {
+            <Text style={[styles.utilChipText, {
               color: queryWarnPending ? C.query : canQuery ? C.query : C.text_muted,
               fontFamily: MONO,
             }]}>
-              {queryWarnPending ? '⚠' : canQuery ? `🔬×${game.queryChargesLeft}` : '✕'}
-            </Text>
-            <Text style={[styles.utilLabel, {
-              color: queryWarnPending ? C.query : canQuery ? C.query : C.text_muted,
-              fontFamily: MONO,
-            }]}>
-              {queryWarnPending ? L.btn_query_confirm : L.btn_query}
+              {queryWarnPending ? `⚠ ${L.btn_query_confirm}` : `🔬 ${L.btn_query} ×${game.queryChargesLeft}`}
             </Text>
           </TouchableOpacity>
+
+          <View style={styles.utilStripDot} />
 
           <TouchableOpacity
             onPress={() => setDetailsVisible(true)}
             disabled={!isDecision}
-            style={styles.utilBtn}
-            activeOpacity={0.8}
+            style={styles.utilChip}
+            activeOpacity={0.75}
           >
-            <Text style={[styles.utilIcon, { color: C.text_muted, fontFamily: MONO }]}>📋</Text>
-            <Text style={[styles.utilLabel, { color: C.text_muted, fontFamily: MONO }]}>{L.btn_detail}</Text>
+            <Text style={[styles.utilChipText, { color: C.text_muted, fontFamily: MONO }]}>
+              📋 {L.btn_detail}
+            </Text>
           </TouchableOpacity>
+          <View style={styles.utilStripLine} />
         </View>
 
-        {/* main buttons */}
-        <View style={styles.mainRow}>
-          <TouchableOpacity
-            onPress={doReject}
-            disabled={!isDecision}
-            style={[styles.mainBtn, styles.rejectBtn]}
-            activeOpacity={0.7}
-          >
-            <Text style={[styles.mainBtnMark, { color: C.danger }]}>✕</Text>
-            <Text style={[styles.mainBtnLabel, { color: C.danger, fontFamily: MONO }]}>
-              {L.btn_reject}
-            </Text>
+        {/* main action buttons */}
+        <View style={styles.actionRow}>
+          <TouchableOpacity onPress={doReject} disabled={!isDecision}
+            style={[styles.actionBtn, styles.actionReject]} activeOpacity={0.72}>
+            <View style={styles.actionBtnInner}>
+              <Text style={[styles.actionBtnSymbol, { color: C.danger }]}>✕</Text>
+              <View>
+                <Text style={[styles.actionBtnCode,  { color: C.danger,      fontFamily: MONO }]}>CMD-01</Text>
+                <Text style={[styles.actionBtnLabel, { color: C.reject_glow, fontFamily: MONO }]}>{L.btn_reject}</Text>
+              </View>
+            </View>
+            <View style={[styles.actionBtnGlow, { backgroundColor: C.danger + '18' }]} />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={doAccept}
-            disabled={!isDecision}
-            style={[styles.mainBtn, styles.acceptBtn]}
-            activeOpacity={0.7}
-          >
-            <Text style={[styles.mainBtnMark, { color: C.accept_glow }]}>✓</Text>
-            <Text style={[styles.mainBtnLabel, { color: C.accept_glow, fontFamily: MONO }]}>
-              {L.btn_accept}
-            </Text>
+          <TouchableOpacity onPress={doAccept} disabled={!isDecision}
+            style={[styles.actionBtn, styles.actionAccept]} activeOpacity={0.72}>
+            <View style={styles.actionBtnInner}>
+              <View style={{ alignItems: 'flex-end' }}>
+                <Text style={[styles.actionBtnCode,  { color: C.accept,      fontFamily: MONO }]}>CMD-02</Text>
+                <Text style={[styles.actionBtnLabel, { color: C.accept_glow, fontFamily: MONO }]}>{L.btn_accept}</Text>
+              </View>
+              <Text style={[styles.actionBtnSymbol, { color: C.accept_glow }]}>✓</Text>
+            </View>
+            <View style={[styles.actionBtnGlow, { backgroundColor: C.accept + '14' }]} />
           </TouchableOpacity>
         </View>
       </View>
 
       {/* ── overlays ───────────────────────────────────────── */}
-      {game.phase === 'intro' && (
-        <IntroScreen onStart={() => game.setPhase('npc_decision')} />
-      )}
+      {game.phase === 'intro' && <IntroScreen onStart={() => game.setPhase('npc_decision')} />}
       {game.phase === 'npc_arrival' && game.notifications.length > 0 && (
-        <NotificationOverlay onContinue={() => {
-          game.clearNotifications()
-          game.setPhase('npc_decision')
-        }} />
+        <NotificationOverlay onContinue={() => { game.clearNotifications(); game.setPhase('npc_decision') }} />
       )}
       {game.day === 1 && !tutorialDone && game.phase === 'npc_decision' && (
         <TutorialOverlay onClose={() => setTutorialDone(true)} />
       )}
       {event && game.phase === 'event' && (
-        <EventModal
-          event={event}
-          acceptedRoles={game.acceptedNPCRoles as NPCRole[]}
-          onChoice={handleEventChoice}
-        />
+        <EventModal event={event} acceptedRoles={game.acceptedNPCRoles as NPCRole[]} onChoice={handleEventChoice} />
       )}
       {game.phase === 'day_summary' && (
         <DaySummary onContinue={endDay} onBuilding={() => game.setPhase('building')} />
       )}
-      {npc && (
-        <CardDetails npc={npc} visible={detailsVisible} onClose={() => setDetailsVisible(false)} />
-      )}
+      {npc && <CardDetails npc={npc} visible={detailsVisible} onClose={() => setDetailsVisible(false)} />}
     </SafeAreaView>
   )
 }
 
+// ─── Scan corner bracket ────────────────────────────────────────────────────
+const ScanCorner: React.FC<{ pos: 'tl' | 'tr' | 'bl' | 'br' }> = ({ pos }) => {
+  const isTop  = pos === 'tl' || pos === 'tr'
+  const isLeft = pos === 'tl' || pos === 'bl'
+  const sz = 18; const th = 2
+  return (
+    <View pointerEvents="none" style={{
+      position: 'absolute',
+      top:    isTop  ? 4 : undefined,
+      bottom: !isTop ? 4 : undefined,
+      left:   isLeft  ? 4 : undefined,
+      right:  !isLeft ? 4 : undefined,
+      width: sz, height: sz,
+    }}>
+      <View style={{ position:'absolute', top: isTop ? 0 : undefined, bottom: !isTop ? 0 : undefined, left:0, right:0, height:th, backgroundColor: C.accept + '99' }} />
+      <View style={{ position:'absolute', left: isLeft ? 0 : undefined, right: !isLeft ? 0 : undefined, top:0, bottom:0, width:th, backgroundColor: C.accept + '99' }} />
+    </View>
+  )
+}
+
+// ─── Styles ─────────────────────────────────────────────────────────────────
 const styles = StyleSheet.create({
   safe: { flex: 1 },
 
-  // ── HUD
+  // HUD
   hud: {
+    paddingHorizontal: SP.sm,
+    paddingTop: 6,
+    paddingBottom: 8,
+    gap: 5,
+    backgroundColor: C.surface,
+    borderBottomWidth: 1,
+    borderBottomColor: C.accept + '22',
+  },
+  hudHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginBottom: 2,
+  },
+  hudHeaderLine: { flex: 1, height: 1, backgroundColor: C.accept + '30' },
+  hudHeaderText: {
+    color: C.accept + '60',
+    fontSize: TY.size_caption,
+    fontWeight: TY.weight_heavy,
+    letterSpacing: 3,
+  },
+  statRow: {
     flexDirection: 'row',
     gap: SP.sm,
-    paddingHorizontal: SP.sm,
-    paddingVertical: SP.sm,
-    borderBottomWidth: 1,
-    borderBottomColor: C.accept + '20',
-    backgroundColor: C.surface,
-  },
-  statGrid: {
-    flex: 1,
-    flexDirection: 'row',
-    gap: 5,
   },
 
-  // terminal readout box
-  readout: {
-    width: 54,
+  // mission info bar
+  infoBar: {
+    flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 4,
-    paddingHorizontal: 4,
-    borderRadius: R.sm,
-    borderWidth: 1,
-    borderColor: C.accept + '30',
-    backgroundColor: C.card_dark,
-    gap: 1,
+    paddingHorizontal: SP.sm,
+    paddingVertical: 6,
+    borderBottomWidth: 1,
+    borderBottomColor: C.divider,
+    backgroundColor: C.bg_deeper,
+    gap: SP.sm,
   },
-  readoutLabel: {
+  infoBlock: { minWidth: 44 },
+  infoLabel: {
     color: C.text_muted,
     fontSize: 7,
     fontWeight: TY.weight_heavy,
-    letterSpacing: 1.5,
+    letterSpacing: 2,
+    marginBottom: 1,
   },
-  readoutBig: {
-    color: C.accept_glow,
-    fontSize: TY.size_h5,
+  infoVal: {
+    fontSize: TY.size_h6,
     fontWeight: TY.weight_black,
-    lineHeight: 22,
   },
-  progressTrack: {
-    width: '100%',
-    height: 3,
-    borderRadius: 2,
-    backgroundColor: C.card_bg,
-    overflow: 'hidden',
-  },
-  progressFill: {
-    height: '100%',
-    backgroundColor: C.accept,
-    borderRadius: 2,
-  },
-  readoutSub: {
-    color: C.text_muted,
-    fontSize: 8,
+  infoValSub: {
+    fontSize: TY.size_caption,
     fontWeight: TY.weight_bold,
+    color: C.text_muted,
   },
-  readoutDivider: {
-    width: '80%',
-    height: 1,
-    backgroundColor: C.divider,
-    marginVertical: 3,
+  missionTrackWrap: { flex: 1, gap: 2 },
+  missionTrack: {
+    height: 10,
+    borderRadius: 3,
+    overflow: 'hidden',
+    backgroundColor: C.card_dark,
+    borderWidth: 1,
+    borderColor: C.accept + '30',
+    justifyContent: 'center',
   },
-  readoutSp: {
-    color: C.query,
-    fontSize: TY.size_md,
+  missionFill: {
+    ...StyleSheet.absoluteFillObject,
+    right: undefined,
+    backgroundColor: C.accept + '55',
+    borderRadius: 3,
+  },
+  missionPct: {
+    color: C.accept_glow,
+    fontSize: 7,
     fontWeight: TY.weight_black,
+    letterSpacing: 1,
+    textAlign: 'center',
   },
 
-  // ── card
-  cardSlot: {
+  // card zone
+  cardZone: {
     justifyContent: 'center',
     alignItems: 'center',
     overflow: 'hidden',
-    marginVertical: 4,
+    marginVertical: 2,
   },
 
-  // ── toast
-  toastArea: { height: 40, paddingHorizontal: SP.md, justifyContent: 'center' },
-  toast: {
+  // toast
+  toastZone: { height: 38, paddingHorizontal: SP.md, justifyContent: 'center' },
+  alertBox: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
+    gap: 7,
     paddingHorizontal: SP.md,
-    paddingVertical: 7,
-    borderRadius: R.sm,
+    paddingVertical: 6,
+    borderRadius: R.xs,
     borderWidth: 1,
     alignSelf: 'center',
   },
-  toastIcon: { fontSize: TY.size_sm },
-  toastText: { fontSize: TY.size_xs, letterSpacing: 0.3 },
+  alertIcon: { fontSize: TY.size_sm },
+  alertText: { fontSize: TY.size_xs, letterSpacing: 0.4, fontWeight: TY.weight_heavy },
 
-  // ── actions
-  actions: {
+  // control panel
+  panel: {
     paddingHorizontal: SP.sm,
     paddingTop: 4,
-    gap: 5,
+    gap: 4,
   },
-  utilRow: { flexDirection: 'row', gap: 5 },
-  utilBtn: {
-    flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-    gap: 5, paddingVertical: 7,
-    borderRadius: R.sm, borderWidth: 1,
-    backgroundColor: C.card_dark, borderColor: C.divider,
-  },
-  queryWarn:  { borderColor: C.query, backgroundColor: C.query + '15' },
-  btnOff:     { opacity: 0.28 },
-  utilIcon:   { fontSize: TY.size_sm },
-  utilLabel:  { fontSize: TY.size_caption, fontWeight: TY.weight_heavy, letterSpacing: 0.5 },
 
-  mainRow: { flexDirection: 'row', gap: 5 },
-  mainBtn: {
-    flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
+  utilStrip: {
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: 6,
-    borderRadius: R.md, borderWidth: 2,
-    paddingTop: 12, paddingBottom: 12,
   },
-  rejectBtn: {
-    backgroundColor: C.danger_dark,
+  utilStripLine: { flex: 1, height: 1, backgroundColor: C.divider },
+  utilStripDot:  { width: 4, height: 4, borderRadius: 2, backgroundColor: C.accept + '50' },
+  utilChip: {
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: R.xs,
+    borderWidth: 1,
+    backgroundColor: C.card_dark,
+    borderColor: C.divider,
+  },
+  utilChipWarn:  { borderColor: C.query,    backgroundColor: C.query    + '14' },
+  utilChipOff:   { opacity: 0.3 },
+  utilChipText:  { fontSize: TY.size_xs, fontWeight: TY.weight_heavy, letterSpacing: 0.5 },
+
+  actionRow: { flexDirection: 'row', gap: 5 },
+  actionBtn: {
+    flex: 1,
+    borderRadius: R.md,
+    borderWidth: 2,
+    overflow: 'hidden',
+  },
+  actionBtnInner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    zIndex: 1,
+  },
+  actionBtnGlow: {
+    ...StyleSheet.absoluteFillObject,
+  },
+  actionReject: {
     borderColor: C.danger,
+    backgroundColor: C.danger_dark,
     shadowColor: C.danger,
     shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.5,
-    shadowRadius: 8,
-    elevation: 6,
+    shadowOpacity: 0.6,
+    shadowRadius: 10,
+    elevation: 8,
   },
-  acceptBtn: {
-    backgroundColor: C.accept + '18',
+  actionAccept: {
     borderColor: C.accept,
-    shadowColor: C.accept,
+    backgroundColor: C.accept + '10',
+    shadowColor: C.accept_glow,
     shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.4,
-    shadowRadius: 8,
-    elevation: 6,
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+    elevation: 8,
   },
-  mainBtnMark:  { fontSize: TY.size_lg, fontWeight: TY.weight_black },
-  mainBtnLabel: { fontSize: TY.size_sm,  fontWeight: TY.weight_black, letterSpacing: 1 },
+  actionBtnSymbol: { fontSize: TY.size_xl, fontWeight: TY.weight_black },
+  actionBtnCode:   { fontSize: 8, fontWeight: TY.weight_heavy, letterSpacing: 2, opacity: 0.6 },
+  actionBtnLabel:  { fontSize: TY.size_sm, fontWeight: TY.weight_black, letterSpacing: 1.5 },
 })
+
