@@ -147,6 +147,9 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
   const [queryWarnPending, setQueryWarnPending] = useState(false)
   const [innerH,           setInnerH]           = useState(sh * 0.88)
   const [tutorialDone,     setTutorialDone]     = useState(false)
+  const [typedText,        setTypedText]        = useState('')
+  const [isTyping,         setIsTyping]         = useState(false)
+  const [cursorOn,         setCursorOn]         = useState(true)
 
   const canQuery  = game.queryChargesLeft > 0
   const isCompact = sh < 700
@@ -175,6 +178,28 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
     setQueryWarnPending(false)
     dragX.value = 0
   }, [npc?.npc_id])
+
+  // Typewriter: type out NPC dialogue when NPC changes
+  useEffect(() => {
+    if (!npc) { setTypedText(''); return }
+    const full = npc.dialogue
+    setTypedText('')
+    setIsTyping(true)
+    let i = 0
+    const iv = setInterval(() => {
+      i++
+      setTypedText(full.slice(0, i))
+      if (i >= full.length) { clearInterval(iv); setIsTyping(false) }
+    }, 26)
+    return () => clearInterval(iv)
+  }, [npc?.npc_id])
+
+  // Cursor blink (only when not typing)
+  useEffect(() => {
+    if (isTyping) { setCursorOn(true); return }
+    const iv = setInterval(() => setCursorOn(v => !v), 530)
+    return () => clearInterval(iv)
+  }, [isTyping])
 
   useEffect(() => {
     if (!game.isGameOver) return
@@ -222,13 +247,11 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
 
   const isDecision = !!(npc && game.phase === 'npc_decision')
 
-  // Dialogue zone: shows query warning / query result / NPC dialogue
-  const dialogueContent = isDecision && queryWarnPending
-    ? { text: `⚠  ${L.query_food_warn_prefix}${config.query_food_cost}${L.query_food_warn_suffix}`, color: C.query,      italic: false }
+  // Dialogue zone: query warning / query result override; otherwise typewriter
+  const overrideContent = isDecision && queryWarnPending
+    ? { text: `⚠  ${L.query_food_warn_prefix}${config.query_food_cost}${L.query_food_warn_suffix}`, color: C.query }
     : isDecision && queryResult
-    ? { text: `▶  ${queryResult}`,                                                                    color: C.accept_glow, italic: false }
-    : npc
-    ? { text: `"${npc.dialogue}"`,                                                                    color: C.text_secondary, italic: true }
+    ? { text: `▶  ${queryResult}`, color: C.accept_glow }
     : null
 
   return (
@@ -253,18 +276,17 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
 
       {/* ── DIALOGUE ZONE ──────────────────────────────────── */}
       <View style={styles.dialogueZone}>
-        {dialogueContent && (
-          <Text
-            style={[
-              styles.dialogueText,
-              { color: dialogueContent.color, fontFamily: MONO },
-              dialogueContent.italic && styles.dialogueItalic,
-            ]}
-            numberOfLines={3}
-          >
-            {dialogueContent.text}
+        {overrideContent ? (
+          <Text style={[styles.dialogueText, { color: overrideContent.color, fontFamily: MONO }]} numberOfLines={3}>
+            {overrideContent.text}
           </Text>
-        )}
+        ) : npc ? (
+          <Text style={[styles.dialogueText, styles.dialogueItalic, { color: C.text_secondary, fontFamily: MONO }]} numberOfLines={3}>
+            {`"`}{typedText}
+            {<Text style={{ opacity: cursorOn ? 1 : 0 }}>{'▊'}</Text>}
+            {!isTyping && `"`}
+          </Text>
+        ) : null}
       </View>
 
       {/* ── CARD ZONE ──────────────────────────────────────── */}
