@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useMemo } from 'react'
+import React, { useState, useCallback, useEffect, useMemo, useRef } from 'react'
 import {
   View, Text, TouchableOpacity, StyleSheet,
   Platform, useWindowDimensions,
@@ -150,13 +150,14 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
   const [typedText,        setTypedText]        = useState('')
   const [isTyping,         setIsTyping]         = useState(false)
   const [cursorOn,         setCursorOn]         = useState(true)
+  const typingTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const canQuery  = game.queryChargesLeft > 0
   const isCompact = sh < 700
 
-  // statBar(72) + dialogueZone(80) + infoBar(52) + actionRow(72) + gaps(20) ≈ 296
+  // statBar(72) + dialogueZone(80) + infoBar(50) + detailRow(46) + gaps(16) ≈ 264
   const naturalCardH = Math.round(sw * 0.84 / CARD_ASPECT)
-  const maxCardH     = Math.max(180, innerH - (isCompact ? 256 : 296))
+  const maxCardH     = Math.max(200, innerH - (isCompact ? 228 : 264))
   const cardSlotH    = Math.min(naturalCardH, maxCardH)
 
   const dayPct = Math.round(((game.day - 1) / Math.max(1, config.win_condition_day - 1)) * 100)
@@ -179,19 +180,24 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
     dragX.value = 0
   }, [npc?.npc_id])
 
-  // Typewriter: type out NPC dialogue when NPC changes
+  // Typewriter: telegraphic timing — fast chars, long pauses on punctuation
   useEffect(() => {
     if (!npc) { setTypedText(''); return }
     const full = npc.dialogue
     setTypedText('')
     setIsTyping(true)
-    let i = 0
-    const iv = setInterval(() => {
-      i++
+    const typeChar = (i: number) => {
+      if (i > full.length) { setIsTyping(false); return }
       setTypedText(full.slice(0, i))
-      if (i >= full.length) { clearInterval(iv); setIsTyping(false) }
-    }, 26)
-    return () => clearInterval(iv)
+      const ch = full[i - 1] ?? ''
+      const delay = '.!?'.includes(ch) ? 160 + Math.random() * 120
+        : ',;:—'.includes(ch)         ?  70 + Math.random() *  60
+        : Math.random() < 0.06        ?  55 + Math.random() *  40  // stutter
+        :                                10 + Math.random() *  20
+      typingTimer.current = setTimeout(() => typeChar(i + 1), delay)
+    }
+    typeChar(1)
+    return () => { if (typingTimer.current) clearTimeout(typingTimer.current) }
   }, [npc?.npc_id])
 
   // Cursor blink (only when not typing)
@@ -307,7 +313,6 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
 
       {/* ── INFO BAR ───────────────────────────────────────── */}
       <View style={styles.infoBar}>
-        {/* day counter */}
         <View style={styles.dayBlock}>
           <Text style={[styles.dayLabel, { fontFamily: MONO }]}>GÜN</Text>
           <Text style={[styles.dayVal, { fontFamily: MONO }]}>
@@ -315,57 +320,28 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
             <Text style={[styles.dayMax, { fontFamily: MONO }]}>/{config.win_condition_day}</Text>
           </Text>
         </View>
-
-        {/* mission progress bar */}
         <View style={styles.progressWrap}>
           <View style={styles.progressTrack}>
             <View style={[styles.progressFill, { width: `${dayPct}%` as any }]} />
           </View>
-        </View>
-
-        {/* utility buttons */}
-        <View style={styles.utilGroup}>
-          <TouchableOpacity
-            onPress={onQuery}
-            disabled={!canQuery || !isDecision}
-            style={[styles.utilBtn, queryWarnPending && styles.utilBtnWarn, !canQuery && styles.utilBtnOff]}
-            activeOpacity={0.75}
-          >
-            <Text style={[styles.utilBtnText, {
-              color: queryWarnPending ? C.query : canQuery ? C.query : C.text_muted,
-              fontFamily: MONO,
-            }]}>
-              {queryWarnPending ? '⚠' : '🔬'}×{game.queryChargesLeft}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => setDetailsVisible(true)}
-            disabled={!isDecision}
-            style={styles.utilBtn}
-            activeOpacity={0.75}
-          >
-            <Text style={[styles.utilBtnText, { color: C.text_muted, fontFamily: MONO }]}>📋</Text>
-          </TouchableOpacity>
+          <Text style={[styles.progressPct, { fontFamily: MONO }]}>{dayPct}%</Text>
         </View>
       </View>
 
-      {/* ── ACTION BUTTONS ─────────────────────────────────── */}
-      <View style={[styles.actionRow, {
-        paddingBottom: Platform.OS === 'android' ? 16 : 10,
-        opacity: isDecision ? 1 : 0,
+      {/* ── DETAIL ROW ─────────────────────────────────────── */}
+      <View style={[styles.detailRow, {
+        paddingBottom: Platform.OS === 'android' ? 14 : 8,
+        opacity: isDecision ? 1 : 0.3,
       }]}>
         <TouchableOpacity
-          onPress={doReject} disabled={!isDecision}
-          style={[styles.actionBtn, styles.rejectBtn]} activeOpacity={0.72}
+          onPress={() => setDetailsVisible(true)}
+          disabled={!isDecision}
+          style={styles.detailBtn}
+          activeOpacity={0.7}
         >
-          <Text style={[styles.actionText, { color: C.reject_glow, fontFamily: MONO }]}>← {L.btn_reject}</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={doAccept} disabled={!isDecision}
-          style={[styles.actionBtn, styles.acceptBtn]} activeOpacity={0.72}
-        >
-          <Text style={[styles.actionText, { color: C.accept_glow, fontFamily: MONO }]}>{L.btn_accept} →</Text>
+          <Text style={[styles.detailBtnText, { fontFamily: MONO }]}>
+            ▸ KİŞİ DOSYASI
+          </Text>
         </TouchableOpacity>
       </View>
 
@@ -451,7 +427,7 @@ const styles = StyleSheet.create({
     color: C.text_muted,
     fontWeight: TY.weight_bold,
   },
-  progressWrap: { flex: 1 },
+  progressWrap: { flex: 1, gap: 3 },
   progressTrack: {
     height: 4,
     borderRadius: 2,
@@ -463,57 +439,33 @@ const styles = StyleSheet.create({
     backgroundColor: C.accept + '66',
     borderRadius: 2,
   },
-  utilGroup: { flexDirection: 'row', gap: 6, alignItems: 'center' },
-  utilBtn: {
-    paddingHorizontal: 14,
-    paddingVertical: 9,
-    borderRadius: R.sm,
-    borderWidth: 1,
-    backgroundColor: C.card_dark,
-    borderColor: C.divider,
+  progressPct: {
+    fontSize: 8,
+    color: C.text_muted,
+    fontWeight: TY.weight_heavy,
+    letterSpacing: 1,
+    textAlign: 'right',
   },
-  utilBtnWarn: { borderColor: C.query, backgroundColor: C.query + '14' },
-  utilBtnOff:  { opacity: 0.3 },
-  utilBtnText: { fontSize: TY.size_sm, fontWeight: TY.weight_heavy, letterSpacing: 0.3 },
 
-  // Action buttons
-  actionRow: {
-    flexDirection: 'row',
-    paddingHorizontal: SP.sm,
-    paddingTop: 6,
-    gap: SP.xs,
-  },
-  actionBtn: {
-    flex: 1,
-    flexDirection: 'row',
+  // Detail row
+  detailRow: {
     alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-    paddingVertical: 14,
-    borderRadius: R.md,
-    borderWidth: 2,
+    paddingHorizontal: SP.md,
+    paddingTop: 6,
   },
-  rejectBtn: {
-    borderColor: C.danger,
-    backgroundColor: C.danger_dark,
-    shadowColor: C.danger,
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.55,
-    shadowRadius: 8,
-    elevation: 7,
+  detailBtn: {
+    paddingHorizontal: SP.xl,
+    paddingVertical: 10,
+    borderRadius: R.xs,
+    borderWidth: 1,
+    borderStyle: 'dashed',
+    borderColor: C.text_muted + '55',
+    backgroundColor: C.card_dark,
   },
-  acceptBtn: {
-    borderColor: C.accept,
-    backgroundColor: C.accept + '0f',
-    shadowColor: C.accept_glow,
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.45,
-    shadowRadius: 8,
-    elevation: 7,
-  },
-  actionText: {
-    fontSize: TY.size_h6,
-    fontWeight: TY.weight_black,
+  detailBtnText: {
+    fontSize: TY.size_sm,
+    fontWeight: TY.weight_bold,
+    color: C.text_muted,
     letterSpacing: 2,
   },
 })
