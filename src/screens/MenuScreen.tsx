@@ -324,32 +324,6 @@ const SettingsContent: React.FC = () => {
         </TouchableOpacity>
       </View>
 
-      <View style={[sett.card, { borderColor: C.button_border }]}>
-        <View style={sett.cardLeft}>
-          <Text style={[sett.cardTitle, { color: C.query, fontFamily: MONO }]}>HAYATTA KALMA PUANI</Text>
-          <Text style={sett.cardSub}>Bu oyun boyunca birikir · binalar ve yetenekler için</Text>
-        </View>
-        <View style={sett.spBox}>
-          <Text style={[sett.spStar, { fontFamily: MONO }]}>★</Text>
-          <Text style={[sett.spVal, { fontFamily: MONO }]}>{progress.sp}</Text>
-        </View>
-      </View>
-
-      <View style={sett.earnBlock}>
-        <Text style={[sett.earnTitle, { fontFamily: MONO }]}>SP KAZANIM TABLOSU</Text>
-        {[
-          { label: 'Her hayatta kalınan gün', val: `+${config.sp_rewards.day_survived}` },
-          { label: 'Doğru NPC kararı',        val: `+${config.sp_rewards.correct_npc_decision}` },
-          { label: 'Event atlatma',            val: `+${config.sp_rewards.event_survived}` },
-          { label: 'Mükemmel gün (kayıpsız)',  val: `+${config.sp_rewards.perfect_day}` },
-        ].map(r => (
-          <View key={r.label} style={sett.earnRow}>
-            <Text style={sett.earnLabel}>{r.label}</Text>
-            <Text style={[sett.earnVal, { fontFamily: MONO }]}>{r.val}</Text>
-          </View>
-        ))}
-      </View>
-
       <View style={sett.versionBlock}>
         <Text style={[sett.versionText, { fontFamily: MONO }]}>LAST GATE · BETA v0.1</Text>
         <Text style={[sett.versionSub, { fontFamily: MONO }]}>SEKTOR 7 · KARANTİNA</Text>

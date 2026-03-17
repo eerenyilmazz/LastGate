@@ -32,7 +32,7 @@ export const NotificationOverlay: React.FC<Props> = ({ onContinue }) => {
     >
       <View
         style={[styles.sheet, { paddingBottom: Platform.OS === 'android' ? 44 : 30 }]}
-        onStartShouldSetResponder={() => false}
+        pointerEvents="none"
       >
 
         <View style={styles.termHeader}>
