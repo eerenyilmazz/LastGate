@@ -60,7 +60,6 @@ const SwipeHandlerInner: React.FC<Props> = ({
     .onUpdate(e => {
       'worklet'
       translateX.value = e.translationX
-      translateY.value = e.translationY * 0.3
       rotation.value   = e.translationX * 0.06
       if (dragX) dragX.value = e.translationX
       if (dragY) dragY.value = e.translationY
@@ -85,7 +84,6 @@ const SwipeHandlerInner: React.FC<Props> = ({
 
       } else {
         translateX.value = withSpring(0)
-        translateY.value = withSpring(0)
         rotation.value   = withSpring(0)
         if (dragX) dragX.value = withSpring(0)
         if (dragY) dragY.value = withSpring(0)
@@ -97,7 +95,6 @@ const SwipeHandlerInner: React.FC<Props> = ({
   const animStyle = useAnimatedStyle(() => ({
     transform: [
       { translateX: translateX.value },
-      { translateY: translateY.value },
       { rotate: `${rotation.value}deg` },
     ],
     opacity: opacity.value,
