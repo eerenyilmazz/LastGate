@@ -134,33 +134,36 @@ const CardGlow = React.memo<{ dragX: SharedValue<number>; dragY: SharedValue<num
     const dy = dragY.value
     return { opacity: dy < -4 ? Math.min(0.92, -dy / SWIPE_THRESHOLD) : 0 }
   })
-  const base: ViewStyle = {
-    ...StyleSheet.absoluteFillObject,
-    borderRadius: 19,
-    borderWidth: 2,
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 1,
-    shadowRadius: 22,
-  }
   return (
     <>
-      <Animated.View pointerEvents="none" style={[base, {
+      <Animated.View pointerEvents="none" style={[glowStyles.base, {
         borderColor: C.accept,
         shadowColor: C.accept_glow,
         backgroundColor: C.accept + '08',
       }, acceptStyle]} />
-      <Animated.View pointerEvents="none" style={[base, {
+      <Animated.View pointerEvents="none" style={[glowStyles.base, {
         borderColor: C.danger,
         shadowColor: C.danger,
         backgroundColor: C.danger + '08',
       }, rejectStyle]} />
-      <Animated.View pointerEvents="none" style={[base, {
+      <Animated.View pointerEvents="none" style={[glowStyles.base, {
         borderColor: C.query,
         shadowColor: C.query,
         backgroundColor: C.query + '08',
       }, queryStyle]} />
     </>
   )
+})
+
+const glowStyles = StyleSheet.create({
+  base: {
+    ...StyleSheet.absoluteFillObject,
+    borderRadius: 19,
+    borderWidth: 2,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1,
+    shadowRadius: 22,
+  },
 })
 
 // ─────────────────────────────────────────────────────────────────────────────
