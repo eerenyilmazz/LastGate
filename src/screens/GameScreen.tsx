@@ -302,7 +302,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
           >
             <View>
               <CardGlow dragX={dragX} />
-              <NPCCard npc={npc} availableHeight={cardSlotH} />
+              <NPCCard npc={npc} availableHeight={cardSlotH} hideDialogue />
             </View>
           </SwipeHandler>
         )}
