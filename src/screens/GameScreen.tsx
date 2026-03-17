@@ -98,20 +98,23 @@ const StatIcon = React.memo<{
       <Text style={[sIcon.val, { color: activeColor, fontFamily: MONO }]}>
         {displayVal > 999 ? '999' : displayVal}
       </Text>
-      {showDiff && (
-        <Text style={[sIcon.diff, { color: diffPos ? C.accept_glow : C.reject_glow, fontFamily: MONO }]}>
-          {diffPos ? `+${diff}` : `${diff}`}
-        </Text>
-      )}
+      {/* always rendered — opacity toggle prevents layout jump */}
+      <Text style={[sIcon.diff, {
+        color: diffPos ? C.accept_glow : C.reject_glow,
+        fontFamily: MONO,
+        opacity: showDiff ? 1 : 0,
+      }]}>
+        {diff > 0 ? `+${diff}` : diff < 0 ? `${diff}` : '+0'}
+      </Text>
     </Animated.View>
   )
 })
 
 const sIcon = StyleSheet.create({
-  wrap:  { alignItems: 'center', flex: 1, paddingVertical: 8 },
+  wrap:  { alignItems: 'center', flex: 1, paddingVertical: 6 },
   emoji: { fontSize: 22 },
   val:   { fontSize: TY.size_sm, fontWeight: TY.weight_black, marginTop: 3, letterSpacing: 0.3 },
-  diff:  { fontSize: 9,          fontWeight: TY.weight_heavy, marginTop: 1, letterSpacing: 0.3 },
+  diff:  { fontSize: 9,          fontWeight: TY.weight_heavy, marginTop: 2, letterSpacing: 0.3 },
 })
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -333,16 +336,14 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
           onPress={doReject} disabled={!isDecision}
           style={[styles.actionBtn, styles.rejectBtn]} activeOpacity={0.72}
         >
-          <Text style={[styles.actionSymbol, { color: C.reject_glow }]}>✕</Text>
-          <Text style={[styles.actionLabel,  { color: C.reject_glow, fontFamily: MONO }]}>{L.btn_reject}</Text>
+          <Text style={[styles.actionText, { color: C.reject_glow, fontFamily: MONO }]}>← {L.btn_reject}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           onPress={doAccept} disabled={!isDecision}
           style={[styles.actionBtn, styles.acceptBtn]} activeOpacity={0.72}
         >
-          <Text style={[styles.actionLabel,  { color: C.accept_glow, fontFamily: MONO }]}>{L.btn_accept}</Text>
-          <Text style={[styles.actionSymbol, { color: C.accept_glow }]}>✓</Text>
+          <Text style={[styles.actionText, { color: C.accept_glow, fontFamily: MONO }]}>{L.btn_accept} →</Text>
         </TouchableOpacity>
       </View>
 
@@ -378,11 +379,10 @@ const styles = StyleSheet.create({
     borderBottomColor: C.accept + '1a',
   },
 
-  // Dialogue zone (replaces external toast too)
+  // Dialogue zone — fixed height, card position never jumps
   dialogueZone: {
+    height: 80,
     paddingHorizontal: SP.lg,
-    paddingVertical: 10,
-    minHeight: 76,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -441,18 +441,18 @@ const styles = StyleSheet.create({
     backgroundColor: C.accept + '66',
     borderRadius: 2,
   },
-  utilGroup: { flexDirection: 'row', gap: 4, alignItems: 'center' },
+  utilGroup: { flexDirection: 'row', gap: 6, alignItems: 'center' },
   utilBtn: {
-    paddingHorizontal: 8,
-    paddingVertical: 5,
-    borderRadius: R.xs,
+    paddingHorizontal: 14,
+    paddingVertical: 9,
+    borderRadius: R.sm,
     borderWidth: 1,
     backgroundColor: C.card_dark,
     borderColor: C.divider,
   },
   utilBtnWarn: { borderColor: C.query, backgroundColor: C.query + '14' },
   utilBtnOff:  { opacity: 0.3 },
-  utilBtnText: { fontSize: TY.size_xs, fontWeight: TY.weight_heavy, letterSpacing: 0.3 },
+  utilBtnText: { fontSize: TY.size_sm, fontWeight: TY.weight_heavy, letterSpacing: 0.3 },
 
   // Action buttons
   actionRow: {
@@ -489,6 +489,9 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 7,
   },
-  actionSymbol: { fontSize: TY.size_lg, fontWeight: TY.weight_black },
-  actionLabel:  { fontSize: TY.size_sm, fontWeight: TY.weight_black, letterSpacing: 1.5 },
+  actionText: {
+    fontSize: TY.size_h6,
+    fontWeight: TY.weight_black,
+    letterSpacing: 2,
+  },
 })
