@@ -8,6 +8,8 @@ import Animated, {
 import ui from '../data/ui.json'
 import themeData from '../data/theme.json'
 
+const uiStrings = (ui as any).strings as Record<string, string>
+
 interface Props { onDone: () => void }
 
 const { height } = Dimensions.get('window')
@@ -58,7 +60,7 @@ export const SplashScreen: React.FC<Props> = ({ onDone }) => {
       ), -1, true),
     )
     scanY.value = withRepeat(
-      withTiming(height + 10, { duration: 4000, easing: Easing.linear }),
+      withTiming(height + 10, { duration: themeData.animation.splash_scanline_ms, easing: Easing.linear }),
       -1, false,
     )
     bloodOp.value = withDelay(400,
@@ -93,7 +95,7 @@ export const SplashScreen: React.FC<Props> = ({ onDone }) => {
 
       <Animated.View style={[styles.alertStripe, alertStyle]} pointerEvents="none">
         <Text style={[styles.alertText, { fontFamily: MONO }]} numberOfLines={1}>
-          {'>> ACİL DURUM · BÖLGE 7 · ENFEKSİYON · HAYATTA KAL · SON KAPI AKTİF >>'}
+          {uiStrings.splash_alert}
         </Text>
       </Animated.View>
 
@@ -105,7 +107,7 @@ export const SplashScreen: React.FC<Props> = ({ onDone }) => {
         </Animated.View>
 
         <Animated.Text style={[styles.subtitle, subStyle, { fontFamily: MONO }]}>
-          — SON KAPI —
+          {uiStrings.splash_subtitle}
         </Animated.Text>
 
         <Animated.View style={[styles.terminal, termStyle]}>
@@ -113,7 +115,7 @@ export const SplashScreen: React.FC<Props> = ({ onDone }) => {
             <View style={styles.termDot} />
             <View style={[styles.termDot, { backgroundColor: C.text_muted }]} />
             <View style={[styles.termDot, { backgroundColor: C.border_pos }]} />
-            <Text style={[styles.termTitle, { fontFamily: MONO }]}>DURUM RAPORU / ZONE-7</Text>
+            <Text style={[styles.termTitle, { fontFamily: MONO }]}>{uiStrings.splash_terminal}</Text>
           </View>
 
           <View style={styles.termDivider} />
@@ -135,16 +137,16 @@ export const SplashScreen: React.FC<Props> = ({ onDone }) => {
       </View>
 
       <Animated.View style={[styles.taglineWrap, bottomStyle]} pointerEvents="none">
-        <Text style={[styles.tagline, { fontFamily: MONO }]}>{'>> 100 GÜN HAYATTA KAL <<'}</Text>
+        <Text style={[styles.tagline, { fontFamily: MONO }]}>{uiStrings.splash_tagline}</Text>
       </Animated.View>
 
       <Animated.View style={[styles.hintWrap, hintStyle]}>
         <Text style={[styles.hintBracket, { fontFamily: MONO }]}>[</Text>
-        <Text style={[styles.hintText, { fontFamily: MONO }]}>  KAPIYA DOKUN  </Text>
+        <Text style={[styles.hintText, { fontFamily: MONO }]}>{uiStrings.splash_hint}</Text>
         <Text style={[styles.hintBracket, { fontFamily: MONO }]}>]</Text>
       </Animated.View>
 
-      <Text style={[styles.version, { fontFamily: MONO }]}>BETA v0.1 · SEKTOR 7</Text>
+      <Text style={[styles.version, { fontFamily: MONO }]}>{uiStrings.splash_version}</Text>
 
     </TouchableOpacity>
   )

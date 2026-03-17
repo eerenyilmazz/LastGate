@@ -25,6 +25,7 @@ const MONO       = Platform.select(themeData.ui.font_mono) as string
 const CHARACTERS = ui.characters
 const TRAITS     = ui.traits
 const STATS_INFO = ui.stats_info
+const STRINGS    = (ui as any).strings as Record<string, string>
 
 type OverlayType = 'howto' | 'guide' | 'settings' | null
 type GuideTab = 'chars' | 'traits' | 'stats' | 'buildings' | 'skills'
@@ -74,59 +75,117 @@ const HowToPlay: React.FC = () => (
 
     <View style={content.block}>
       <Text style={[content.blockTitle, { fontFamily: MONO }]}>[ KONTROLLER ]</Text>
-      <SwipeRow gesture="SAĞ" action="KABUL ET"  color="#2e7d32" />
-      <SwipeRow gesture="SOL" action="REDDET"    color="#8b0000" />
-      <SwipeRow gesture="YUK" action="SORGULA"   color="#f57c00" />
-      <Text style={content.subNote}>Ya da alttaki butonları kullanabilirsin.</Text>
+      <SwipeRow gesture="SAĞ" action="KABUL ET"  color={C.accept} />
+      <SwipeRow gesture="SOL" action="REDDET"    color={C.reject} />
+      <SwipeRow gesture="DOKUN" action="SORGULA"   color={C.query} />
+      <Text style={content.subNote}>{STRINGS.howto_alt_hint}</Text>
     </View>
 
     <View style={content.block}>
-      <Text style={[content.blockTitle, { fontFamily: MONO }]}>[ HAYATTA KALMA ]</Text>
-      <View style={content.statGrid}>
-        {themeData.ui.stat_keys.map(k => {
-          const color = (themeData.colors as any)[`stat_${k}`] as string
-          return (
-            <View key={k} style={[content.statChip, { borderColor: color + '44' }]}>
-              <Text style={content.statChipIcon}>{(themeData.ui.stat_icons as any)[k]}</Text>
-              <Text style={[content.statChipName, { color, fontFamily: MONO }]}>{(themeData.ui.stat_abbrevs as any)[k]}</Text>
-            </View>
-          )
-        })}
+      <Text style={[content.blockTitle, { fontFamily: MONO }]}>[ HEDEF ]</Text>
+      <View style={content.infoCard}>
+        <Text style={content.line}>›  Kapıya gelen kişileri kabul ya da reddet.</Text>
+        <Text style={content.line}>›  5 değerin sıfıra düşmemesini sağla.</Text>
+        <Text style={content.line}>›  <Text style={{ color: C.accept, fontWeight: TY.weight_bold }}>100 gün</Text> hayatta kalırsan şehir kurtarılır.</Text>
       </View>
-      <Text style={content.line}>Herhangi biri sıfıra düşerse oyun biter.</Text>
       <View style={content.winBox}>
-        <Text style={[content.winText, { fontFamily: MONO }]}>100 GÜN → ŞEHİR KURTARILIR</Text>
+        <Text style={[content.winText, { fontFamily: MONO }]}>{STRINGS.win_banner}</Text>
+      </View>
+    </View>
+
+    <View style={content.block}>
+      <Text style={[content.blockTitle, { fontFamily: MONO }]}>[ DEĞERLERİN ANLAMI ]</Text>
+      {[
+        { k: 'immunity',   end: 'Veba — salgın şehri siler' },
+        { k: 'food',       end: 'Açlık — nüfus çöker' },
+        { k: 'population', end: 'Yok Oluş — kimse kalmadı' },
+        { k: 'defense',    end: 'İhlal — zombiler içeri girdi' },
+        { k: 'economy',    end: 'Çöküş — ticaret ve düzen bitti' },
+      ].map(({ k, end }) => {
+        const color = (themeData.colors as any)[`stat_${k}`] as string
+        return (
+          <View key={k} style={content.statEndRow}>
+            <View style={[content.statChip, { borderColor: color + '44', marginBottom: 0 }]}>
+              <Text style={content.statChipIcon}>{(themeData.ui.stat_icons as any)[k]}</Text>
+              <Text style={[content.statChipName, { color, fontFamily: MONO }]}>{(themeData.ui.stat_names_tr as any)[k]}</Text>
+            </View>
+            <Text style={content.statEndText}>= 0 → {end}</Text>
+          </View>
+        )
+      })}
+    </View>
+
+    <View style={content.block}>
+      <Text style={[content.blockTitle, { color: C.danger, fontFamily: MONO }]}>[ ZİNCİRLEME ETKİLER ]</Text>
+      <View style={content.warnBox}>
+        <Text style={[content.warnText, { fontFamily: MONO }]}>
+          Bir değer kritik seviyeye düşünce her gün diğerlerini de aşağı çeker!
+        </Text>
+      </View>
+      <View style={content.infoCard}>
+        <Text style={content.line}>›  <Text style={{ color: C.stat_immunity, fontWeight: TY.weight_bold }}>Bağışıklık</Text> kritik → Nüfus −2/gün</Text>
+        <Text style={content.line}>›  <Text style={{ color: C.stat_food, fontWeight: TY.weight_bold }}>Yiyecek</Text> kritik → Ekonomi −3, Savunma −2/gün</Text>
+        <Text style={content.line}>›  <Text style={{ color: C.stat_defense, fontWeight: TY.weight_bold }}>Savunma</Text> kritik → Yiyecek −8, Ekonomi −5, Nüfus −3/gün</Text>
+        <Text style={content.line}>›  <Text style={{ color: C.stat_economy, fontWeight: TY.weight_bold }}>Ekonomi</Text> kritik → Yiyecek −5, Savunma −3/gün</Text>
+        <Text style={content.line}>›  <Text style={{ color: C.stat_population, fontWeight: TY.weight_bold }}>Nüfus</Text> kritik → Ekonomi −5, Savunma −3/gün</Text>
       </View>
     </View>
 
     <View style={content.block}>
       <Text style={[content.blockTitle, { color: C.query, fontFamily: MONO }]}>[ SORGU SİSTEMİ ]</Text>
       <View style={content.infoCard}>
-        <Text style={content.line}>›  Her gün <Text style={{ color: C.query, fontWeight: TY.weight_bold }}>3 sorgu</Text> hakkın var.</Text>
-        <Text style={content.line}>›  İlk sorgu <Text style={{ color: C.accept_glow, fontWeight: TY.weight_bold }}>ücretsiz</Text>, 2. ve 3. yiyecek götürür.</Text>
-        <Text style={content.line}>›  Sorgu, karakter hakkında ipucu verir.</Text>
-        <Text style={content.line}>›  Aynı karaktere tekrar sorgu yapabilirsin.</Text>
+        <Text style={content.line}>›  Günde <Text style={{ color: C.query, fontWeight: TY.weight_bold }}>3 sorgu</Text> hakkın var.</Text>
+        <Text style={content.line}>›  <Text style={{ color: C.accept_glow, fontWeight: TY.weight_bold }}>1. sorgu</Text> — ücretsiz, ipucu verir</Text>
+        <Text style={content.line}>›  <Text style={{ color: C.query, fontWeight: TY.weight_bold }}>2. sorgu</Text> — Ekonomi ~−8, Yiyecek ~−5 (rastgele değişir)</Text>
+        <Text style={content.line}>›  <Text style={{ color: C.danger, fontWeight: TY.weight_bold }}>3. sorgu</Text> — Ekonomi ~−10, Savunma ~−6, Bağışıklık ~−3 (rastgele değişir)</Text>
+        <Text style={content.line}>›  Aynı karaktere birden fazla sorgu yapabilirsin.</Text>
       </View>
-    </View>
-
-    <View style={content.block}>
-      <Text style={[content.blockTitle, { color: C.query, fontFamily: MONO }]}>[ SP · HAYATTA KALMA PUANI ]</Text>
-      <View style={content.infoCard}>
-        <Text style={content.line}>›  Her gün hayatta kalmak SP kazandırır.</Text>
-        <Text style={content.line}>›  SP ile bina inşa et, yetenek satın al.</Text>
-        <Text style={content.line}>›  Yeni oyun başlayınca SP sıfırlanır.</Text>
+      <View style={content.warnBox}>
+        <Text style={[content.warnText, { fontFamily: MONO }]}>
+          Tehlikeli kişiler sorguyu geçebilir! Yalancı %30, Casus %15, Enfekte %10 ihtimalle temiz görünür.
+        </Text>
       </View>
     </View>
 
     <View style={content.block}>
       <Text style={[content.blockTitle, { color: C.danger, fontFamily: MONO }]}>[ GİZLİ ÖZELLİKLER ]</Text>
-      <View style={[content.warnBox, { borderLeftColor: C.danger_dark }]}>
+      <View style={content.warnBox}>
         <Text style={[content.warnText, { fontFamily: MONO }]}>
-          UYARI: Yanlış kişiyi kabul etmek şehri çökertebilir.
+          Yanlış kişiyi kabul etmek şehri çökertebilir!
         </Text>
       </View>
-      <Text style={content.line}>›  Her karakterin gizli özelliği olabilir.</Text>
-      <Text style={content.line}>›  Sorgu yap, diyaloğu iyi oku, karar ver.</Text>
+      <View style={content.infoCard}>
+        <Text style={content.line}>›  Her karakterin gizli bir özelliği olabilir.</Text>
+        <Text style={content.line}>›  Kabul ettikten günler sonra etkisi başlar.</Text>
+        <Text style={content.line}>›  Diyaloğu dikkatli oku, sorgu kullan.</Text>
+      </View>
+    </View>
+
+    <View style={content.block}>
+      <Text style={[content.blockTitle, { color: C.query, fontFamily: MONO }]}>[ HAYATTA KALMA PUANI ]</Text>
+      <View style={content.infoCard}>
+        <Text style={content.line}>›  Her hayatta kalınan gün SP kazanırsın.</Text>
+        <Text style={content.line}>›  SP ile <Text style={{ color: C.accept, fontWeight: TY.weight_bold }}>bina</Text> inşa et ve <Text style={{ color: C.info, fontWeight: TY.weight_bold }}>yetenek</Text> satın al.</Text>
+        <Text style={content.line}>›  Binalar her gün pasif bonus sağlar.</Text>
+      </View>
+    </View>
+
+    <View style={content.block}>
+      <Text style={[content.blockTitle, { color: C.danger, fontFamily: MONO }]}>[ ZORLUK SEVİYELERİ ]</Text>
+      <View style={content.infoCard}>
+        <Text style={content.line}>
+          <Text style={{ color: C.accept, fontWeight: TY.weight_bold }}>KOLAY</Text>
+          {'  '}— Her gün +2 Yiyecek bonus. NPC etkileri %25 hafifletilmiş. Başlangıç değerleri daha yüksek.
+        </Text>
+        <Text style={content.line}>
+          <Text style={{ color: C.query, fontWeight: TY.weight_bold }}>NORMAL</Text>
+          {'  '}— Standart oyun. Bonus veya ceza yok.
+        </Text>
+        <Text style={content.line}>
+          <Text style={{ color: C.danger, fontWeight: TY.weight_bold }}>ZOR</Text>
+          {'  '}— Her gün −3 Yiyecek. Açlıkta her gün ek −2 Nüfus. NPC etkileri %30 daha sert. Başlangıç değerleri düşük.
+        </Text>
+      </View>
     </View>
 
     <View style={{ height: 40 }} />
@@ -235,16 +294,32 @@ const SettingsContent: React.FC = () => {
 
       <View style={sett.card}>
         <View style={sett.cardLeft}>
-          <Text style={[sett.cardTitle, { fontFamily: MONO }]}>SES SİSTEMİ</Text>
-          <Text style={sett.cardSub}>Ortam müziği ve ses efektleri</Text>
+          <Text style={[sett.cardTitle, { fontFamily: MONO }]}>ORTAM MÜZİĞİ</Text>
+          <Text style={sett.cardSub}>Arka plan atmosfer müziği</Text>
         </View>
         <TouchableOpacity
-          onPress={settings.toggleSound}
-          style={[sett.toggle, settings.soundEnabled && sett.toggleOn]}
+          onPress={settings.toggleMusic}
+          style={[sett.toggle, settings.musicEnabled && sett.toggleOn]}
           activeOpacity={0.8}
         >
-          <Text style={[sett.toggleText, { fontFamily: MONO, color: settings.soundEnabled ? C.accept_glow : C.text_muted }]}>
-            {settings.soundEnabled ? 'AÇIK' : 'KAPALI'}
+          <Text style={[sett.toggleText, { fontFamily: MONO, color: settings.musicEnabled ? C.accept_glow : C.text_muted }]}>
+            {settings.musicEnabled ? 'AÇIK' : 'KAPALI'}
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={sett.card}>
+        <View style={sett.cardLeft}>
+          <Text style={[sett.cardTitle, { fontFamily: MONO }]}>SES EFEKTLERİ</Text>
+          <Text style={sett.cardSub}>Kapı, sorgu ve uyarı sesleri</Text>
+        </View>
+        <TouchableOpacity
+          onPress={settings.toggleSfx}
+          style={[sett.toggle, settings.sfxEnabled && sett.toggleOn]}
+          activeOpacity={0.8}
+        >
+          <Text style={[sett.toggleText, { fontFamily: MONO, color: settings.sfxEnabled ? C.accept_glow : C.text_muted }]}>
+            {settings.sfxEnabled ? 'AÇIK' : 'KAPALI'}
           </Text>
         </TouchableOpacity>
       </View>
@@ -298,8 +373,8 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
   useEffect(() => {
     emblemPulse.value = withRepeat(
       withSequence(
-        withTiming(1.06, { duration: 1800 }),
-        withTiming(0.96, { duration: 1800 }),
+        withTiming(1.06, { duration: themeData.animation.menu_logo_pulse_ms }),
+        withTiming(0.96, { duration: themeData.animation.menu_logo_pulse_ms }),
       ), -1, true,
     )
   }, [])
@@ -347,7 +422,7 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
           {(['easy', 'normal', 'hard'] as Difficulty[]).map((d) => {
             const labels: Record<Difficulty, string> = { easy: 'KOLAY', normal: 'NORMAL', hard: 'ZOR' }
             const active = settings.difficulty === d
-            const colors: Record<Difficulty, string> = { easy: C.accept, normal: C.query, hard: C.danger_dark }
+            const colors: Record<Difficulty, string> = { easy: C.accept, normal: C.query, hard: C.danger }
             return (
               <TouchableOpacity
                 key={d}
@@ -385,7 +460,7 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
 
       </View>
 
-      <Text style={styles.footer}>BETA v0.1 · SEKTÖR 7 KARANTİNA BÖLGESİ</Text>
+      <Text style={styles.footer}>{STRINGS.menu_footer}</Text>
 
       <Modal
         visible={overlay !== null}
@@ -409,7 +484,7 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
 
             {overlay === 'howto' && (
               <>
-                <PanelHeader title="NASIL OYNANIR" onClose={close} accentColor="#cc3333" />
+                <PanelHeader title="NASIL OYNANIR" onClose={close} accentColor={C.panel_howto} />
                 <View style={{ flex: 1, paddingHorizontal: 20 }}>
                   <HowToPlay />
                 </View>
@@ -417,7 +492,7 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
             )}
             {overlay === 'guide' && (
               <>
-                <PanelHeader title="REHBER" onClose={close} accentColor="#f57c00" />
+                <PanelHeader title="REHBER" onClose={close} accentColor={C.panel_guide} />
                 <View style={{ flex: 1 }}>
                   <GuideContent />
                 </View>
@@ -425,7 +500,7 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
             )}
             {overlay === 'settings' && (
               <>
-                <PanelHeader title="AYARLAR" onClose={close} accentColor="#4caf50" />
+                <PanelHeader title="AYARLAR" onClose={close} accentColor={C.panel_settings} />
                 <View style={{ flex: 1, paddingHorizontal: 20 }}>
                   <SettingsContent />
                 </View>
@@ -659,7 +734,7 @@ const content = StyleSheet.create({
     justifyContent: 'center',
   },
   swipeArrowText: { fontSize: TY.size_h6, fontWeight: TY.weight_black, lineHeight: 20 },
-  swipeAction: { color: C.text_muted, fontSize: TY.size_sm, fontWeight: TY.weight_bold, letterSpacing: 1 },
+  swipeAction: { color: C.text_bright, fontSize: TY.size_sm, fontWeight: TY.weight_bold, letterSpacing: 1 },
   subNote: { color: C.text_muted, fontSize: TY.size_note, marginTop: 2 },
 
   statGrid: {
@@ -679,7 +754,20 @@ const content = StyleSheet.create({
     backgroundColor: C.bg_deeper,
   },
   statChipIcon: { fontSize: TY.size_note },
-  statChipName: { fontSize: TY.size_caption, fontWeight: TY.weight_heavy, letterSpacing: 1 },
+  statChipName: { fontSize: TY.size_xs, fontWeight: TY.weight_heavy, letterSpacing: 0.5 },
+
+  statEndRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    marginBottom: 6,
+  },
+  statEndText: {
+    flex: 1,
+    color: C.text_secondary,
+    fontSize: TY.size_note,
+    lineHeight: 18,
+  },
 
   winBox: {
     backgroundColor: C.diff_pos_bg,
@@ -706,15 +794,15 @@ const content = StyleSheet.create({
   hi:   { color: C.query, fontWeight: TY.weight_bold },
   note: { color: C.text_muted, fontSize: TY.size_sm, lineHeight: 18, marginBottom: 12, fontStyle: 'italic' },
   warnBox: {
-    backgroundColor: C.danger_dark,
+    backgroundColor: C.warning_box_bg,
     borderLeftWidth: 2,
-    borderLeftColor: C.danger_dark,
+    borderLeftColor: C.danger,
     borderRadius: R.xs,
     paddingHorizontal: 10,
     paddingVertical: 8,
     marginBottom: 4,
   },
-  warnText: { color: C.danger_dark, fontSize: TY.size_note, fontWeight: TY.weight_bold },
+  warnText: { color: C.danger, fontSize: TY.size_note, fontWeight: TY.weight_bold },
 })
 
 const guide = StyleSheet.create({
@@ -733,9 +821,9 @@ const guide = StyleSheet.create({
     borderWidth: 1,
     borderColor: C.card_dark,
   },
-  tabBtnActive:  { backgroundColor: C.danger_dark, borderColor: C.danger_dark },
-  tabText:       { color: C.text_muted, fontSize: TY.size_sm, fontWeight: TY.weight_semi },
-  tabTextActive: { color: C.reject_glow },
+  tabBtnActive:  { backgroundColor: C.danger_dark, borderColor: C.danger },
+  tabText:       { color: C.text_secondary, fontSize: TY.size_sm, fontWeight: TY.weight_semi },
+  tabTextActive: { color: C.danger },
   body: { flex: 1, paddingHorizontal: 16, paddingTop: 8 },
   sub:  { color: C.text_muted, fontSize: TY.size_xs, letterSpacing: 0.5 },
 })
@@ -754,8 +842,8 @@ const sett = StyleSheet.create({
     gap: 10,
   },
   cardLeft: { flex: 1 },
-  cardTitle: { color: C.text_muted, fontSize: TY.size_xs, fontWeight: TY.weight_heavy, letterSpacing: 1.5, marginBottom: 3 },
-  cardSub:   { color: C.text_muted, fontSize: TY.size_note, lineHeight: 15 },
+  cardTitle: { color: C.text_bright, fontSize: TY.size_xs, fontWeight: TY.weight_heavy, letterSpacing: 1.5, marginBottom: 3 },
+  cardSub:   { color: C.text_secondary, fontSize: TY.size_note, lineHeight: 15 },
 
   toggle: {
     paddingHorizontal: 14,
@@ -784,11 +872,11 @@ const sett = StyleSheet.create({
     gap: 0,
   },
   earnTitle: {
-    color: C.text_muted,
-    fontSize: TY.size_caption,
+    color: C.query,
+    fontSize: TY.size_xs,
     letterSpacing: 2,
     marginBottom: 10,
-    fontWeight: TY.weight_bold,
+    fontWeight: TY.weight_black,
   },
   earnRow: {
     flexDirection: 'row',
@@ -806,8 +894,8 @@ const sett = StyleSheet.create({
     marginTop: 24,
     gap: 4,
   },
-  versionText: { color: C.card_dark, fontSize: TY.size_xs, letterSpacing: 2 },
-  versionSub:  { color: C.bg_deeper, fontSize: TY.size_2xs, letterSpacing: 3 },
+  versionText: { color: C.text_muted, fontSize: TY.size_xs, letterSpacing: 2 },
+  versionSub:  { color: C.text_muted, fontSize: TY.size_2xs, letterSpacing: 3, opacity: 0.5 },
 })
 
 const meta = StyleSheet.create({

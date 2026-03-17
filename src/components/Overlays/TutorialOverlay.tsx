@@ -5,14 +5,22 @@ import uiData from '../../data/ui.json'
 
 const C  = themeData.colors
 const TY = themeData.typography as any
-const SP = themeData.spacing
 const R  = themeData.radius
 const MONO     = Platform.select(themeData.ui.font_mono) as string
 const DOTS     = themeData.ui.terminal_dots
 const TUTORIAL = uiData.tutorial as {
   header: string
-  tips: Array<{ icon: string; text: string }>
+  tips: Array<{ icon: string; color: string; title: string; desc: string }>
   continue_btn: string
+}
+
+type ColorKey = 'accept' | 'reject' | 'query' | 'neutral' | 'danger'
+const TIP_COLORS: Record<ColorKey, string> = {
+  accept:  C.accept,
+  reject:  C.reject,
+  query:   C.query,
+  neutral: C.text_secondary,
+  danger:  C.tutorial_danger,
 }
 
 interface Props {
@@ -34,14 +42,23 @@ export const TutorialOverlay: React.FC<Props> = ({ onClose }) => (
       </View>
 
       <View style={styles.list}>
-        {TUTORIAL.tips.map((tip, i) => (
-          <View key={i} style={styles.tipRow}>
-            <View style={styles.iconBox}>
-              <Text style={[styles.tipIcon, { fontFamily: MONO }]}>{tip.icon}</Text>
+        {TUTORIAL.tips.map((tip, i) => {
+          const accent = TIP_COLORS[tip.color as ColorKey] ?? C.text_secondary
+          return (
+            <View key={i} style={styles.tipRow}>
+              <View style={[styles.iconBox, {
+                backgroundColor: accent + '18',
+                borderColor: accent + '55',
+              }]}>
+                <Text style={[styles.tipIcon, { color: accent, fontFamily: MONO }]}>{tip.icon}</Text>
+              </View>
+              <View style={styles.tipBody}>
+                <Text style={[styles.tipTitle, { color: accent, fontFamily: MONO }]}>{tip.title}</Text>
+                <Text style={styles.tipDesc}>{tip.desc}</Text>
+              </View>
             </View>
-            <Text style={styles.tipText}>{tip.text}</Text>
-          </View>
-        ))}
+          )
+        })}
       </View>
 
       <TouchableOpacity onPress={onClose} style={styles.btn} activeOpacity={0.8}>
@@ -74,10 +91,10 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderBottomWidth: 1,
-    borderBottomColor: C.card_bg,
+    borderBottomColor: C.divider,
   },
-  dots:       { flexDirection: 'row', gap: 5 },
-  dot:        { width: 8, height: 8, borderRadius: R.xs },
+  dots: { flexDirection: 'row', gap: 5 },
+  dot:  { width: 8, height: 8, borderRadius: R.xs },
   headerText: {
     flex: 1,
     textAlign: 'center',
@@ -87,35 +104,41 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
   },
   list: {
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-    gap: 16,
+    paddingHorizontal: 18,
+    paddingVertical: 18,
+    gap: 14,
   },
   tipRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    gap: 14,
   },
   iconBox: {
-    width: 32,
-    height: 32,
+    width: 44,
+    height: 44,
     borderRadius: R.md,
-    backgroundColor: C.card_dark,
     borderWidth: 1,
-    borderColor: C.divider,
     alignItems: 'center',
     justifyContent: 'center',
+    flexShrink: 0,
   },
   tipIcon: {
-    color: C.text_muted,
-    fontSize: TY.size_md,
-    fontWeight: TY.weight_heavy,
+    fontSize: TY.size_h5,
+    fontWeight: TY.weight_black,
   },
-  tipText: {
+  tipBody: {
     flex: 1,
-    color: C.text_muted,
-    fontSize: TY.size_sm,
-    lineHeight: 18,
+    gap: 2,
+  },
+  tipTitle: {
+    fontSize: TY.size_note,
+    fontWeight: TY.weight_black,
+    letterSpacing: 1.5,
+  },
+  tipDesc: {
+    color: C.text_secondary,
+    fontSize: TY.size_xs,
+    lineHeight: 16,
   },
   btn: {
     marginHorizontal: 16,

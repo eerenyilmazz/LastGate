@@ -190,7 +190,7 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
           const locked    = game.day < skill.unlock_day
           const canBuy    = !used && !locked && progress.sp >= skill.cost
           const notEnough = !used && !locked && progress.sp < skill.cost
-          const accentClr = used ? '#283593' : locked ? C.text_muted : skill.color
+          const accentClr = used ? C.skill_used : locked ? C.text_muted : skill.color
 
           const handleBuy = () => {
             if (!canBuy) return
@@ -260,7 +260,7 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
               {!locked && (
                 <View style={styles.chipRow}>
                   {skill.chips.map((c, i) => (
-                    <Chip key={i} label={c} color={used ? '#283593' : skill.color} />
+                    <Chip key={i} label={c} color={used ? C.skill_used : skill.color} />
                   ))}
                 </View>
               )}
@@ -287,7 +287,6 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
         <View style={{ height: Platform.OS === 'android' ? 64 : 32 }} />
       </ScrollView>
 
-      {/* ── Confirm modal ───────────────────────────────────── */}
       <Modal
         visible={!!confirm}
         transparent

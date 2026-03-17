@@ -7,6 +7,7 @@ import { useStatStore } from '../../store/useStatStore'
 import uiData from '../../data/ui.json'
 import themeData from '../../data/theme.json'
 const TY = themeData.typography as any
+const C  = themeData.colors
 
 const STAT_LABELS = uiData.critical_stat_labels as Record<StatType, string>
 
@@ -21,7 +22,7 @@ export const CriticalWarning: React.FC = () => {
   useEffect(() => {
     if (criticals.length > 0) {
       opacity.value = withRepeat(
-        withSequence(withTiming(1, { duration: 400 }), withTiming(0.2, { duration: 400 })),
+        withSequence(withTiming(1, { duration: themeData.animation.critical_pulse_ms }), withTiming(0.3, { duration: themeData.animation.critical_pulse_ms })),
         -1,
         true
       )
@@ -35,35 +36,44 @@ export const CriticalWarning: React.FC = () => {
   if (criticals.length === 0) return null
 
   return (
-    <Animated.View
-      style={[
-        styles.container,
-        animStyle,
-        { backgroundColor: theme.colors.warning_overlay },
-      ]}
-      pointerEvents="none"
-    >
-      {criticals.map(stat => (
-        <Text
-          key={stat}
-          style={[
-            styles.text,
-            { color: theme.colors.stat_critical, fontSize: theme.typography.size_lg },
-          ]}
-        >
-          ⚠ {STAT_LABELS[stat]}
-        </Text>
-      ))}
+    <Animated.View style={[styles.container, animStyle]} pointerEvents="none">
+      <View style={styles.banner}>
+        {criticals.map(stat => (
+          <Text
+            key={stat}
+            style={[styles.text, { color: theme.colors.stat_critical }]}
+          >
+            ⚠ {STAT_LABELS[stat]}
+          </Text>
+        ))}
+      </View>
     </Animated.View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: 'flex-end',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
     alignItems: 'center',
-    paddingBottom: 40,
   },
-  text: { fontWeight: TY.weight_black, textAlign: 'center', marginBottom: 4 },
+  banner: {
+    width: '100%',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 7,
+    backgroundColor: C.critical_banner_bg,
+    borderTopWidth: 1,
+    borderTopColor: C.critical_banner_bdr,
+  },
+  text: {
+    fontWeight: TY.weight_black,
+    fontSize: 11,
+    letterSpacing: 0.5,
+  },
 })

@@ -50,11 +50,25 @@ export const StatEngine = {
     return state[stat] <= THRESHOLDS[stat]
   },
 
+  applyCascade(current: StatState): { next: StatState; triggered: StatType[] } {
+    const cascades = (config as any).cascade_effects as Record<string, Record<string, number>>
+    let next = { ...current }
+    const triggered: StatType[] = []
+    for (const stat of Object.keys(cascades) as StatType[]) {
+      if (current[stat] <= THRESHOLDS[stat]) {
+        next = StatEngine.apply(next, cascades[stat] as StatDelta)
+        triggered.push(stat)
+      }
+    }
+    return { next, triggered }
+  },
+
   getGameOverReason(state: StatState): string | null {
     if (state.food <= 0)       return 'starvation'
     if (state.immunity <= 0)   return 'plague'
     if (state.defense <= 0)    return 'breach'
     if (state.population <= 0) return 'extinction'
+    if (state.economy <= 0)    return 'collapse'
     return null
   },
 

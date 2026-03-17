@@ -18,6 +18,7 @@ import config from '../data/config.json'
 
 const AMBIENT_VOLUME = config.audio_volumes.ambient
 const SFX_VOLUME     = config.audio_volumes.sfx
+const SFX_VOLUMES    = (config as any).sfx_volumes as Record<string, number>
 
 export const useAudio = () => {
   const bgSound        = useRef<Audio.Sound | null>(null)
@@ -28,7 +29,8 @@ export const useAudio = () => {
   const isCritical     = useStatStore(s => s.isCritical)
   const isGameOver     = useGameStore(s => s.isGameOver)
   const gameOverReason = useGameStore(s => s.gameOverReason)
-  const soundEnabled   = useSettingsStore(s => s.soundEnabled)
+  const musicEnabled   = useSettingsStore(s => s.musicEnabled)
+  const sfxEnabled     = useSettingsStore(s => s.sfxEnabled)
 
   useEffect(() => {
     Audio.setAudioModeAsync({
@@ -52,14 +54,14 @@ export const useAudio = () => {
       currentKey.current = key
       const { sound } = await Audio.Sound.createAsync(src, {
         isLooping: true,
-        volume: soundEnabled ? AMBIENT_VOLUME : 0,
+        volume: musicEnabled ? AMBIENT_VOLUME : 0,
       })
       bgSound.current = sound
-      if (soundEnabled) await sound.playAsync()
+      if (musicEnabled) await sound.playAsync()
     } catch (e) {
       console.warn('[useAudio] loadBg error:', e)
     }
-  }, [soundEnabled])
+  }, [musicEnabled])
 
   const startAmbient = useCallback(async () => {
     started.current = true
@@ -67,11 +69,12 @@ export const useAudio = () => {
   }, [loadBg])
 
   const playSFX = useCallback(async (key: string) => {
-    if (!soundEnabled) return
+    if (!sfxEnabled) return
     const src = AUDIO_PATHS[key]
     if (!src) return
     try {
-      const { sound } = await Audio.Sound.createAsync(src, { volume: SFX_VOLUME })
+      const volume = SFX_VOLUMES[key] ?? SFX_VOLUME
+      const { sound } = await Audio.Sound.createAsync(src, { volume })
       await sound.playAsync()
       sound.setOnPlaybackStatusUpdate(status => {
         if (status.isLoaded && status.didJustFinish) sound.unloadAsync()
@@ -79,17 +82,18 @@ export const useAudio = () => {
     } catch (e) {
       console.warn('[useAudio] playSFX error:', e)
     }
-  }, [soundEnabled])
+  }, [sfxEnabled])
 
   useEffect(() => {
     if (!bgSound.current) return
-    if (soundEnabled) {
+    if (musicEnabled) {
       bgSound.current.setVolumeAsync(AMBIENT_VOLUME).catch(() => {})
       bgSound.current.playAsync().catch(() => {})
     } else {
       bgSound.current.setVolumeAsync(0).catch(() => {})
+      bgSound.current.pauseAsync().catch(() => {})
     }
-  }, [soundEnabled])
+  }, [musicEnabled])
 
   useEffect(() => {
     if (!isGameOver) return

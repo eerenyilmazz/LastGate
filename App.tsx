@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
-import Animated, { FadeIn } from 'react-native-reanimated'
 import { useGameStore } from './src/store/useGameStore'
 import { useGameLoop } from './src/hooks/useGameLoop'
 import { useAudio } from './src/hooks/useAudio'
@@ -54,19 +53,19 @@ export default function App() {
       <SafeAreaProvider>
         <StatusBar style="light" />
         {appScreen === 'splash' && (
-          <Animated.View key="splash" entering={FadeIn.duration(400)} style={StyleSheet.absoluteFillObject}>
+          <View style={StyleSheet.absoluteFillObject}>
             <SplashScreen onDone={() => { startAmbient(); setAppScreen('menu') }} />
-          </Animated.View>
+          </View>
         )}
         {appScreen === 'menu' && (
-          <Animated.View key="menu" entering={FadeIn.duration(350)} style={StyleSheet.absoluteFillObject}>
+          <View style={StyleSheet.absoluteFillObject}>
             <MenuScreen onStart={handleStart} />
-          </Animated.View>
+          </View>
         )}
         {appScreen === 'game' && (
-          <Animated.View key="game" entering={FadeIn.duration(300)} style={StyleSheet.absoluteFillObject}>
+          <View style={StyleSheet.absoluteFillObject}>
             {renderGame()}
-          </Animated.View>
+          </View>
         )}
       </SafeAreaProvider>
     </GestureHandlerRootView>

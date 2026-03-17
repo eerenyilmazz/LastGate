@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Platform } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native'
 import { useGameStore } from '../../store/useGameStore'
 import themeData from '../../data/theme.json'
 import uiData from '../../data/ui.json'
@@ -25,8 +25,15 @@ export const NotificationOverlay: React.FC<Props> = ({ onContinue }) => {
     : [REPORT.no_events]
 
   return (
-    <View style={styles.overlay}>
-      <View style={[styles.sheet, { paddingBottom: Platform.OS === 'android' ? 44 : 30 }]}>
+    <TouchableOpacity
+      style={styles.overlay}
+      activeOpacity={1}
+      onPress={onContinue}
+    >
+      <View
+        style={[styles.sheet, { paddingBottom: Platform.OS === 'android' ? 44 : 30 }]}
+        onStartShouldSetResponder={() => false}
+      >
 
         <View style={styles.termHeader}>
           <View style={styles.dots}>
@@ -40,25 +47,19 @@ export const NotificationOverlay: React.FC<Props> = ({ onContinue }) => {
           <View style={{ width: 40 }} />
         </View>
 
-        <ScrollView
-          style={styles.scroll}
-          contentContainerStyle={styles.list}
-          showsVerticalScrollIndicator={false}
-        >
+        <View style={styles.list}>
           {notes.map((text, i) => (
             <View key={i} style={styles.noteRow}>
               <Text style={[styles.bullet, { fontFamily: MONO }]}>›</Text>
               <Text style={[styles.noteText, { fontFamily: MONO }]}>{text}</Text>
             </View>
           ))}
-        </ScrollView>
+        </View>
 
-        <TouchableOpacity onPress={onContinue} style={styles.btn} activeOpacity={0.8}>
-          <Text style={[styles.btnText, { fontFamily: MONO }]}>{REPORT.continue_btn}</Text>
-        </TouchableOpacity>
+        <Text style={[styles.tapHint, { fontFamily: MONO }]}>{uiData.labels.continue_hint}</Text>
 
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 
@@ -74,7 +75,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     borderTopWidth: 1,
     borderColor: C.card_bg,
-    maxHeight: '70%',
   },
   termHeader: {
     flexDirection: 'row',
@@ -97,7 +97,6 @@ const styles = StyleSheet.create({
     fontWeight: TY.weight_heavy,
     letterSpacing: 2.5,
   },
-  scroll: { maxHeight: 240 },
   list:   { paddingHorizontal: 20, paddingVertical: 18, gap: 14 },
   noteRow: {
     flexDirection: 'row',
@@ -115,20 +114,12 @@ const styles = StyleSheet.create({
     fontSize: TY.size_sm,
     lineHeight: 19,
   },
-  btn: {
-    marginHorizontal: 16,
-    marginTop: 14,
-    paddingVertical: 14,
-    borderRadius: R.md,
-    backgroundColor: C.diff_pos_bg,
-    borderWidth: 1,
-    borderColor: C.border_pos,
-    alignItems: 'center',
-  },
-  btnText: {
-    color: C.accept,
-    fontSize: TY.size_note,
-    fontWeight: TY.weight_black,
+  tapHint: {
+    color: C.button_border,
+    fontSize: TY.size_caption,
     letterSpacing: 2,
+    textAlign: 'center',
+    paddingBottom: 8,
+    paddingTop: 4,
   },
 })

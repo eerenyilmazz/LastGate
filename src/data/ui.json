@@ -18,25 +18,25 @@
     "cta": "[ KAPIYI AÇ ]"
   },
   "query_messages": {
-    "no_charges":            "Sorgu hakkın kalmadı.",
-    "depth_analysis_prefix": "📋 Derinlemesine analiz: ",
-    "default_scan":          "Kimlik taraması tamamlandı."
+    "no_charges":            "SORGU HAKKI KALMADI",
+    "depth_analysis_prefix": "",
+    "default_scan":          "kimlik taraması tamamlandı — ek kayıt bulunamadı"
   },
   "role_surface_scan": {
-    "Doctor":    "Tıbbi kayıtlar incelendi. Kimlik ve lisans bilgileri sistemde kayıtlı.",
-    "Farmer":    "Tarımsal kayıtlar sorgulandı. Temel kimlik doğrulaması tamamlandı.",
-    "Soldier":   "Askerlik sicili tarandı. Görev geçmişi sistemde mevcut.",
-    "Trader":    "Ticari belgeler kontrol edildi. Gümrük kaydı sistemle uyumlu.",
-    "Engineer":  "Teknik belgeler tarandı. Mühendislik sertifikaları sistemde kayıtlı.",
-    "Scavenger": "Temel kimlik taraması yapıldı. Bölge kayıtları sorgulandı."
+    "Doctor":    "kimlik onaylandı | tıbbi lisans aktif | son bölge: karantina noktası",
+    "Farmer":    "kimlik onaylandı | tarım kaydı mevcut | son teslimat: düzensiz",
+    "Soldier":   "kimlik onaylandı | askerlik sicili aktif | son görev: kuzey sektörü",
+    "Trader":    "kimlik onaylandı | ticaret lisansı geçerli | çoklu bölge geçişi kayıtlı",
+    "Engineer":  "kimlik onaylandı | teknik sertifika geçerli | erişim seviyesi: B-2",
+    "Scavenger": "kimlik onaylandı | kayıt kısmi | konum geçmişi belirsiz"
   },
   "trait_final": {
-    "infected":  "⚠ KESİN BULGU: Biyolojik tehlike belirtileri tespit edildi. Enfeksiyon riski kritik!",
-    "spy":       "⚠ KESİN BULGU: Yabancı güçlerle iletişim kayıtları mevcut. Casusluk şüphesi yüksek!",
-    "thief":     "⚠ KESİN BULGU: Çalınan mallarla bağlantılı izler saptandı. Hırsızlık riski!",
-    "liar":      "⚠ KESİN BULGU: Beyan edilen bilgiler kayıtlarla çelişiyor. Yanıltıcı ifadeler mevcut!",
-    "protector": "✓ KESİN BULGU: Kayıtlar olumlu. Topluluğa aktif destek sağlamış, güvenilir.",
-    "none":      "✓ KESİN BULGU: Kapsamlı analiz tamamlandı. Tüm kayıtlar temiz, şüphe yok."
+    "infected":  "biyolojik kontaminasyon belirtileri tespit edildi",
+    "spy":       "yabancı güç ile iletişim kaydı mevcut",
+    "thief":     "çalınan envanter ile eşleşme bulundu",
+    "liar":      "kimlik verileri sistemdeki kayıtlarla çelişiyor",
+    "protector": "kayıtlar temiz — topluma katkı geçmişi doğrulandı",
+    "none":      "derin tarama tamamlandı — anomali saptanmadı"
   },
   "splash_status_items": [
     { "tag": "[!]", "label": "ENFEKSİYON",   "value": "KRİTİK SEVİYE", "color": "#666" },
@@ -69,6 +69,12 @@
       "desc": "Şehir artık sadece bir anı.\nKimse kalmadı.",
       "color": "#546e7a"
     },
+    "collapse": {
+      "icon": "💸", "tag": "[EKONOMİK ÇÖKÜŞ]",
+      "title": "EKONOMİ DURDU",
+      "desc": "Ticaret bitti, depolar kilitlendi.\nAçlık ve kaos geride kalanları sildi.",
+      "color": "#f9a825"
+    },
     "victory": {
       "icon": "★", "tag": "[ZAFER]",
       "title": "100 GÜN HAYATTA KALDIN",
@@ -85,11 +91,11 @@
   "tutorial": {
     "header":   "[ NASIL OYNANIR ]",
     "tips": [
-      { "icon": "→", "text": "Sağa kaydır veya KABUL bas: kişiyi şehre al." },
-      { "icon": "←", "text": "Sola kaydır veya RET bas: kişiyi reddet." },
-      { "icon": "↑", "text": "Yukarı kaydır veya SORGU bas: kimliğini araştır." },
-      { "icon": "i", "text": "DETAY bas: etkileri ve gözlemleri gör." },
-      { "icon": "⚠", "text": "Bazı kişiler tehlikeli olabilir. Dikkatli karar ver!" }
+      { "icon": "▶", "color": "accept",  "title": "KABUL ET",  "desc": "Sağa kaydır — kişiyi şehre al, istatistikler değişir." },
+      { "icon": "◀", "color": "reject",  "title": "REDDET",    "desc": "Sola kaydır — kişiyi geri çevir." },
+      { "icon": "◉", "color": "query",   "title": "SORGULA",   "desc": "Karta dokun — kimliği araştır. Günde 3 hakkın var." },
+      { "icon": "☰", "color": "neutral", "title": "DETAY",     "desc": "Kart altı — etkileri ve ipuçlarını gör." },
+      { "icon": "⚠", "color": "danger",  "title": "TEHLİKE",   "desc": "Bazı kişiler yalan söyler. Sorguyu iyi kullan." }
     ],
     "continue_btn": "[ ANLADIM ]"
   },
@@ -135,12 +141,10 @@
     "tab_skills":                  "YETENEKLER",
     "screen_back":                 "GERİ",
     "screen_building_title":       "YERLEŞİM",
-    "query_food_warn_prefix":      "⚠ Bu sorgu 🌾 Yiyecek -",
-    "query_food_warn_suffix":      " götürecek · Onaylamak için tekrar bas",
-    "building_sp_needed_suffix":   " SP daha gerekiyor",
+"building_sp_needed_suffix":   " SP daha gerekiyor",
     "earned_sp":                   "KAZANILAN SP",
     "btn_restart":                 "[ YENİDEN BAŞLA ]",
-    "btn_main_menu":               "↩  ANA MENÜ",
+    "btn_main_menu":               "ANA MENÜ",
     "confirm_cancel":              "İPTAL",
     "confirm_buy":                 "SATIN AL",
     "confirm_use":                 "KULLAN",
@@ -152,6 +156,13 @@
     "population": "NÜFUS KRİTİK!",
     "defense":    "SAVUNMA ÇÖKİYOR!",
     "economy":    "EKONOMİ DURDU!"
+  },
+  "cascade_notifications": {
+    "immunity":   "Hastalık yayılıyor — nüfus eriyiyor.",
+    "food":       "Açlık ekonomiyi durduruyor, savunma zayıflıyor.",
+    "defense":    "Savunma çöktü — baskınlar yiyeceği ve parayı tüketiyor.",
+    "economy":    "Ekonomi durdu — gıda tedariki ve savunma çöküyor.",
+    "population": "Nüfus kritik — ekonomi ve savunma dağılıyor."
   },
   "hidden_notifications": {
     "infected_warning": "Şehirde hasta vakalar artıyor...",
@@ -175,6 +186,27 @@
     { "icon": "🦹", "name": "Hırsız",    "desc": "Ekonomiyi gizlice çalar." },
     { "icon": "🦸", "name": "Koruyucu",  "desc": "Gizli ekstra bonus sağlar." }
   ],
+  "strings": {
+    "splash_alert":         ">> ACİL DURUM · BÖLGE 7 · ENFEKSİYON · HAYATTA KAL · SON KAPI AKTİF >>",
+    "splash_subtitle":      "— SON KAPI —",
+    "splash_terminal":      "DURUM RAPORU / ZONE-7",
+    "splash_tagline":       ">> 100 GÜN HAYATTA KAL <<",
+    "splash_hint":          "  KAPIYA DOKUN  ",
+    "splash_version":       "BETA v0.1 · SEKTOR 7",
+    "menu_footer":          "BETA v0.1 · SEKTÖR 7 KARANTİNA BÖLGESİ",
+    "day_label":            "GÜN",
+    "query_warning_label":  "[ UYARI ]",
+    "query_confirm":        "Derin tarama kaynak tüketir. Onaylamak için tekrar dokun.",
+    "person_file_btn":      "▸ KİŞİ DOSYASI",
+    "notification_hint":    "· DEVAM ETMEK İÇİN DOKUN ·",
+    "summary_victory_tag":  "[ ZAFERLİ SON ]",
+    "summary_victory_title":"ŞEHİR KURTARILDI",
+    "summary_status_label": "— FİNAL DURUMU —",
+    "summary_sp_label":     "TOPLAM SP",
+    "intro_journal_title":  "SEFER GÜNLÜĞÜ",
+    "win_banner":           "100 GÜN → ŞEHİR KURTARILIR",
+    "howto_alt_hint":       "Ya da alttaki butonları kullanabilirsin."
+  },
   "stats_info": [
     { "icon": "💊", "name": "Bağışıklık", "desc": "Hastalık ve salgına direnç. Sıfırlanırsa veba sonu!" },
     { "icon": "🌾", "name": "Yiyecek",    "desc": "Nüfus her gün yer. Tükenirse açlık başlar." },

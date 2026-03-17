@@ -10,11 +10,23 @@ import { TraitHandler } from '../domain/TraitHandler'
 import { StatEngine } from '../domain/StatEngine'
 import { SaveSystem } from '../domain/SaveSystem'
 import { NPC } from '../types/npc.types'
-import { StatDelta, StatState } from '../types/stat.types'
+import { StatDelta, StatState, StatType } from '../types/stat.types'
 import config from '../data/config.json'
 import ui from '../data/ui.json'
 
 const generator = new NPCGenerator()
+
+const QUERY_COSTS    = config.query_costs as Record<string, number>[]
+const QUERY_VARIANCE = config.query_cost_variance as number[]
+
+function randomiseCost(base: Record<string, number>, variance: number): Record<string, number> {
+  const out: Record<string, number> = {}
+  for (const [stat, val] of Object.entries(base)) {
+    const swing = Math.floor(Math.random() * (variance * 2 + 1)) - variance
+    out[stat] = val + swing
+  }
+  return out
+}
 
 const BUILDINGS = config.buildings as Array<{
   id: string
@@ -78,7 +90,6 @@ export const useGameLoop = () => {
 
     stats.applyFoodConsumption()
 
-    // Zorluk: günlük yemek bonusu/cezası
     const diffMod = DIFF_MODS[settings.difficulty]
     if (diffMod?.daily_food_bonus !== 0) {
       stats.apply({ food: diffMod.daily_food_bonus })
@@ -86,9 +97,17 @@ export const useGameLoop = () => {
 
     stats.applyStarvation()
 
-    // Zorluk: ekstra kıtlık hasarı (hard)
     if (diffMod?.starvation_extra > 0 && stats.stats.food <= 0) {
       stats.apply({ population: -diffMod.starvation_extra })
+    }
+
+    const { next: cascaded, triggered } = StatEngine.applyCascade(stats.stats)
+    if (triggered.length > 0) {
+      stats._setStats(cascaded)
+      const cascadeNotes = (ui as any).cascade_notifications as Record<string, string>
+      for (const stat of triggered) {
+        if (cascadeNotes[stat]) game.addNotification(cascadeNotes[stat])
+      }
     }
 
     const infectionReduction = computeInfectionReduction(progress.buildings)
@@ -214,18 +233,16 @@ export const useGameLoop = () => {
     game.incrementRunStat('queries')
 
     if (!result.isFree) {
-      stats.apply({ food: -config.query_food_cost })
+      const base     = QUERY_COSTS[result.queryIndex]    ?? QUERY_COSTS[1]
+      const variance = QUERY_VARIANCE[result.queryIndex] ?? 3
+      stats.apply(randomiseCost(base, variance))
     }
 
     if (result.queryIndex === 0) {
-      return ui.role_surface_scan[npc.role] ?? ui.query_messages.default_scan
+      return npc.clue_text
     }
 
-    if (result.queryIndex === 1) {
-      return `${ui.query_messages.depth_analysis_prefix}${npc.clue_text}`
-    }
-
-    return ui.trait_final[npc.hidden_trait] ?? npc.clue_text
+    return npc.scan_result
   }, [game, stats])
 
   const handleEventChoice = useCallback((choiceId: 'A' | 'B' | 'C') => {

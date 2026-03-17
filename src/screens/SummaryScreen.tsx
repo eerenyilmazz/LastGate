@@ -22,6 +22,7 @@ const C         = themeData.colors
 const STAT_KEYS = UI.stat_keys as StatType[]
 const MONO      = Platform.select(UI.font_mono) as string
 const L         = uiData.labels as Record<string, string>
+const STRINGS   = (uiData as any).strings as Record<string, string>
 
 interface Props {
   onRestart?: () => void
@@ -56,9 +57,9 @@ export const SummaryScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
       >
 
         <View style={styles.header}>
-          <Text style={[styles.tag, { fontFamily: MONO }]}>[ ZAFERLİ SON ]</Text>
+          <Text style={[styles.tag, { fontFamily: MONO }]}>{STRINGS.summary_victory_tag}</Text>
           <Animated.Text style={[styles.emblem, emblemStyle]}>🏆</Animated.Text>
-          <Text style={[styles.title, { fontFamily: MONO }]}>ŞEHİR KURTARILDI</Text>
+          <Text style={[styles.title, { fontFamily: MONO }]}>{STRINGS.summary_victory_title}</Text>
           <Text style={styles.dayLine}>
             {game.day}. günde zafer
           </Text>
@@ -71,7 +72,7 @@ export const SummaryScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
         <View style={styles.divider} />
 
         <View style={styles.section}>
-          <Text style={[styles.sectionLabel, { fontFamily: MONO }]}>— FİNAL DURUMU —</Text>
+          <Text style={[styles.sectionLabel, { fontFamily: MONO }]}>{STRINGS.summary_status_label}</Text>
           {STAT_KEYS.map(key => {
             const val   = Math.round(stats.stats[key])
             const color = (C as any)[`stat_${key}`] as string
@@ -95,7 +96,7 @@ export const SummaryScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
         <View style={styles.divider} />
 
         <View style={styles.spRow}>
-          <Text style={[styles.spLabel, { fontFamily: MONO }]}>TOPLAM SP</Text>
+          <Text style={[styles.spLabel, { fontFamily: MONO }]}>{STRINGS.summary_sp_label}</Text>
           <View style={styles.spRight}>
             <Text style={[styles.spStar, { fontFamily: MONO }]}>★</Text>
             <Text style={[styles.spNum, { fontFamily: MONO }]}>{progress.sp}</Text>

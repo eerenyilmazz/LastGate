@@ -28,7 +28,7 @@
     "economy": 0
   },
   "event_trigger_chance": 0.5,
-  "query_charges_per_day": 2,
+  "query_charges_per_day": 3,
   "win_condition_day": 100,
   "event_trigger_chance_late": 0.75,
   "late_game_day": 50,
@@ -120,12 +120,31 @@
     "game_over": 5
   },
   "query_food_cost": 5,
+  "query_costs": [
+    {},
+    { "economy": -8, "food": -5 },
+    { "economy": -10, "defense": -6, "immunity": -3 }
+  ],
+  "query_cost_variance": [0, 3, 4],
+  "cascade_effects": {
+    "immunity":   { "population": -2 },
+    "food":       { "economy": -3, "defense": -2 },
+    "defense":    { "food": -8, "economy": -5, "population": -3 },
+    "economy":    { "food": -5, "defense": -3 },
+    "population": { "economy": -5, "defense": -3 }
+  },
   "infection_reduction_cap": 0.9,
   "query_result_timeout_ms": 6000,
   "economy_food_conversion_rate": 0.05,
   "audio_volumes": {
     "ambient": 0.22,
     "sfx": 0.75
+  },
+  "sfx_volumes": {
+    "sfx_query":      0.35,
+    "sfx_critical":   0.65,
+    "sfx_door_open":  0.75,
+    "sfx_door_close": 0.75
   },
   "buildings": [
     {

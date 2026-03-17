@@ -12,12 +12,13 @@ const TY = themeData.typography as any
 const SP = themeData.spacing
 const R  = themeData.radius
 const MONO  = Platform.select(themeData.ui.font_mono) as string
-const INTRO = uiData.intro
-const DOTS  = themeData.ui.terminal_dots
+const INTRO   = uiData.intro
+const DOTS    = themeData.ui.terminal_dots
+const STRINGS = (uiData as any).strings as Record<string, string>
 
-const LINE_DELAY_MS  = 720
-const FIRST_DELAY_MS = 800
-const CTA_DELAY_MS   = 500
+const LINE_DELAY_MS  = themeData.animation.intro_line_delay_ms
+const FIRST_DELAY_MS = themeData.animation.intro_first_delay_ms
+const CTA_DELAY_MS   = themeData.animation.intro_cta_delay_ms
 
 interface Props {
   onStart: () => void
@@ -40,7 +41,7 @@ export const IntroScreen: React.FC<Props> = ({ onStart }) => {
 
   useEffect(() => {
     if (showCTA) { setCursor(true); return }
-    const t = setInterval(() => setCursor(c => !c), 480)
+    const t = setInterval(() => setCursor(c => !c), themeData.animation.intro_cursor_blink_ms)
     return () => clearInterval(t)
   }, [showCTA])
 
@@ -67,7 +68,7 @@ export const IntroScreen: React.FC<Props> = ({ onStart }) => {
           <View style={styles.contentBlock}>
             <View style={styles.dividerRow}>
               <View style={styles.dividerLine} />
-              <Text style={[styles.dividerLabel, { fontFamily: MONO }]}>SEFER GÜNLÜĞÜ</Text>
+              <Text style={[styles.dividerLabel, { fontFamily: MONO }]}>{STRINGS.intro_journal_title}</Text>
               <View style={styles.dividerLine} />
             </View>
 

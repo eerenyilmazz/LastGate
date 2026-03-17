@@ -16,6 +16,7 @@ export type GameOverReason =
   | 'plague'
   | 'breach'
   | 'extinction'
+  | 'collapse'
   | 'victory'
 
 export interface RunStats {

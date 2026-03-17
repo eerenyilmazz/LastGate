@@ -17,6 +17,7 @@ export interface NPC {
   hidden_trait: HiddenTrait
   dialogue: string
   clue_text: string
+  scan_result: string
   illustration_tier: 'tier1' | 'tier2'
   illustration_key: string
   accept: StatDelta

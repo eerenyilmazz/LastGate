@@ -113,7 +113,7 @@ export const CardDetails: React.FC<Props> = ({ npc, visible, onClose }) => {
               </View>
             </View>
 
-            <SectionLabel text={LABELS.card_observe} color="#444" />
+            <SectionLabel text={LABELS.card_observe} color={C.divider_neutral} />
             <View style={ds.observeBlock}>
               <Text style={[ds.observeText, { fontFamily: MONO }]}>{npc.clue_text}</Text>
             </View>

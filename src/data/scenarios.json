@@ -7,6 +7,7 @@
       "hidden_trait": "infected",
       "dialogue": "Elimdeki ilaçlarla sizi iyileştirebilirim. Küçük bir ücreti hak ettiğimi düşünüyorum.",
       "clue_text": "Adam sürekli ellerini oğuşturuyor ve gözleri hafifçe kızarmış görünüyor.",
+      "scan_result": "göz kızarıklığı ve el sürtme refleksi tespit edildi; biyolojik temas şüphesi",
       "illustration_tier": "tier1",
       "illustration_key": "serge_infected_liar",
       "accept": {
@@ -31,6 +32,7 @@
       "hidden_trait": "none",
       "dialogue": "Koreli bir virolog olarak bu salgını durdurmanın yolunu biliyorum. Güvenin bana.",
       "clue_text": "Titiz notlar tutan bu adam, her detayı kayıt altına alıyor; son derece metodolojik.",
+      "scan_result": "metodolojik kayıt tutma doğrulandı; virolog kimliği ve notlar tutarlı",
       "illustration_tier": "tier1",
       "illustration_key": "dr_park",
       "accept": {
@@ -50,6 +52,7 @@
       "hidden_trait": "none",
       "dialogue": "Uzayda görev yaparken öğrendiğim hayatta kalma protokolleri burada da işe yarayacak.",
       "clue_text": "Bu kadın hem tıp hem mühendislik bilgisiyle donatılmış; duruşu güven veriyor.",
+      "scan_result": "tıp ve mühendislik çift uzmanlığı doğrulandı; uzay görevi sicili tutarlı",
       "illustration_tier": "tier1",
       "illustration_key": "dr_keiko",
       "accept": {
@@ -69,6 +72,7 @@
       "hidden_trait": "spy",
       "dialogue": "Nükleer radyasyona karşı antidot üretebilirim; ama önce bir yere yerleşmem gerekiyor.",
       "clue_text": "Sözleri mantıklı gelse de göz temasından kaçınıyor ve çantasını hiç bırakmıyor.",
+      "scan_result": "göz temasından kaçınma ve kayıt dışı iletişim cihazı tespit edildi",
       "illustration_tier": "tier1",
       "illustration_key": "dr_volkov",
       "accept": {
@@ -92,6 +96,7 @@
       "hidden_trait": "none",
       "dialogue": "Yıllarca köy kliniğinde çalıştım; kaynağı sınırlı ortamlarda tıp uygulamayı bilirim.",
       "clue_text": "Elleri nasırlı ama hareketleri son derece kesin ve emin; gerçek bir pratisyen.",
+      "scan_result": "el nasırları ve kesin hareketler doğrulandı; pratisyen geçmişi tutarlı",
       "illustration_tier": "tier2",
       "illustration_key": "doctor_female_01",
       "accept": {
@@ -111,6 +116,7 @@
       "hidden_trait": "liar",
       "dialogue": "On yıllık cerrahi deneyimim var; sizi her türlü yaralanmadan kurtarabilirim.",
       "clue_text": "Ellerinde ameliyat izi yok ve tıbbi terminolojiyi biraz yanlış kullanıyor.",
+      "scan_result": "ameliyat izi yok; tıbbi terminoloji hataları cerrahi deneyim iddiasıyla çelişiyor",
       "illustration_tier": "tier2",
       "illustration_key": "doctor_male_01",
       "accept": {
@@ -130,6 +136,7 @@
       "hidden_trait": "infected",
       "dialogue": "Ateşimi düşürmeye çalışıyorum ama sizi iyileştirecek gücüm var, yemin ederim.",
       "clue_text": "Kadın açıkça hasta; solgun ve terliyor, ama bunu gizlemeye çalışıyor.",
+      "scan_result": "solgunluk ve terleme gözlemlendi; ateş gizlenmeye çalışılıyor",
       "illustration_tier": "tier2",
       "illustration_key": "doctor_female_01",
       "accept": {
@@ -154,6 +161,7 @@
       "hidden_trait": "protector",
       "dialogue": "Hastalarımı hiçbir zaman bırakmadım. Topluluğunuzu da bırakmayacağım.",
       "clue_text": "Yanında getirdiği ilaçların bir kısmını zaten paylaşmış; eli açık biri.",
+      "scan_result": "ilaç paylaşım kaydı doğrulandı; topluluk katkısı sicili temiz",
       "illustration_tier": "tier2",
       "illustration_key": "doctor_male_01",
       "accept": {
@@ -173,6 +181,7 @@
       "hidden_trait": "none",
       "dialogue": "Pediatri uzmanıyım; çocuklarınızı enfeksiyonlardan koruyabilirim.",
       "clue_text": "Çocuklara yaklaşımı son derece şefkatli; güvenilir bir anne profili çiziyor.",
+      "scan_result": "pediatri uzmanlığı doğrulandı; çocuk enfeksiyon protokolleri bilgisi tutarlı",
       "illustration_tier": "tier2",
       "illustration_key": "doctor_female_01",
       "accept": {
@@ -192,6 +201,7 @@
       "hidden_trait": "thief",
       "dialogue": "İlaç depom var ve sizinle paylaşmaya hazırım, yeter ki bana yer açın.",
       "clue_text": "İddiasına göre büyük ilaç stoğu var ama yanında neredeyse hiç ilaç taşımıyor.",
+      "scan_result": "büyük ilaç stoğu beyanı; taşınan miktar iddia edilen depolarla uyuşmuyor",
       "illustration_tier": "tier2",
       "illustration_key": "doctor_male_01",
       "accept": {
@@ -216,6 +226,7 @@
       "hidden_trait": "liar",
       "dialogue": "Eczacılık doktorasım var; ilaç formüllerini ezberden biliyorum.",
       "clue_text": "Formülleri hatırlamakta zorlanıyor ve bazı ilaç adlarını yanlış telaffuz ediyor.",
+      "scan_result": "ilaç adı telaffuz hataları ve formül belirsizliği; eczacılık doktorası doğrulanamadı",
       "illustration_tier": "tier2",
       "illustration_key": "doctor_female_01",
       "accept": {
@@ -235,6 +246,7 @@
       "hidden_trait": "infected",
       "dialogue": "Beni kabul edin, karşılığında tüm tıp bilgimi sizinle paylaşacağım.",
       "clue_text": "Konuşurken ara ara duraksıyor ve nefes alışverişi normalden daha hızlı.",
+      "scan_result": "konuşma sırasında duraksamalar ve hızlanmış nefes alışverişi; biyolojik belirti",
       "illustration_tier": "tier2",
       "illustration_key": "doctor_male_01",
       "accept": {
@@ -259,6 +271,7 @@
       "hidden_trait": "none",
       "dialogue": "Travma cerrahisinde uzmanlaştım; savaş yaralanmalarını tedavi etmeyi bilirim.",
       "clue_text": "Sakin ve soğukkanlı; en zor durumları bile paniklemeden karşılayabilecek biri.",
+      "scan_result": "travma cerrahisi sicili doğrulandı; soğukkanlılık ve teknik bilgi tutarlı",
       "illustration_tier": "tier2",
       "illustration_key": "doctor_female_01",
       "accept": {
@@ -278,6 +291,7 @@
       "hidden_trait": "spy",
       "dialogue": "Sizi iyileştiririm ama hangi grupların nerede olduğunu da bilmem gerekiyor.",
       "clue_text": "Diğer gruplar hakkında fazla soru soruyor; bilgi toplamak gibi davranıyor.",
+      "scan_result": "diğer grupların konumu hakkında sistematik sorgulama; bilgi toplama davranışı tespit edildi",
       "illustration_tier": "tier2",
       "illustration_key": "doctor_male_01",
       "accept": {
@@ -301,6 +315,7 @@
       "hidden_trait": "none",
       "dialogue": "Hemşirelik yaptım ama ihtiyaç duyunca doktor gibi davranmayı öğrendim.",
       "clue_text": "Pratik ve çok yönlü; elimdeki malzemeyle mucizeler yaratır gibi görünüyor.",
+      "scan_result": "hemşirelik ve pratik tıp geçmişi doğrulandı; çok yönlü sağlık sicili tutarlı",
       "illustration_tier": "tier2",
       "illustration_key": "doctor_female_01",
       "accept": {
@@ -320,6 +335,7 @@
       "hidden_trait": "liar",
       "dialogue": "Virüsün tam antidotunu geliştirdim; sadece uygun bir laboratuvar lazım.",
       "clue_text": "Antidot hakkında sorulunca açıklayamıyor ve konuyu değiştirmeye çalışıyor.",
+      "scan_result": "antidot iddiası teknik sorgulamada çöküyor; konu değiştirme davranışı kayıtlandı",
       "illustration_tier": "tier2",
       "illustration_key": "doctor_male_01",
       "accept": {
@@ -339,6 +355,7 @@
       "hidden_trait": "infected",
       "dialogue": "Lütfen beni kabul edin; hâlâ çok şey yapabilirim, sadece biraz zaman lazım.",
       "clue_text": "Elleri titriyor ve gözaltları mosmor; açıkça dinlenmeye ihtiyacı var.",
+      "scan_result": "el titremesi ve gözaltı morluğu gözlemlendi; biyolojik yük semptomları belirgin",
       "illustration_tier": "tier2",
       "illustration_key": "doctor_female_01",
       "accept": {
@@ -363,6 +380,7 @@
       "hidden_trait": "none",
       "dialogue": "Epidemiyolog olarak bu salgının seyrini öngörebilir ve önlem alabilirim.",
       "clue_text": "Hastalık yayılma haritaları çiziyor; gerçekten bilgili ve hazırlıklı biri.",
+      "scan_result": "hastalık yayılma haritaları gerçek; epidemiyoloji geçmişi ve notlar doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "doctor_male_01",
       "accept": {
@@ -382,6 +400,7 @@
       "hidden_trait": "thief",
       "dialogue": "Benim ilaç çantam sizin için hayat kurtarıcı olabilir, güvenin bana.",
       "clue_text": "İlaç çantası beklenenden çok daha hafif görünüyor; sanki içi boş.",
+      "scan_result": "ilaç çantası beyana göre anormal derecede hafif; stok içeriği iddia edilenden boş",
       "illustration_tier": "tier2",
       "illustration_key": "doctor_female_01",
       "accept": {
@@ -406,6 +425,7 @@
       "hidden_trait": "none",
       "dialogue": "Psikiyatri alanında çalışıyordum; hayatta kalanların ruhsal sağlığını koruyabilirim.",
       "clue_text": "İnsanları dikkatle dinliyor ve empatiyle yaklaşıyor; topluluklar için değerli biri.",
+      "scan_result": "psikiyatri geçmişi doğrulandı; aktif dinleme ve empati sicili tutarlı",
       "illustration_tier": "tier2",
       "illustration_key": "doctor_male_01",
       "accept": {
@@ -425,6 +445,7 @@
       "hidden_trait": "infected",
       "dialogue": "Bilgim ve ilaçlarımla katkı sağlayabilirim; sadece beni yalnız bırakmayın.",
       "clue_text": "Yalnız kalmaktan korkuyor gibi; bu durum şüphe uyandırıyor.",
+      "scan_result": "cilt solukluğu ve hızlı nabız tespit edildi; göz kızarıklığı enfeksiyon belirtisi",
       "illustration_tier": "tier2",
       "illustration_key": "doctor_female_01",
       "accept": {
@@ -449,6 +470,7 @@
       "hidden_trait": "liar",
       "dialogue": "Genel cerrahi ve kardiyoloji alanında uzmanım; birden fazla alanda katkı sunabilirim.",
       "clue_text": "İki farklı uzmanlık alanı iddiası biraz fazla geliyor; bilgisi yüzeysel görünüyor.",
+      "scan_result": "çift uzmanlık sorgulandığında çelişkili yanıtlar; uzmanlık alanlarından biri doğrulanamadı",
       "illustration_tier": "tier2",
       "illustration_key": "doctor_male_01",
       "accept": {
@@ -468,6 +490,7 @@
       "hidden_trait": "none",
       "dialogue": "Bir hastanede kalan son doktorlardandım; her şeyi gördüm ve öğrendim.",
       "clue_text": "Gözlerindeki yorgunluk gerçek; ama kararlılığı da o kadar gerçek.",
+      "scan_result": "psikolojik travma tedavisi geçmişi doğrulandı; güven ilişkisi kurma sicili temiz",
       "illustration_tier": "tier2",
       "illustration_key": "doctor_female_01",
       "accept": {
@@ -487,6 +510,7 @@
       "hidden_trait": "spy",
       "dialogue": "Size hem tıbbi hem de istihbarat desteği verebilirim; her iki alanda da deneyimliyim.",
       "clue_text": "İstihbarat kelimesini kullanması ilginç; bu kadar açık sözlülük şüphe uyandırıyor.",
+      "scan_result": "uluslararası örgüt kimliği doğrulanamadı; kayıt dışı iletişim cihazı tespit edildi",
       "illustration_tier": "tier2",
       "illustration_key": "doctor_male_01",
       "accept": {
@@ -510,6 +534,7 @@
       "hidden_trait": "infected",
       "dialogue": "Yıllarca dağ köylerinde seyyar hekim olarak çalıştım; zorluklara alışkınım.",
       "clue_text": "Dağ yolculuğu sonrası soluk benzi ve sürekli öksürüğü dikkat çekiyor.",
+      "scan_result": "açıklanamayan cilt lekeleri mevcut; karantina bölgesi temas geçmişi şüpheli",
       "illustration_tier": "tier2",
       "illustration_key": "doctor_female_01",
       "accept": {
@@ -534,6 +559,7 @@
       "hidden_trait": "protector",
       "dialogue": "Tohumlarım var, toprağı nasıl işleyeceğimi biliyorum. Birlikte yetiştiririz.",
       "clue_text": "Yaşlı adam elleri nasırlı ve çantasında gerçek tohumlar taşıyor; dürüst biri.",
+      "scan_result": "çiftlik ürünleri paylaşım kaydı doğrulandı; elli yıllık tarım sicili tutarlı",
       "illustration_tier": "tier1",
       "illustration_key": "bekir_dede",
       "accept": {
@@ -552,6 +578,7 @@
       "hidden_trait": "none",
       "dialogue": "Otuz yıldır çiftçiyim; bu toprakları tanıyorum ve ne ekeceğimi biliyorum.",
       "clue_text": "Toprağa bakarken gözleri parlıyor; bu kadın gerçekten toprakla bütünleşmiş.",
+      "scan_result": "toprak kaplı giysiler ve tohum stoku gerçek; çiftçi profili doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "farmer_female_01",
       "accept": {
@@ -570,6 +597,7 @@
       "hidden_trait": "none",
       "dialogue": "Yetiştirdiğim sebzelerle kışı atlattınız. Şimdi de atlatırız.",
       "clue_text": "Güçlü yapılı, elleri toprak kokuyor; sözleri abartısız ve net.",
+      "scan_result": "el nasır izleri hayvancılık geçmişini doğruluyor; veteriner bilgisi tutarlı",
       "illustration_tier": "tier2",
       "illustration_key": "farmer_male_01",
       "accept": {
@@ -588,6 +616,7 @@
       "hidden_trait": "liar",
       "dialogue": "Büyük bir çiftliğim var; yüzlerce kişiyi besleyebilecek kadar ürün yetiştiririm.",
       "clue_text": "Bahsettiği çiftlik hakkında sorulunca belirsiz cevaplar veriyor.",
+      "scan_result": "çiftlik gıda miktarı iddiası taşınan stokla örtüşmüyor; beyan tutarsız",
       "illustration_tier": "tier2",
       "illustration_key": "farmer_female_01",
       "accept": {
@@ -606,6 +635,7 @@
       "hidden_trait": "infected",
       "dialogue": "Tarlam hazır, ama biraz yorgunum. Yine de çalışırım.",
       "clue_text": "Soluk ve bitkin görünüyor; verimli çalışıp çalışamayacağı şüpheli.",
+      "scan_result": "el kabarcıkları ve solgunluk gözlemlendi; öksürük gizleme davranışı tespit edildi",
       "illustration_tier": "tier2",
       "illustration_key": "farmer_male_01",
       "accept": {
@@ -629,6 +659,7 @@
       "hidden_trait": "none",
       "dialogue": "Hidroponik tarım yöntemlerini biliyorum; topraksız da yetiştiririm.",
       "clue_text": "Yanında taşıdığı küçük hidroponik kurulum gerçek ve çalışıyor.",
+      "scan_result": "erzak miktarı beyanıyla örtüşüyor; kış stoğu içeriği doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "farmer_female_01",
       "accept": {
@@ -647,6 +678,7 @@
       "hidden_trait": "thief",
       "dialogue": "Gıda depom var; paylaşmak istiyorum ama önce güvenli bir yer lazım.",
       "clue_text": "Depoya götürmeyi sürekli erteliyor; bir bahane arıyor gibi.",
+      "scan_result": "bölgedeki gıda kayıpları tarihiyle örtüşen hareket geçmişi tespit edildi",
       "illustration_tier": "tier2",
       "illustration_key": "farmer_male_01",
       "accept": {
@@ -670,6 +702,7 @@
       "hidden_trait": "none",
       "dialogue": "Kurutulmuş sebze ve meyve stokum var; uzun süre dayanır.",
       "clue_text": "Gösterdiği kurutulmuş gıdalar gerçek ve iyi saklanmış görünüyor.",
+      "scan_result": "şifalı bitki stoku gerçek; doğal tıp bilgisi ve geçmişi doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "farmer_female_01",
       "accept": {
@@ -688,6 +721,7 @@
       "hidden_trait": "spy",
       "dialogue": "Gıda yetiştiririm ama çevredeki gruplar hakkında da bilgi toplarım.",
       "clue_text": "Tarım bilgisi yüzeysel; asıl ilgisi çevredeki grupların hareketleri.",
+      "scan_result": "çiftlik ötesinde topluluk bilgisi toplama; sistematik istihbarat davranışı kayıtlandı",
       "illustration_tier": "tier2",
       "illustration_key": "farmer_male_01",
       "accept": {
@@ -710,6 +744,7 @@
       "hidden_trait": "none",
       "dialogue": "Arıcılık yapıyorum; bal hem gıda hem de ilaç olarak kullanılabilir.",
       "clue_text": "Gerçekten arı peteği ve bal kavanozu taşıyor; bilgisi gerçek.",
+      "scan_result": "arı sokması izleri doğrulandı; bal ve balmumu stoku beyanıyla örtüşüyor",
       "illustration_tier": "tier2",
       "illustration_key": "farmer_female_01",
       "accept": {
@@ -728,6 +763,7 @@
       "hidden_trait": "liar",
       "dialogue": "Bin çeşit tohum getirdim; tüm iklim koşullarına uygun ürünler yetiştiririm.",
       "clue_text": "Tohum çantası aslında neredeyse boş; iddiaları çok abartılı.",
+      "scan_result": "tarif edilen bitkiler bölgede yetişmiyor; botanik bilgisi yüzeysel ve asılsız",
       "illustration_tier": "tier2",
       "illustration_key": "farmer_male_01",
       "accept": {
@@ -746,6 +782,7 @@
       "hidden_trait": "infected",
       "dialogue": "Çiftliğimden kaçtım; hâlâ tarım bilgim var, kullanabilirim.",
       "clue_text": "Kaçış hikayesi eksik parçalar içeriyor; görünüşü de endişe verici.",
+      "scan_result": "hayvanlardan birinde hastalık belirtisi gözlemlendi; bulaşıcı temas şüphesi var",
       "illustration_tier": "tier2",
       "illustration_key": "farmer_female_01",
       "accept": {
@@ -769,6 +806,7 @@
       "hidden_trait": "none",
       "dialogue": "Meyve bahçesi kuruyorum; yeterince vaktiniz olsa bol meyve yersiniz.",
       "clue_text": "Uzun vadeli düşünen biri; bu topluluk için değerli bir bakış açısı.",
+      "scan_result": "sera malzemeleri ve teknik planlar gerçek; kış üretim geçmişi doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "farmer_male_01",
       "accept": {
@@ -787,6 +825,7 @@
       "hidden_trait": "thief",
       "dialogue": "Gıda dağıtımını ben organize ederim; adil paylaştırırım herkese.",
       "clue_text": "Dağıtım konusunda çok hevesli; kontrolü ele almak istiyor gibi.",
+      "scan_result": "tohumlar standart market ürünü; nadir tür iddiası asılsız ve fiyat şişirilmiş",
       "illustration_tier": "tier2",
       "illustration_key": "farmer_female_01",
       "accept": {
@@ -810,6 +849,7 @@
       "hidden_trait": "none",
       "dialogue": "Hayvancılık yapıyorum; süt, et ve yün sağlayabilirim.",
       "clue_text": "Hayvanlarıyla kurduğu bağ gerçek; güvenilir ve çalışkan biri.",
+      "scan_result": "sulama mühendisliği aletleri gerçek; su kanalı kurulum geçmişi doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "farmer_male_01",
       "accept": {
@@ -828,6 +868,7 @@
       "hidden_trait": "none",
       "dialogue": "Şifalı otları tanıyorum; hem gıda hem ilaç olarak kullanabiliriz.",
       "clue_text": "Bitki bilgisi gerçek; yanında taşıdığı ot koleksiyonu etkileyici.",
+      "scan_result": "konserve ürünleri iyi paketlenmiş; uzun ömürlü gıda saklama geçmişi doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "farmer_female_01",
       "accept": {
@@ -846,6 +887,7 @@
       "hidden_trait": "liar",
       "dialogue": "Devlet çiftliğini yönetiyordum; endüstriyel ölçekte üretim yapabilirim.",
       "clue_text": "Endüstriyel tarım hakkında temel bilgisi yok; iddiası fazla büyük.",
+      "scan_result": "belirtilen koordinatlarda tarım faaliyeti tespit edilemedi; mahsul iddiası asılsız",
       "illustration_tier": "tier2",
       "illustration_key": "farmer_male_01",
       "accept": {
@@ -864,6 +906,7 @@
       "hidden_trait": "infected",
       "dialogue": "Tohumlarımı korudum, ama tarlaya gidecek halim yok şu an.",
       "clue_text": "Açıkça yorgun ve hasta; tohumları gerçek ama kendisi çalışamaz durumda.",
+      "scan_result": "el yaraları ve anormal yorgunluk; biyolojik temas şüphesi doğrulanıyor",
       "illustration_tier": "tier2",
       "illustration_key": "farmer_female_01",
       "accept": {
@@ -887,6 +930,7 @@
       "hidden_trait": "none",
       "dialogue": "Balık yetiştiriyorum; nehir kenarında bir balık çiftliği kurabiliriz.",
       "clue_text": "Nehir haritasını biliyor ve balıkçılık ekipmanı taşıyor; gerçek bir uzman.",
+      "scan_result": "veteriner ekipmanları ve tohum stoku doğrulandı; çift yönlü tarım sicili temiz",
       "illustration_tier": "tier2",
       "illustration_key": "farmer_male_01",
       "accept": {
@@ -905,6 +949,7 @@
       "hidden_trait": "spy",
       "dialogue": "Çiftçiyim ama yolu iyi bilirim; başka grupların yerini de söyleyebilirim.",
       "clue_text": "Tarım yerine diğer grupların yerleri hakkında konuşmakta çok istekli.",
+      "scan_result": "kendi köyü ötesinde sistematik bilgi toplama; istihbarat faaliyeti şüphesi kayıtlandı",
       "illustration_tier": "tier2",
       "illustration_key": "farmer_female_01",
       "accept": {
@@ -927,6 +972,7 @@
       "hidden_trait": "none",
       "dialogue": "Kompost ve organik gübreleme biliyorum; toprağı verimli hale getiririm.",
       "clue_text": "Uygulamalı tarım bilgisi sağlam; ellerindeki toprak lekesi bunu doğruluyor.",
+      "scan_result": "meyve fidanları gerçek; uzun vadeli bahçe tarım planlaması tutarlı",
       "illustration_tier": "tier2",
       "illustration_key": "farmer_male_01",
       "accept": {
@@ -945,6 +991,7 @@
       "hidden_trait": "protector",
       "dialogue": "Komşularım açken uyuyamam; sizinle birlikte herkesi doyururum.",
       "clue_text": "Yanında getirdiği gıdaları zaten dağıtmaya başlamış; eli açık ve cömert.",
+      "scan_result": "birden fazla toplulukta mahsul paylaşım kaydı doğrulandı; fedakarlık sicili temiz",
       "illustration_tier": "tier2",
       "illustration_key": "farmer_female_01",
       "accept": {
@@ -963,6 +1010,7 @@
       "hidden_trait": "liar",
       "dialogue": "Seracılık yapıyorum; yıl boyu üretim yapabilirim ve depom dolu.",
       "clue_text": "Sera teknolojisi hakkında bilgisi yetersiz; depodaki ürün miktarı şüpheli.",
+      "scan_result": "tohum bankası koordinatları önceki beyanlarla çelişiyor; lokasyon tutarsızlığı kayıtlandı",
       "illustration_tier": "tier2",
       "illustration_key": "farmer_male_01",
       "accept": {
@@ -981,6 +1029,7 @@
       "hidden_trait": "none",
       "dialogue": "Fermente gıda yaparım; turşu ve sirke uzun süre bozulmaz.",
       "clue_text": "Fermentasyon kaplarını özenle taşıyor; gerçek bir gıda koruma uzmanı.",
+      "scan_result": "süt ürünleri ekipmanları kullanılmış ve gerçek; peynir ve yoğurt geçmişi doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "farmer_female_01",
       "accept": {
@@ -999,6 +1048,7 @@
       "hidden_trait": "infected",
       "dialogue": "Hasatı toplayabildim ama kendimi pek iyi hissetmiyorum son günlerde.",
       "clue_text": "Ateşi var; hasadın bir kısmına dokunmuş olması endişe verici.",
+      "scan_result": "terleme ve renk solukluğu belirgin; denge kaybı ve biyolojik yük semptomları aktif",
       "illustration_tier": "tier2",
       "illustration_key": "farmer_male_01",
       "accept": {
@@ -1022,6 +1072,7 @@
       "hidden_trait": "none",
       "dialogue": "Beş kişilik grubumla savunmanızı güçlendirebiliriz. Disiplinli ve deneyimliyiz.",
       "clue_text": "Beş kişilik bu grup iyi organize edilmiş; ekipmanları gerçek ve düzenli.",
+      "scan_result": "ekipman bakımı ve grup düzeni profesyonel; askeri eğitim sicili doğrulandı",
       "illustration_tier": "tier1",
       "illustration_key": "marcus_group_5",
       "accept": {
@@ -1041,6 +1092,7 @@
       "hidden_trait": "protector",
       "dialogue": "Çocuklarımızı korumak için her şeyi öğrendik. Sizin topluluğunuzu da koruruz.",
       "clue_text": "Üç annenin kararlılığı ve birlik duygusu gerçekten etkileyici ve güçlü.",
+      "scan_result": "bölgede birden fazla sivil koruma kaydı mevcut; savunma katkısı sicili belgelendi",
       "illustration_tier": "tier1",
       "illustration_key": "warrior_mothers",
       "accept": {
@@ -1060,6 +1112,7 @@
       "hidden_trait": "spy",
       "dialogue": "İstihbarat ve savaş konusunda eğitildim. Görünürde olmak istemiyorum.",
       "clue_text": "Kimliği konusunda çok az bilgi paylaşıyor; ajanlar bu kadar dikkatli davranır.",
+      "scan_result": "keşif güzergahları savunma değil kaynak ve nüfus tespitini kapsıyor; casusluk şüphesi",
       "illustration_tier": "tier1",
       "illustration_key": "phoenix_cia",
       "accept": {
@@ -1083,6 +1136,7 @@
       "hidden_trait": "none",
       "dialogue": "Eski bir komandoyum; gözetleme ve savunma hattı kurma konusunda uzmanım.",
       "clue_text": "Çevreyi otomatik olarak tarıyor; profesyonel bir asker profili.",
+      "scan_result": "özel kuvvetler sicili doğrulandı; fiziksel kondisyon ve ekipman bilgisi tutarlı",
       "illustration_tier": "tier2",
       "illustration_key": "soldier_male_01",
       "accept": {
@@ -1102,6 +1156,7 @@
       "hidden_trait": "none",
       "dialogue": "Poliste çalışırken çok şey öğrendim; düzeni ve güvenliği sağlarım.",
       "clue_text": "Sakin ve otoriteli; kalabalığı kontrol etme konusunda deneyimli.",
+      "scan_result": "silah bakımı titiz; nişancılık tekniği ve sniper eğitimi sicili doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "soldier_female_01",
       "accept": {
@@ -1121,6 +1176,7 @@
       "hidden_trait": "liar",
       "dialogue": "Özel kuvvetler mensubuydum; tek başıma bir orduya bedelim.",
       "clue_text": "Özel kuvvetler protokollerini bilmiyor; iddiaları gerçekle örtüşmüyor.",
+      "scan_result": "temel taktik sorularına yanıt yok; komando eğitimi kayıtları bulunamadı",
       "illustration_tier": "tier2",
       "illustration_key": "soldier_male_01",
       "accept": {
@@ -1140,6 +1196,7 @@
       "hidden_trait": "infected",
       "dialogue": "Savaşmak istiyorum; ama önce biraz iyileşmem gerekiyor.",
       "clue_text": "Yüzünde ve ellerinde şüpheli lekeler var; tedaviye ihtiyacı açık.",
+      "scan_result": "yara bölgesinde şişme ve kızarıklık; enfeksiyon başlangıç semptomları tespit edildi",
       "illustration_tier": "tier2",
       "illustration_key": "soldier_female_01",
       "accept": {
@@ -1164,6 +1221,7 @@
       "hidden_trait": "thief",
       "dialogue": "Silah depom var; size karşılıksız bırakabilirim, yeter ki güven olsun.",
       "clue_text": "Silah deposunu sormaya başlayınca konu değiştiriyor; şüpheli bir tutum.",
+      "scan_result": "beyan edilen silah deposu koordinatları başka grup tarafından boşaltılmış konum",
       "illustration_tier": "tier2",
       "illustration_key": "soldier_male_01",
       "accept": {
@@ -1188,6 +1246,7 @@
       "hidden_trait": "none",
       "dialogue": "Keskin nişancıyım; gece görüşlü tüfeğim var ve iyi kullanırım.",
       "clue_text": "Silahını ve mermisini özenle taşıyor; gerçek bir nişancı disiplini.",
+      "scan_result": "istihkam ekipmanları kullanılmış ve gerçek; mayın temizleme sicili doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "soldier_female_01",
       "accept": {
@@ -1207,6 +1266,7 @@
       "hidden_trait": "none",
       "dialogue": "Uzun yıllar sınır korumasında görev yaptım; tehlikeyi önceden hissederim.",
       "clue_text": "Dikkatli ve temkinli; sınır güvenliği konusunda gerçek deneyim taşıyor.",
+      "scan_result": "harita ve gözlem notları detaylı; istihbarat analizi geçmişi doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "soldier_male_01",
       "accept": {
@@ -1226,6 +1286,7 @@
       "hidden_trait": "spy",
       "dialogue": "Size yardım ederim; karşılığında sadece bilgi akışına erişmemi sağlayın.",
       "clue_text": "Bilgi akışına erişim talebi çok doğrudan; bu bir ajan tutumudur.",
+      "scan_result": "güvenlik değerlendirmesi savunmadan çok kaynak ve nüfus tespitini kapsıyor",
       "illustration_tier": "tier2",
       "illustration_key": "soldier_female_01",
       "accept": {
@@ -1249,6 +1310,7 @@
       "hidden_trait": "liar",
       "dialogue": "Subay olarak görev yaptım; tüm savunma protokollerini biliyorum.",
       "clue_text": "Subaylık hiyerarşisi hakkında temel bilgileri eksik; tutarsız anlatı.",
+      "scan_result": "komuta terminolojisi yanlış; rütbe ve birim bilgileri tutarsız, sicil doğrulanamadı",
       "illustration_tier": "tier2",
       "illustration_key": "soldier_male_01",
       "accept": {
@@ -1268,6 +1330,7 @@
       "hidden_trait": "none",
       "dialogue": "Gerilla savaşı taktiklerini bilirim; az kişiyle çok etkili savunma kurarım.",
       "clue_text": "Arazi kullanımı ve pusu teknikleri konusunda gerçekten bilgili.",
+      "scan_result": "lojistik planlama detaylı ve gerçekçi; ikmal hattı ve depo yönetimi sicili doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "soldier_female_01",
       "accept": {
@@ -1287,6 +1350,7 @@
       "hidden_trait": "none",
       "dialogue": "Patlayıcı imha uzmanıyım; tehlikeli bölgeleri güvenli hale getiririm.",
       "clue_text": "Patlayıcı işaret ve uyarılarını anında tanıyor; uzmanlığı gerçek.",
+      "scan_result": "patlayıcı imha ekipmanları gerçek; teknik bilgi ve uzman sicili doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "soldier_male_01",
       "accept": {
@@ -1306,6 +1370,7 @@
       "hidden_trait": "infected",
       "dialogue": "Savaşmak istiyorum ama vücudum çok yorgun; bir süre dinlenebilirsem iyileşirim.",
       "clue_text": "Kas güçsüzlüğü ve düşük ateş; bu kombinasyon erken enfeksiyon belirtisi.",
+      "scan_result": "eski yara izleri yanında yeni şişlik; ateş ve titreme aktif enfeksiyon belirtisi",
       "illustration_tier": "tier2",
       "illustration_key": "soldier_female_01",
       "accept": {
@@ -1330,6 +1395,7 @@
       "hidden_trait": "none",
       "dialogue": "Tank ve zırhlı araç operatörüyüm; mekanik savunma kurulumunu da bilirim.",
       "clue_text": "Mekanik sistemler hakkında detaylı bilgisi var; gerçek bir teknik asker.",
+      "scan_result": "savunma mevzii planları uygulanabilir; savunma mühendisliği geçmişi doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "soldier_male_01",
       "accept": {
@@ -1349,6 +1415,7 @@
       "hidden_trait": "thief",
       "dialogue": "Silah bakım uzmanıyım; tüm silahlarınızı onarır ve güçlendiririm.",
       "clue_text": "Silah parçalarına çok ilgiyle bakıyor; tamire değil, almaya çalışıyor gibi.",
+      "scan_result": "getirilen yedek parçalar tanımlanan sistemlerle uyuşmuyor; farklı kaynaktan alınmış",
       "illustration_tier": "tier2",
       "illustration_key": "soldier_female_01",
       "accept": {
@@ -1373,6 +1440,7 @@
       "hidden_trait": "none",
       "dialogue": "Onlarca yıl güvenlik danışmanlığı yaptım; riski önceden görebilirim.",
       "clue_text": "Risk değerlendirme konuşması gerçekten etkileyici; deneyimi yüzünden okunuyor.",
+      "scan_result": "çavuşluk sicili doğrulandı; birlik disiplini ve liderlik geçmişi tutarlı",
       "illustration_tier": "tier2",
       "illustration_key": "soldier_male_01",
       "accept": {
@@ -1392,6 +1460,7 @@
       "hidden_trait": "liar",
       "dialogue": "Uluslararası barış gücünde görev yaptım; bölge bölge tüm haritaları biliyorum.",
       "clue_text": "Bahsettiği bölgelerde bulunmamış gibi görünüyor; haritaları yanlış çiziyor.",
+      "scan_result": "şifreleme terminolojisine yüzeysel yanıtlar; iletişim sistemi uzmanlığı sahte",
       "illustration_tier": "tier2",
       "illustration_key": "soldier_female_01",
       "accept": {
@@ -1411,6 +1480,7 @@
       "hidden_trait": "spy",
       "dialogue": "Birlikte daha güçlüyüz; ama ben zaman zaman istihbarat toplama görevine çıkacağım.",
       "clue_text": "İstihbarat görevleri için sık sık ayrılacak olması şüphe uyandırıyor.",
+      "scan_result": "güvenlik açığı tespiti savunma değil saldırı planlamasına uygun format içeriyor",
       "illustration_tier": "tier2",
       "illustration_key": "soldier_male_01",
       "accept": {
@@ -1434,6 +1504,7 @@
       "hidden_trait": "none",
       "dialogue": "Halkı korumak için yemin ettim; o yemini hâlâ taşıyorum.",
       "clue_text": "Samimiyeti ve kararlılığı tartışmasız; topluluğa gerçekten bağlı biri.",
+      "scan_result": "saha tıbbı ekipmanları gerçek; askeri hemşire sicili ve yaralı bakım geçmişi doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "soldier_female_01",
       "accept": {
@@ -1453,6 +1524,7 @@
       "hidden_trait": "none",
       "dialogue": "Şehir savaşı taktiklerinde uzmanlaştım; bu ortamda çok işe yararım.",
       "clue_text": "Sokak ve bina güvenliği hakkında bilgisi gerçekten derinlemesine.",
+      "scan_result": "denizcilik ve kıyı savunma bilgisi gerçek; sahil güvenlik geçmişi doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "soldier_male_01",
       "accept": {
@@ -1472,6 +1544,7 @@
       "hidden_trait": "infected",
       "dialogue": "Korkmuyorum; sadece biraz hasta gibiyim, ama savaşabilirim.",
       "clue_text": "Konuşurken öksürüyor ve rengi soluk; savaşmak bir yana, tedaviye ihtiyacı var.",
+      "scan_result": "ateş yüksek ve lenf bölgeleri şişmiş; aktif biyolojik belirti bayrağı kaldırıldı",
       "illustration_tier": "tier2",
       "illustration_key": "soldier_female_01",
       "accept": {
@@ -1496,6 +1569,7 @@
       "hidden_trait": "none",
       "dialogue": "Savaşı iyi bilirim; ama daha önemlisi, nasıl hayatta kalınacağını bilirim.",
       "clue_text": "Pragmatik ve deneyimli; savaştan çok hayatta kalma odaklı düşünüyor.",
+      "scan_result": "psikoloji ve davranış analizi bilgisi gerçek; humint geçmişi doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "soldier_male_01",
       "accept": {
@@ -1515,6 +1589,7 @@
       "hidden_trait": "liar",
       "dialogue": "NATO tatbikatlarında yer aldım; uluslararası savunma standartlarını biliyorum.",
       "clue_text": "NATO prosedürleri hakkında temel bilgisi yok; iddiası doğrulanamıyor.",
+      "scan_result": "koordinatörlük için gereken taktik bilgi eksik; görev kayıtları boş ve doğrulanamadı",
       "illustration_tier": "tier2",
       "illustration_key": "soldier_female_01",
       "accept": {
@@ -1534,6 +1609,7 @@
       "hidden_trait": "none",
       "dialogue": "İnancımız bizi bir arada tutuyor; ticaret yaparak toplumu besleriz.",
       "clue_text": "Cemaati gerçekten bağlı ve organize; ticaret ağları sağlam görünüyor.",
+      "scan_result": "cemaat ticaret kayıtları şeffaf; dini topluluk güvenilir ticaret geçmişi doğrulandı",
       "illustration_tier": "tier1",
       "illustration_key": "pastor_john_crowd",
       "accept": {
@@ -1552,6 +1628,7 @@
       "hidden_trait": "thief",
       "dialogue": "Bölgenin en büyük ticaret ağını kurdum; sizin için en iyi fırsatları getiririm.",
       "clue_text": "Ticaret şartlarını konuşurken çok avantajlı bir pozisyon için bastırıyor.",
+      "scan_result": "sunulan kuyumun bir kısmı sahte alaşım; doğal taş iddiası sentetik materyalle çelişiyor",
       "illustration_tier": "tier2",
       "illustration_key": "trader_male_01",
       "accept": {
@@ -1575,6 +1652,7 @@
       "hidden_trait": "none",
       "dialogue": "Piyasayı okumayı bilirim; neyin değerli olduğunu ve nerede bulunacağını bilirim.",
       "clue_text": "Gözlemci ve analitik; piyasa hareketlerini gerçekten iyi değerlendiriyor.",
+      "scan_result": "ticaret bağlantıları geniş ve gerçek; kayıtlar tutarlı ve şeffaf doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "trader_female_01",
       "accept": {
@@ -1593,6 +1671,7 @@
       "hidden_trait": "liar",
       "dialogue": "Altın ve değerli taşları takas edebilirim; servetim kurtarıcı olacak.",
       "clue_text": "Değerli taşlar hakkında temel bilgisi yok; gösterdiği şeyler sahte görünüyor.",
+      "scan_result": "iddia edilen ticaret ağı şehir kayıtlarında yok; büyük ağ beyanı asılsız",
       "illustration_tier": "tier2",
       "illustration_key": "trader_male_01",
       "accept": {
@@ -1611,6 +1690,7 @@
       "hidden_trait": "none",
       "dialogue": "Tekstil ve giyim ticareti yapıyorum; insanların giymediği şeyleri görmemek zor.",
       "clue_text": "Takas için getirdiği giysiler gerçek ve kullanılabilir; ciddi bir tüccar.",
+      "scan_result": "el işi ürünleri gerçek ve kaliteli; zanaat ve takas geçmişi doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "trader_female_01",
       "accept": {
@@ -1629,6 +1709,7 @@
       "hidden_trait": "spy",
       "dialogue": "Ticaret rotalarımı paylaşabilirim; karşılığında sizin kaynaklarınızı görmeliyim.",
       "clue_text": "Kaynak bilgisine odaklanıyor; ticari kaygıdan çok istihbarat peşinde.",
+      "scan_result": "ticaret güzergahı gözlemleri savunma noktaları ve kaynak depolarına odaklanıyor",
       "illustration_tier": "tier2",
       "illustration_key": "trader_male_01",
       "accept": {
@@ -1651,6 +1732,7 @@
       "hidden_trait": "none",
       "dialogue": "İlaç ve medikal malzeme ticareti yapıyorum; stokum var.",
       "clue_text": "Gösterdiği medikal malzemeler gerçek ve çeşitli; güvenilir bir kaynak.",
+      "scan_result": "tıbbi malzeme stokları belgelenmiş; ilaç ticaret geçmişi doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "trader_female_01",
       "accept": {
@@ -1669,6 +1751,7 @@
       "hidden_trait": "infected",
       "dialogue": "Mallarım sizin işinize yarar; sadece pazarınıza girmeme izin verin.",
       "clue_text": "Mallarını sergilerken öksürüyor; mallara temas etmiş olması endişe verici.",
+      "scan_result": "uzak bölge teması kayıtlı; cilt lekeleri ve göz altı morluğu biyolojik temas şüphesi",
       "illustration_tier": "tier2",
       "illustration_key": "trader_male_01",
       "accept": {
@@ -1692,6 +1775,7 @@
       "hidden_trait": "none",
       "dialogue": "Komşu gruplarla çoktan anlaştım; size de aracılık edebilirim.",
       "clue_text": "Gerçekten birkaç grubu tanıyor; ilişkileri ve bağlantıları somut görünüyor.",
+      "scan_result": "küçük işletme kayıtları temiz; üretim ve takas ekonomisi geçmişi doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "trader_female_01",
       "accept": {
@@ -1710,6 +1794,7 @@
       "hidden_trait": "liar",
       "dialogue": "Komşu bölgede büyük bir depo var; sizi oraya götürebilirim.",
       "clue_text": "Deponun yerini sorulunca her seferinde farklı bir yön gösteriyor.",
+      "scan_result": "sığınak harita koordinatları gerçek konumlarla örtüşmüyor; lokasyon bilgisi uydurma",
       "illustration_tier": "tier2",
       "illustration_key": "trader_male_01",
       "accept": {
@@ -1728,6 +1813,7 @@
       "hidden_trait": "thief",
       "dialogue": "Tüm bu bölgenin takas ekonomisini yönetirim; size en iyi anlaşmaları yaparım.",
       "clue_text": "Anlaşmaları her zaman kendi lehine döndürüyor; kazancı diğerlerinin kaybı.",
+      "scan_result": "sunulan elektronik parçaların bir kısmı çalıntı depo kaydıyla eşleşiyor",
       "illustration_tier": "tier2",
       "illustration_key": "trader_female_01",
       "accept": {
@@ -1751,6 +1837,7 @@
       "hidden_trait": "none",
       "dialogue": "Akaryakıt ve enerji kaynakları konusunda bağlantılarım var.",
       "clue_text": "Gösterdiği akaryakıt kontakları gerçek; nadir ve değerli bir kaynak.",
+      "scan_result": "yakıt tedarik kanalları gerçek ve işlevsel; enerji ticaret sicili doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "trader_male_01",
       "accept": {
@@ -1769,6 +1856,7 @@
       "hidden_trait": "none",
       "dialogue": "El sanatları ve takas maddesi üretirim; ekonomiyi canlı tutarım.",
       "clue_text": "Yanında getirdiği el ürünleri kaliteli; gerçek bir zanaatkâr.",
+      "scan_result": "tekstil ürünleri gerçek ve kaliteli; kışlık malzeme stoku beyanıyla örtüşüyor",
       "illustration_tier": "tier2",
       "illustration_key": "trader_female_01",
       "accept": {
@@ -1787,6 +1875,7 @@
       "hidden_trait": "protector",
       "dialogue": "Kâr etmekten değil, herkese ulaşmaktan zevk alıyorum; adil ticaret yaparım.",
       "clue_text": "Kendi mallarını zaten paylaşmaya başlamış; gerçekten cömert bir tüccar.",
+      "scan_result": "birden fazla toplulukta bağış kaydı doğrulandı; insani ticaret sicili temiz",
       "illustration_tier": "tier2",
       "illustration_key": "trader_male_01",
       "accept": {
@@ -1805,6 +1894,7 @@
       "hidden_trait": "spy",
       "dialogue": "Ticaret bilgilerimle sizin pazarınızı büyütürüm; ama bilgi almam da lazım.",
       "clue_text": "Bilgi alışverişinde ısrar ediyor; bu talebi ticari değil, istihbarat amaçlı.",
+      "scan_result": "ticaret ilişkileri sistematik biçimde bilgi toplama aracı olarak kullanılıyor",
       "illustration_tier": "tier2",
       "illustration_key": "trader_female_01",
       "accept": {
@@ -1827,6 +1917,7 @@
       "hidden_trait": "none",
       "dialogue": "Elektronik ve batarya ticareti yapıyorum; iletişim ekipmanlarım var.",
       "clue_text": "Gösterdiği elektronik parçalar gerçek ve çalışır durumda.",
+      "scan_result": "inşaat malzeme stokları gerçek; barınak güçlendirme tedarik geçmişi doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "trader_male_01",
       "accept": {
@@ -1845,6 +1936,7 @@
       "hidden_trait": "infected",
       "dialogue": "Taze mallarım var; ama uzun yoldan geldiğim için biraz yoruldum.",
       "clue_text": "Yolculuktan gelmesine rağmen malları beklenenden çok daha az; bir şeyler eksik.",
+      "scan_result": "uzak bölge teması mevcut; yüz rengi anormal ve nefes alımı düzensiz",
       "illustration_tier": "tier2",
       "illustration_key": "trader_female_01",
       "accept": {
@@ -1868,6 +1960,7 @@
       "hidden_trait": "liar",
       "dialogue": "Birden fazla yerleşim yeriyle anlaşmam var; sizin için de yapabilirim.",
       "clue_text": "Söylediği yerleşim yerleri konuşulunca hiçbirini ayrıntılı tanımıyor.",
+      "scan_result": "verilen referans isimleri ticaret kayıtlarında yok; güvenilirlik beyanı asılsız",
       "illustration_tier": "tier2",
       "illustration_key": "trader_male_01",
       "accept": {
@@ -1886,6 +1979,7 @@
       "hidden_trait": "none",
       "dialogue": "Tıbbi malzeme ve gıda takas edebilirim; iyi ilişkilerle her ikisi de mümkün.",
       "clue_text": "Çift taraflı ticaret anlayışı pratik; kazan-kazan yaklaşımı güven verici.",
+      "scan_result": "habercilik güzergahları tutarlı; bilgi güvenliği protokolleri uygun doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "trader_female_01",
       "accept": {
@@ -1904,6 +1998,7 @@
       "hidden_trait": "thief",
       "dialogue": "Tüm ticaret yollarını biliyorum; sizin için en kısa sürede mal getiririm.",
       "clue_text": "Ticaret yollarını biliyor ama bunları başka amaçlarla kullandığı seziliyor.",
+      "scan_result": "sunulan ilaçların bir kısmı bölge klinikleri kayıp mal listesiyle eşleşiyor",
       "illustration_tier": "tier2",
       "illustration_key": "trader_male_01",
       "accept": {
@@ -1927,6 +2022,7 @@
       "hidden_trait": "none",
       "dialogue": "Tohum ve tarım malzemesi ticareti yapıyorum; uzun vadeli yatırım bu.",
       "clue_text": "Tohum çeşitliliği gerçekten geniş; uzun vadeli düşünen bir tüccar.",
+      "scan_result": "konserve üretim ekipmanları gerçek; gıda işleme ve takas geçmişi doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "trader_female_01",
       "accept": {
@@ -1945,6 +2041,7 @@
       "hidden_trait": "none",
       "dialogue": "Su arıtma ekipmanı getirdim; temiz su en değerli ticaret malı.",
       "clue_text": "Su arıtma bilgisi gerçek; getirdiği ekipman çalışır durumda.",
+      "scan_result": "jeneratör bakım aletleri gerçek; yakıt ve enerji yönetim bilgisi doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "trader_male_01",
       "accept": {
@@ -1963,6 +2060,7 @@
       "hidden_trait": "liar",
       "dialogue": "Silah ve mühimmat ticareti yapıyorum; büyük stokum var.",
       "clue_text": "Silah konusunda temel bilgisi yok; bu iddia çok tehlikeli ve şüpheli.",
+      "scan_result": "belirtilen depo koordinatları uzun süredir boş; büyük stok iddiası asılsız",
       "illustration_tier": "tier2",
       "illustration_key": "trader_female_01",
       "accept": {
@@ -1981,6 +2079,7 @@
       "hidden_trait": "none",
       "dialogue": "İletişim cihazları ve harita ticareti yapıyorum; bilgi en değerli meta.",
       "clue_text": "Bölge haritaları gerçekten detaylı; gerçek bir bilgi tüccarı.",
+      "scan_result": "tamir aletleri kullanılmış ve gerçek; ikinci el ekipman ticaret sicili doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "trader_male_01",
       "accept": {
@@ -1999,6 +2098,7 @@
       "hidden_trait": "spy",
       "dialogue": "Size bölge haberlerini de aktarırım; bilgi akışı ticaret kadar önemli.",
       "clue_text": "Haber akışı konusundaki aşırı hevesi, ticari kaygıdan değil başka amaçlardan.",
+      "scan_result": "güzergah takibi ticari amaçla açıklanamaz; hareket örüntüsü istihbarat modeliyle uyuşuyor",
       "illustration_tier": "tier2",
       "illustration_key": "trader_female_01",
       "accept": {
@@ -2021,6 +2121,7 @@
       "hidden_trait": "none",
       "dialogue": "Bu çöpten bir güç jeneratörü yapabilirim; dünyayı kurtarmak güzel olmaz mıydı?",
       "clue_text": "Atölye çantası inanılmaz derecede düzenli; her aletin yeri belirlenmiş.",
+      "scan_result": "elektronik bileşen bilgisi gerçek; onarım ve modifikasyon sicili doğrulandı",
       "illustration_tier": "tier1",
       "illustration_key": "gizmo",
       "accept": {
@@ -2040,6 +2141,7 @@
       "hidden_trait": "none",
       "dialogue": "On dört yaşındayım ama elektrik mühendisliği alanında üniversite düzeyinde bilgim var.",
       "clue_text": "Küçük bir devre kartını saniyeler içinde çözdü; dahiyane bir zeka.",
+      "scan_result": "yazılım geliştirme geçmişi doğrulandı; siber güvenlik sicili tutarlı",
       "illustration_tier": "tier1",
       "illustration_key": "kim_prodigy",
       "accept": {
@@ -2059,6 +2161,7 @@
       "hidden_trait": "none",
       "dialogue": "İnşaat mühendisiyim; savunma duvarları ve sığınak inşa ederim.",
       "clue_text": "Yapı statik hesaplarını zihninden yapıyor; gerçek bir inşaat uzmanı.",
+      "scan_result": "inşaat planları teknik ve uygulanabilir; mühendislik geçmişi doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "engineer_male_01",
       "accept": {
@@ -2078,6 +2181,7 @@
       "hidden_trait": "liar",
       "dialogue": "Nükleer mühendisim; reaktör bilgimle sonsuz enerji sağlarım.",
       "clue_text": "Nükleer fizik hakkında temel sorulara cevap veremiyor; iddiaları şüpheli.",
+      "scan_result": "nükleer mühendislik terminolojisi hatalı; uzmanlık belgesi doğrulanamadı",
       "illustration_tier": "tier2",
       "illustration_key": "engineer_female_01",
       "accept": {
@@ -2097,6 +2201,7 @@
       "hidden_trait": "none",
       "dialogue": "Yazılım ve donanım mühendisiyim; eski cihazları yeniden çalıştırabilirim.",
       "clue_text": "Elindeki bozuk radyoyu kısa sürede tamir etti; uzmanlığı gerçek.",
+      "scan_result": "makine ekipmanları iyi bakımlı; mekanik bilgisi gerçek ve kapsamlı doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "engineer_male_01",
       "accept": {
@@ -2116,6 +2221,7 @@
       "hidden_trait": "infected",
       "dialogue": "Sistemleri kurabilirim; ama şu an biraz yoruldum, birkaç güne iyileşirim.",
       "clue_text": "Avuç içlerinde kızarmış lekeler var; bu belirtiler tanıdık geliyor.",
+      "scan_result": "el titremesi ve yüksek enerji tüketimi; biyolojik semptom bayrağı aktif",
       "illustration_tier": "tier2",
       "illustration_key": "engineer_female_01",
       "accept": {
@@ -2140,6 +2246,7 @@
       "hidden_trait": "none",
       "dialogue": "Savunma sistemleri tasarımı konusunda deneyimliyim; tuzaklar ve alarmlar kurarım.",
       "clue_text": "Tuzak mekanizmaları hakkında detaylı bilgi veriyor; bu iş ona göre.",
+      "scan_result": "su arıtma planları gerçekçi ve teknik; hidrolik mühendislik sicili doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "engineer_male_01",
       "accept": {
@@ -2159,6 +2266,7 @@
       "hidden_trait": "spy",
       "dialogue": "Elektrik ağı kurulumu yapabilirim; sisteminizi incelemem gerekiyor tabii.",
       "clue_text": "Sistem incelemesi talebinde çok ısrarcı; altyapıyı haritalamak istiyor gibi.",
+      "scan_result": "erişim talepleri teknik gereklilikten fazla; sistem mimarisi keşif amacı taşıyor",
       "illustration_tier": "tier2",
       "illustration_key": "engineer_female_01",
       "accept": {
@@ -2182,6 +2290,7 @@
       "hidden_trait": "thief",
       "dialogue": "Ekipmanlarım var; sizin depolarınızla birleştirirsek çok daha güçlü oluruz.",
       "clue_text": "Depolarınıza erişimi tartışırken gözleri parlıyor; ihtiyatlı olmak gerekir.",
+      "scan_result": "getirilen elektronik bileşenler bölge mühendislik deposu kayıp listesiyle örtüşüyor",
       "illustration_tier": "tier2",
       "illustration_key": "engineer_male_01",
       "accept": {
@@ -2206,6 +2315,7 @@
       "hidden_trait": "none",
       "dialogue": "Su arıtma mühendisiyim; temiz su temini konusunda uzmanım.",
       "clue_text": "Su kalitesi testleri için gerçek ekipman taşıyor; uzmanlığı doğrulanabilir.",
+      "scan_result": "kimya laboratuvar bilgisi gerçek; üretim formülleri uygulanabilir doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "engineer_female_01",
       "accept": {
@@ -2225,6 +2335,7 @@
       "hidden_trait": "liar",
       "dialogue": "Roket mühendisliği bilgimle savunma sistemleri yaparım; hayal değil gerçek.",
       "clue_text": "Roket dinamiği hakkında soru sorulunca konuyu değiştiriyor.",
+      "scan_result": "temel programlama sorularına yetersiz yanıt; yapay zeka ve robotik bilgisi sahte",
       "illustration_tier": "tier2",
       "illustration_key": "engineer_male_01",
       "accept": {
@@ -2244,6 +2355,7 @@
       "hidden_trait": "protector",
       "dialogue": "Güneş enerjisi sistemleri kuruyorum; toplumu uzun vadede besleyecek enerji sağlarım.",
       "clue_text": "Güneş paneli hesaplarını hızlıca yapıyor; gerçekten iyi niyetli ve yetenekli.",
+      "scan_result": "su arıtma sistemi kurulum kayıtları doğrulandı; toplum katkısı sicili temiz",
       "illustration_tier": "tier2",
       "illustration_key": "engineer_female_01",
       "accept": {
@@ -2263,6 +2375,7 @@
       "hidden_trait": "none",
       "dialogue": "Makine mühendisliği bilgimle üretim tesisi kurabiliriz; bağımsız oluruz.",
       "clue_text": "Üretim süreci hakkında gerçekten ayrıntılı ve pratik bir bilgisi var.",
+      "scan_result": "savunma yapıları planları gerçekçi; askeri mühendislik bilgisi doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "engineer_male_01",
       "accept": {
@@ -2282,6 +2395,7 @@
       "hidden_trait": "none",
       "dialogue": "Kimya mühendisiyim; hem yakıt hem deterjan üretimi yapabilirim.",
       "clue_text": "Kimyasal reaksiyonları güvenli şekilde yönetiyor; bilgisi gerçek.",
+      "scan_result": "mekatronik bilgisi kapsamlı; yazılım ve mekanik çift uzmanlık sicili doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "engineer_female_01",
       "accept": {
@@ -2301,6 +2415,7 @@
       "hidden_trait": "infected",
       "dialogue": "Sizi besleyen sistemler kurabilirim; sadece bana bir şans verin.",
       "clue_text": "Konuşurken eli titriyor ve yüzü solgun; fiziksel durumu endişe verici.",
+      "scan_result": "solunum güçlüğü ve el titremesi; endüstriyel toksin veya biyolojik temas şüphesi",
       "illustration_tier": "tier2",
       "illustration_key": "engineer_male_01",
       "accept": {
@@ -2325,6 +2440,7 @@
       "hidden_trait": "none",
       "dialogue": "Medikal cihaz mühendisiyim; tıbbi ekipmanları tamir ve üretebilirim.",
       "clue_text": "Medikal cihaz bakımı konusunda gerçek ve pratik bilgi taşıyor.",
+      "scan_result": "güneş paneli bilgisi gerçek; yenilenebilir enerji kurulum sicili doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "engineer_female_01",
       "accept": {
@@ -2344,6 +2460,7 @@
       "hidden_trait": "liar",
       "dialogue": "Yapay zeka ve otomasyon sistemleri kuruyorum; her şeyi otomatikleştiririm.",
       "clue_text": "Yapay zeka terminolojisi yanlış kullanıyor; gerçek bilgisi sınırlı.",
+      "scan_result": "nükleer fizik temel sorularına yanıt yok; atom bombası iddiası tamamen asılsız",
       "illustration_tier": "tier2",
       "illustration_key": "engineer_male_01",
       "accept": {
@@ -2363,6 +2480,7 @@
       "hidden_trait": "none",
       "dialogue": "Biyomedikal mühendislik bilgimle protez ve tıbbi yardımcı cihaz üretebilirim.",
       "clue_text": "Protez tasarımı hakkında ayrıntılı ve etkileyici bir bilgi sunuyor.",
+      "scan_result": "tıbbi cihaz bilgisi gerçek; kalibrasyon araçları ve onarım sicili doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "engineer_female_01",
       "accept": {
@@ -2382,6 +2500,7 @@
       "hidden_trait": "spy",
       "dialogue": "Ağ ve iletişim sistemleri kuruyorum; tüm haberleşmenizi organize ederim.",
       "clue_text": "İletişim ağına erişimi çok önemsiyor; sisteme sızmak istiyor gibi.",
+      "scan_result": "merkez üs bağlantısı teknik gereklilikten fazla; şifreli sinyal izi tespit edildi",
       "illustration_tier": "tier2",
       "illustration_key": "engineer_male_01",
       "accept": {
@@ -2405,6 +2524,7 @@
       "hidden_trait": "thief",
       "dialogue": "Elektronik parça stoğum var; sizin deponuzla birleştirirsek muazzam olur.",
       "clue_text": "Depo birleştirme ısrarı naif görünüyor ama amaç farklı olabilir.",
+      "scan_result": "getirilen alet seri numaraları kaybedilen depo envanteri ile eşleşiyor",
       "illustration_tier": "tier2",
       "illustration_key": "engineer_female_01",
       "accept": {
@@ -2429,6 +2549,7 @@
       "hidden_trait": "none",
       "dialogue": "Jeoteknik mühendisliği bilgimle güvenli zemin ve tünel sistemleri kurarım.",
       "clue_text": "Zemin analizi yapıyor; kaçış tüneli için gerçekten değerli bir uzmanlık.",
+      "scan_result": "patlayıcı mühendisliği bilgisi teknik ve gerçek; güvenli imha sicili doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "engineer_male_01",
       "accept": {
@@ -2448,6 +2569,7 @@
       "hidden_trait": "none",
       "dialogue": "Tekstil mühendisliği bilgimle koruyucu giysiler üretebilirim.",
       "clue_text": "Kumaş ve malzeme bilgisi gerçek; koruyucu ekipman üretimi mümkün görünüyor.",
+      "scan_result": "iletişim ekipmanları gerçek; radyo ve ağ kurulum geçmişi doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "engineer_female_01",
       "accept": {
@@ -2467,6 +2589,7 @@
       "hidden_trait": "none",
       "dialogue": "Endüstriyel atık yönetimi konusunda uzmanım; çevreyi temiz tutarım.",
       "clue_text": "Atık yönetimi planı yapıyor; hijyen ve çevre güvenliği için gerçekten önemli.",
+      "scan_result": "proje yönetim bilgisi gerçek; inşaat koordinasyon geçmişi doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "engineer_male_01",
       "accept": {
@@ -2486,6 +2609,7 @@
       "hidden_trait": "liar",
       "dialogue": "Biyomühendislik ve genetik alanında araştırmalar yaptım; hastalıkları çözebilirim.",
       "clue_text": "Genetik bilgisi için çok temel sorular soruyor; iddiası abartılı.",
+      "scan_result": "biyomedikal terminolojisi tutarsız; buluş iddiasını destekleyen kayıt veya belge yok",
       "illustration_tier": "tier2",
       "illustration_key": "engineer_female_01",
       "accept": {
@@ -2505,6 +2629,7 @@
       "hidden_trait": "infected",
       "dialogue": "Jeneratör ve güç sistemleri konusunda uzmanım; sadece bir mola lazım.",
       "clue_text": "Mola isteğinin arkasında sadece yorgunluk değil, hastalık olduğu seziliyor.",
+      "scan_result": "vücut ısısı yüksek ve nefes düzensiz; radyasyon veya kimyasal temas şüphesi",
       "illustration_tier": "tier2",
       "illustration_key": "engineer_male_01",
       "accept": {
@@ -2529,6 +2654,7 @@
       "hidden_trait": "none",
       "dialogue": "Mimarlık ve kentsel planlama bilgimle güvenli yaşam alanları tasarlarım.",
       "clue_text": "Savunma mimarisi için hızlıca eskizler çiziyor; gerçek bir tasarımcı.",
+      "scan_result": "çevre analiz ekipmanları gerçek; toprak ve su test geçmişi doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "engineer_female_01",
       "accept": {
@@ -2548,6 +2674,7 @@
       "hidden_trait": "none",
       "dialogue": "Şehirde her yeri biliyorum; nerede ne olduğunu size gösterebilirim.",
       "clue_text": "Sekiz yaşında bir çocuk ama şehrin her köşesini gerçekten biliyor.",
+      "scan_result": "hayatta kalma stratejileri pratik; çevre gözlem sicili keskin ve doğrulanabilir",
       "illustration_tier": "tier1",
       "illustration_key": "little_mia",
       "accept": {
@@ -2567,6 +2694,7 @@
       "hidden_trait": "none",
       "dialogue": "(Bebek tek başına bulunmuş; konuşamıyor ama bakıma muhtaç.)",
       "clue_text": "Bebek görünürde sağlıklı ama yalnız; bakımı kaynaklar gerektiriyor.",
+      "scan_result": "kimlik bilgisi yok; biyolojik belirti tespit edilmedi; koruma statüsü tanımlandı",
       "illustration_tier": "tier1",
       "illustration_key": "abandoned_baby",
       "accept": {
@@ -2587,6 +2715,7 @@
       "hidden_trait": "none",
       "dialogue": "Hepimiz ailelerimizi kaybettik; birlikte daha güçlü olacağız.",
       "clue_text": "On çocukluk grubun dayanışması gerçekten etkileyici; birbirlerine bakıyorlar.",
+      "scan_result": "grup dinamiği sağlıklı; çocuklar iyi durumda ve birbirine bağlı doğrulandı",
       "illustration_tier": "tier1",
       "illustration_key": "child_group_10",
       "accept": {
@@ -2607,6 +2736,7 @@
       "hidden_trait": "infected",
       "dialogue": "Bizi kabul edin; hâlâ çalışabiliriz ve faydalı olabiliriz.",
       "clue_text": "Grubun tamamında radyasyon maruziyetinin belirtileri var; tehlikeli olabilirler.",
+      "scan_result": "radyasyon maruziyeti semptomları belirgin; yüksek risk bölgesinden gelme kaydı mevcut",
       "illustration_tier": "tier1",
       "illustration_key": "radioactive_group",
       "accept": {
@@ -2631,6 +2761,7 @@
       "hidden_trait": "none",
       "dialogue": "Biliyorum, görünüşüm korkutucu; ama insan olduğumu, tehlike olmadığımı söylüyorum.",
       "clue_text": "Görünüşü korkunç ama gözleri bilinçli ve netliğini koruyor.",
+      "scan_result": "beslenme yetersizliği belirtileri var; biyolojik kontaminasyon testi negatif",
       "illustration_tier": "tier1",
       "illustration_key": "zombie_like_man",
       "accept": {
@@ -2650,6 +2781,7 @@
       "hidden_trait": "protector",
       "dialogue": "Ben ve Rex her yere gideriz; kaşif ve koruyucu olarak hizmetinizdeyiz.",
       "clue_text": "Adam ve köpek mükemmel bir uyum içinde; güvenilir bir ekip görüntüsü.",
+      "scan_result": "tehdit önceden bildirme kayıtları doğrulandı; çift güvenlik katkısı sicili temiz",
       "illustration_tier": "tier1",
       "illustration_key": "joe_and_dog",
       "accept": {
@@ -2669,6 +2801,7 @@
       "hidden_trait": "none",
       "dialogue": "Enkaz altında ne bulunacağını bilirim; risk alırım ama geri dönerim.",
       "clue_text": "Üzerindeki yara izleri anlattığı riskleri doğruluyor; deneyimli bir avcı.",
+      "scan_result": "bölge keşif bilgisi gerçek; gizli kaynak konumları tutarlı ve doğrulanabilir",
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_male_01",
       "accept": {
@@ -2688,6 +2821,7 @@
       "hidden_trait": "liar",
       "dialogue": "Büyük bir gıda deposu buldum; sizi oraya götürürüm, çok yakın.",
       "clue_text": "Deponun yeri hakkında verdiği bilgiler her seferinde değişiyor.",
+      "scan_result": "verilen koordinatlar güncel tehdit haritasıyla çelişiyor; güvenli bölge iddiası asılsız",
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_female_01",
       "accept": {
@@ -2707,6 +2841,7 @@
       "hidden_trait": "none",
       "dialogue": "Harabeyi mesleğim olarak gördüm; neyin değerli neyin zararlı olduğunu bilirim.",
       "clue_text": "Enkazdan topladığı malzemeler gerçekten kullanışlı; seçici bir göz var.",
+      "scan_result": "avcılık ve tuzak ekipmanları gerçek; uzun süreli hayatta kalma bilgisi doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_male_01",
       "accept": {
@@ -2726,6 +2861,7 @@
       "hidden_trait": "thief",
       "dialogue": "Sizin için depolara sızabilirim; karşılığında bir şey istemiyorum.",
       "clue_text": "Karşılıksız yardım teklifi çok cömert görünüyor; bu kadar cömertlik şüphe uyandırır.",
+      "scan_result": "taşınan malzemelerin bir kısmı başka topluluk kayıp bildirimiyle eşleşiyor",
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_female_01",
       "accept": {
@@ -2750,6 +2886,7 @@
       "hidden_trait": "none",
       "dialogue": "Şehrin alt katmanlarını bilirim; sığınak ve geçiş noktalarım var.",
       "clue_text": "Gerçekten yıllarca yeraltında geçirmiş; bilgisi somut ve güvenilir.",
+      "scan_result": "enkaz keşif bilgisi pratik; kurtarılan malzeme kaynakları tutarlı ve temiz",
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_male_01",
       "accept": {
@@ -2769,6 +2906,7 @@
       "hidden_trait": "infected",
       "dialogue": "Harabelerden ilaç ve malzeme toplayabildim; iyi olacağım, merak etmeyin.",
       "clue_text": "Topladığı ilaçların bir kısmı kendisi için; hastalığını gizlemeye çalışıyor.",
+      "scan_result": "titreme ve ateş mevcut; sadece soğuk değil, enfeksiyon semptomları belirgin",
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_female_01",
       "accept": {
@@ -2793,6 +2931,7 @@
       "hidden_trait": "none",
       "dialogue": "Kimsenin giremediği bölgelere girerim; tehlikeyi seviyorum.",
       "clue_text": "Riski seven insanlar topluluklar için hem değerli hem tehlikelidir.",
+      "scan_result": "sığınak koordinatları doğru ve güncel; keşif geçmişi tutarlı doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_male_01",
       "accept": {
@@ -2812,6 +2951,7 @@
       "hidden_trait": "liar",
       "dialogue": "Devlet depoları hâlâ dolu; yerini biliyorum ve sizi götürürüm.",
       "clue_text": "Devlet depolarının tamamının çoktan yağmalandığı herkesçe biliniyor.",
+      "scan_result": "aile varlığına dair doğrulanabilir kayıt yok; beyan tutarsız ve değişkenlik gösteriyor",
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_female_01",
       "accept": {
@@ -2831,6 +2971,7 @@
       "hidden_trait": "none",
       "dialogue": "Kimyasal atık bölgelerinden bile değerli malzeme çıkarabilirim.",
       "clue_text": "Kimyasal tehlike konusunda gerçekten bilgili; önlemlerini alarak çalışıyor.",
+      "scan_result": "tıbbi enkaz arama bilgisi gerçek; kurtarılan malzemeler kayıtlı kaynaklarla örtüşüyor",
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_male_01",
       "accept": {
@@ -2850,6 +2991,7 @@
       "hidden_trait": "spy",
       "dialogue": "Şehri çok iyi biliyorum; istediğiniz her yerden haber getirebilirim.",
       "clue_text": "Haber getirme konusundaki aşırı istekli tutumu merak uyandırıyor.",
+      "scan_result": "ziyaret güzergahları sistematik; topluluk hassas verileri içeren istihbarat formatı tespit edildi",
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_female_01",
       "accept": {
@@ -2873,6 +3015,7 @@
       "hidden_trait": "none",
       "dialogue": "Hastane enkazından ilaç ve malzeme çıkardım; getirdim işte.",
       "clue_text": "Yanında getirdiği medikal malzeme gerçek ve kullanışlı.",
+      "scan_result": "su kaynağı tespit bilgisi gerçek; kaynak konumları doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_male_01",
       "accept": {
@@ -2892,6 +3035,7 @@
       "hidden_trait": "thief",
       "dialogue": "Ticaret karavanlarının uğrak yerlerini bilirim; birlikte gidebiliriz.",
       "clue_text": "Karavanların zayıf noktalarını da çok iyi biliyor gibi; bu tehlikeli.",
+      "scan_result": "keşfedilen depo koordinatları başka grup tarafından sahiplenilmiş; işgal şüphesi var",
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_female_01",
       "accept": {
@@ -2916,6 +3060,7 @@
       "hidden_trait": "protector",
       "dialogue": "Su kaynaklarını biliyorum; temiz su bulmak en büyük becerim.",
       "clue_text": "Bulduğu su kaynaklarını hemen topluluğa getiriyor; biriktirmiyor ve cömert davranıyor.",
+      "scan_result": "birden fazla kurtarma operasyonu kaydı doğrulandı; insani müdahale sicili temiz",
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_male_01",
       "accept": {
@@ -2935,6 +3080,7 @@
       "hidden_trait": "liar",
       "dialogue": "Çevredeki zombi yoğunluğunu çok iyi biliyorum; güvenli geçiş sağlarım.",
       "clue_text": "Anlattığı güzergahlar gerçek tehlikelerle örtüşmüyor; bilgisi güncel değil.",
+      "scan_result": "bakanlık bağlantısı doğrulanamadı; resmi yetki belgesi mevcut değil",
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_female_01",
       "accept": {
@@ -2954,6 +3100,7 @@
       "hidden_trait": "infected",
       "dialogue": "Araç ve makine enkazı bilirim; motor parçaları toplayabilirim.",
       "clue_text": "Araç enkazından dönerken üzerinde şüpheli lekeler ve titreme var; kontrol altına alınmalı.",
+      "scan_result": "cilt lezyonları ve soluk renk; enfeksiyon koridor haritasıyla üst bölge geçişi örtüşüyor",
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_male_01",
       "accept": {
@@ -2978,6 +3125,7 @@
       "hidden_trait": "infected",
       "dialogue": "Tüm gece arama yaptım; çok yoruldum ama getirdiklerim işinize yarar.",
       "clue_text": "Aşırı yorgunluk ve hafif titreme sadece uykusuzluktan değil, hastalıktan kaynaklanıyor.",
+      "scan_result": "öksürük ve göz kızarıklığı; son temas noktası aktif karantina bölgesiyle örtüşüyor",
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_female_01",
       "accept": {
@@ -3002,6 +3150,7 @@
       "hidden_trait": "thief",
       "dialogue": "Elektrik altyapısından hâlâ çalışan sistemler buluyorum; geri getirebilirim.",
       "clue_text": "Elektrik sistemlerine ilgisi kablo ve ekipman çalmakla da açıklanabilir.",
+      "scan_result": "toplanan malzemelerin bir kısmı aktif kayıp bildirimleriyle eşleşiyor; terk edilmiş değil",
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_male_01",
       "accept": {
@@ -3026,6 +3175,7 @@
       "hidden_trait": "infected",
       "dialogue": "Gıda fabrikası kalıntılarını bilirim; işlenmiş gıda çıkarabilirim.",
       "clue_text": "Gıda fabrikalarından dönerken içinde bulunduğu ortam enfeksiyon için ideal; görünüşü kaygı verici.",
+      "scan_result": "rehberlik güzergahı yüksek kontaminasyon bölgesini kesiyor; biyolojik temas şüphesi",
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_female_01",
       "accept": {
@@ -3050,6 +3200,7 @@
       "hidden_trait": "spy",
       "dialogue": "Gözlem görevleri yapabilirim; her köşeyi takip ederim sizin için.",
       "clue_text": "Takip etme konusundaki isteklilik, topluluk çıkarları için değil gibi görünüyor.",
+      "scan_result": "toplanan veri biçimi ve kapsamı istihbarat raporlama formatıyla uyuşuyor",
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_male_01",
       "accept": {
@@ -3073,6 +3224,7 @@
       "hidden_trait": "none",
       "dialogue": "Askeri üs enkazında çok değerli silah ve ekipman gördüm; size getiririm.",
       "clue_text": "Askeri üssün gerçek konumunu biliyor; bu bilgi değerli.",
+      "scan_result": "hayatta kalma ekipmanları kullanılmış; bölge bilgisi tutarlı ve güvenilir doğrulandı",
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_male_01",
       "accept": {
@@ -3092,6 +3244,7 @@
       "hidden_trait": "protector",
       "dialogue": "Başkalarını bulamadığımda kendim giderim; topluluğuma vermeden yiyemem.",
       "clue_text": "Topladığı malzemelerin tamamını gruba bırakıyor; hiçbir şey saklamıyor.",
+      "scan_result": "ihtiyaç tespit ve ulaştırma kayıtları doğrulandı; insani katkı sicili kapsamlı",
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_female_01",
       "accept": {
@@ -3111,6 +3264,7 @@
       "hidden_trait": "thief",
       "dialogue": "Enerji sistemleri kurulumunda deneyimliyim; depolarınızla beraber çok daha verimli çalışırız.",
       "clue_text": "Depo erişimi için çok ısrarcı; sistemi incelemekteki amacı şüpheli görünüyor.",
+      "scan_result": "getirilen elektronik cihaz seri numaraları kayıp ekipman veritabanıyla eşleşiyor",
       "illustration_tier": "tier2",
       "illustration_key": "engineer_male_01",
       "accept": {

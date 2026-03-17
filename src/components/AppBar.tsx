@@ -20,7 +20,7 @@ interface AppBarProps {
 export const AppBar: React.FC<AppBarProps> = ({ onMainMenu }) => {
   const [settingsVisible, setSettingsVisible] = useState(false)
   const [confirmVisible,  setConfirmVisible]  = useState(false)
-  const { soundEnabled, toggleSound } = useSettingsStore()
+  const { musicEnabled, sfxEnabled, toggleMusic, toggleSfx } = useSettingsStore()
 
   const openConfirm = () => {
     setSettingsVisible(false)
@@ -84,19 +84,38 @@ export const AppBar: React.FC<AppBarProps> = ({ onMainMenu }) => {
 
             <View style={styles.settingRow}>
               <View>
-                <Text style={[styles.settingLabel, { fontFamily: MONO }]}>SES SİSTEMİ</Text>
-                <Text style={styles.settingSub}>Ortam müziği ve efektler</Text>
+                <Text style={[styles.settingLabel, { fontFamily: MONO }]}>ORTAM MÜZİĞİ</Text>
+                <Text style={styles.settingSub}>Arka plan atmosfer sesi</Text>
               </View>
               <TouchableOpacity
-                onPress={toggleSound}
+                onPress={toggleMusic}
                 style={[styles.toggle, {
-                  borderColor: soundEnabled ? (C.accept + '66') : (C.text_muted + '66'),
-                  backgroundColor: soundEnabled ? '#052e16' : C.bg_deeper,
+                  borderColor: musicEnabled ? (C.accept + '66') : (C.text_muted + '66'),
+                  backgroundColor: musicEnabled ? C.toggle_on_bg : C.bg_deeper,
                 }]}
                 activeOpacity={0.8}
               >
-                <Text style={[styles.toggleText, { color: soundEnabled ? C.accept_glow : C.text_muted }]}>
-                  {soundEnabled ? '● AÇIK' : '○ KAPALI'}
+                <Text style={[styles.toggleText, { color: musicEnabled ? C.accept_glow : C.text_muted }]}>
+                  {musicEnabled ? '● AÇIK' : '○ KAPALI'}
+                </Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.settingRow}>
+              <View>
+                <Text style={[styles.settingLabel, { fontFamily: MONO }]}>SES EFEKTLERİ</Text>
+                <Text style={styles.settingSub}>Kapı, sorgu ve uyarı sesleri</Text>
+              </View>
+              <TouchableOpacity
+                onPress={toggleSfx}
+                style={[styles.toggle, {
+                  borderColor: sfxEnabled ? (C.accept + '66') : (C.text_muted + '66'),
+                  backgroundColor: sfxEnabled ? C.toggle_on_bg : C.bg_deeper,
+                }]}
+                activeOpacity={0.8}
+              >
+                <Text style={[styles.toggleText, { color: sfxEnabled ? C.accept_glow : C.text_muted }]}>
+                  {sfxEnabled ? '● AÇIK' : '○ KAPALI'}
                 </Text>
               </TouchableOpacity>
             </View>

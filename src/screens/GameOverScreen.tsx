@@ -62,7 +62,7 @@ export const GameOverScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
     }
 
     scanY.value = withRepeat(
-      withTiming(height + 10, { duration: 4000, easing: Easing.linear }),
+      withTiming(height + 10, { duration: themeData.animation.gameover_scanline_ms, easing: Easing.linear }),
       -1, false,
     )
   }, [])
