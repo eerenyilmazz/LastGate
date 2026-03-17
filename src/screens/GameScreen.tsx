@@ -52,8 +52,7 @@ const StatIcon = React.memo<{
   rejectDelta: number
   max:         number
   dragX:       SharedValue<number>
-  dragY:       SharedValue<number>
-}>(({ icon, val, isCrit, color, acceptDelta, rejectDelta, max, dragX, dragY }) => {
+}>(({ icon, val, isCrit, color, acceptDelta, rejectDelta, max, dragX }) => {
 
   const pulse      = useSharedValue(1)
   const [displayVal, setDisplayVal] = useState(val)
@@ -63,9 +62,6 @@ const StatIcon = React.memo<{
   useAnimatedReaction(
     () => {
       const dx = dragX.value
-      const dy = dragY.value
-      // upward swipe (query) — no delta preview
-      if (dy < -(SWIPE_THRESHOLD * 0.25)) return val
       if (Math.abs(dx) < 4) return val
       const delta    = dx > 0 ? acceptDelta : rejectDelta
       const progress = Math.min(1, Math.abs(dx) / SWIPE_THRESHOLD)
@@ -122,7 +118,7 @@ const sIcon = StyleSheet.create({
 })
 
 // ─── Card glow ring — must be inside SwipeHandler so it moves with the card ──
-const CardGlow = React.memo<{ dragX: SharedValue<number>; dragY: SharedValue<number> }>(({ dragX, dragY }) => {
+const CardGlow = React.memo<{ dragX: SharedValue<number> }>(({ dragX }) => {
   const acceptStyle = useAnimatedStyle(() => {
     'worklet'
     const dx = dragX.value
@@ -132,11 +128,6 @@ const CardGlow = React.memo<{ dragX: SharedValue<number>; dragY: SharedValue<num
     'worklet'
     const dx = dragX.value
     return { opacity: dx < -4 ? Math.min(0.92, -dx / SWIPE_THRESHOLD) : 0 }
-  })
-  const queryStyle = useAnimatedStyle(() => {
-    'worklet'
-    const dy = dragY.value
-    return { opacity: dy < -4 ? Math.min(0.92, -dy / SWIPE_THRESHOLD) : 0 }
   })
   return (
     <>
@@ -150,11 +141,6 @@ const CardGlow = React.memo<{ dragX: SharedValue<number>; dragY: SharedValue<num
         shadowColor: C.danger,
         backgroundColor: C.danger + '08',
       }, rejectStyle]} />
-      <Animated.View pointerEvents="none" style={[glowStyles.base, {
-        borderColor: C.query,
-        shadowColor: C.query,
-        backgroundColor: C.query + '08',
-      }, queryStyle]} />
     </>
   )
 })
@@ -329,7 +315,6 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
             rejectDelta={npcReject[s] ?? 0}
             max={STAT_MAX[s]}
             dragX={dragX}
-            dragY={dragY}
           />
         ))}
       </View>
@@ -358,12 +343,12 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
             dragY={dragY}
             onSwipeRight={doAccept}
             onSwipeLeft={doReject}
-            onSwipeUp={onQuery}
+            onTap={onQuery}
             disabled={!isDecision}
           >
             {/* wrapper so CardGlow fills the card via absoluteFillObject */}
             <View>
-              <CardGlow dragX={dragX} dragY={dragY} />
+              <CardGlow dragX={dragX} />
               <NPCCard npc={npc} availableHeight={cardSlotH} hideDialogue />
             </View>
           </SwipeHandler>

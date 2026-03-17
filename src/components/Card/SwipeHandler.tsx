@@ -22,7 +22,7 @@ interface Props {
   children: React.ReactNode
   onSwipeRight: () => void
   onSwipeLeft:  () => void
-  onSwipeUp:    () => void
+  onTap:        () => void
   disabled?:    boolean
   dragX?: SharedValue<number>
   dragY?: SharedValue<number>
@@ -32,13 +32,13 @@ const SwipeHandlerInner: React.FC<Props> = ({
   children,
   onSwipeRight,
   onSwipeLeft,
-  onSwipeUp,
+  onTap,
   disabled = false,
   dragX,
   dragY,
 }) => {
-  const theme    = useTheme()
-  const C        = theme.colors
+  const theme     = useTheme()
+  const C         = theme.colors
   const THRESHOLD = theme.animation.swipe_threshold
   const DURATION  = theme.animation.swipe_duration_ms
 
@@ -47,7 +47,15 @@ const SwipeHandlerInner: React.FC<Props> = ({
   const rotation   = useSharedValue(0)
   const opacity    = useSharedValue(1)
 
-  const gesture = Gesture.Pan()
+  const tap = Gesture.Tap()
+    .enabled(!disabled)
+    .maxDistance(10)
+    .onEnd(() => {
+      'worklet'
+      runOnJS(onTap)()
+    })
+
+  const pan = Gesture.Pan()
     .enabled(!disabled)
     .onUpdate(e => {
       'worklet'
@@ -75,14 +83,6 @@ const SwipeHandlerInner: React.FC<Props> = ({
         })
         if (dragX) dragX.value = withTiming(0, { duration: DURATION })
 
-      } else if (e.translationY < -THRESHOLD) {
-        translateX.value = withSpring(0)
-        translateY.value = withSpring(0)
-        rotation.value   = withSpring(0)
-        if (dragX) dragX.value = withSpring(0)
-        if (dragY) dragY.value = withSpring(0)
-        runOnJS(onSwipeUp)()
-
       } else {
         translateX.value = withSpring(0)
         translateY.value = withSpring(0)
@@ -91,6 +91,8 @@ const SwipeHandlerInner: React.FC<Props> = ({
         if (dragY) dragY.value = withSpring(0)
       }
     })
+
+  const gesture = Gesture.Exclusive(tap, pan)
 
   const animStyle = useAnimatedStyle(() => ({
     transform: [
@@ -107,9 +109,6 @@ const SwipeHandlerInner: React.FC<Props> = ({
   const rejectLabelStyle = useAnimatedStyle(() => ({
     opacity: interpolate(translateX.value, [-20, -THRESHOLD], [0, 1], Extrapolation.CLAMP),
   }))
-  const queryLabelStyle  = useAnimatedStyle(() => ({
-    opacity: interpolate(translateY.value, [-20, -THRESHOLD * 0.3], [0, 1], Extrapolation.CLAMP),
-  }))
 
   return (
     <GestureDetector gesture={gesture}>
@@ -122,10 +121,6 @@ const SwipeHandlerInner: React.FC<Props> = ({
 
         <Animated.View style={[styles.dirLabel, styles.rejectLabel, rejectLabelStyle]}>
           <Text style={[styles.dirText, { color: C.reject_glow }]}>✕ RET</Text>
-        </Animated.View>
-
-        <Animated.View style={[styles.dirLabel, styles.queryLabel, queryLabelStyle]}>
-          <Text style={[styles.dirText, { color: C.query }]}>SORGU ↑</Text>
         </Animated.View>
       </Animated.View>
     </GestureDetector>
@@ -145,11 +140,5 @@ const styles = StyleSheet.create({
   },
   acceptLabel: { right: 16, borderColor: TC.accept_glow, backgroundColor: TC.accept_glow + '22' },
   rejectLabel: { left: 16,  borderColor: TC.reject_glow, backgroundColor: TC.reject_glow + '22' },
-  queryLabel:  {
-    alignSelf: 'center',
-    left: '30%',
-    borderColor: C.query,
-    backgroundColor: (C.query + '22'),
-  },
   dirText: { fontWeight: TY.weight_black, fontSize: TY.size_md, letterSpacing: 1 },
 })
