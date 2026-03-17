@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text } from 'react-native'
+import { StyleSheet, Text, useWindowDimensions } from 'react-native'
 import { GestureDetector, Gesture } from 'react-native-gesture-handler'
 import Animated, {
   useSharedValue,
@@ -41,6 +41,7 @@ const SwipeHandlerInner: React.FC<Props> = ({
   const C         = theme.colors
   const THRESHOLD = theme.animation.swipe_threshold
   const DURATION  = theme.animation.swipe_duration_ms
+  const { width: SCREEN_W } = useWindowDimensions()
 
   const translateX = useSharedValue(0)
   const translateY = useSharedValue(0)
@@ -67,7 +68,7 @@ const SwipeHandlerInner: React.FC<Props> = ({
     .onEnd(e => {
       'worklet'
       if (e.translationX > THRESHOLD) {
-        translateX.value = withTiming(500, { duration: DURATION })
+        translateX.value = withTiming(SCREEN_W * 1.5, { duration: DURATION })
         opacity.value    = withTiming(0,   { duration: DURATION }, () => {
           'worklet'
           runOnJS(onSwipeRight)()
@@ -75,7 +76,7 @@ const SwipeHandlerInner: React.FC<Props> = ({
         if (dragX) dragX.value = withTiming(0, { duration: DURATION })
 
       } else if (e.translationX < -THRESHOLD) {
-        translateX.value = withTiming(-500, { duration: DURATION })
+        translateX.value = withTiming(-SCREEN_W * 1.5, { duration: DURATION })
         opacity.value    = withTiming(0,    { duration: DURATION }, () => {
           'worklet'
           runOnJS(onSwipeLeft)()
@@ -129,7 +130,7 @@ export const SwipeHandler = React.memo(SwipeHandlerInner)
 const styles = StyleSheet.create({
   dirLabel: {
     position: 'absolute',
-    top: 60,
+    top: '15%',
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: R.sm,

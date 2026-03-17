@@ -3,6 +3,7 @@ import {
   View, Text, TouchableOpacity, Modal, ScrollView,
   StyleSheet, Platform,
 } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { GameEvent, EventChoice } from '../../types/event.types'
 import { NPCRole } from '../../types/npc.types'
 import themeData from '../../data/theme.json'
@@ -109,13 +110,14 @@ interface Props {
 }
 
 export const EventModal: React.FC<Props> = ({ event, acceptedRoles, onChoice }) => {
+  const insets = useSafeAreaInsets()
   const hasRoleBonus = (requires_role: NPCRole | null) =>
     !!requires_role && acceptedRoles.includes(requires_role)
 
   return (
     <Modal transparent animationType="slide" visible>
       <View style={es.backdrop}>
-        <View style={es.sheet}>
+        <View style={[es.sheet, { paddingBottom: insets.bottom + 16 }]}>
 
           <View style={es.termHeader}>
             <View style={es.dots}>
@@ -180,7 +182,7 @@ const es = StyleSheet.create({
     borderTopWidth: 1,
     borderColor: C.divider,
     maxHeight: '88%',
-    paddingBottom: Platform.OS === 'android' ? 28 : 20,
+    paddingBottom: 0,
   },
 
   termHeader: {

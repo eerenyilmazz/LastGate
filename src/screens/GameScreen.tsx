@@ -108,12 +108,12 @@ const StatIcon = React.memo<{
 
   return (
     <Animated.View style={[sIcon.wrap, isCrit && blinkStyle]}>
-      <Text style={sIcon.emoji}>{icon}</Text>
-      <Text style={[sIcon.abbrev, { fontFamily: MONO }]}>{abbrev}</Text>
-      <Text style={[sIcon.val, { color: activeColor, fontFamily: MONO }]}>
+      <Text style={sIcon.emoji} allowFontScaling={false}>{icon}</Text>
+      <Text style={[sIcon.abbrev, { fontFamily: MONO }]} allowFontScaling={false}>{abbrev}</Text>
+      <Text style={[sIcon.val, { color: activeColor, fontFamily: MONO }]} allowFontScaling={false}>
         {displayVal > 999 ? '999' : displayVal}
       </Text>
-      <Text style={[sIcon.diff, {
+      <Text allowFontScaling={false} style={[sIcon.diff, {
         color: diffPos ? C.accept_glow : C.reject_glow,
         fontFamily: MONO,
         opacity: showDiff ? 1 : 0,

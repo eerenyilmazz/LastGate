@@ -3,6 +3,7 @@ import {
   View, Text, TouchableOpacity, Modal, ScrollView,
   StyleSheet, Platform,
 } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { NPC } from '../../types/npc.types'
 import { StatDelta } from '../../types/stat.types'
 import themeData from '../../data/theme.json'
@@ -62,6 +63,7 @@ interface Props {
 }
 
 export const CardDetails: React.FC<Props> = ({ npc, visible, onClose }) => {
+  const insets = useSafeAreaInsets()
   const roleColor = ROLE_COLORS[npc.role] ?? C.text_muted
 
   return (
@@ -76,7 +78,7 @@ export const CardDetails: React.FC<Props> = ({ npc, visible, onClose }) => {
         activeOpacity={1}
         onPress={onClose}
       >
-        <View style={ds.sheet} onStartShouldSetResponder={() => true}>
+        <View style={[ds.sheet, { paddingBottom: insets.bottom + 16 }]} onStartShouldSetResponder={() => true}>
 
           <View style={ds.termHeader}>
             <View style={ds.dots}>
@@ -158,7 +160,7 @@ const ds = StyleSheet.create({
     borderTopWidth: 1,
     borderColor: C.card_bg,
     maxHeight: '80%',
-    paddingBottom: Platform.OS === 'android' ? 28 : 20,
+    paddingBottom: 0,
   },
 
   termHeader: {

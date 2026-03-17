@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Dimensions, Platform } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native'
 import Animated, {
   useSharedValue, useAnimatedStyle,
   withTiming, withDelay, withRepeat, withSequence, Easing,
@@ -12,7 +12,6 @@ const uiStrings = (ui as any).strings as Record<string, string>
 
 interface Props { onDone: () => void }
 
-const { height } = Dimensions.get('window')
 const C  = themeData.colors
 const TY = themeData.typography as any
 const SP = themeData.spacing

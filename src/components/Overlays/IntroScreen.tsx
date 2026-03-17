@@ -3,7 +3,7 @@ import {
   View, Text, TouchableOpacity, StyleSheet,
   Platform,
 } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import uiData from '../../data/ui.json'
 import themeData from '../../data/theme.json'
 
@@ -25,6 +25,7 @@ interface Props {
 }
 
 export const IntroScreen: React.FC<Props> = ({ onStart }) => {
+  const insets = useSafeAreaInsets()
   const [visibleCount, setVisibleCount] = useState(0)
   const [showCTA,      setShowCTA]      = useState(false)
   const [cursor,       setCursor]       = useState(true)
@@ -99,7 +100,7 @@ export const IntroScreen: React.FC<Props> = ({ onStart }) => {
 
         <View style={[
           styles.bottomArea,
-          { paddingBottom: Platform.OS === 'android' ? 36 : 24 },
+          { paddingBottom: insets.bottom + 16 },
         ]}>
           {showCTA ? (
             <TouchableOpacity

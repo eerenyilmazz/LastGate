@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Platform, Modal } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useGameStore } from '../../store/useGameStore'
 import themeData from '../../data/theme.json'
 import uiData from '../../data/ui.json'
@@ -17,6 +18,7 @@ interface Props {
 }
 
 export const NotificationOverlay: React.FC<Props> = ({ onContinue }) => {
+  const insets = useSafeAreaInsets()
   const game = useGameStore()
   const day  = game.day
 
@@ -38,7 +40,7 @@ export const NotificationOverlay: React.FC<Props> = ({ onContinue }) => {
         onPress={onContinue}
       >
         <TouchableOpacity
-          style={[styles.sheet, { paddingBottom: Platform.OS === 'android' ? 44 : 30 }]}
+          style={[styles.sheet, { paddingBottom: insets.bottom + 16 }]}
           activeOpacity={1}
           onPress={onContinue}
         >

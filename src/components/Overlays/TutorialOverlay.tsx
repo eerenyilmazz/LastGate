@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import themeData from '../../data/theme.json'
 import uiData from '../../data/ui.json'
 
@@ -27,9 +28,11 @@ interface Props {
   onClose: () => void
 }
 
-export const TutorialOverlay: React.FC<Props> = ({ onClose }) => (
+export const TutorialOverlay: React.FC<Props> = ({ onClose }) => {
+  const insets = useSafeAreaInsets()
+  return (
   <View style={styles.overlay}>
-    <View style={[styles.sheet, { paddingBottom: Platform.OS === 'android' ? 44 : 30 }]}>
+    <View style={[styles.sheet, { paddingBottom: insets.bottom + 16 }]}>
 
       <View style={styles.termHeader}>
         <View style={styles.dots}>
@@ -67,7 +70,8 @@ export const TutorialOverlay: React.FC<Props> = ({ onClose }) => (
 
     </View>
   </View>
-)
+  )
+}
 
 const styles = StyleSheet.create({
   overlay: {

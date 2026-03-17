@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import {
   View, Text, TouchableOpacity, ScrollView, StyleSheet,
-  Platform, Modal, Dimensions, Switch,
+  Platform, Modal, Switch,
 } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import Animated, {
   useSharedValue, useAnimatedStyle,
   withRepeat, withSequence, withTiming, withDelay,
@@ -16,7 +16,6 @@ import ui from '../data/ui.json'
 import config from '../data/config.json'
 import themeData from '../data/theme.json'
 
-const { height: SCREEN_H } = Dimensions.get('window')
 const C  = themeData.colors
 const TY = themeData.typography as any
 const SP = themeData.spacing
@@ -339,6 +338,7 @@ interface Props {
 }
 
 export const MenuScreen: React.FC<Props> = ({ onStart }) => {
+  const insets = useSafeAreaInsets()
   const progress = useProgressStore()
   const settings = useSettingsStore()
   const [overlay, setOverlay] = useState<OverlayType>(null)
@@ -390,7 +390,7 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
         )}
       </View>
 
-      <View style={styles.menuArea}>
+      <View style={[styles.menuArea, { paddingBottom: insets.bottom + 16 }]}>
 
         <View style={diff.row}>
           {(['easy', 'normal', 'hard'] as Difficulty[]).map((d) => {
@@ -446,7 +446,7 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
         <View style={panel.backdrop}>
           <TouchableOpacity style={panel.dismissArea} onPress={close} activeOpacity={1} />
 
-          <View style={panel.container}>
+          <View style={[panel.container, { paddingBottom: insets.bottom + 16 }]}>
             <View style={[
               panel.accentBar,
               {
@@ -536,7 +536,6 @@ const styles = StyleSheet.create({
 
   menuArea: {
     paddingHorizontal: 24,
-    paddingBottom: Platform.OS === 'android' ? 28 : 20,
     gap: 8,
   },
 
@@ -618,8 +617,7 @@ const panel = StyleSheet.create({
     borderTopRightRadius: 20,
     borderTopWidth: 0,
     borderColor: 'transparent',
-    height: SCREEN_H * 0.82,
-    paddingBottom: Platform.OS === 'android' ? 28 : 20,
+    height: '82%',
     overflow: 'hidden',
   },
   accentBar: {

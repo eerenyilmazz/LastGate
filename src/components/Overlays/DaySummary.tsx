@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useStatStore } from '../../store/useStatStore'
 import { useGameStore } from '../../store/useGameStore'
 import { StatType } from '../../types/stat.types'
@@ -29,6 +30,7 @@ interface Props {
 }
 
 export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
+  const insets = useSafeAreaInsets()
   const stats = useStatStore()
   const game  = useGameStore()
 
@@ -39,7 +41,7 @@ export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
       style={styles.overlay}
     >
       <View
-        style={[styles.sheet, { paddingBottom: Platform.OS === 'android' ? 44 : 30 }]}
+        style={[styles.sheet, { paddingBottom: insets.bottom + 16 }]}
         onStartShouldSetResponder={() => false}
       >
 

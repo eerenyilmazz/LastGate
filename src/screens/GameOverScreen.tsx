@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Platform, Dimensions } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Animated, {
   useSharedValue, useAnimatedStyle,
@@ -16,7 +16,6 @@ const TY = themeData.typography as any
 const SP = themeData.spacing
 const R  = themeData.radius
 const MONO    = Platform.select(themeData.ui.font_mono) as string
-const { height } = Dimensions.get('window')
 const ENDINGS   = ui.game_over_endings as Record<GameOverReason, { title: string; desc: string; color: string; icon: string; tag: string }>
 const RS_LABELS = ui.run_stats_labels as { header: string; accepted: string; rejected: string; queries: string; days: string }
 
