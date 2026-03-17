@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Platform, Modal } from 'react-native'
 import { useGameStore } from '../../store/useGameStore'
 import themeData from '../../data/theme.json'
 import uiData from '../../data/ui.json'
@@ -25,42 +25,50 @@ export const NotificationOverlay: React.FC<Props> = ({ onContinue }) => {
     : [REPORT.no_events]
 
   return (
-    <TouchableOpacity
-      style={styles.overlay}
-      activeOpacity={1}
-      onPress={onContinue}
+    <Modal
+      visible
+      transparent
+      animationType="slide"
+      onRequestClose={onContinue}
+      statusBarTranslucent
     >
       <TouchableOpacity
-        style={[styles.sheet, { paddingBottom: Platform.OS === 'android' ? 44 : 30 }]}
+        style={styles.overlay}
         activeOpacity={1}
         onPress={onContinue}
       >
+        <TouchableOpacity
+          style={[styles.sheet, { paddingBottom: Platform.OS === 'android' ? 44 : 30 }]}
+          activeOpacity={1}
+          onPress={onContinue}
+        >
 
-        <View style={styles.termHeader}>
-          <View style={styles.dots}>
-            <View style={[styles.dot, { backgroundColor: DOTS[0] }]} />
-            <View style={[styles.dot, { backgroundColor: DOTS[1] }]} />
-            <View style={[styles.dot, { backgroundColor: DOTS[2] }]} />
-          </View>
-          <Text style={[styles.headerText, { fontFamily: MONO }]}>
-            {REPORT.header_prefix}{day}{REPORT.header_suffix}
-          </Text>
-          <View style={{ width: 40 }} />
-        </View>
-
-        <View style={styles.list}>
-          {notes.map((text, i) => (
-            <View key={i} style={styles.noteRow}>
-              <Text style={[styles.bullet, { fontFamily: MONO }]}>›</Text>
-              <Text style={[styles.noteText, { fontFamily: MONO }]}>{text}</Text>
+          <View style={styles.termHeader}>
+            <View style={styles.dots}>
+              <View style={[styles.dot, { backgroundColor: DOTS[0] }]} />
+              <View style={[styles.dot, { backgroundColor: DOTS[1] }]} />
+              <View style={[styles.dot, { backgroundColor: DOTS[2] }]} />
             </View>
-          ))}
-        </View>
+            <Text style={[styles.headerText, { fontFamily: MONO }]}>
+              {REPORT.header_prefix}{day}{REPORT.header_suffix}
+            </Text>
+            <View style={{ width: 40 }} />
+          </View>
 
-        <Text style={[styles.tapHint, { fontFamily: MONO }]}>{uiData.labels.continue_hint}</Text>
+          <View style={styles.list}>
+            {notes.map((text, i) => (
+              <View key={i} style={styles.noteRow}>
+                <Text style={[styles.bullet, { fontFamily: MONO }]}>›</Text>
+                <Text style={[styles.noteText, { fontFamily: MONO }]}>{text}</Text>
+              </View>
+            ))}
+          </View>
 
+          <Text style={[styles.tapHint, { fontFamily: MONO }]}>{uiData.labels.continue_hint}</Text>
+
+        </TouchableOpacity>
       </TouchableOpacity>
-    </TouchableOpacity>
+    </Modal>
   )
 }
 
