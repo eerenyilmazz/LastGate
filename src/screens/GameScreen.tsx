@@ -189,11 +189,6 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
   const [queryWarnPending, setQueryWarnPending] = useState(false)
   const [cardZoneH,        setCardZoneH]        = useState(360)
   const [tutorialDone,     setTutorialDone]     = useState(false)
-  const [typedText,        setTypedText]        = useState('')
-  const [isTyping,         setIsTyping]         = useState(false)
-  const [cursorOn,         setCursorOn]         = useState(true)
-  const typingTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
-
   const canQuery = game.queryChargesLeft > 0
 
   // card fills the zone it actually has — onLayout drives this
@@ -220,33 +215,6 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
     dragX.value = 0
     dragY.value = 0
   }, [npc?.npc_id])
-
-  // Typewriter: telegraphic timing — fast chars, long pauses on punctuation
-  useEffect(() => {
-    if (!npc) { setTypedText(''); return }
-    const full = npc.dialogue
-    setTypedText('')
-    setIsTyping(true)
-    const typeChar = (i: number) => {
-      if (i > full.length) { setIsTyping(false); return }
-      setTypedText(full.slice(0, i))
-      const ch = full[i - 1] ?? ''
-      const delay = '.!?'.includes(ch) ? 160 + Math.random() * 120
-        : ',;:—'.includes(ch)         ?  70 + Math.random() *  60
-        : Math.random() < 0.06        ?  55 + Math.random() *  40  // stutter
-        :                                10 + Math.random() *  20
-      typingTimer.current = setTimeout(() => typeChar(i + 1), delay)
-    }
-    typeChar(1)
-    return () => { if (typingTimer.current) clearTimeout(typingTimer.current) }
-  }, [npc?.npc_id])
-
-  // Cursor blink (only when not typing)
-  useEffect(() => {
-    if (isTyping) { setCursorOn(true); return }
-    const iv = setInterval(() => setCursorOn(v => !v), 530)
-    return () => clearInterval(iv)
-  }, [isTyping])
 
   useEffect(() => {
     if (!game.isGameOver) return
@@ -294,8 +262,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
 
   const isDecision = !!(npc && game.phase === 'npc_decision')
 
-  // Dialogue zone: query warning / query result override; otherwise typewriter
-  const overrideContent = isDecision && queryWarnPending
+  const queryToast = isDecision && queryWarnPending
     ? { text: `⚠  ${L.query_food_warn_prefix}${config.query_food_cost}${L.query_food_warn_suffix}`, color: C.query }
     : isDecision && queryResult
     ? { text: `▶  ${queryResult}`, color: C.accept_glow }
@@ -321,28 +288,6 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
         ))}
       </View>
 
-      {/* ── DIALOGUE ZONE ──────────────────────────────────── */}
-      <View style={styles.dialogueZone}>
-        {overrideContent ? (
-          <View style={[styles.dialogueFrame, { borderLeftColor: overrideContent.color }]}>
-            <Text style={[styles.dialogueText, { color: overrideContent.color, fontFamily: MONO }]} numberOfLines={3}>
-              {overrideContent.text}
-            </Text>
-          </View>
-        ) : npc ? (() => {
-          const roleColor = ROLE_COLORS[npc.role] ?? C.text_muted
-          return (
-            <View style={[styles.dialogueFrame, { borderLeftColor: roleColor + '99' }]}>
-              <Text style={[styles.dialogueText, styles.dialogueItalic, { color: C.text_secondary }]} numberOfLines={3}>
-                {`"`}{typedText}
-                <Text style={{ opacity: cursorOn ? 1 : 0 }}>{'▊'}</Text>
-                {!isTyping && `"`}
-              </Text>
-            </View>
-          )
-        })() : null}
-      </View>
-
       {/* ── CARD ZONE — flex:1 fills all remaining space ──── */}
       <View style={styles.cardZone} onLayout={onCardZoneLayout}>
         {npc && (
@@ -355,12 +300,18 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
             onTap={onQuery}
             disabled={!isDecision}
           >
-            {/* wrapper so CardGlow fills the card via absoluteFillObject */}
             <View>
               <CardGlow dragX={dragX} />
-              <NPCCard npc={npc} availableHeight={cardSlotH} hideDialogue />
+              <NPCCard npc={npc} availableHeight={cardSlotH} hideDialogue={false} />
             </View>
           </SwipeHandler>
+        )}
+        {queryToast && (
+          <View style={[styles.queryToast, { borderColor: queryToast.color + '66', backgroundColor: queryToast.color + '18' }]}>
+            <Text style={[styles.queryToastText, { color: queryToast.color, fontFamily: MONO }]} numberOfLines={2}>
+              {queryToast.text}
+            </Text>
+          </View>
         )}
       </View>
 
@@ -430,29 +381,26 @@ const styles = StyleSheet.create({
     borderBottomColor: C.accept + '1a',
   },
 
-  // Dialogue zone — fixed height, card position never jumps
-  dialogueZone: {
-    height: 96,
-    paddingHorizontal: SP.lg,
-    justifyContent: 'center',
-  },
-  dialogueFrame: {
-    borderLeftWidth: 2,
-    paddingLeft: 12,
-    paddingVertical: 4,
-  },
-  dialogueText: {
-    fontSize: TY.size_body,
-    lineHeight: 22,
-    letterSpacing: 0.2,
-  },
-  dialogueItalic: { fontStyle: 'italic' },
-
   // Card — takes all remaining vertical space
   cardZone: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  queryToast: {
+    position: 'absolute',
+    bottom: 16,
+    left: 24,
+    right: 24,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderRadius: R.md,
+    borderWidth: 1,
+  },
+  queryToastText: {
+    fontSize: TY.size_sm,
+    lineHeight: 18,
+    letterSpacing: 0.3,
   },
 
   // Info bar
