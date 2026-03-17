@@ -192,7 +192,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
   const canQuery = game.queryChargesLeft > 0
 
   // card fills the zone it actually has — onLayout drives this
-  const naturalCardH = Math.round(sw * 0.84 / CARD_ASPECT)
+  const naturalCardH = Math.round(sw * 0.93 / CARD_ASPECT)
   const cardSlotH    = Math.min(naturalCardH, Math.max(200, cardZoneH))
 
   const dayPct = Math.round(((game.day - 1) / Math.max(1, config.win_condition_day - 1)) * 100)

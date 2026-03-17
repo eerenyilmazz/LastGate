@@ -1,14 +1,15 @@
 import React from 'react'
-import { View, Text, Image, StyleSheet, useWindowDimensions } from 'react-native'
+import { View, Text, Image, StyleSheet, Platform, useWindowDimensions } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { NPC } from '../../types/npc.types'
 import ILLUSTRATIONS from '../../assets/images'
 import themeData from '../../data/theme.json'
 
-const C  = themeData.colors
-const TY = themeData.typography as any
-const SP = themeData.spacing
-const R  = themeData.radius
+const C    = themeData.colors
+const TY   = themeData.typography as any
+const SP   = themeData.spacing
+const R    = themeData.radius
+const MONO = Platform.select(themeData.ui.font_mono) as string
 const ROLE_COLORS = themeData.ui.role_colors as Record<string, string>
 const ROLE_TR     = themeData.ui.role_names_tr as Record<string, string>
 
@@ -19,13 +20,13 @@ interface Props {
 }
 
 const CARD_ASPECT  = 3 / 4
-const CARD_PADDING = 8
+const CARD_PADDING = 4
 
 const NPCCardInner: React.FC<Props> = ({ npc, availableHeight, hideDialogue }) => {
   const { width } = useWindowDimensions()
   const roleColor = ROLE_COLORS[npc.role] ?? C.text_muted
 
-  const baseW = width * 0.84
+  const baseW = width * 0.93
   const baseH = baseW / CARD_ASPECT
   const maxH  = availableHeight ? availableHeight - CARD_PADDING * 2 : baseH
   const cardH = Math.min(baseH, maxH)
@@ -33,7 +34,7 @@ const NPCCardInner: React.FC<Props> = ({ npc, availableHeight, hideDialogue }) =
 
   const gradH = hideDialogue
     ? Math.max(64, Math.round(cardH * 0.22))
-    : Math.max(130, Math.round(cardH * 0.40))
+    : Math.max(150, Math.round(cardH * 0.44))
 
   return (
     <View style={[styles.card, {
@@ -72,7 +73,11 @@ const NPCCardInner: React.FC<Props> = ({ npc, availableHeight, hideDialogue }) =
         <View style={styles.textBlock}>
           <Text style={styles.name} numberOfLines={1}>{npc.name}</Text>
           {!hideDialogue && (
-            <Text style={styles.dialogue} numberOfLines={3}>"{npc.dialogue}"</Text>
+            <Text style={[styles.dialogue, { fontFamily: MONO }]} numberOfLines={3}>
+              <Text style={[styles.dialogueQuote, { color: roleColor }]}>"</Text>
+              {npc.dialogue}
+              <Text style={[styles.dialogueQuote, { color: roleColor }]}>"</Text>
+            </Text>
           )}
         </View>
       </LinearGradient>
@@ -130,13 +135,19 @@ const styles = StyleSheet.create({
     textShadowRadius: 4,
   },
   dialogue: {
-    color: 'rgba(255,255,255,0.82)',
-    fontSize: TY.size_sm,
-    lineHeight: 18,
+    color: 'rgba(255,255,255,0.88)',
+    fontSize: TY.size_md,
+    lineHeight: 20,
     fontStyle: 'italic',
-    textShadowColor: 'rgba(0,0,0,0.95)',
+    letterSpacing: 0.1,
+    textShadowColor: 'rgba(0,0,0,0.98)',
     textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 3,
+    textShadowRadius: 4,
+  },
+  dialogueQuote: {
+    fontStyle: 'normal',
+    fontWeight: TY.weight_black,
+    fontSize: TY.size_body,
   },
   roleBadge: {
     position: 'absolute',
