@@ -46,8 +46,8 @@ export const IntroScreen: React.FC<Props> = ({ onStart }) => {
   }, [showCTA])
 
   return (
-    <View style={styles.overlay}>
-      <SafeAreaView style={styles.safe}>
+    <TouchableOpacity style={styles.overlay} activeOpacity={1} onPress={onStart}>
+      <SafeAreaView style={styles.safe} pointerEvents="none">
 
         <View style={styles.termHeader}>
           <View style={styles.dots}>
@@ -117,7 +117,7 @@ export const IntroScreen: React.FC<Props> = ({ onStart }) => {
         </View>
 
       </SafeAreaView>
-    </View>
+    </TouchableOpacity>
   )
 }
 
