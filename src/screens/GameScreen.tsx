@@ -118,7 +118,7 @@ const sIcon = StyleSheet.create({
 })
 
 // ─── Card glow ring — must be inside SwipeHandler so it moves with the card ──
-const CardGlow = React.memo<{ dragX: SharedValue<number> }>(({ dragX }) => {
+const CardGlow = React.memo<{ dragX: SharedValue<number>; dragY: SharedValue<number> }>(({ dragX, dragY }) => {
   const acceptStyle = useAnimatedStyle(() => {
     'worklet'
     const dx = dragX.value
@@ -128,6 +128,11 @@ const CardGlow = React.memo<{ dragX: SharedValue<number> }>(({ dragX }) => {
     'worklet'
     const dx = dragX.value
     return { opacity: dx < -4 ? Math.min(0.92, -dx / SWIPE_THRESHOLD) : 0 }
+  })
+  const queryStyle = useAnimatedStyle(() => {
+    'worklet'
+    const dy = dragY.value
+    return { opacity: dy < -4 ? Math.min(0.92, -dy / SWIPE_THRESHOLD) : 0 }
   })
   const base: ViewStyle = {
     ...StyleSheet.absoluteFillObject,
@@ -149,6 +154,11 @@ const CardGlow = React.memo<{ dragX: SharedValue<number> }>(({ dragX }) => {
         shadowColor: C.danger,
         backgroundColor: C.danger + '08',
       }, rejectStyle]} />
+      <Animated.View pointerEvents="none" style={[base, {
+        borderColor: C.query,
+        shadowColor: C.query,
+        backgroundColor: C.query + '08',
+      }, queryStyle]} />
     </>
   )
 })
@@ -171,6 +181,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
   const { handleAccept, handleReject, handleQuery, handleEventChoice, endDay } = useGameLoop()
 
   const dragX = useSharedValue(0)
+  const dragY = useSharedValue(0)
 
   const npc   = game.activeNPC
   const event = game.activeEvent
@@ -212,6 +223,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
     setQueryResult(null)
     setQueryWarnPending(false)
     dragX.value = 0
+    dragY.value = 0
   }, [npc?.npc_id])
 
   // Typewriter: telegraphic timing — fast chars, long pauses on punctuation
@@ -335,6 +347,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
           <SwipeHandler
             key={npc.npc_id}
             dragX={dragX}
+            dragY={dragY}
             onSwipeRight={doAccept}
             onSwipeLeft={doReject}
             onSwipeUp={onQuery}
@@ -342,7 +355,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
           >
             {/* wrapper so CardGlow fills the card via absoluteFillObject */}
             <View>
-              <CardGlow dragX={dragX} />
+              <CardGlow dragX={dragX} dragY={dragY} />
               <NPCCard npc={npc} availableHeight={cardSlotH} hideDialogue />
             </View>
           </SwipeHandler>
