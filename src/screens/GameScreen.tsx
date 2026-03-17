@@ -41,7 +41,7 @@ const STAT_MAX = config.stat_max as Record<StatType, number>
 
 const SWIPE_PREVIEW_THRESHOLD = themeData.animation.swipe_threshold
 
-// ─── Horizontal stat bar (Reigns-style) ────────────────────────────────────
+// ─── Horizontal stat bar ────────────────────────────────────────────────────
 const StatBarItem = React.memo<{
   icon:        string
   val:         number
@@ -93,54 +93,33 @@ const StatBarItem = React.memo<{
     'worklet'
     const w  = trackW.value
     const dx = dragX.value
-
-    if (w === 0 || Math.abs(dx) < 4) {
-      return { width: w * pct, backgroundColor: color }
-    }
-
+    if (w === 0 || Math.abs(dx) < 4) return { width: w * pct, backgroundColor: color }
     const delta        = dx > 0 ? acceptDelta : rejectDelta
     const progress     = Math.min(1, Math.abs(dx) / SWIPE_PREVIEW_THRESHOLD)
     const projectedPct = Math.max(0, Math.min(1, (val + delta) / max))
-    const displayW     = w * (pct + (projectedPct - pct) * progress)
-
-    return { width: displayW, backgroundColor: color }
+    return { width: w * (pct + (projectedPct - pct) * progress), backgroundColor: color }
   })
 
   return (
-    <View style={barStyles.row}>
-      <Animated.Text style={[barStyles.icon, isCrit && animStyle]}>{icon}</Animated.Text>
-
-      <View
-        style={barStyles.track}
-        onLayout={e => { trackW.value = e.nativeEvent.layout.width }}
-      >
-        <Animated.View style={[barStyles.fill, fillStyle, isCrit && animStyle]} />
+    <View style={barS.col}>
+      <Animated.Text style={[barS.icon, isCrit && animStyle]}>{icon}</Animated.Text>
+      <View style={barS.track}
+        onLayout={e => { trackW.value = e.nativeEvent.layout.width }}>
+        <Animated.View style={[barS.fill, fillStyle, isCrit && animStyle]} />
       </View>
-
-      <Animated.Text style={[barStyles.val, { color: isCrit ? C.stat_critical : C.text_muted }, isCrit && animStyle]}>
-        {displayVal > 999 ? '99+' : displayVal}
+      <Animated.Text style={[barS.val, { color: isCrit ? C.stat_critical : C.text_muted }, isCrit && animStyle]}>
+        {displayVal > 99 ? '99+' : displayVal}
       </Animated.Text>
     </View>
   )
 })
 
-const barStyles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    flex: 1,
-  },
-  icon:  { fontSize: TY.size_sm, width: 18, textAlign: 'center' },
-  track: {
-    flex: 1,
-    height: 5,
-    borderRadius: 3,
-    overflow: 'hidden',
-    backgroundColor: C.card_dark,
-  },
-  fill:  { height: '100%', borderRadius: 3 },
-  val:   { fontSize: TY.size_2xs, fontWeight: TY.weight_heavy, width: 22, textAlign: 'right' },
+const barS = StyleSheet.create({
+  col:   { flex: 1, alignItems: 'center', gap: 3 },
+  icon:  { fontSize: TY.size_sm },
+  track: { width: '100%', height: 4, borderRadius: 2, overflow: 'hidden', backgroundColor: C.card_dark },
+  fill:  { height: '100%', borderRadius: 2 },
+  val:   { fontSize: TY.size_2xs, fontWeight: TY.weight_heavy },
 })
 
 const CARD_ASPECT = 3 / 4
@@ -175,11 +154,11 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
   const canQuery  = game.queryChargesLeft > 0
   const isCompact = sh < 700
 
+  // card height: leave room for stat strip (~56) + info row (~36) + toast (~44) + btn rows (~110)
+  const usedH        = 56 + 36 + 44 + (isCompact ? 100 : 118)
   const naturalCardH = Math.round(sw * 0.84 / CARD_ASPECT)
-  const maxCardH     = Math.round((innerH - 44) * 0.64)
+  const maxCardH     = Math.max(160, innerH - usedH)
   const cardSlotH    = Math.min(naturalCardH, maxCardH)
-
-  const btnH = isCompact ? 52 : 62
 
   useEffect(() => {
     if (game.phase !== 'npc_arrival') return
@@ -201,11 +180,9 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
 
   useEffect(() => {
     if (!game.isGameOver) return
-    if (game.gameOverReason === 'victory') {
-      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
-    } else {
-      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error)
-    }
+    game.gameOverReason === 'victory'
+      ? Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
+      : Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error)
   }, [game.isGameOver])
 
   const onQuery = () => {
@@ -216,8 +193,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
       setQueryResult(handleQuery(npc))
       return
     }
-    const isFirstQuery = game.queryChargesLeft === game.queryChargesTotal
-    if (isFirstQuery) {
+    if (game.queryChargesLeft === game.queryChargesTotal) {
       playSFX('sfx_query')
       setQueryResult(handleQuery(npc))
     } else {
@@ -231,22 +207,24 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
   }, [])
 
   const doReject = useCallback(() => {
+    if (!npc) return
     playSFX('sfx_door_close')
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
-    handleReject(npc!)
+    handleReject(npc)
     setQueryResult(null)
     setQueryWarnPending(false)
   }, [npc, playSFX])
 
   const doAccept = useCallback(() => {
+    if (!npc) return
     playSFX('sfx_door_open')
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
-    handleAccept(npc!)
+    handleAccept(npc)
     setQueryResult(null)
     setQueryWarnPending(false)
   }, [npc, playSFX])
 
-  const isDecision = npc && game.phase === 'npc_decision'
+  const isDecision = !!(npc && game.phase === 'npc_decision')
 
   return (
     <SafeAreaView
@@ -255,63 +233,61 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
     >
       <AppBar onMainMenu={onMainMenu} />
 
-      {/* ── stat + day strip ──────────────────────────────────── */}
-      <View style={styles.strip}>
-        <View style={styles.statGrid}>
-          {STATS.map((s, i) => {
-            const val    = Math.round(stats.stats[s])
-            const pct    = Math.min(1, Math.max(0, val / STAT_MAX[s]))
-            const isCrit = stats.isCritical(s)
-            const color  = isCrit ? C.stat_critical : (UI.stat_colors as any)[s]
-            return (
-              <StatBarItem
-                key={s}
-                icon={(UI.stat_icons as any)[s]}
-                val={val}
-                pct={pct}
-                isCrit={isCrit}
-                color={color}
-                acceptDelta={npcAccept[s] ?? 0}
-                rejectDelta={npcReject[s] ?? 0}
-                max={STAT_MAX[s]}
-                dragX={dragX}
-              />
-            )
-          })}
-        </View>
-
-        <View style={styles.dayInfo}>
-          <Text style={styles.dayNum}>{game.day}<Text style={styles.dayLabel}>{L.day_num_suffix}</Text></Text>
-          <View style={styles.spPill}>
-            <Text style={styles.spStar}>★</Text>
-            <Text style={styles.spNum}>{progress.sp}</Text>
-          </View>
-        </View>
-      </View>
-
-      {/* ── card area ─────────────────────────────────────────── */}
-      <View style={styles.center}>
-        <View style={[styles.cardSlot, { height: cardSlotH }]}>
-          {npc && (
-            <SwipeHandler
-              key={npc.npc_id}
+      {/* ── stat strip ─────────────────────────────────────── */}
+      <View style={styles.statStrip}>
+        {STATS.map(s => {
+          const val    = Math.round(stats.stats[s])
+          const pct    = Math.min(1, Math.max(0, val / STAT_MAX[s]))
+          const isCrit = stats.isCritical(s)
+          const color  = isCrit ? C.stat_critical : (UI.stat_colors as any)[s]
+          return (
+            <StatBarItem
+              key={s}
+              icon={(UI.stat_icons as any)[s]}
+              val={val} pct={pct} isCrit={isCrit} color={color}
+              acceptDelta={npcAccept[s] ?? 0}
+              rejectDelta={npcReject[s] ?? 0}
+              max={STAT_MAX[s]}
               dragX={dragX}
-              onSwipeRight={doAccept}
-              onSwipeLeft={doReject}
-              onSwipeUp={onQuery}
-              disabled={game.phase !== 'npc_decision'}
-            >
-              <NPCCard npc={npc} availableHeight={cardSlotH} />
-            </SwipeHandler>
-          )}
+            />
+          )
+        })}
+      </View>
+
+      {/* ── day + SP info ──────────────────────────────────── */}
+      <View style={styles.infoRow}>
+        <Text style={styles.dayText}>
+          <Text style={styles.dayNum}>{game.day}</Text>
+          <Text style={styles.dayLabel}>{L.day_num_suffix}  ·  </Text>
+          <Text style={styles.dayLabel}>{config.win_condition_day - game.day}{L.day_status_remaining}</Text>
+        </Text>
+        <View style={styles.spPill}>
+          <Text style={styles.spStar}>★</Text>
+          <Text style={styles.spNum}>{progress.sp} SP</Text>
         </View>
       </View>
 
-      {/* ── query result toast ────────────────────────────────── */}
+      {/* ── card ───────────────────────────────────────────── */}
+      <View style={[styles.cardSlot, { height: cardSlotH }]}>
+        {npc && (
+          <SwipeHandler
+            key={npc.npc_id}
+            dragX={dragX}
+            onSwipeRight={doAccept}
+            onSwipeLeft={doReject}
+            onSwipeUp={onQuery}
+            disabled={!isDecision}
+          >
+            <NPCCard npc={npc} availableHeight={cardSlotH} />
+          </SwipeHandler>
+        )}
+      </View>
+
+      {/* ── toast ──────────────────────────────────────────── */}
       <View style={styles.toastArea}>
         {isDecision && queryWarnPending ? (
-          <View style={[styles.toast, styles.toastWarn]}>
-            <Text style={styles.toastWarnText}>
+          <View style={[styles.toast, { borderColor: C.stat_food }]}>
+            <Text style={[styles.toastText, { color: C.stat_food }]}>
               {L.query_food_warn_prefix}{config.query_food_cost}{L.query_food_warn_suffix}
             </Text>
           </View>
@@ -322,37 +298,25 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
         ) : null}
       </View>
 
-      {/* ── action bar ────────────────────────────────────────── */}
-      <View style={[styles.actionBar, {
-        paddingBottom: Platform.OS === 'android' ? 12 : 6,
+      {/* ── action bar ─────────────────────────────────────── */}
+      <View style={[styles.actions, {
+        paddingBottom: Platform.OS === 'android' ? 14 : 8,
         opacity: isDecision ? 1 : 0,
       }]}>
-        {/* Reject */}
-        <TouchableOpacity
-          onPress={doReject}
-          disabled={!isDecision}
-          style={[styles.mainBtn, styles.rejectBtn, { height: btnH }]}
-          activeOpacity={0.8}
-        >
-          <Text style={styles.rejectMark}>✕</Text>
-          <Text style={styles.rejectLabel}>{L.btn_reject}</Text>
-        </TouchableOpacity>
-
-        {/* Utility buttons */}
-        <View style={styles.utilCol}>
+        {/* top row: query + detail */}
+        <View style={styles.utilRow}>
           <TouchableOpacity
             onPress={onQuery}
             disabled={!canQuery || !isDecision}
-            style={[styles.utilBtn, !canQuery && styles.btnDisabled,
-              queryWarnPending && styles.queryBtnWarn]}
+            style={[styles.utilBtn, !canQuery && styles.btnOff, queryWarnPending && styles.queryWarn]}
             activeOpacity={0.8}
           >
-            <Text style={[styles.utilIcon, {
+            <Text style={[styles.utilBig, {
               color: queryWarnPending ? C.stat_food : canQuery ? C.query : C.text_muted
             }]}>
-              {queryWarnPending ? '!' : game.queryChargesLeft > 0 ? game.queryChargesLeft : '✕'}
+              {queryWarnPending ? '!' : canQuery ? game.queryChargesLeft : '✕'}
             </Text>
-            <Text style={[styles.utilLabel, {
+            <Text style={[styles.utilSm, {
               color: queryWarnPending ? C.stat_food : canQuery ? C.query : C.text_muted
             }]}>
               {queryWarnPending ? L.btn_query_confirm : L.btn_query}
@@ -365,24 +329,36 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
             style={styles.utilBtn}
             activeOpacity={0.8}
           >
-            <Text style={[styles.utilIcon, { color: C.text_muted, fontStyle: 'italic' }]}>i</Text>
-            <Text style={[styles.utilLabel, { color: C.text_muted }]}>{L.btn_detail}</Text>
+            <Text style={[styles.utilBig, { color: C.text_muted, fontStyle: 'italic' }]}>i</Text>
+            <Text style={[styles.utilSm, { color: C.text_muted }]}>{L.btn_detail}</Text>
           </TouchableOpacity>
         </View>
 
-        {/* Accept */}
-        <TouchableOpacity
-          onPress={doAccept}
-          disabled={!isDecision}
-          style={[styles.mainBtn, styles.acceptBtn, { height: btnH }]}
-          activeOpacity={0.8}
-        >
-          <Text style={styles.acceptMark}>✓</Text>
-          <Text style={styles.acceptLabel}>{L.btn_accept}</Text>
-        </TouchableOpacity>
+        {/* bottom row: reject + accept */}
+        <View style={styles.mainRow}>
+          <TouchableOpacity
+            onPress={doReject}
+            disabled={!isDecision}
+            style={[styles.mainBtn, styles.rejectBtn, isCompact && styles.mainBtnCompact]}
+            activeOpacity={0.75}
+          >
+            <Text style={styles.rejectMark}>✕</Text>
+            <Text style={styles.rejectLabel}>{L.btn_reject}</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={doAccept}
+            disabled={!isDecision}
+            style={[styles.mainBtn, styles.acceptBtn, isCompact && styles.mainBtnCompact]}
+            activeOpacity={0.75}
+          >
+            <Text style={styles.acceptMark}>✓</Text>
+            <Text style={styles.acceptLabel}>{L.btn_accept}</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
-      {/* ── overlays ──────────────────────────────────────────── */}
+      {/* ── overlays ───────────────────────────────────────── */}
       {game.phase === 'intro' && (
         <IntroScreen onStart={() => game.setPhase('npc_decision')} />
       )}
@@ -413,117 +389,107 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
 }
 
 const styles = StyleSheet.create({
-  safe:   { flex: 1 },
-  center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  safe: { flex: 1 },
 
-  // ── stat + day strip
-  strip: {
+  // stat strip — full width, single row, 4 equal cols
+  statStrip: {
     flexDirection: 'row',
-    alignItems: 'center',
     paddingHorizontal: SP.md,
-    paddingVertical: SP.sm,
+    paddingTop: SP.sm,
+    paddingBottom: SP.xs,
+    gap: SP.sm,
     borderBottomWidth: 1,
     borderBottomColor: C.divider,
-    gap: SP.md,
   },
-  statGrid: {
-    flex: 1,
-    gap: 4,
+
+  // day + SP
+  infoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: SP.md,
+    paddingVertical: SP.xs,
   },
-  dayInfo: {
-    alignItems: 'flex-end',
-    gap: 4,
-  },
-  dayNum: {
-    color: C.text_primary,
-    fontSize: TY.size_h6,
-    fontWeight: TY.weight_heavy,
-    letterSpacing: 0.3,
-  },
-  dayLabel: {
-    fontSize: TY.size_xs,
-    fontWeight: TY.weight_semi,
-    color: C.text_muted,
-  },
+  dayText: {},
+  dayNum:   { color: C.text_primary, fontSize: TY.size_body, fontWeight: TY.weight_heavy },
+  dayLabel: { color: C.text_muted,   fontSize: TY.size_xs },
   spPill: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 3,
+    gap: 4,
     backgroundColor: C.card_bg,
     borderRadius: R.pill,
-    paddingHorizontal: 8,
-    paddingVertical: 3,
+    paddingHorizontal: SP.sm,
+    paddingVertical: 4,
     borderWidth: 1,
     borderColor: C.button_border,
   },
-  spStar: { color: C.query, fontSize: TY.size_xs },
+  spStar: { color: C.query,        fontSize: TY.size_xs },
   spNum:  { color: C.text_primary, fontSize: TY.size_xs, fontWeight: TY.weight_heavy },
 
-  // ── card slot
+  // card
   cardSlot: { justifyContent: 'center', alignItems: 'center', overflow: 'hidden' },
 
-  // ── toast
-  toastArea: { height: 46, paddingHorizontal: SP.md, justifyContent: 'center' },
+  // toast
+  toastArea: { height: 44, paddingHorizontal: SP.md, justifyContent: 'center' },
   toast: {
-    paddingHorizontal: SP.md,
-    paddingVertical: 8,
-    borderRadius: R.pill,
-    borderWidth: 1,
+    paddingHorizontal: SP.md, paddingVertical: 8,
+    borderRadius: R.pill, borderWidth: 1,
     backgroundColor: C.surface,
+    alignSelf: 'center',
   },
-  toastText:     { fontSize: TY.size_sm, lineHeight: 18 },
-  toastWarn:     { borderColor: C.stat_food },
-  toastWarnText: { color: C.stat_food, fontSize: TY.size_note, fontWeight: TY.weight_bold },
+  toastText: { fontSize: TY.size_sm, textAlign: 'center' },
 
-  // ── action bar
-  actionBar: {
+  // action area
+  actions: {
+    paddingHorizontal: SP.md,
+    paddingTop: SP.xs,
+    gap: SP.xs,
+  },
+
+  // top utility row
+  utilRow: {
     flexDirection: 'row',
     gap: SP.sm,
-    paddingHorizontal: SP.md,
-    paddingTop: SP.sm,
-    alignItems: 'stretch',
-  },
-
-  // main big buttons
-  mainBtn: {
-    flex: 3,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: R.xl,
-    gap: 2,
-    borderWidth: 2,
-  },
-  rejectBtn: {
-    backgroundColor: C.danger_dark,
-    borderColor: C.danger,
-  },
-  acceptBtn: {
-    backgroundColor: C.accept + '22',
-    borderColor: C.accept,
-  },
-  rejectMark:  { fontSize: TY.size_h4, color: C.danger,      fontWeight: TY.weight_black },
-  rejectLabel: { fontSize: TY.size_xs,  color: C.danger,      fontWeight: TY.weight_heavy, letterSpacing: 0.5 },
-  acceptMark:  { fontSize: TY.size_h4, color: C.accept_glow, fontWeight: TY.weight_black },
-  acceptLabel: { fontSize: TY.size_xs,  color: C.accept_glow, fontWeight: TY.weight_heavy, letterSpacing: 0.5 },
-
-  // utility col
-  utilCol: {
-    flex: 2,
-    gap: SP.xs,
   },
   utilBtn: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 4,
+    gap: 5,
+    paddingVertical: 8,
     borderRadius: R.md,
     borderWidth: 1,
     backgroundColor: C.card_bg,
     borderColor: C.divider,
   },
-  queryBtnWarn: { borderColor: C.stat_food, backgroundColor: C.card_dark },
-  utilIcon:  { fontSize: TY.size_md, fontWeight: TY.weight_black },
-  utilLabel: { fontSize: TY.size_caption, fontWeight: TY.weight_bold, letterSpacing: 0.3 },
-  btnDisabled: { opacity: 0.3 },
+  queryWarn:  { borderColor: C.stat_food, backgroundColor: C.card_dark },
+  btnOff:     { opacity: 0.3 },
+  utilBig:    { fontSize: TY.size_md, fontWeight: TY.weight_black },
+  utilSm:     { fontSize: TY.size_caption, fontWeight: TY.weight_bold, letterSpacing: 0.4 },
+
+  // bottom main row
+  mainRow: {
+    flexDirection: 'row',
+    gap: SP.sm,
+  },
+  mainBtn: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 14,
+    borderRadius: R.xl,
+    gap: 2,
+    borderWidth: 2,
+  },
+  mainBtnCompact: { paddingVertical: 10 },
+
+  rejectBtn:   { backgroundColor: C.danger_dark, borderColor: C.danger },
+  acceptBtn:   { backgroundColor: C.accept + '1a', borderColor: C.accept },
+
+  rejectMark:  { fontSize: TY.size_h4, color: C.danger,      fontWeight: TY.weight_black },
+  rejectLabel: { fontSize: TY.size_xs,  color: C.danger,      fontWeight: TY.weight_heavy, letterSpacing: 0.6 },
+  acceptMark:  { fontSize: TY.size_h4, color: C.accept_glow, fontWeight: TY.weight_black },
+  acceptLabel: { fontSize: TY.size_xs,  color: C.accept_glow, fontWeight: TY.weight_heavy, letterSpacing: 0.6 },
 })
