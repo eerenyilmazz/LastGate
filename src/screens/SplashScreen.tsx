@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Platform, useWindowDimensions } from 'react-native'
 import Animated, {
   useSharedValue, useAnimatedStyle,
   withTiming, withDelay, withRepeat, withSequence, Easing,
@@ -20,6 +20,7 @@ const MONO         = Platform.select(themeData.ui.font_mono) as string
 const STATUS_ITEMS = ui.splash_status_items
 
 export const SplashScreen: React.FC<Props> = ({ onDone }) => {
+  const { height } = useWindowDimensions()
   const logoOp    = useSharedValue(0)
   const logoScale = useSharedValue(0.88)
   const subOp     = useSharedValue(0)
