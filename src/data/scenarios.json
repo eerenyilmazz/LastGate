@@ -8,7 +8,7 @@
       "dialogue": "Elimdeki ilaçlarla sizi iyileştirebilirim. Küçük bir ücreti hak ettiğimi düşünüyorum.",
       "clue_text": "Adam sürekli ellerini oğuşturuyor ve gözleri hafifçe kızarmış görünüyor.",
       "illustration_tier": "tier1",
-      "illustration_key": "serge",
+      "illustration_key": "serge_infected_liar",
       "accept": {
         "immunity": 14,
         "food": -5,

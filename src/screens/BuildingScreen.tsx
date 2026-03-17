@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import {
   View, Text, TouchableOpacity, ScrollView,
-  StyleSheet, Platform, Alert,
+  StyleSheet, Platform, Modal,
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useProgressStore } from '../store/useProgressStore'
@@ -40,11 +40,20 @@ const Chip: React.FC<{ label: string; color: string }> = ({ label, color }) => (
   </View>
 )
 
+type ConfirmState = {
+  title: string
+  desc: string
+  cost: number
+  color: string
+  onConfirm: () => void
+} | null
+
 export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
   const progress = useProgressStore()
   const stats    = useStatStore()
   const game     = useGameStore()
   const [tab, setTab] = useState<Tab>('buildings')
+  const [confirm, setConfirm] = useState<ConfirmState>(null)
   const buildings = config.buildings as Array<BuildingConfig & { icon: string; color: string; chips: string[] }>
 
   const goBack = () => game.setPhase('day_summary')
@@ -153,14 +162,13 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
 
               {canBuy && (
                 <TouchableOpacity
-                  onPress={() => Alert.alert(
-                    b.label,
-                    `${b.cost} SP harcayarak inşa etmek istiyor musunuz?`,
-                    [
-                      { text: L.confirm_cancel ?? 'Vazgeç', style: 'cancel' },
-                      { text: L.confirm_buy ?? 'İnşa Et', onPress: () => progress.buyBuilding(b.id) },
-                    ]
-                  )}
+                  onPress={() => setConfirm({
+                    title: b.label,
+                    desc: b.description,
+                    cost: b.cost,
+                    color: b.color,
+                    onConfirm: () => progress.buyBuilding(b.id),
+                  })}
                   style={[styles.actionBtn, { backgroundColor: b.color + '22', borderColor: b.color + '66' }]}
                   activeOpacity={0.8}
                 >
@@ -186,21 +194,17 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
 
           const handleBuy = () => {
             if (!canBuy) return
-            Alert.alert(
-              skill.label,
-              `${skill.cost} SP harcayarak kullanmak istiyor musunuz?`,
-              [
-                { text: L.confirm_cancel ?? 'Vazgeç', style: 'cancel' },
-                {
-                  text: L.confirm_use ?? 'Kullan',
-                  onPress: () => {
-                    if (!progress.spendSP(skill.cost)) return
-                    progress.markUsed(skill.id)
-                    stats.apply(skill.effect)
-                  },
-                },
-              ]
-            )
+            setConfirm({
+              title: skill.label,
+              desc: skill.desc,
+              cost: skill.cost,
+              color: skill.color,
+              onConfirm: () => {
+                if (!progress.spendSP(skill.cost)) return
+                progress.markUsed(skill.id)
+                stats.apply(skill.effect)
+              },
+            })
           }
 
           return (
@@ -282,6 +286,59 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
 
         <View style={{ height: Platform.OS === 'android' ? 64 : 32 }} />
       </ScrollView>
+
+      {/* ── Confirm modal ───────────────────────────────────── */}
+      <Modal
+        visible={!!confirm}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setConfirm(null)}
+      >
+        <TouchableOpacity
+          style={cm.backdrop}
+          activeOpacity={1}
+          onPress={() => setConfirm(null)}
+        >
+          <TouchableOpacity activeOpacity={1} style={[cm.sheet, { borderColor: confirm?.color + '55' }]}>
+            <View style={[cm.colorBar, { backgroundColor: confirm?.color }]} />
+
+            <Text style={[cm.title, { fontFamily: MONO }]}>
+              {confirm?.title.toUpperCase()}
+            </Text>
+            <Text style={cm.desc}>{confirm?.desc}</Text>
+
+            <View style={[cm.costRow]}>
+              <Text style={[cm.costStar, { color: confirm?.color }]}>★</Text>
+              <Text style={[cm.costNum, { color: confirm?.color, fontFamily: MONO }]}>
+                {confirm?.cost} SP
+              </Text>
+              <Text style={cm.costLabel}>{L.confirm_spend_label ?? 'harcanacak'}</Text>
+            </View>
+
+            <View style={cm.btnRow}>
+              <TouchableOpacity
+                style={cm.cancelBtn}
+                onPress={() => setConfirm(null)}
+                activeOpacity={0.8}
+              >
+                <Text style={[cm.cancelText, { fontFamily: MONO }]}>
+                  {L.confirm_cancel ?? 'Vazgeç'}
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={[cm.confirmBtn, { backgroundColor: confirm?.color + '22', borderColor: confirm?.color }]}
+                onPress={() => { confirm?.onConfirm(); setConfirm(null) }}
+                activeOpacity={0.8}
+              >
+                <Text style={[cm.confirmText, { color: confirm?.color, fontFamily: MONO }]}>
+                  {L.confirm_buy ?? 'İnşa Et'}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
+        </TouchableOpacity>
+      </Modal>
     </SafeAreaView>
   )
 }
@@ -357,4 +414,86 @@ const styles = StyleSheet.create({
 const ch = StyleSheet.create({
   wrap: { paddingHorizontal: 8, paddingVertical: 4, borderRadius: R.xs, borderWidth: 1 },
   text: { fontSize: TY.size_xs, fontWeight: TY.weight_bold },
+})
+
+const cm = StyleSheet.create({
+  backdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.72)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: SP.xl,
+  },
+  sheet: {
+    width: '100%',
+    backgroundColor: C.surface,
+    borderRadius: R.xl,
+    borderWidth: 1,
+    overflow: 'hidden',
+    gap: SP.md,
+    paddingHorizontal: SP.lg,
+    paddingBottom: SP.lg,
+  },
+  colorBar: {
+    height: 4,
+    marginHorizontal: -SP.lg,
+    marginBottom: SP.xs,
+  },
+  title: {
+    color: C.text_bright,
+    fontSize: TY.size_body,
+    fontWeight: TY.weight_heavy,
+    letterSpacing: 2,
+    textAlign: 'center',
+  },
+  desc: {
+    color: C.text_muted,
+    fontSize: TY.size_sm,
+    lineHeight: 18,
+    textAlign: 'center',
+  },
+  costRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: SP.xs,
+    backgroundColor: C.card_bg,
+    borderRadius: R.md,
+    paddingVertical: SP.sm,
+  },
+  costStar:  { fontSize: TY.size_md },
+  costNum:   { fontSize: TY.size_h5, fontWeight: TY.weight_black },
+  costLabel: { color: C.text_muted, fontSize: TY.size_sm, fontWeight: TY.weight_semi },
+  btnRow: {
+    flexDirection: 'row',
+    gap: SP.sm,
+    marginTop: SP.xs,
+  },
+  cancelBtn: {
+    flex: 1,
+    paddingVertical: SP.md,
+    borderRadius: R.lg,
+    alignItems: 'center',
+    backgroundColor: C.card_bg,
+    borderWidth: 1,
+    borderColor: C.divider,
+  },
+  cancelText: {
+    color: C.text_muted,
+    fontSize: TY.size_sm,
+    fontWeight: TY.weight_heavy,
+    letterSpacing: 1,
+  },
+  confirmBtn: {
+    flex: 2,
+    paddingVertical: SP.md,
+    borderRadius: R.lg,
+    alignItems: 'center',
+    borderWidth: 2,
+  },
+  confirmText: {
+    fontSize: TY.size_sm,
+    fontWeight: TY.weight_black,
+    letterSpacing: 1.5,
+  },
 })
