@@ -125,11 +125,11 @@ const StatIcon = React.memo<{
 })
 
 const sIcon = StyleSheet.create({
-  wrap:  { alignItems: 'center', flex: 1, paddingVertical: 7 },
+  wrap:  { alignItems: 'center', flex: 1, paddingVertical: 8, paddingHorizontal: 2 },
   emoji: { fontSize: 20 },
   val:   { fontSize: TY.size_sm, fontWeight: TY.weight_black, marginTop: 3, letterSpacing: 0.3 },
   diff:   { fontSize: 9, fontWeight: TY.weight_heavy, marginTop: 2, letterSpacing: 0.3, height: 12, lineHeight: 12 },
-  abbrev: { fontSize: 7, color: C.text_muted, letterSpacing: 0, fontWeight: TY.weight_bold, marginTop: 1, opacity: 0.7 },
+  abbrev: { fontSize: TY.size_sm, color: C.text_muted, letterSpacing: 0, fontWeight: TY.weight_bold, marginTop: 2, opacity: 0.85, textAlign: 'center' },
 })
 
 const CardGlow = React.memo<{ dragX: SharedValue<number> }>(({ dragX }) => {
