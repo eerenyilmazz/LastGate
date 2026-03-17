@@ -38,7 +38,7 @@ const NPCCardInner: React.FC<Props> = ({ npc, availableHeight, hideDialogue }) =
   return (
     <View style={[styles.card, {
       width: cardW, height: cardH, borderRadius: 18,
-      borderWidth: 1.5, borderColor: roleColor + '55',
+      borderWidth: 1, borderColor: 'rgba(255,255,255,0.10)',
       shadowColor: '#000',
     }]}>
 

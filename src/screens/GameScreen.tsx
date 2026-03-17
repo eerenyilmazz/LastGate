@@ -117,44 +117,41 @@ const sIcon = StyleSheet.create({
   diff:  { fontSize: 9,          fontWeight: TY.weight_heavy, marginTop: 2, letterSpacing: 0.3 },
 })
 
-// ─── Card glow ring (accept=green, reject=red, neutral=dark) ────────────────
-const CardGlow = React.memo<{ dragX: SharedValue<number>; w: number; h: number }>(
-  ({ dragX, w, h }) => {
-    const acceptStyle = useAnimatedStyle(() => {
-      'worklet'
-      const dx = dragX.value
-      return { opacity: dx > 4 ? Math.min(0.92, dx / SWIPE_THRESHOLD) : 0 }
-    })
-    const rejectStyle = useAnimatedStyle(() => {
-      'worklet'
-      const dx = dragX.value
-      return { opacity: dx < -4 ? Math.min(0.92, -dx / SWIPE_THRESHOLD) : 0 }
-    })
-    const base: ViewStyle = {
-      position: 'absolute',
-      width: w, height: h,
-      borderRadius: 19,
-      borderWidth: 2,
-      shadowOffset: { width: 0, height: 0 },
-      shadowOpacity: 1,
-      shadowRadius: 22,
-    }
-    return (
-      <>
-        <Animated.View pointerEvents="none" style={[base, {
-          borderColor: C.accept,
-          shadowColor: C.accept_glow,
-          backgroundColor: C.accept + '08',
-        }, acceptStyle]} />
-        <Animated.View pointerEvents="none" style={[base, {
-          borderColor: C.danger,
-          shadowColor: C.danger,
-          backgroundColor: C.danger + '08',
-        }, rejectStyle]} />
-      </>
-    )
+// ─── Card glow ring — must be inside SwipeHandler so it moves with the card ──
+const CardGlow = React.memo<{ dragX: SharedValue<number> }>(({ dragX }) => {
+  const acceptStyle = useAnimatedStyle(() => {
+    'worklet'
+    const dx = dragX.value
+    return { opacity: dx > 4 ? Math.min(0.92, dx / SWIPE_THRESHOLD) : 0 }
+  })
+  const rejectStyle = useAnimatedStyle(() => {
+    'worklet'
+    const dx = dragX.value
+    return { opacity: dx < -4 ? Math.min(0.92, -dx / SWIPE_THRESHOLD) : 0 }
+  })
+  const base: ViewStyle = {
+    ...StyleSheet.absoluteFillObject,
+    borderRadius: 19,
+    borderWidth: 2,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1,
+    shadowRadius: 22,
   }
-)
+  return (
+    <>
+      <Animated.View pointerEvents="none" style={[base, {
+        borderColor: C.accept,
+        shadowColor: C.accept_glow,
+        backgroundColor: C.accept + '08',
+      }, acceptStyle]} />
+      <Animated.View pointerEvents="none" style={[base, {
+        borderColor: C.danger,
+        shadowColor: C.danger,
+        backgroundColor: C.danger + '08',
+      }, rejectStyle]} />
+    </>
+  )
+})
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -196,9 +193,6 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
   // card fills the zone it actually has — onLayout drives this
   const naturalCardH = Math.round(sw * 0.84 / CARD_ASPECT)
   const cardSlotH    = Math.min(naturalCardH, Math.max(200, cardZoneH))
-  // glow ring matches NPCCard's internal size (CARD_PADDING=8 each side)
-  const glowH = cardSlotH - 16
-  const glowW = glowH * CARD_ASPECT
 
   const dayPct = Math.round(((game.day - 1) / Math.max(1, config.win_condition_day - 1)) * 100)
 
@@ -337,7 +331,6 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
 
       {/* ── CARD ZONE — flex:1 fills all remaining space ──── */}
       <View style={styles.cardZone} onLayout={onCardZoneLayout}>
-        {npc && <CardGlow dragX={dragX} w={glowW} h={glowH} />}
         {npc && (
           <SwipeHandler
             key={npc.npc_id}
@@ -347,7 +340,11 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
             onSwipeUp={onQuery}
             disabled={!isDecision}
           >
-            <NPCCard npc={npc} availableHeight={cardSlotH} hideDialogue />
+            {/* wrapper so CardGlow fills the card via absoluteFillObject */}
+            <View>
+              <CardGlow dragX={dragX} />
+              <NPCCard npc={npc} availableHeight={cardSlotH} hideDialogue />
+            </View>
           </SwipeHandler>
         )}
       </View>
