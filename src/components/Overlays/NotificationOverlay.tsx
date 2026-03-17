@@ -30,9 +30,10 @@ export const NotificationOverlay: React.FC<Props> = ({ onContinue }) => {
       activeOpacity={1}
       onPress={onContinue}
     >
-      <View
+      <TouchableOpacity
         style={[styles.sheet, { paddingBottom: Platform.OS === 'android' ? 44 : 30 }]}
-        pointerEvents="none"
+        activeOpacity={1}
+        onPress={onContinue}
       >
 
         <View style={styles.termHeader}>
@@ -58,7 +59,7 @@ export const NotificationOverlay: React.FC<Props> = ({ onContinue }) => {
 
         <Text style={[styles.tapHint, { fontFamily: MONO }]}>{uiData.labels.continue_hint}</Text>
 
-      </View>
+      </TouchableOpacity>
     </TouchableOpacity>
   )
 }
