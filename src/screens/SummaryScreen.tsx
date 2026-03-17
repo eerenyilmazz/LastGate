@@ -61,11 +61,10 @@ export const SummaryScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
           <Animated.Text style={[styles.emblem, emblemStyle]}>🏆</Animated.Text>
           <Text style={[styles.title, { fontFamily: MONO }]}>{STRINGS.summary_victory_title}</Text>
           <Text style={styles.dayLine}>
-            {game.day}. günde zafer
+            {STRINGS.summary_victory.replace('{day}', String(game.day))}
           </Text>
           <Text style={styles.sub}>
-            {config.win_condition_day} günü geride bıraktın.{'\n'}
-            Son Kapı hâlâ ayakta. Şehir yaşıyor.
+            {STRINGS.summary_victory_body.replace('{win_day}', String(config.win_condition_day))}
           </Text>
         </View>
 
@@ -105,12 +104,12 @@ export const SummaryScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
 
         <View style={styles.btnGroup}>
           <TouchableOpacity onPress={onRestart} style={styles.btnPrimary} activeOpacity={0.85}>
-            <Text style={[styles.btnText, { fontFamily: MONO }]}>[ TEKRAR OYNA ]</Text>
+            <Text style={[styles.btnText, { fontFamily: MONO }]}>{STRINGS.summary_replay}</Text>
           </TouchableOpacity>
 
           {onMainMenu && (
             <TouchableOpacity onPress={onMainMenu} style={styles.btnSecondary} activeOpacity={0.8}>
-              <Text style={[styles.btnSecText, { fontFamily: MONO }]}>[ ANA MENÜ ]</Text>
+              <Text style={[styles.btnSecText, { fontFamily: MONO }]}>{STRINGS.summary_menu}</Text>
             </TouchableOpacity>
           )}
         </View>

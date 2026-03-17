@@ -150,7 +150,7 @@ export const CardDetails: React.FC<Props> = ({ npc, visible, onClose }) => {
 const ds = StyleSheet.create({
   backdrop: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.82)',
+    backgroundColor: C.overlay_backdrop,
     justifyContent: 'flex-end',
   },
   sheet: {

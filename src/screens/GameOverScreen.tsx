@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Platform, Dimensions } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Animated, {
   useSharedValue, useAnimatedStyle,
@@ -10,6 +10,8 @@ import { useProgressStore } from '../store/useProgressStore'
 import { GameOverReason } from '../types/game.types'
 import ui from '../data/ui.json'
 import themeData from '../data/theme.json'
+const STRINGS = (ui as any).strings as Record<string, string>
+const { height } = Dimensions.get('window')
 
 const C  = themeData.colors
 const TY = themeData.typography as any
@@ -76,7 +78,7 @@ export const GameOverScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
   const scanStyle  = useAnimatedStyle(() => ({ transform: [{ translateY: scanY.value }] }))
 
   const vignetteColor = reason === 'victory'
-    ? 'rgba(0,60,0,0.10)' : 'rgba(80,0,0,0.12)'
+    ? C.victory_vignette : C.defeat_vignette
 
   return (
     <SafeAreaView style={styles.root}>
@@ -93,7 +95,7 @@ export const GameOverScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
       <Animated.View style={[styles.content, contentStyle]}>
 
         <Text style={[styles.dayTag, { fontFamily: MONO }]}>
-          {ending.tag}  ·  {game.day}{ui.labels.day_num_suffix ?? '. GÜN'}
+          {ending.tag}  ·  {game.day}{STRINGS.gameover_day_suffix}
         </Text>
 
         <Animated.Text style={[styles.icon, iconStyle]}>{ending.icon}</Animated.Text>
@@ -126,7 +128,7 @@ export const GameOverScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
         </View>
 
         <View style={[styles.spBox, { borderColor: ending.color + '35' }]}>
-          <Text style={[styles.spLabel, { fontFamily: MONO }]}>{ui.labels.earned_sp ?? 'KAZANILAN SP'}</Text>
+          <Text style={[styles.spLabel, { fontFamily: MONO }]}>{ui.labels.earned_sp}</Text>
           <Text style={[styles.spNum, { color: ending.color }]}>★  {progress.sp}</Text>
         </View>
 
@@ -136,13 +138,13 @@ export const GameOverScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
           activeOpacity={0.75}
         >
           <Text style={[styles.btnText, { color: ending.color, fontFamily: MONO }]}>
-            {ui.labels.btn_restart ?? '[ YENİDEN BAŞLA ]'}
+            {STRINGS.gameover_restart}
           </Text>
         </TouchableOpacity>
 
         {onMainMenu && (
           <TouchableOpacity onPress={onMainMenu} style={styles.btnGhost} activeOpacity={0.7}>
-            <Text style={[styles.btnGhostText, { fontFamily: MONO }]}>{ui.labels.btn_main_menu ?? '↩  ANA MENÜ'}</Text>
+            <Text style={[styles.btnGhostText, { fontFamily: MONO }]}>{STRINGS.gameover_menu}</Text>
           </TouchableOpacity>
         )}
 
@@ -160,7 +162,7 @@ const styles = StyleSheet.create({
 
   scanline: {
     position: 'absolute', left: 0, right: 0, top: -4,
-    height: 2, backgroundColor: 'rgba(255,255,255,0.03)', zIndex: 20,
+    height: 2, backgroundColor: C.surface_faint, zIndex: 20,
   },
 
   vignette: {

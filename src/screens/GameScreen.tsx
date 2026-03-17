@@ -111,7 +111,7 @@ const StatIcon = React.memo<{
       <Text style={sIcon.emoji} allowFontScaling={false}>{icon}</Text>
       <Text style={[sIcon.abbrev, { fontFamily: MONO }]} allowFontScaling={false}>{abbrev}</Text>
       <Text style={[sIcon.val, { color: activeColor, fontFamily: MONO }]} allowFontScaling={false}>
-        {displayVal > 999 ? '999' : displayVal}
+        {displayVal > (config as any).stat_display_max ? String((config as any).stat_display_max) : displayVal}
       </Text>
       <Text allowFontScaling={false} style={[sIcon.diff, {
         color: diffPos ? C.accept_glow : C.reject_glow,
@@ -201,9 +201,8 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
   const [tutorialDone,     setTutorialDone]     = useState(false)
   const canQuery = game.queryChargesLeft > 0
 
-  // card fills the zone it actually has — onLayout drives this
-  const naturalCardH = Math.round(sw * 0.93 / CARD_ASPECT)
-  const cardSlotH    = Math.min(naturalCardH, Math.max(200, cardZoneH))
+  const naturalCardH = Math.round(sw * (config as any).card_width_ratio / CARD_ASPECT)
+  const cardSlotH    = Math.min(naturalCardH, Math.max((config as any).card_min_height, cardZoneH))
 
   const dayPct = Math.round(((game.day - 1) / Math.max(1, config.win_condition_day - 1)) * 100)
 

@@ -44,7 +44,22 @@
     "skill_used":          "#283593",
     "critical_banner_bg":  "#1c000088",
     "critical_banner_bdr": "#ff174433",
-    "tutorial_danger":     "#f59e0b"
+    "tutorial_danger":     "#f59e0b",
+    "overlay_backdrop":       "rgba(0,0,0,0.82)",
+    "overlay_backdrop_dark":  "rgba(0,0,0,0.85)",
+    "overlay_backdrop_mid":   "rgba(0,0,0,0.75)",
+    "overlay_backdrop_deep":  "rgba(0,0,0,0.80)",
+    "card_gradient_top":      "rgba(0,0,0,0.50)",
+    "card_gradient_bottom":   "rgba(0,0,0,0.95)",
+    "card_gradient_bottom2":  "rgba(0,0,0,0.98)",
+    "card_border_light":      "rgba(255,255,255,0.10)",
+    "splash_vignette":        "rgba(110,0,0,0.07)",
+    "victory_vignette":       "rgba(0,60,0,0.10)",
+    "defeat_vignette":        "rgba(80,0,0,0.12)",
+    "surface_faint":          "rgba(255,255,255,0.03)",
+    "building_border_warm":   "#261e14",
+    "text_shadow":            "rgba(0,0,0,0.95)",
+    "text_shadow_soft":       "rgba(0,0,0,0.60)"
   },
   "typography": {
     "size_2xs": 8,

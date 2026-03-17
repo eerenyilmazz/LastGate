@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'flex-end',
-    backgroundColor: 'rgba(0,0,0,0.80)',
+    backgroundColor: C.overlay_backdrop_deep,
   },
   sheet: {
     backgroundColor: C.background,

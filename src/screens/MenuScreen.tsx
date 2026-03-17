@@ -73,19 +73,18 @@ const HowToPlay: React.FC = () => (
   <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
 
     <View style={content.block}>
-      <Text style={[content.blockTitle, { fontFamily: MONO }]}>[ KONTROLLER ]</Text>
-      <SwipeRow gesture="SAĞ" action="KABUL ET"  color={C.accept} />
-      <SwipeRow gesture="SOL" action="REDDET"    color={C.reject} />
-      <SwipeRow gesture="DOKUN" action="SORGULA"   color={C.query} />
-      <Text style={content.subNote}>{STRINGS.howto_alt_hint}</Text>
+      <Text style={[content.blockTitle, { fontFamily: MONO }]}>{STRINGS.howto_controls}</Text>
+      <SwipeRow gesture={STRINGS.howto_gest_right} action={STRINGS.howto_act_accept}  color={C.accept} />
+      <SwipeRow gesture={STRINGS.howto_gest_left} action={STRINGS.howto_act_reject}    color={C.reject} />
+      <SwipeRow gesture={STRINGS.howto_gest_tap} action={STRINGS.howto_act_query}   color={C.query} />
     </View>
 
     <View style={content.block}>
-      <Text style={[content.blockTitle, { fontFamily: MONO }]}>[ HEDEF ]</Text>
+      <Text style={[content.blockTitle, { fontFamily: MONO }]}>{STRINGS.howto_goal}</Text>
       <View style={content.infoCard}>
-        <Text style={content.line}>›  Kapıya gelen kişileri kabul ya da reddet.</Text>
-        <Text style={content.line}>›  5 değerin sıfıra düşmemesini sağla.</Text>
-        <Text style={content.line}>›  <Text style={{ color: C.accept, fontWeight: TY.weight_bold }}>100 gün</Text> hayatta kalırsan şehir kurtarılır.</Text>
+        <Text style={content.line}>{STRINGS.howto_goal_1}</Text>
+        <Text style={content.line}>{STRINGS.howto_goal_2}</Text>
+        <Text style={content.line}>›  <Text style={{ color: C.accept, fontWeight: TY.weight_bold }}>{STRINGS.howto_goal_3_days}</Text> {STRINGS.howto_goal_3_rest}</Text>
       </View>
       <View style={content.winBox}>
         <Text style={[content.winText, { fontFamily: MONO }]}>{STRINGS.win_banner}</Text>
@@ -93,7 +92,7 @@ const HowToPlay: React.FC = () => (
     </View>
 
     <View style={content.block}>
-      <Text style={[content.blockTitle, { fontFamily: MONO }]}>[ DEĞERLERİN ANLAMI ]</Text>
+      <Text style={[content.blockTitle, { fontFamily: MONO }]}>{STRINGS.howto_stats}</Text>
       {[
         { k: 'immunity',   end: 'Veba — salgın şehri siler' },
         { k: 'food',       end: 'Açlık — nüfus çöker' },
@@ -115,10 +114,10 @@ const HowToPlay: React.FC = () => (
     </View>
 
     <View style={content.block}>
-      <Text style={[content.blockTitle, { color: C.danger, fontFamily: MONO }]}>[ ZİNCİRLEME ETKİLER ]</Text>
+      <Text style={[content.blockTitle, { color: C.danger, fontFamily: MONO }]}>{STRINGS.howto_chain}</Text>
       <View style={content.warnBox}>
         <Text style={[content.warnText, { fontFamily: MONO }]}>
-          Bir değer kritik seviyeye düşünce her gün diğerlerini de aşağı çeker!
+          {STRINGS.howto_chain_warn}
         </Text>
       </View>
       <View style={content.infoCard}>
@@ -131,7 +130,7 @@ const HowToPlay: React.FC = () => (
     </View>
 
     <View style={content.block}>
-      <Text style={[content.blockTitle, { color: C.query, fontFamily: MONO }]}>[ SORGU SİSTEMİ ]</Text>
+      <Text style={[content.blockTitle, { color: C.query, fontFamily: MONO }]}>{STRINGS.howto_query}</Text>
       <View style={content.infoCard}>
         <Text style={content.line}>›  Günde <Text style={{ color: C.query, fontWeight: TY.weight_bold }}>3 sorgu</Text> hakkın var.</Text>
         <Text style={content.line}>›  <Text style={{ color: C.accept_glow, fontWeight: TY.weight_bold }}>1. sorgu</Text> — ücretsiz, ipucu verir</Text>
@@ -141,16 +140,16 @@ const HowToPlay: React.FC = () => (
       </View>
       <View style={content.warnBox}>
         <Text style={[content.warnText, { fontFamily: MONO }]}>
-          Tehlikeli kişiler sorguyu geçebilir! Yalancı %30, Casus %15, Enfekte %10 ihtimalle temiz görünür.
+          {STRINGS.howto_query_warn}
         </Text>
       </View>
     </View>
 
     <View style={content.block}>
-      <Text style={[content.blockTitle, { color: C.danger, fontFamily: MONO }]}>[ GİZLİ ÖZELLİKLER ]</Text>
+      <Text style={[content.blockTitle, { color: C.danger, fontFamily: MONO }]}>{STRINGS.howto_hidden}</Text>
       <View style={content.warnBox}>
         <Text style={[content.warnText, { fontFamily: MONO }]}>
-          Yanlış kişiyi kabul etmek şehri çökertebilir!
+          {STRINGS.howto_hidden_warn}
         </Text>
       </View>
       <View style={content.infoCard}>
@@ -170,19 +169,19 @@ const HowToPlay: React.FC = () => (
     </View>
 
     <View style={content.block}>
-      <Text style={[content.blockTitle, { color: C.danger, fontFamily: MONO }]}>[ ZORLUK SEVİYELERİ ]</Text>
+      <Text style={[content.blockTitle, { color: C.danger, fontFamily: MONO }]}>{STRINGS.howto_difficulty}</Text>
       <View style={content.infoCard}>
         <Text style={content.line}>
-          <Text style={{ color: C.accept, fontWeight: TY.weight_bold }}>KOLAY</Text>
-          {'  '}— Her gün +2 Yiyecek bonus. NPC etkileri %25 hafifletilmiş. Başlangıç değerleri daha yüksek.
+          <Text style={{ color: C.accept, fontWeight: TY.weight_bold }}>{STRINGS.diff_easy}</Text>
+          {'  '}— {STRINGS.howto_diff_easy}
         </Text>
         <Text style={content.line}>
-          <Text style={{ color: C.query, fontWeight: TY.weight_bold }}>NORMAL</Text>
-          {'  '}— Standart oyun. Bonus veya ceza yok.
+          <Text style={{ color: C.query, fontWeight: TY.weight_bold }}>{STRINGS.diff_normal}</Text>
+          {'  '}— {STRINGS.howto_diff_normal}
         </Text>
         <Text style={content.line}>
-          <Text style={{ color: C.danger, fontWeight: TY.weight_bold }}>ZOR</Text>
-          {'  '}— Her gün −3 Yiyecek. Açlıkta her gün ek −2 Nüfus. NPC etkileri %30 daha sert. Başlangıç değerleri düşük.
+          <Text style={{ color: C.danger, fontWeight: TY.weight_bold }}>{STRINGS.diff_hard}</Text>
+          {'  '}— {STRINGS.howto_diff_hard}
         </Text>
       </View>
     </View>
@@ -293,8 +292,8 @@ const SettingsContent: React.FC = () => {
 
       <View style={sett.card}>
         <View style={sett.cardLeft}>
-          <Text style={[sett.cardTitle, { fontFamily: MONO }]}>ORTAM MÜZİĞİ</Text>
-          <Text style={sett.cardSub}>Arka plan atmosfer müziği</Text>
+          <Text style={[sett.cardTitle, { fontFamily: MONO }]}>{STRINGS.appbar_music_label}</Text>
+          <Text style={sett.cardSub}>{STRINGS.appbar_music_desc}</Text>
         </View>
         <TouchableOpacity
           onPress={settings.toggleMusic}
@@ -302,15 +301,15 @@ const SettingsContent: React.FC = () => {
           activeOpacity={0.8}
         >
           <Text style={[sett.toggleText, { fontFamily: MONO, color: settings.musicEnabled ? C.accept_glow : C.text_muted }]}>
-            {settings.musicEnabled ? 'AÇIK' : 'KAPALI'}
+            {settings.musicEnabled ? STRINGS.appbar_toggle_on : STRINGS.appbar_toggle_off}
           </Text>
         </TouchableOpacity>
       </View>
 
       <View style={sett.card}>
         <View style={sett.cardLeft}>
-          <Text style={[sett.cardTitle, { fontFamily: MONO }]}>SES EFEKTLERİ</Text>
-          <Text style={sett.cardSub}>Kapı, sorgu ve uyarı sesleri</Text>
+          <Text style={[sett.cardTitle, { fontFamily: MONO }]}>{STRINGS.appbar_sfx_label}</Text>
+          <Text style={sett.cardSub}>{STRINGS.appbar_sfx_desc}</Text>
         </View>
         <TouchableOpacity
           onPress={settings.toggleSfx}
@@ -318,14 +317,14 @@ const SettingsContent: React.FC = () => {
           activeOpacity={0.8}
         >
           <Text style={[sett.toggleText, { fontFamily: MONO, color: settings.sfxEnabled ? C.accept_glow : C.text_muted }]}>
-            {settings.sfxEnabled ? 'AÇIK' : 'KAPALI'}
+            {settings.sfxEnabled ? STRINGS.appbar_toggle_on : STRINGS.appbar_toggle_off}
           </Text>
         </TouchableOpacity>
       </View>
 
       <View style={sett.versionBlock}>
-        <Text style={[sett.versionText, { fontFamily: MONO }]}>LAST GATE · BETA v0.1</Text>
-        <Text style={[sett.versionSub, { fontFamily: MONO }]}>SEKTOR 7 · KARANTİNA</Text>
+        <Text style={[sett.versionText, { fontFamily: MONO }]}>{STRINGS.menu_footer}</Text>
+        <Text style={[sett.versionSub, { fontFamily: MONO }]}>{STRINGS.menu_footer_sub}</Text>
       </View>
 
       <View style={{ height: 20 }} />
@@ -365,26 +364,26 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
 
       <View style={styles.logoArea}>
         <Animated.Text style={[styles.emblem, emblemStyle]}>☣</Animated.Text>
-        <Text style={styles.title}>LAST GATE</Text>
-        <Text style={styles.titleSub}>— SON KAPI —</Text>
+        <Text style={styles.title}>{STRINGS.menu_title}</Text>
+        <Text style={styles.titleSub}>{STRINGS.menu_subtitle}</Text>
 
         {progress.totalRuns > 0 && (
           <View style={meta.runRow}>
             <View style={meta.runStat}>
               <Text style={meta.runVal}>{progress.bestDay}</Text>
-              <Text style={meta.runLabel}>EN İYİ GÜN</Text>
+              <Text style={meta.runLabel}>{STRINGS.menu_best_day}</Text>
             </View>
             <View style={meta.runDivider} />
             <View style={meta.runStat}>
               <Text style={meta.runVal}>{progress.totalRuns}</Text>
-              <Text style={meta.runLabel}>TOPLAM</Text>
+              <Text style={meta.runLabel}>{STRINGS.menu_total}</Text>
             </View>
             <View style={meta.runDivider} />
             <View style={meta.runStat}>
               <Text style={[meta.runVal, progress.totalWins > 0 && { color: C.accept_glow }]}>
                 {progress.totalWins}
               </Text>
-              <Text style={meta.runLabel}>ZAFERLİ</Text>
+              <Text style={meta.runLabel}>{STRINGS.menu_victories}</Text>
             </View>
           </View>
         )}
@@ -394,7 +393,7 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
 
         <View style={diff.row}>
           {(['easy', 'normal', 'hard'] as Difficulty[]).map((d) => {
-            const labels: Record<Difficulty, string> = { easy: 'KOLAY', normal: 'NORMAL', hard: 'ZOR' }
+            const labels: Record<Difficulty, string> = { easy: STRINGS.diff_easy, normal: STRINGS.diff_normal, hard: STRINGS.diff_hard }
             const active = settings.difficulty === d
             const colors: Record<Difficulty, string> = { easy: C.accept, normal: C.query, hard: C.danger }
             return (
@@ -411,24 +410,24 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
         </View>
 
         <TouchableOpacity onPress={onStart} style={styles.startBtn} activeOpacity={0.85}>
-          <Text style={styles.startText}>YENİ OYUN</Text>
+          <Text style={styles.startText}>{STRINGS.menu_new_game}</Text>
           <Text style={styles.startArrow}>▶</Text>
         </TouchableOpacity>
 
         <View style={styles.menuSpacer} />
 
         <TouchableOpacity onPress={() => setOverlay('howto')} style={styles.menuBtn} activeOpacity={0.8}>
-          <Text style={styles.menuBtnLabel}>NASIL OYNANIR</Text>
+          <Text style={styles.menuBtnLabel}>{STRINGS.menu_howto}</Text>
           <Text style={styles.menuBtnArrow}>›</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => setOverlay('guide')} style={styles.menuBtn} activeOpacity={0.8}>
-          <Text style={styles.menuBtnLabel}>REHBER</Text>
+          <Text style={styles.menuBtnLabel}>{STRINGS.menu_guide}</Text>
           <Text style={styles.menuBtnArrow}>›</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => setOverlay('settings')} style={styles.menuBtn} activeOpacity={0.8}>
-          <Text style={styles.menuBtnLabel}>AYARLAR</Text>
+          <Text style={styles.menuBtnLabel}>{STRINGS.menu_settings}</Text>
           <Text style={styles.menuBtnArrow}>›</Text>
         </TouchableOpacity>
 
@@ -458,7 +457,7 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
 
             {overlay === 'howto' && (
               <>
-                <PanelHeader title="NASIL OYNANIR" onClose={close} accentColor={C.panel_howto} />
+                <PanelHeader title={STRINGS.menu_howto} onClose={close} accentColor={C.panel_howto} />
                 <View style={{ flex: 1, paddingHorizontal: 20 }}>
                   <HowToPlay />
                 </View>
@@ -466,7 +465,7 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
             )}
             {overlay === 'guide' && (
               <>
-                <PanelHeader title="REHBER" onClose={close} accentColor={C.panel_guide} />
+                <PanelHeader title={STRINGS.menu_guide} onClose={close} accentColor={C.panel_guide} />
                 <View style={{ flex: 1 }}>
                   <GuideContent />
                 </View>
@@ -474,7 +473,7 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
             )}
             {overlay === 'settings' && (
               <>
-                <PanelHeader title="AYARLAR" onClose={close} accentColor={C.panel_settings} />
+                <PanelHeader title={STRINGS.menu_settings} onClose={close} accentColor={C.panel_settings} />
                 <View style={{ flex: 1, paddingHorizontal: 20 }}>
                   <SettingsContent />
                 </View>
@@ -605,7 +604,7 @@ const styles = StyleSheet.create({
 const panel = StyleSheet.create({
   backdrop: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.82)',
+    backgroundColor: C.overlay_backdrop,
     justifyContent: 'flex-end',
   },
   dismissArea: {

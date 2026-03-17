@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
 
   bloodVignette: {
     position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
-    backgroundColor: 'rgba(110, 0, 0, 0.07)',
+    backgroundColor: C.splash_vignette,
     zIndex: 1,
   },
   alertStripe: {

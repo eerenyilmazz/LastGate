@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { NPC } from '../../types/npc.types'
 import ILLUSTRATIONS from '../../assets/images'
 import themeData from '../../data/theme.json'
+import configData from '../../data/config.json'
 
 const C    = themeData.colors
 const TY   = themeData.typography as any
@@ -26,7 +27,7 @@ const NPCCardInner: React.FC<Props> = ({ npc, availableHeight, hideDialogue }) =
   const { width } = useWindowDimensions()
   const roleColor = ROLE_COLORS[npc.role] ?? C.text_muted
 
-  const baseW = width * 0.93
+  const baseW = width * (configData as any).card_width_ratio
   const baseH = baseW / CARD_ASPECT
   const maxH  = availableHeight ? availableHeight - CARD_PADDING * 2 : baseH
   const cardH = Math.min(baseH, maxH)
@@ -39,7 +40,7 @@ const NPCCardInner: React.FC<Props> = ({ npc, availableHeight, hideDialogue }) =
   return (
     <View style={[styles.card, {
       width: cardW, height: cardH, borderRadius: 18,
-      borderWidth: 1, borderColor: 'rgba(255,255,255,0.10)',
+      borderWidth: 1, borderColor: C.card_border_light,
       shadowColor: C.bg_deeper,
     }]}>
 
@@ -60,13 +61,13 @@ const NPCCardInner: React.FC<Props> = ({ npc, availableHeight, hideDialogue }) =
       )}
 
       <LinearGradient
-        colors={['rgba(0,0,0,0.50)', 'transparent']}
+        colors={[C.card_gradient_top, 'transparent']}
         style={styles.gradTop}
         pointerEvents="none"
       />
 
       <LinearGradient
-        colors={['transparent', 'rgba(0,0,0,0.95)']}
+        colors={['transparent', C.card_gradient_bottom]}
         style={[styles.gradBottom, { height: gradH }]}
         pointerEvents="none"
       >
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
     fontWeight: TY.weight_heavy,
     letterSpacing: 0.2,
     marginBottom: 5,
-    textShadowColor: 'rgba(0,0,0,0.95)',
+    textShadowColor: C.text_shadow,
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 4,
   },
@@ -140,7 +141,7 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     fontStyle: 'italic',
     letterSpacing: 0.1,
-    textShadowColor: 'rgba(0,0,0,0.98)',
+    textShadowColor: C.card_gradient_bottom2,
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 4,
   },

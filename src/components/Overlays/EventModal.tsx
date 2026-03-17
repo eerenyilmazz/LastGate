@@ -7,6 +7,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { GameEvent, EventChoice } from '../../types/event.types'
 import { NPCRole } from '../../types/npc.types'
 import themeData from '../../data/theme.json'
+import uiData from '../../data/ui.json'
+const STRINGS = (uiData as any).strings as Record<string, string>
 
 const C  = themeData.colors
 const TY = themeData.typography as any
@@ -146,7 +148,7 @@ export const EventModal: React.FC<Props> = ({ event, acceptedRoles, onChoice }) 
 
             <View style={es.divider}>
               <View style={es.dividerLine} />
-              <Text style={[es.dividerText, { fontFamily: MONO }]}>BİR SEÇİM YAP</Text>
+              <Text style={[es.dividerText, { fontFamily: MONO }]}>{STRINGS.event_choose}</Text>
               <View style={es.dividerLine} />
             </View>
 
@@ -172,7 +174,7 @@ export const EventModal: React.FC<Props> = ({ event, acceptedRoles, onChoice }) 
 const es = StyleSheet.create({
   backdrop: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.85)',
+    backgroundColor: C.overlay_backdrop_dark,
     justifyContent: 'flex-end',
   },
   sheet: {
@@ -220,7 +222,7 @@ const es = StyleSheet.create({
     fontSize: TY.size_h5,
     fontWeight: TY.weight_heavy,
     letterSpacing: 0.3,
-    textShadowColor: 'rgba(0,0,0,0.6)',
+    textShadowColor: C.text_shadow_soft,
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 3,
   },

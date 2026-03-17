@@ -5,6 +5,8 @@ import {
 } from 'react-native'
 import { useSettingsStore } from '../store/useSettingsStore'
 import themeData from '../data/theme.json'
+import uiData from '../data/ui.json'
+import config from '../data/config.json'
 
 const C  = themeData.colors
 const TY = themeData.typography as any
@@ -12,6 +14,7 @@ const SP = themeData.spacing
 const R  = themeData.radius
 const MONO = Platform.select(themeData.ui.font_mono) as string
 const DOTS = themeData.ui.terminal_dots
+const STRINGS = (uiData as any).strings as Record<string, string>
 
 interface AppBarProps {
   onMainMenu?: () => void
@@ -41,7 +44,7 @@ export const AppBar: React.FC<AppBarProps> = ({ onMainMenu }) => {
           <View style={[styles.dot, { backgroundColor: DOTS[2] }]} />
         </View>
 
-        <Text style={[styles.title, { fontFamily: MONO }]}>LAST GATE</Text>
+        <Text style={[styles.title, { fontFamily: MONO }]}>{STRINGS.appbar_title}</Text>
 
         <TouchableOpacity
           onPress={() => setSettingsVisible(true)}
@@ -72,7 +75,7 @@ export const AppBar: React.FC<AppBarProps> = ({ onMainMenu }) => {
                 <View style={[styles.termDot, { backgroundColor: DOTS[1] }]} />
                 <View style={[styles.termDot, { backgroundColor: DOTS[2] }]} />
               </View>
-              <Text style={[styles.termTitle, { fontFamily: MONO }]}>AYARLAR</Text>
+              <Text style={[styles.termTitle, { fontFamily: MONO }]}>{STRINGS.appbar_settings}</Text>
               <TouchableOpacity
                 onPress={() => setSettingsVisible(false)}
                 style={styles.closeBtn}
@@ -84,8 +87,8 @@ export const AppBar: React.FC<AppBarProps> = ({ onMainMenu }) => {
 
             <View style={styles.settingRow}>
               <View>
-                <Text style={[styles.settingLabel, { fontFamily: MONO }]}>ORTAM MÜZİĞİ</Text>
-                <Text style={styles.settingSub}>Arka plan atmosfer sesi</Text>
+                <Text style={[styles.settingLabel, { fontFamily: MONO }]}>{STRINGS.appbar_music_label}</Text>
+                <Text style={styles.settingSub}>{STRINGS.appbar_music_desc}</Text>
               </View>
               <TouchableOpacity
                 onPress={toggleMusic}
@@ -96,15 +99,15 @@ export const AppBar: React.FC<AppBarProps> = ({ onMainMenu }) => {
                 activeOpacity={0.8}
               >
                 <Text style={[styles.toggleText, { color: musicEnabled ? C.accept_glow : C.text_muted }]}>
-                  {musicEnabled ? '● AÇIK' : '○ KAPALI'}
+                  {musicEnabled ? STRINGS.appbar_toggle_on : STRINGS.appbar_toggle_off}
                 </Text>
               </TouchableOpacity>
             </View>
 
             <View style={styles.settingRow}>
               <View>
-                <Text style={[styles.settingLabel, { fontFamily: MONO }]}>SES EFEKTLERİ</Text>
-                <Text style={styles.settingSub}>Kapı, sorgu ve uyarı sesleri</Text>
+                <Text style={[styles.settingLabel, { fontFamily: MONO }]}>{STRINGS.appbar_sfx_label}</Text>
+                <Text style={styles.settingSub}>{STRINGS.appbar_sfx_desc}</Text>
               </View>
               <TouchableOpacity
                 onPress={toggleSfx}
@@ -115,7 +118,7 @@ export const AppBar: React.FC<AppBarProps> = ({ onMainMenu }) => {
                 activeOpacity={0.8}
               >
                 <Text style={[styles.toggleText, { color: sfxEnabled ? C.accept_glow : C.text_muted }]}>
-                  {sfxEnabled ? '● AÇIK' : '○ KAPALI'}
+                  {sfxEnabled ? STRINGS.appbar_toggle_on : STRINGS.appbar_toggle_off}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -127,14 +130,14 @@ export const AppBar: React.FC<AppBarProps> = ({ onMainMenu }) => {
                 activeOpacity={0.8}
               >
                 <View>
-                  <Text style={[styles.menuExitLabel, { fontFamily: MONO }]}>ANA MENÜYE DÖN</Text>
-                  <Text style={styles.menuExitSub}>Mevcut oyun ilerlemen silinir</Text>
+                  <Text style={[styles.menuExitLabel, { fontFamily: MONO }]}>{STRINGS.appbar_back}</Text>
+                  <Text style={styles.menuExitSub}>{STRINGS.appbar_back_desc}</Text>
                 </View>
                 <Text style={styles.menuExitArrow}>↩</Text>
               </TouchableOpacity>
             )}
 
-            <Text style={[styles.version, { fontFamily: MONO }]}>LAST GATE  ·  v0.1.0  ·  EARLY ACCESS</Text>
+            <Text style={[styles.version, { fontFamily: MONO }]}>{STRINGS.appbar_version.replace('{version}', (config as any).app_version)}</Text>
 
             <TouchableOpacity
               onPress={() => setSettingsVisible(false)}
@@ -161,11 +164,11 @@ export const AppBar: React.FC<AppBarProps> = ({ onMainMenu }) => {
 
             <View style={confirm.head}>
               <Text style={confirm.warningIcon}>⚠</Text>
-              <Text style={[confirm.title, { fontFamily: MONO }]}>ANA MENÜYE DÖN</Text>
+              <Text style={[confirm.title, { fontFamily: MONO }]}>{STRINGS.appbar_confirm_back}</Text>
             </View>
 
             <Text style={confirm.message}>
-              Mevcut oyun ilerlemen silinecek.{'\n'}Çıkmak istediğine emin misin?
+              {STRINGS.appbar_confirm_msg}
             </Text>
 
             <View style={confirm.divider} />
@@ -176,7 +179,7 @@ export const AppBar: React.FC<AppBarProps> = ({ onMainMenu }) => {
                 style={[confirm.btn, confirm.btnCancel]}
                 activeOpacity={0.8}
               >
-                <Text style={[confirm.btnText, confirm.btnCancelText, { fontFamily: MONO }]}>İPTAL</Text>
+                <Text style={[confirm.btnText, confirm.btnCancelText, { fontFamily: MONO }]}>{STRINGS.appbar_cancel}</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -184,7 +187,7 @@ export const AppBar: React.FC<AppBarProps> = ({ onMainMenu }) => {
                 style={[confirm.btn, confirm.btnExit]}
                 activeOpacity={0.8}
               >
-                <Text style={[confirm.btnText, confirm.btnExitText, { fontFamily: MONO }]}>ÇIKIŞ</Text>
+                <Text style={[confirm.btnText, confirm.btnExitText, { fontFamily: MONO }]}>{STRINGS.appbar_exit}</Text>
               </TouchableOpacity>
             </View>
 
@@ -220,7 +223,7 @@ const styles = StyleSheet.create({
 
   backdrop: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.80)',
+    backgroundColor: C.overlay_backdrop_deep,
     justifyContent: 'flex-end',
   },
   sheet: {
