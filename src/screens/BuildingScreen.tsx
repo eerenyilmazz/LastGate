@@ -65,7 +65,6 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
 
       <View style={[styles.header, { paddingTop: Platform.OS === 'android' ? 10 : 2 }]}>
         <TouchableOpacity onPress={goBack} style={styles.backBtn} activeOpacity={0.75}>
-          <Text style={styles.backArrow}>←</Text>
           <Text style={[styles.backLabel, { fontFamily: MONO }]}>{L.screen_back}</Text>
         </TouchableOpacity>
 
@@ -351,7 +350,6 @@ const styles = StyleSheet.create({
     gap: 12, borderBottomWidth: 1, borderBottomColor: C.card_dark,
   },
   backBtn:     { flexDirection: 'row', alignItems: 'center', gap: 5, paddingHorizontal: 12, paddingVertical: 7, borderRadius: 20, backgroundColor: C.card_dark, borderWidth: 1, borderColor: '#261e14' },
-  backArrow:   { color: C.text_muted, fontSize: TY.size_h6, lineHeight: 18 },
   backLabel:   { color: C.text_muted, fontSize: TY.size_xs, fontWeight: TY.weight_bold, letterSpacing: 1 },
   headerTitle: { flex: 1, color: C.text_primary, fontSize: TY.size_body, fontWeight: TY.weight_heavy, letterSpacing: 3, textAlign: 'center' },
   spBadge:     { flexDirection: 'row', alignItems: 'center', gap: 2 },
