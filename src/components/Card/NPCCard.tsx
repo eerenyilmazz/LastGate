@@ -32,9 +32,10 @@ const NPCCardInner: React.FC<Props> = ({ npc, availableHeight, hideDialogue }) =
   const cardH = Math.min(baseH, maxH)
   const cardW = cardH * CARD_ASPECT
 
-  const gradH = hideDialogue
-    ? Math.max(64, Math.round(cardH * 0.22))
-    : Math.max(150, Math.round(cardH * 0.44))
+  const blendH  = Math.max(60, Math.round(cardH * 0.18))
+  const bandH   = hideDialogue
+    ? Math.max(52, Math.round(cardH * 0.18))
+    : Math.max(100, Math.round(cardH * 0.32))
 
   return (
     <View style={[styles.card, {
@@ -65,9 +66,15 @@ const NPCCardInner: React.FC<Props> = ({ npc, availableHeight, hideDialogue }) =
         pointerEvents="none"
       />
 
+      {/* blend from image to solid band */}
       <LinearGradient
-        colors={['transparent', 'rgba(0,0,0,0.95)']}
-        style={[styles.gradBottom, { height: gradH }]}
+        colors={['transparent', 'rgba(4,8,4,0.97)']}
+        style={[styles.gradBlend, { height: blendH, bottom: bandH }]}
+        pointerEvents="none"
+      />
+
+      {/* solid dark band */}
+      <View style={[styles.band, { height: bandH, backgroundColor: 'rgba(4,8,4,0.97)' }]}
         pointerEvents="none"
       >
         <View style={styles.textBlock}>
@@ -80,7 +87,7 @@ const NPCCardInner: React.FC<Props> = ({ npc, availableHeight, hideDialogue }) =
             </Text>
           )}
         </View>
-      </LinearGradient>
+      </View>
 
       <View style={[styles.roleBadge, { backgroundColor: roleColor + 'dd', shadowColor: roleColor }]}>
         <Text style={styles.roleText}>{ROLE_TR[npc.role] ?? npc.role.toUpperCase()}</Text>
@@ -115,24 +122,25 @@ const styles = StyleSheet.create({
     top: 0, left: 0, right: 0,
     height: 90,
   },
-  gradBottom: {
+  gradBlend: {
+    position: 'absolute',
+    left: 0, right: 0,
+  },
+  band: {
     position: 'absolute',
     bottom: 0, left: 0, right: 0,
     justifyContent: 'flex-end',
   },
   textBlock: {
     paddingHorizontal: 16,
-    paddingBottom: 18,
+    paddingBottom: 14,
   },
   name: {
     color: C.text_primary,
     fontSize: TY.size_h5,
     fontWeight: TY.weight_heavy,
     letterSpacing: 0.2,
-    marginBottom: 5,
-    textShadowColor: 'rgba(0,0,0,0.95)',
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 4,
+    marginBottom: 4,
   },
   dialogue: {
     color: 'rgba(255,255,255,0.88)',
