@@ -127,7 +127,7 @@ interface Props {
 }
 
 export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
-  const { width: sw, height: sh } = useWindowDimensions()
+  const { width: sw } = useWindowDimensions()
   const theme    = useTheme()
   const game     = useGameStore()
   const stats    = useStatStore()
@@ -145,20 +145,18 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
   const [detailsVisible,   setDetailsVisible]   = useState(false)
   const [queryResult,      setQueryResult]      = useState<string | null>(null)
   const [queryWarnPending, setQueryWarnPending] = useState(false)
-  const [innerH,           setInnerH]           = useState(sh * 0.88)
+  const [cardZoneH,        setCardZoneH]        = useState(360)
   const [tutorialDone,     setTutorialDone]     = useState(false)
   const [typedText,        setTypedText]        = useState('')
   const [isTyping,         setIsTyping]         = useState(false)
   const [cursorOn,         setCursorOn]         = useState(true)
   const typingTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const canQuery  = game.queryChargesLeft > 0
-  const isCompact = sh < 700
+  const canQuery = game.queryChargesLeft > 0
 
-  // statBar(72) + dialogueZone(80) + infoBar(50) + detailRow(46) + gaps(16) ≈ 264
+  // card fills the zone it actually has — onLayout drives this
   const naturalCardH = Math.round(sw * 0.84 / CARD_ASPECT)
-  const maxCardH     = Math.max(200, innerH - (isCompact ? 228 : 264))
-  const cardSlotH    = Math.min(naturalCardH, maxCardH)
+  const cardSlotH    = Math.min(naturalCardH, Math.max(200, cardZoneH))
 
   const dayPct = Math.round(((game.day - 1) / Math.max(1, config.win_condition_day - 1)) * 100)
 
@@ -230,9 +228,9 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
     }
   }
 
-  const onSafeLayout = useCallback((e: any) => {
+  const onCardZoneLayout = useCallback((e: any) => {
     const h = e.nativeEvent.layout.height
-    if (h > 0) setInnerH(h)
+    if (h > 0) setCardZoneH(h)
   }, [])
 
   const doReject = useCallback(() => {
@@ -261,7 +259,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
     : null
 
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: C.background }]} onLayout={onSafeLayout}>
+    <SafeAreaView style={[styles.safe, { backgroundColor: C.background }]}>
       <AppBar onMainMenu={onMainMenu} />
 
       {/* ── STAT ICONS ROW ─────────────────────────────────── */}
@@ -295,8 +293,8 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
         ) : null}
       </View>
 
-      {/* ── CARD ZONE ──────────────────────────────────────── */}
-      <View style={[styles.cardZone, { height: cardSlotH }]}>
+      {/* ── CARD ZONE — flex:1 fills all remaining space ──── */}
+      <View style={styles.cardZone} onLayout={onCardZoneLayout}>
         {npc && (
           <SwipeHandler
             key={npc.npc_id}
@@ -330,7 +328,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
 
       {/* ── DETAIL ROW ─────────────────────────────────────── */}
       <View style={[styles.detailRow, {
-        paddingBottom: Platform.OS === 'android' ? 14 : 8,
+        paddingBottom: Platform.OS === 'android' ? 6 : 4,
         opacity: isDecision ? 1 : 0.3,
       }]}>
         <TouchableOpacity
@@ -392,8 +390,9 @@ const styles = StyleSheet.create({
   },
   dialogueItalic: { fontStyle: 'italic' },
 
-  // Card
+  // Card — takes all remaining vertical space
   cardZone: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
