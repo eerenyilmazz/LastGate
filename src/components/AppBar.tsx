@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
   title: {
     flex: 1,
     textAlign: 'center',
-    color: C.danger,
+    color: C.accept_glow,
     fontSize: TY.size_body,
     fontWeight: TY.weight_black,
     letterSpacing: 5,
