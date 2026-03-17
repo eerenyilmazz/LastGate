@@ -325,24 +325,15 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
       <View style={styles.dialogueZone}>
         {overrideContent ? (
           <View style={[styles.dialogueFrame, { borderLeftColor: overrideContent.color }]}>
-            <Text style={[styles.dialogueLabel, { color: overrideContent.color, fontFamily: MONO }]}>
-              {'▸ SİSTEM'}
-            </Text>
-            <Text style={[styles.dialogueText, { color: overrideContent.color, fontFamily: MONO }]} numberOfLines={2}>
+            <Text style={[styles.dialogueText, { color: overrideContent.color, fontFamily: MONO }]} numberOfLines={3}>
               {overrideContent.text}
             </Text>
           </View>
         ) : npc ? (() => {
           const roleColor = ROLE_COLORS[npc.role] ?? C.text_muted
           return (
-            <View style={[styles.dialogueFrame, { borderLeftColor: roleColor }]}>
-              <Text style={[styles.dialogueLabel, { color: roleColor, fontFamily: MONO }]} numberOfLines={1}>
-                {'▸ '}{npc.name.toUpperCase()}
-                <Text style={[styles.dialogueRoleBadge, { color: roleColor + 'aa' }]}>
-                  {'  —  '}{ROLE_TR[npc.role] ?? npc.role}
-                </Text>
-              </Text>
-              <Text style={[styles.dialogueText, styles.dialogueItalic, { color: C.text_secondary }]} numberOfLines={2}>
+            <View style={[styles.dialogueFrame, { borderLeftColor: roleColor + '99' }]}>
+              <Text style={[styles.dialogueText, styles.dialogueItalic, { color: C.text_secondary }]} numberOfLines={3}>
                 {`"`}{typedText}
                 <Text style={{ opacity: cursorOn ? 1 : 0 }}>{'▊'}</Text>
                 {!isTyping && `"`}
@@ -450,16 +441,6 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingVertical: 4,
     gap: 4,
-  },
-  dialogueLabel: {
-    fontSize: TY.size_xs,
-    fontWeight: TY.weight_heavy,
-    letterSpacing: 1.2,
-  },
-  dialogueRoleBadge: {
-    fontSize: TY.size_xs,
-    fontWeight: TY.weight_regular,
-    letterSpacing: 0.5,
   },
   dialogueText: {
     fontSize: TY.size_sm,
