@@ -42,22 +42,19 @@ const MONO = Platform.select(themeData.ui.font_mono) as string
 
 const SWIPE_THRESHOLD = themeData.animation.swipe_threshold
 
-// ─── Single stat row ────────────────────────────────────────────────────────
-const StatRow = React.memo<{
+// ─── Stat Icon (Reigns-style: icon + value, no bar) ─────────────────────────
+const StatIcon = React.memo<{
   icon:        string
-  abbrev:      string
   val:         number
-  pct:         number
   isCrit:      boolean
   color:       string
   acceptDelta: number
   rejectDelta: number
   max:         number
   dragX:       SharedValue<number>
-}>(({ icon, abbrev, val, pct, isCrit, color, acceptDelta, rejectDelta, max, dragX }) => {
+}>(({ icon, val, isCrit, color, acceptDelta, rejectDelta, max, dragX }) => {
 
-  const pulse  = useSharedValue(1)
-  const trackW = useSharedValue(0)
+  const pulse      = useSharedValue(1)
   const [displayVal, setDisplayVal] = useState(val)
 
   useEffect(() => { setDisplayVal(val) }, [val])
@@ -77,7 +74,7 @@ const StatRow = React.memo<{
   useEffect(() => {
     if (isCrit) {
       pulse.value = withRepeat(
-        withSequence(withTiming(0.08, { duration: 320 }), withTiming(1, { duration: 320 })),
+        withSequence(withTiming(0.15, { duration: 320 }), withTiming(1, { duration: 320 })),
         -1, false,
       )
     } else {
@@ -86,58 +83,38 @@ const StatRow = React.memo<{
     }
   }, [isCrit])
 
-  const blinkStyle  = useAnimatedStyle(() => ({ opacity: pulse.value }))
-  const activeColor = isCrit ? C.stat_critical : color
+  const diff        = displayVal - val
+  const showDiff    = Math.abs(diff) >= 1
+  const diffPos     = diff > 0
+  const activeColor = isCrit      ? C.stat_critical
+    : showDiff ? (diffPos ? C.accept_glow : C.reject_glow)
+    : color
 
-  const fillStyle = useAnimatedStyle(() => {
-    'worklet'
-    const w  = trackW.value
-    const dx = dragX.value
-    if (w === 0 || Math.abs(dx) < 4) return { width: w * pct, backgroundColor: activeColor }
-    const delta        = dx > 0 ? acceptDelta : rejectDelta
-    const progress     = Math.min(1, Math.abs(dx) / SWIPE_THRESHOLD)
-    const projPct      = Math.max(0, Math.min(1, (val + delta) / max))
-    return { width: w * (pct + (projPct - pct) * progress), backgroundColor: activeColor }
-  })
+  const blinkStyle = useAnimatedStyle(() => ({ opacity: pulse.value }))
 
   return (
-    <View style={sRow.wrap}>
-      <Text style={sRow.icon}>{icon}</Text>
-      <Text style={[sRow.abbrev, { color: isCrit ? C.stat_critical : C.text_muted }, isCrit && blinkStyle as any]}>
-        {abbrev}
-      </Text>
-      <View style={[sRow.track, { borderColor: activeColor + '28' }]}
-        onLayout={e => { trackW.value = e.nativeEvent.layout.width }}>
-        <Animated.View style={[sRow.fill, fillStyle]} />
-        {isCrit && <Animated.View style={[sRow.critFlash, blinkStyle]} />}
-      </View>
-      <Animated.Text style={[sRow.val, { color: isCrit ? C.stat_critical : activeColor }, isCrit && blinkStyle]}>
+    <Animated.View style={[sIcon.wrap, isCrit && blinkStyle]}>
+      <Text style={sIcon.emoji}>{icon}</Text>
+      <Text style={[sIcon.val, { color: activeColor, fontFamily: MONO }]}>
         {displayVal > 999 ? '999' : displayVal}
-      </Animated.Text>
-    </View>
+      </Text>
+      {showDiff && (
+        <Text style={[sIcon.diff, { color: diffPos ? C.accept_glow : C.reject_glow, fontFamily: MONO }]}>
+          {diffPos ? `+${diff}` : `${diff}`}
+        </Text>
+      )}
+    </Animated.View>
   )
 })
 
-const sRow = StyleSheet.create({
-  wrap: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-  },
-  icon:   { fontSize: 10, width: 14, textAlign: 'center' },
-  abbrev: { fontSize: TY.size_caption, fontWeight: TY.weight_black, fontFamily: MONO, letterSpacing: 0.5, width: 28 },
-  track: {
-    flex: 1, height: 6, borderRadius: 3,
-    overflow: 'hidden', borderWidth: 1,
-    backgroundColor: C.card_dark,
-  },
-  fill:      { height: '100%', borderRadius: 3 },
-  critFlash: { ...StyleSheet.absoluteFillObject, backgroundColor: C.stat_critical + '22' },
-  val: {
-    fontSize: TY.size_caption, fontWeight: TY.weight_black,
-    fontFamily: MONO, width: 26, textAlign: 'right',
-  },
+const sIcon = StyleSheet.create({
+  wrap:  { alignItems: 'center', flex: 1, paddingVertical: 8 },
+  emoji: { fontSize: 22 },
+  val:   { fontSize: TY.size_sm, fontWeight: TY.weight_black, marginTop: 3, letterSpacing: 0.3 },
+  diff:  { fontSize: 9,          fontWeight: TY.weight_heavy, marginTop: 1, letterSpacing: 0.3 },
 })
+
+// ─────────────────────────────────────────────────────────────────────────────
 
 const CARD_ASPECT = 3 / 4
 
@@ -171,9 +148,9 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
   const canQuery  = game.queryChargesLeft > 0
   const isCompact = sh < 700
 
-  // HUD ~100px + infoBar ~34px + toast ~38px + actions ~100px = ~272
+  // statBar(72) + dialogueZone(80) + infoBar(52) + actionRow(72) + gaps(20) ≈ 296
   const naturalCardH = Math.round(sw * 0.84 / CARD_ASPECT)
-  const maxCardH     = Math.max(180, innerH - (isCompact ? 255 : 280))
+  const maxCardH     = Math.max(180, innerH - (isCompact ? 256 : 296))
   const cardSlotH    = Math.min(naturalCardH, maxCardH)
 
   const dayPct = Math.round(((game.day - 1) / Math.max(1, config.win_condition_day - 1)) * 100)
@@ -242,89 +219,53 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
 
   const isDecision = !!(npc && game.phase === 'npc_decision')
 
+  // Dialogue zone: shows query warning / query result / NPC dialogue
+  const dialogueContent = isDecision && queryWarnPending
+    ? { text: `⚠  ${L.query_food_warn_prefix}${config.query_food_cost}${L.query_food_warn_suffix}`, color: C.query,      italic: false }
+    : isDecision && queryResult
+    ? { text: `▶  ${queryResult}`,                                                                    color: C.accept_glow, italic: false }
+    : npc
+    ? { text: `"${npc.dialogue}"`,                                                                    color: C.text_secondary, italic: true }
+    : null
+
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: theme.colors.background }]} onLayout={onSafeLayout}>
+    <SafeAreaView style={[styles.safe, { backgroundColor: C.background }]} onLayout={onSafeLayout}>
       <AppBar onMainMenu={onMainMenu} />
 
-      {/* ── TACTICAL STATUS HUD ────────────────────────────── */}
-      <View style={styles.hud}>
-        <View style={styles.hudHeader}>
-          <View style={styles.hudHeaderLine} />
-          <Text style={[styles.hudHeaderText, { fontFamily: MONO }]}>DURUM MONİTÖRÜ</Text>
-          <View style={styles.hudHeaderLine} />
-        </View>
-
-        {/* 3 + 2 grid */}
-        <View style={styles.statRow}>
-          {STATS.slice(0, 3).map(s => (
-            <StatRow key={s}
-              icon={(UI.stat_icons as any)[s]}
-              abbrev={(UI.stat_abbrevs as any)[s]}
-              val={Math.round(stats.stats[s])}
-              pct={Math.min(1, Math.max(0, stats.stats[s] / STAT_MAX[s]))}
-              isCrit={stats.isCritical(s)}
-              color={(UI.stat_colors as any)[s]}
-              acceptDelta={npcAccept[s] ?? 0}
-              rejectDelta={npcReject[s] ?? 0}
-              max={STAT_MAX[s]}
-              dragX={dragX}
-            />
-          ))}
-        </View>
-        <View style={styles.statRow}>
-          {STATS.slice(3).map(s => (
-            <StatRow key={s}
-              icon={(UI.stat_icons as any)[s]}
-              abbrev={(UI.stat_abbrevs as any)[s]}
-              val={Math.round(stats.stats[s])}
-              pct={Math.min(1, Math.max(0, stats.stats[s] / STAT_MAX[s]))}
-              isCrit={stats.isCritical(s)}
-              color={(UI.stat_colors as any)[s]}
-              acceptDelta={npcAccept[s] ?? 0}
-              rejectDelta={npcReject[s] ?? 0}
-              max={STAT_MAX[s]}
-              dragX={dragX}
-            />
-          ))}
-          {/* spacer to fill 3rd col */}
-          <View style={{ flex: 1 }} />
-        </View>
+      {/* ── STAT ICONS ROW ─────────────────────────────────── */}
+      <View style={styles.statBar}>
+        {STATS.map(s => (
+          <StatIcon key={s}
+            icon={(UI.stat_icons as any)[s]}
+            val={Math.round(stats.stats[s])}
+            isCrit={stats.isCritical(s)}
+            color={(UI.stat_colors as any)[s]}
+            acceptDelta={npcAccept[s] ?? 0}
+            rejectDelta={npcReject[s] ?? 0}
+            max={STAT_MAX[s]}
+            dragX={dragX}
+          />
+        ))}
       </View>
 
-      {/* ── MISSION INFO BAR ───────────────────────────────── */}
-      <View style={styles.infoBar}>
-        {/* day counter */}
-        <View style={styles.infoBlock}>
-          <Text style={[styles.infoLabel, { fontFamily: MONO }]}>GÜN</Text>
-          <Text style={[styles.infoVal,   { fontFamily: MONO, color: C.accept_glow }]}>
-            {String(game.day).padStart(2, '0')}
-            <Text style={[styles.infoValSub, { fontFamily: MONO }]}>/{config.win_condition_day}</Text>
+      {/* ── DIALOGUE ZONE ──────────────────────────────────── */}
+      <View style={styles.dialogueZone}>
+        {dialogueContent && (
+          <Text
+            style={[
+              styles.dialogueText,
+              { color: dialogueContent.color, fontFamily: MONO },
+              dialogueContent.italic && styles.dialogueItalic,
+            ]}
+            numberOfLines={3}
+          >
+            {dialogueContent.text}
           </Text>
-        </View>
-
-        {/* progress bar */}
-        <View style={styles.missionTrackWrap}>
-          <Text style={[styles.infoLabel, { fontFamily: MONO, textAlign: 'center' }]}>MİSYON İLERLEMESİ</Text>
-          <View style={styles.missionTrack}>
-            <View style={[styles.missionFill, { width: `${dayPct}%` as any }]} />
-            <Text style={[styles.missionPct, { fontFamily: MONO }]}>{dayPct}%</Text>
-          </View>
-        </View>
-
-        {/* SP */}
-        <View style={[styles.infoBlock, { alignItems: 'flex-end' }]}>
-          <Text style={[styles.infoLabel, { fontFamily: MONO }]}>PUAN</Text>
-          <Text style={[styles.infoVal,   { fontFamily: MONO, color: C.query }]}>
-            {progress.sp}<Text style={[styles.infoValSub, { fontFamily: MONO }]}> SP</Text>
-          </Text>
-        </View>
+        )}
       </View>
 
-      {/* ── SUBJECT CARD ───────────────────────────────────── */}
+      {/* ── CARD ZONE ──────────────────────────────────────── */}
       <View style={[styles.cardZone, { height: cardSlotH }]}>
-        {/* scan frame corners */}
-        {(['tl','tr','bl','br'] as const).map(p => <ScanCorner key={p} pos={p} />)}
-
         {npc && (
           <SwipeHandler
             key={npc.npc_id}
@@ -334,95 +275,78 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
             onSwipeUp={onQuery}
             disabled={!isDecision}
           >
-            <NPCCard npc={npc} availableHeight={cardSlotH} />
+            <NPCCard npc={npc} availableHeight={cardSlotH} hideDialogue />
           </SwipeHandler>
         )}
       </View>
 
-      {/* ── ALERT / QUERY TOAST ────────────────────────────── */}
-      <View style={styles.toastZone}>
-        {isDecision && queryWarnPending ? (
-          <View style={[styles.alertBox, { borderColor: C.query, backgroundColor: C.query + '14' }]}>
-            <Text style={[styles.alertIcon, { color: C.query }]}>⚠</Text>
-            <Text style={[styles.alertText, { color: C.query, fontFamily: MONO }]}>
-              {L.query_food_warn_prefix}{config.query_food_cost}{L.query_food_warn_suffix}
-            </Text>
-            <Text style={[styles.alertIcon, { color: C.query }]}>⚠</Text>
-          </View>
-        ) : isDecision && queryResult ? (
-          <View style={[styles.alertBox, { borderColor: C.accept, backgroundColor: C.accept + '10' }]}>
-            <Text style={[styles.alertIcon, { color: C.accept }]}>▶</Text>
-            <Text style={[styles.alertText, { color: C.accept_glow, fontFamily: MONO }]}>{queryResult}</Text>
-          </View>
-        ) : null}
-      </View>
+      {/* ── INFO BAR ───────────────────────────────────────── */}
+      <View style={styles.infoBar}>
+        {/* day counter */}
+        <View style={styles.dayBlock}>
+          <Text style={[styles.dayLabel, { fontFamily: MONO }]}>GÜN</Text>
+          <Text style={[styles.dayVal, { fontFamily: MONO }]}>
+            {String(game.day).padStart(2, '0')}
+            <Text style={[styles.dayMax, { fontFamily: MONO }]}>/{config.win_condition_day}</Text>
+          </Text>
+        </View>
 
-      {/* ── CONTROL PANEL ──────────────────────────────────── */}
-      <View style={[styles.panel, {
-        paddingBottom: Platform.OS === 'android' ? 14 : 8,
-        opacity: isDecision ? 1 : 0,
-      }]}>
-        {/* utility strip */}
-        <View style={styles.utilStrip}>
-          <View style={styles.utilStripLine} />
+        {/* mission progress bar */}
+        <View style={styles.progressWrap}>
+          <View style={styles.progressTrack}>
+            <View style={[styles.progressFill, { width: `${dayPct}%` as any }]} />
+          </View>
+        </View>
+
+        {/* utility buttons */}
+        <View style={styles.utilGroup}>
           <TouchableOpacity
             onPress={onQuery}
             disabled={!canQuery || !isDecision}
-            style={[styles.utilChip, !canQuery && styles.utilChipOff, queryWarnPending && styles.utilChipWarn]}
+            style={[styles.utilBtn, queryWarnPending && styles.utilBtnWarn, !canQuery && styles.utilBtnOff]}
             activeOpacity={0.75}
           >
-            <Text style={[styles.utilChipText, {
+            <Text style={[styles.utilBtnText, {
               color: queryWarnPending ? C.query : canQuery ? C.query : C.text_muted,
               fontFamily: MONO,
             }]}>
-              {queryWarnPending ? `⚠ ${L.btn_query_confirm}` : `🔬 ${L.btn_query} ×${game.queryChargesLeft}`}
+              {queryWarnPending ? '⚠' : '🔬'}×{game.queryChargesLeft}
             </Text>
           </TouchableOpacity>
-
-          <View style={styles.utilStripDot} />
-
           <TouchableOpacity
             onPress={() => setDetailsVisible(true)}
             disabled={!isDecision}
-            style={styles.utilChip}
+            style={styles.utilBtn}
             activeOpacity={0.75}
           >
-            <Text style={[styles.utilChipText, { color: C.text_muted, fontFamily: MONO }]}>
-              📋 {L.btn_detail}
-            </Text>
-          </TouchableOpacity>
-          <View style={styles.utilStripLine} />
-        </View>
-
-        {/* main action buttons */}
-        <View style={styles.actionRow}>
-          <TouchableOpacity onPress={doReject} disabled={!isDecision}
-            style={[styles.actionBtn, styles.actionReject]} activeOpacity={0.72}>
-            <View style={styles.actionBtnInner}>
-              <Text style={[styles.actionBtnSymbol, { color: C.danger }]}>✕</Text>
-              <View>
-                <Text style={[styles.actionBtnCode,  { color: C.danger,      fontFamily: MONO }]}>CMD-01</Text>
-                <Text style={[styles.actionBtnLabel, { color: C.reject_glow, fontFamily: MONO }]}>{L.btn_reject}</Text>
-              </View>
-            </View>
-            <View style={[styles.actionBtnGlow, { backgroundColor: C.danger + '18' }]} />
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={doAccept} disabled={!isDecision}
-            style={[styles.actionBtn, styles.actionAccept]} activeOpacity={0.72}>
-            <View style={styles.actionBtnInner}>
-              <View style={{ alignItems: 'flex-end' }}>
-                <Text style={[styles.actionBtnCode,  { color: C.accept,      fontFamily: MONO }]}>CMD-02</Text>
-                <Text style={[styles.actionBtnLabel, { color: C.accept_glow, fontFamily: MONO }]}>{L.btn_accept}</Text>
-              </View>
-              <Text style={[styles.actionBtnSymbol, { color: C.accept_glow }]}>✓</Text>
-            </View>
-            <View style={[styles.actionBtnGlow, { backgroundColor: C.accept + '14' }]} />
+            <Text style={[styles.utilBtnText, { color: C.text_muted, fontFamily: MONO }]}>📋</Text>
           </TouchableOpacity>
         </View>
       </View>
 
-      {/* ── overlays ───────────────────────────────────────── */}
+      {/* ── ACTION BUTTONS ─────────────────────────────────── */}
+      <View style={[styles.actionRow, {
+        paddingBottom: Platform.OS === 'android' ? 16 : 10,
+        opacity: isDecision ? 1 : 0,
+      }]}>
+        <TouchableOpacity
+          onPress={doReject} disabled={!isDecision}
+          style={[styles.actionBtn, styles.rejectBtn]} activeOpacity={0.72}
+        >
+          <Text style={[styles.actionSymbol, { color: C.reject_glow }]}>✕</Text>
+          <Text style={[styles.actionLabel,  { color: C.reject_glow, fontFamily: MONO }]}>{L.btn_reject}</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={doAccept} disabled={!isDecision}
+          style={[styles.actionBtn, styles.acceptBtn]} activeOpacity={0.72}
+        >
+          <Text style={[styles.actionLabel,  { color: C.accept_glow, fontFamily: MONO }]}>{L.btn_accept}</Text>
+          <Text style={[styles.actionSymbol, { color: C.accept_glow }]}>✓</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* ── OVERLAYS ───────────────────────────────────────── */}
       {game.phase === 'intro' && <IntroScreen onStart={() => game.setPhase('npc_decision')} />}
       {game.phase === 'npc_arrival' && game.notifications.length > 0 && (
         <NotificationOverlay onContinue={() => { game.clearNotifications(); game.setPhase('npc_decision') }} />
@@ -441,198 +365,130 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
   )
 }
 
-// ─── Scan corner bracket ────────────────────────────────────────────────────
-const ScanCorner: React.FC<{ pos: 'tl' | 'tr' | 'bl' | 'br' }> = ({ pos }) => {
-  const isTop  = pos === 'tl' || pos === 'tr'
-  const isLeft = pos === 'tl' || pos === 'bl'
-  const sz = 18; const th = 2
-  return (
-    <View pointerEvents="none" style={{
-      position: 'absolute',
-      top:    isTop  ? 4 : undefined,
-      bottom: !isTop ? 4 : undefined,
-      left:   isLeft  ? 4 : undefined,
-      right:  !isLeft ? 4 : undefined,
-      width: sz, height: sz,
-    }}>
-      <View style={{ position:'absolute', top: isTop ? 0 : undefined, bottom: !isTop ? 0 : undefined, left:0, right:0, height:th, backgroundColor: C.accept + '99' }} />
-      <View style={{ position:'absolute', left: isLeft ? 0 : undefined, right: !isLeft ? 0 : undefined, top:0, bottom:0, width:th, backgroundColor: C.accept + '99' }} />
-    </View>
-  )
-}
-
 // ─── Styles ─────────────────────────────────────────────────────────────────
 const styles = StyleSheet.create({
   safe: { flex: 1 },
 
-  // HUD
-  hud: {
-    paddingHorizontal: SP.sm,
-    paddingTop: 6,
-    paddingBottom: 8,
-    gap: 5,
+  // Stat icons row
+  statBar: {
+    flexDirection: 'row',
+    paddingHorizontal: SP.xs,
     backgroundColor: C.surface,
     borderBottomWidth: 1,
-    borderBottomColor: C.accept + '22',
-  },
-  hudHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    marginBottom: 2,
-  },
-  hudHeaderLine: { flex: 1, height: 1, backgroundColor: C.accept + '30' },
-  hudHeaderText: {
-    color: C.accept + '60',
-    fontSize: TY.size_caption,
-    fontWeight: TY.weight_heavy,
-    letterSpacing: 3,
-  },
-  statRow: {
-    flexDirection: 'row',
-    gap: SP.sm,
+    borderBottomColor: C.accept + '1a',
   },
 
-  // mission info bar
+  // Dialogue zone (replaces external toast too)
+  dialogueZone: {
+    paddingHorizontal: SP.lg,
+    paddingVertical: 10,
+    minHeight: 76,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  dialogueText: {
+    fontSize: TY.size_sm,
+    lineHeight: 20,
+    textAlign: 'center',
+    letterSpacing: 0.2,
+  },
+  dialogueItalic: { fontStyle: 'italic' },
+
+  // Card
+  cardZone: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  // Info bar
   infoBar: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: SP.sm,
-    paddingVertical: 6,
-    borderBottomWidth: 1,
-    borderBottomColor: C.divider,
-    backgroundColor: C.bg_deeper,
+    paddingVertical: 9,
     gap: SP.sm,
+    backgroundColor: C.bg_deeper,
+    borderTopWidth: 1,
+    borderTopColor: C.divider,
   },
-  infoBlock: { minWidth: 44 },
-  infoLabel: {
+  dayBlock: { minWidth: 50 },
+  dayLabel: {
     color: C.text_muted,
     fontSize: 7,
     fontWeight: TY.weight_heavy,
     letterSpacing: 2,
     marginBottom: 1,
   },
-  infoVal: {
+  dayVal: {
+    color: C.accept_glow,
     fontSize: TY.size_h6,
     fontWeight: TY.weight_black,
   },
-  infoValSub: {
-    fontSize: TY.size_caption,
-    fontWeight: TY.weight_bold,
+  dayMax: {
+    fontSize: TY.size_xs,
     color: C.text_muted,
+    fontWeight: TY.weight_bold,
   },
-  missionTrackWrap: { flex: 1, gap: 2 },
-  missionTrack: {
-    height: 10,
-    borderRadius: 3,
-    overflow: 'hidden',
+  progressWrap: { flex: 1 },
+  progressTrack: {
+    height: 4,
+    borderRadius: 2,
     backgroundColor: C.card_dark,
-    borderWidth: 1,
-    borderColor: C.accept + '30',
-    justifyContent: 'center',
-  },
-  missionFill: {
-    ...StyleSheet.absoluteFillObject,
-    right: undefined,
-    backgroundColor: C.accept + '55',
-    borderRadius: 3,
-  },
-  missionPct: {
-    color: C.accept_glow,
-    fontSize: 7,
-    fontWeight: TY.weight_black,
-    letterSpacing: 1,
-    textAlign: 'center',
-  },
-
-  // card zone
-  cardZone: {
-    justifyContent: 'center',
-    alignItems: 'center',
     overflow: 'hidden',
-    marginVertical: 2,
   },
-
-  // toast
-  toastZone: { height: 38, paddingHorizontal: SP.md, justifyContent: 'center' },
-  alertBox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 7,
-    paddingHorizontal: SP.md,
-    paddingVertical: 6,
-    borderRadius: R.xs,
-    borderWidth: 1,
-    alignSelf: 'center',
+  progressFill: {
+    height: '100%',
+    backgroundColor: C.accept + '66',
+    borderRadius: 2,
   },
-  alertIcon: { fontSize: TY.size_sm },
-  alertText: { fontSize: TY.size_xs, letterSpacing: 0.4, fontWeight: TY.weight_heavy },
-
-  // control panel
-  panel: {
-    paddingHorizontal: SP.sm,
-    paddingTop: 4,
-    gap: 4,
-  },
-
-  utilStrip: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-  },
-  utilStripLine: { flex: 1, height: 1, backgroundColor: C.divider },
-  utilStripDot:  { width: 4, height: 4, borderRadius: 2, backgroundColor: C.accept + '50' },
-  utilChip: {
-    paddingHorizontal: 10,
+  utilGroup: { flexDirection: 'row', gap: 4, alignItems: 'center' },
+  utilBtn: {
+    paddingHorizontal: 8,
     paddingVertical: 5,
     borderRadius: R.xs,
     borderWidth: 1,
     backgroundColor: C.card_dark,
     borderColor: C.divider,
   },
-  utilChipWarn:  { borderColor: C.query,    backgroundColor: C.query    + '14' },
-  utilChipOff:   { opacity: 0.3 },
-  utilChipText:  { fontSize: TY.size_xs, fontWeight: TY.weight_heavy, letterSpacing: 0.5 },
+  utilBtnWarn: { borderColor: C.query, backgroundColor: C.query + '14' },
+  utilBtnOff:  { opacity: 0.3 },
+  utilBtnText: { fontSize: TY.size_xs, fontWeight: TY.weight_heavy, letterSpacing: 0.3 },
 
-  actionRow: { flexDirection: 'row', gap: 5 },
+  // Action buttons
+  actionRow: {
+    flexDirection: 'row',
+    paddingHorizontal: SP.sm,
+    paddingTop: 6,
+    gap: SP.xs,
+  },
   actionBtn: {
     flex: 1,
-    borderRadius: R.md,
-    borderWidth: 2,
-    overflow: 'hidden',
-  },
-  actionBtnInner: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 10,
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-    zIndex: 1,
+    gap: 8,
+    paddingVertical: 14,
+    borderRadius: R.md,
+    borderWidth: 2,
   },
-  actionBtnGlow: {
-    ...StyleSheet.absoluteFillObject,
-  },
-  actionReject: {
+  rejectBtn: {
     borderColor: C.danger,
     backgroundColor: C.danger_dark,
     shadowColor: C.danger,
     shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.6,
-    shadowRadius: 10,
-    elevation: 8,
+    shadowOpacity: 0.55,
+    shadowRadius: 8,
+    elevation: 7,
   },
-  actionAccept: {
+  acceptBtn: {
     borderColor: C.accept,
-    backgroundColor: C.accept + '10',
+    backgroundColor: C.accept + '0f',
     shadowColor: C.accept_glow,
     shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.5,
-    shadowRadius: 10,
-    elevation: 8,
+    shadowOpacity: 0.45,
+    shadowRadius: 8,
+    elevation: 7,
   },
-  actionBtnSymbol: { fontSize: TY.size_xl, fontWeight: TY.weight_black },
-  actionBtnCode:   { fontSize: 8, fontWeight: TY.weight_heavy, letterSpacing: 2, opacity: 0.6 },
-  actionBtnLabel:  { fontSize: TY.size_sm, fontWeight: TY.weight_black, letterSpacing: 1.5 },
+  actionSymbol: { fontSize: TY.size_lg, fontWeight: TY.weight_black },
+  actionLabel:  { fontSize: TY.size_sm, fontWeight: TY.weight_black, letterSpacing: 1.5 },
 })
-

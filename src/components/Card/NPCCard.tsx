@@ -15,12 +15,13 @@ const ROLE_TR     = themeData.ui.role_names_tr as Record<string, string>
 interface Props {
   npc: NPC
   availableHeight?: number
+  hideDialogue?: boolean
 }
 
 const CARD_ASPECT  = 3 / 4
 const CARD_PADDING = 8
 
-const NPCCardInner: React.FC<Props> = ({ npc, availableHeight }) => {
+const NPCCardInner: React.FC<Props> = ({ npc, availableHeight, hideDialogue }) => {
   const { width } = useWindowDimensions()
   const roleColor = ROLE_COLORS[npc.role] ?? C.text_muted
 
@@ -30,7 +31,9 @@ const NPCCardInner: React.FC<Props> = ({ npc, availableHeight }) => {
   const cardH = Math.min(baseH, maxH)
   const cardW = cardH * CARD_ASPECT
 
-  const gradH = Math.max(130, Math.round(cardH * 0.40))
+  const gradH = hideDialogue
+    ? Math.max(64, Math.round(cardH * 0.22))
+    : Math.max(130, Math.round(cardH * 0.40))
 
   return (
     <View style={[styles.card, {
@@ -68,7 +71,9 @@ const NPCCardInner: React.FC<Props> = ({ npc, availableHeight }) => {
       >
         <View style={styles.textBlock}>
           <Text style={styles.name} numberOfLines={1}>{npc.name}</Text>
-          <Text style={styles.dialogue} numberOfLines={3}>"{npc.dialogue}"</Text>
+          {!hideDialogue && (
+            <Text style={styles.dialogue} numberOfLines={3}>"{npc.dialogue}"</Text>
+          )}
         </View>
       </LinearGradient>
 
