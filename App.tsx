@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { StyleSheet } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
@@ -53,17 +54,17 @@ export default function App() {
       <SafeAreaProvider>
         <StatusBar style="light" />
         {appScreen === 'splash' && (
-          <Animated.View key="splash" entering={FadeIn.duration(400)} style={{ flex: 1 }}>
+          <Animated.View key="splash" entering={FadeIn.duration(400)} style={StyleSheet.absoluteFillObject}>
             <SplashScreen onDone={() => { startAmbient(); setAppScreen('menu') }} />
           </Animated.View>
         )}
         {appScreen === 'menu' && (
-          <Animated.View key="menu" entering={FadeIn.duration(350)} style={{ flex: 1 }}>
+          <Animated.View key="menu" entering={FadeIn.duration(350)} style={StyleSheet.absoluteFillObject}>
             <MenuScreen onStart={handleStart} />
           </Animated.View>
         )}
         {appScreen === 'game' && (
-          <Animated.View key="game" entering={FadeIn.duration(300)} style={{ flex: 1 }}>
+          <Animated.View key="game" entering={FadeIn.duration(300)} style={StyleSheet.absoluteFillObject}>
             {renderGame()}
           </Animated.View>
         )}
