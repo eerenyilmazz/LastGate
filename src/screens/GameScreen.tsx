@@ -52,7 +52,8 @@ const StatIcon = React.memo<{
   rejectDelta: number
   max:         number
   dragX:       SharedValue<number>
-}>(({ icon, val, isCrit, color, acceptDelta, rejectDelta, max, dragX }) => {
+  dragY:       SharedValue<number>
+}>(({ icon, val, isCrit, color, acceptDelta, rejectDelta, max, dragX, dragY }) => {
 
   const pulse      = useSharedValue(1)
   const [displayVal, setDisplayVal] = useState(val)
@@ -62,6 +63,9 @@ const StatIcon = React.memo<{
   useAnimatedReaction(
     () => {
       const dx = dragX.value
+      const dy = dragY.value
+      // upward swipe (query) — no delta preview
+      if (dy < -(SWIPE_THRESHOLD * 0.25)) return val
       if (Math.abs(dx) < 4) return val
       const delta    = dx > 0 ? acceptDelta : rejectDelta
       const progress = Math.min(1, Math.abs(dx) / SWIPE_THRESHOLD)
@@ -325,6 +329,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
             rejectDelta={npcReject[s] ?? 0}
             max={STAT_MAX[s]}
             dragX={dragX}
+            dragY={dragY}
           />
         ))}
       </View>
