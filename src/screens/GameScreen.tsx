@@ -41,6 +41,8 @@ const STAT_MAX = config.stat_max as Record<StatType, number>
 const MONO = Platform.select(themeData.ui.font_mono) as string
 
 const SWIPE_THRESHOLD = themeData.animation.swipe_threshold
+const ROLE_COLORS = themeData.ui.role_colors as Record<string, string>
+const ROLE_TR     = themeData.ui.role_names_tr as Record<string, string>
 
 // ─── Stat Icon (Reigns-style: icon + value, no bar) ─────────────────────────
 const StatIcon = React.memo<{
@@ -322,16 +324,32 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
       {/* ── DIALOGUE ZONE ──────────────────────────────────── */}
       <View style={styles.dialogueZone}>
         {overrideContent ? (
-          <Text style={[styles.dialogueText, { color: overrideContent.color, fontFamily: MONO }]} numberOfLines={3}>
-            {overrideContent.text}
-          </Text>
-        ) : npc ? (
-          <Text style={[styles.dialogueText, styles.dialogueItalic, { color: C.text_secondary, fontFamily: MONO }]} numberOfLines={3}>
-            {`"`}{typedText}
-            {<Text style={{ opacity: cursorOn ? 1 : 0 }}>{'▊'}</Text>}
-            {!isTyping && `"`}
-          </Text>
-        ) : null}
+          <View style={[styles.dialogueFrame, { borderLeftColor: overrideContent.color }]}>
+            <Text style={[styles.dialogueLabel, { color: overrideContent.color, fontFamily: MONO }]}>
+              {'▸ SİSTEM'}
+            </Text>
+            <Text style={[styles.dialogueText, { color: overrideContent.color, fontFamily: MONO }]} numberOfLines={2}>
+              {overrideContent.text}
+            </Text>
+          </View>
+        ) : npc ? (() => {
+          const roleColor = ROLE_COLORS[npc.role] ?? C.text_muted
+          return (
+            <View style={[styles.dialogueFrame, { borderLeftColor: roleColor }]}>
+              <Text style={[styles.dialogueLabel, { color: roleColor, fontFamily: MONO }]} numberOfLines={1}>
+                {'▸ '}{npc.name.toUpperCase()}
+                <Text style={[styles.dialogueRoleBadge, { color: roleColor + 'aa' }]}>
+                  {'  —  '}{ROLE_TR[npc.role] ?? npc.role}
+                </Text>
+              </Text>
+              <Text style={[styles.dialogueText, styles.dialogueItalic, { color: C.text_secondary }]} numberOfLines={2}>
+                {`"`}{typedText}
+                <Text style={{ opacity: cursorOn ? 1 : 0 }}>{'▊'}</Text>
+                {!isTyping && `"`}
+              </Text>
+            </View>
+          )
+        })() : null}
       </View>
 
       {/* ── CARD ZONE — flex:1 fills all remaining space ──── */}
@@ -423,15 +441,29 @@ const styles = StyleSheet.create({
 
   // Dialogue zone — fixed height, card position never jumps
   dialogueZone: {
-    height: 80,
+    height: 84,
     paddingHorizontal: SP.lg,
     justifyContent: 'center',
-    alignItems: 'center',
+  },
+  dialogueFrame: {
+    borderLeftWidth: 2,
+    paddingLeft: 10,
+    paddingVertical: 4,
+    gap: 4,
+  },
+  dialogueLabel: {
+    fontSize: TY.size_xs,
+    fontWeight: TY.weight_heavy,
+    letterSpacing: 1.2,
+  },
+  dialogueRoleBadge: {
+    fontSize: TY.size_xs,
+    fontWeight: TY.weight_regular,
+    letterSpacing: 0.5,
   },
   dialogueText: {
     fontSize: TY.size_sm,
-    lineHeight: 20,
-    textAlign: 'center',
+    lineHeight: 18,
     letterSpacing: 0.2,
   },
   dialogueItalic: { fontStyle: 'italic' },
