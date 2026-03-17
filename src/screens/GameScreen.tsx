@@ -432,19 +432,18 @@ const styles = StyleSheet.create({
 
   // Dialogue zone — fixed height, card position never jumps
   dialogueZone: {
-    height: 84,
+    height: 96,
     paddingHorizontal: SP.lg,
     justifyContent: 'center',
   },
   dialogueFrame: {
     borderLeftWidth: 2,
-    paddingLeft: 10,
+    paddingLeft: 12,
     paddingVertical: 4,
-    gap: 4,
   },
   dialogueText: {
-    fontSize: TY.size_sm,
-    lineHeight: 18,
+    fontSize: TY.size_body,
+    lineHeight: 22,
     letterSpacing: 0.2,
   },
   dialogueItalic: { fontStyle: 'italic' },
