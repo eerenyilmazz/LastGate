@@ -111,7 +111,7 @@ export const SplashScreen: React.FC<Props> = ({ onDone }) => {
       <View style={styles.center}>
 
         <Animated.View style={[styles.logoBlock, logoStyle]}>
-          <Image source={require('../../assets/splash-icon.png')} style={styles.emblem} resizeMode="contain" />
+          <Image source={require('../../assets/icon.png')} style={styles.emblem} resizeMode="contain" />
           <Text style={styles.title}>LAST GATE</Text>
         </Animated.View>
 

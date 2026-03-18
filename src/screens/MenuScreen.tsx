@@ -364,7 +364,7 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
 
       <View style={styles.logoArea}>
         <Animated.Image
-          source={require('../../assets/splash-icon.png')}
+          source={require('../../assets/icon.png')}
           style={[styles.emblem, emblemStyle]}
           resizeMode="contain"
         />
