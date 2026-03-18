@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Platform, useWindowDimensions } from 'react-native'
 import Animated, {
   useSharedValue, useAnimatedStyle,
-  withTiming, withDelay, withRepeat, withSequence, Easing,
+  withTiming, withDelay, withRepeat, withSequence, Easing, runOnJS,
 } from 'react-native-reanimated'
 
 import ui from '../data/ui.json'
@@ -21,6 +21,7 @@ const STATUS_ITEMS = ui.splash_status_items
 
 export const SplashScreen: React.FC<Props> = ({ onDone }) => {
   const { height } = useWindowDimensions()
+  const exitOp    = useSharedValue(1)
   const logoOp    = useSharedValue(0)
   const logoScale = useSharedValue(0.88)
   const subOp     = useSharedValue(0)
@@ -71,6 +72,7 @@ export const SplashScreen: React.FC<Props> = ({ onDone }) => {
     )
   }, [])
 
+  const exitStyle   = useAnimatedStyle(() => ({ opacity: exitOp.value }))
   const logoStyle   = useAnimatedStyle(() => ({ opacity: logoOp.value, transform: [{ scale: logoScale.value }] }))
   const subStyle    = useAnimatedStyle(() => ({ opacity: subOp.value }))
   const termStyle   = useAnimatedStyle(() => ({ opacity: termOp.value }))
@@ -86,8 +88,15 @@ export const SplashScreen: React.FC<Props> = ({ onDone }) => {
 
   const statusStyles = [s0Style, s1Style, s2Style, s3Style]
 
+  const handleDone = () => {
+    exitOp.value = withTiming(0, { duration: 280, easing: Easing.out(Easing.ease) }, (finished) => {
+      if (finished) runOnJS(onDone)()
+    })
+  }
+
   return (
-    <TouchableOpacity activeOpacity={1} onPress={onDone} style={styles.root}>
+    <TouchableOpacity activeOpacity={1} onPress={handleDone} style={styles.root}>
+      <Animated.View style={[StyleSheet.absoluteFillObject, exitStyle]} pointerEvents="none" />
 
       <Animated.View style={[styles.scanline, scanStyle]} pointerEvents="none" />
 
