@@ -34,7 +34,7 @@ const BUILDINGS = config.buildings as Array<{
   infection_reduction?: number
 }>
 
-const AD_LIMITS = (config as any).ad_limits as Record<string, number>
+// ADMOB_DISABLED — const AD_LIMITS = (config as any).ad_limits as Record<string, number>
 
 type DiffMod = { daily_food_bonus: number; starvation_extra: number; npc_neg_scale: number }
 const DIFF_MODS = (config as any).difficulty_modifiers as Record<string, DiffMod>
