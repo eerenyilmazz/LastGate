@@ -1,7 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Platform, ActivityIndicator } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { RewardedAd, RewardedAdEventType, AdEventType, TestIds } from 'react-native-google-mobile-ads'
+let RewardedAd: any, RewardedAdEventType: any, AdEventType: any, TestIds: any
+try {
+  const ads = require('react-native-google-mobile-ads')
+  RewardedAd = ads.RewardedAd; RewardedAdEventType = ads.RewardedAdEventType
+  AdEventType = ads.AdEventType; TestIds = ads.TestIds
+} catch {
+  RewardedAd = null
+  RewardedAdEventType = { LOADED: 'loaded', EARNED_REWARD: 'earned_reward' }
+  AdEventType = { CLOSED: 'closed', ERROR: 'error' }
+  TestIds = { REWARDED: '' }
+}
 import { useStatStore } from '../../store/useStatStore'
 import { useGameStore } from '../../store/useGameStore'
 import { useSettingsStore } from '../../store/useSettingsStore'
@@ -56,7 +66,7 @@ export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
   const bonusSP   = Math.max(1, Math.round(game.daySpEarned * mult))
 
   useEffect(() => {
-    if (game.spAdUsedToday || game.daySpEarned <= 0) return
+    if (game.spAdUsedToday || game.daySpEarned <= 0 || !RewardedAd) return
     const ad = RewardedAd.createForAdRequest(AD_UNIT_ID, { requestNonPersonalizedAdsOnly: true })
     adRef.current = ad
     ad.addAdEventListener(RewardedAdEventType.LOADED, () => {

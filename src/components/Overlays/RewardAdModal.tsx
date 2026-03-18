@@ -4,7 +4,17 @@ import Animated, {
   useSharedValue, useAnimatedStyle,
   withRepeat, withSequence, withTiming,
 } from 'react-native-reanimated'
-import { RewardedAd, RewardedAdEventType, AdEventType, TestIds } from 'react-native-google-mobile-ads'
+let RewardedAd: any, RewardedAdEventType: any, AdEventType: any, TestIds: any
+try {
+  const ads = require('react-native-google-mobile-ads')
+  RewardedAd = ads.RewardedAd; RewardedAdEventType = ads.RewardedAdEventType
+  AdEventType = ads.AdEventType; TestIds = ads.TestIds
+} catch {
+  RewardedAd = null
+  RewardedAdEventType = { LOADED: 'loaded', EARNED_REWARD: 'earned_reward' }
+  AdEventType = { CLOSED: 'closed', ERROR: 'error' }
+  TestIds = { REWARDED: '' }
+}
 import { useGameStore } from '../../store/useGameStore'
 import { useStatStore } from '../../store/useStatStore'
 import { useProgressStore } from '../../store/useProgressStore'
@@ -80,6 +90,7 @@ export const RewardAdModal: React.FC<Props> = ({ reason, onContinue, onGameOver 
       -1, true,
     )
 
+    if (!RewardedAd) { setAdReady(false); return }
     const ad = RewardedAd.createForAdRequest(AD_UNIT_ID, { requestNonPersonalizedAdsOnly: true })
     adRef.current = ad
 
