@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Platform, useWindowDimensions } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Platform, useWindowDimensions, Image } from 'react-native'
 import Animated, {
   useSharedValue, useAnimatedStyle,
   withTiming, withDelay, withRepeat, withSequence, Easing, runOnJS,
@@ -111,7 +111,7 @@ export const SplashScreen: React.FC<Props> = ({ onDone }) => {
       <View style={styles.center}>
 
         <Animated.View style={[styles.logoBlock, logoStyle]}>
-          <Text style={styles.emblem}>☣</Text>
+          <Image source={require('../../assets/splash-icon.png')} style={styles.emblem} resizeMode="contain" />
           <Text style={styles.title}>LAST GATE</Text>
         </Animated.View>
 
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
   },
 
   logoBlock: { alignItems: 'center', gap: 8 },
-  emblem: { fontSize: TY.size_display, color: C.text_muted },
+  emblem: { width: 90, height: 90 },
   title: {
     fontSize: TY.size_display,
     fontWeight: TY.weight_black,
