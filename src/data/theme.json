@@ -13,7 +13,7 @@
     "stat_immunity": "#a78bfa",
     "stat_food":     "#fb923c",
     "stat_population":"#38bdf4",
-    "stat_defense":  "#60a5fa",
+    "stat_defense":  "#2dd4bf",
     "stat_economy":  "#fbbf24",
     "stat_critical": "#ff1744",
     "warning_overlay":"#ff000033",
@@ -171,7 +171,7 @@
       "immunity": "#a78bfa",
       "food":     "#fb923c",
       "population":"#38bdf4",
-      "defense":  "#60a5fa",
+      "defense":  "#2dd4bf",
       "economy":  "#fbbf24"
     },
     "role_colors": {
