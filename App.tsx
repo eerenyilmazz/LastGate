@@ -23,12 +23,7 @@ export default function App() {
   const { playSFX, stopAllSFX, startAmbient } = useAudio()
 
   useEffect(() => {
-    loadSave().then(({ hasResumableGame }) => {
-      if (hasResumableGame) {
-        startAmbient()
-        setAppScreen('game')
-      }
-    })
+    loadSave()
   }, [])
 
   const handleStart = () => {
