@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Platform, ScrollView } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 // ADMOB_DISABLED — import { RewardedAd, RewardedAdEventType, AdEventType, TestIds } from 'react-native-google-mobile-ads'
 import { useStatStore } from '../../store/useStatStore'
@@ -129,13 +129,17 @@ export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
         </View>
 
         {game.notifications.length > 0 && (
-          <View style={styles.notifBlock}>
+          <ScrollView
+            style={styles.notifBlock}
+            nestedScrollEnabled
+            showsVerticalScrollIndicator={false}
+          >
             {game.notifications.map((note, i) => (
               <View key={i} style={styles.notifRow}>
                 <Text style={[styles.notifText, { fontFamily: MONO }]}>{'⚠ '}{note}</Text>
               </View>
             ))}
-          </View>
+          </ScrollView>
         )}
 
         {Object.keys(game.acceptedRoleCounts).length > 0 && (
@@ -480,6 +484,7 @@ const styles = StyleSheet.create({
   notifBlock: {
     marginHorizontal: 16,
     marginBottom: 12,
+    maxHeight: 100,
     gap: 6,
   },
   notifRow: {

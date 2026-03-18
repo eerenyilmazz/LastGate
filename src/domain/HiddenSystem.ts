@@ -63,6 +63,7 @@ export const HiddenSystem = {
   },
 
   getNotificationText(trait: HiddenTrait, days: number): string {
+    if (trait === 'infected' && (days === 1 || days === 2)) return (NOTIF as any).infected_early
     if (trait === 'infected' && days === 3) return NOTIF.infected_warning
     if (trait === 'infected' && days === 5) return NOTIF.infected_crisis
     if (trait === 'infected' && days > 5)   return NOTIF.infected_spread

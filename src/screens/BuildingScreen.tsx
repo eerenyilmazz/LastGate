@@ -184,7 +184,11 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
           )
         })}
 
-        {tab === 'skills' && SKILL_DEFS.map(skill => {
+        {tab === 'skills' && [...SKILL_DEFS].sort((a, b) => {
+          const aUsed = progress.hasBuilding(a.id) ? 1 : 0
+          const bUsed = progress.hasBuilding(b.id) ? 1 : 0
+          return aUsed - bUsed
+        }).map(skill => {
           const used      = progress.hasBuilding(skill.id)
           const locked    = game.day < skill.unlock_day
           const canBuy    = !used && !locked && progress.sp >= skill.cost
@@ -374,7 +378,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   cardOwned:  { backgroundColor: C.diff_pos_bg, borderColor: C.border_pos },
-  cardUsed:   { backgroundColor: C.bg_deeper, borderColor: C.border_info },
+  cardUsed:   { backgroundColor: C.bg_deeper, borderColor: C.border_info, opacity: 0.45 },
   cardLocked: { opacity: 0.35 },
 
   cardRow:  { flexDirection: 'row', alignItems: 'flex-start', gap: 12 },

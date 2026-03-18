@@ -49,33 +49,33 @@
     "Doctor": {
       "min_count": 3,
       "bonus": {
-        "immunity": 1
+        "immunity": 3
       }
     },
     "Farmer": {
       "min_count": 2,
       "bonus": {
-        "food": 1
+        "food": 4
       }
     },
     "Soldier": {
       "min_count": 2,
       "bonus": {
-        "defense": 1
+        "defense": 3
       }
     },
     "Trader": {
       "min_count": 2,
       "bonus": {
-        "economy": 2,
-        "food": 1
+        "economy": 4,
+        "food": 2
       }
     },
     "Engineer": {
       "min_count": 3,
       "bonus": {
-        "immunity": 1,
-        "economy": 1
+        "immunity": 2,
+        "economy": 2
       }
     }
   },
@@ -91,7 +91,7 @@
       "immunity": -4
     },
     "spy_recurring": {
-      "defense": -6
+      "defense": -4
     },
     "spy_sabotage": {
       "defense": -15

@@ -319,6 +319,11 @@ export const useGameLoop = () => {
       progress._load(savedProgress)
     }
 
+    const savedSettings = await SaveSystem.load<any>(SaveSystem.KEYS.SETTINGS)
+    if (savedSettings) {
+      settings._load(savedSettings)
+    }
+
     const savedGame  = await SaveSystem.load<any>(SaveSystem.KEYS.GAME)
     const savedStats = await SaveSystem.load<StatState>(SaveSystem.KEYS.STATS)
     const savedQueue = await SaveSystem.load<any>(SaveSystem.KEYS.NPC_QUEUE)
@@ -331,7 +336,7 @@ export const useGameLoop = () => {
     }
 
     return { hasResumableGame: false }
-  }, [game, stats, progress])
+  }, [game, stats, progress, settings])
 
   const saveAll = useCallback(async () => {
     await SaveSystem.save({
@@ -357,8 +362,13 @@ export const useGameLoop = () => {
         totalWins: progress.totalWins,
       },
       [SaveSystem.KEYS.NPC_QUEUE]: generator.getState(),
+      [SaveSystem.KEYS.SETTINGS]: {
+        musicEnabled: settings.musicEnabled,
+        sfxEnabled:   settings.sfxEnabled,
+        difficulty:   settings.difficulty,
+      },
     })
-  }, [game, stats, progress])
+  }, [game, stats, progress, settings])
 
   return { handleAccept, handleReject, handleQuery, endDay, handleEventChoice, startGame, loadSave }
 }

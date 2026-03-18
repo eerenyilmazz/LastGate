@@ -5,6 +5,7 @@ const KEYS = {
   STATS:    'lastgate_stats',
   PROGRESS: 'lastgate_progress',
   NPC_QUEUE:'lastgate_npc_queue',
+  SETTINGS: 'lastgate_settings',
 } as const
 
 export const SaveSystem = {

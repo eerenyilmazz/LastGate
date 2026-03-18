@@ -165,6 +165,7 @@
     "population": "Nüfus kritik — ekonomi ve savunma dağılıyor."
   },
   "hidden_notifications": {
+    "infected_early":   "Kimler bir şeyler taşıyor... bağışıklık zayıflıyor.",
     "infected_warning": "Şehirde hasta vakalar artıyor...",
     "infected_crisis":  "SALGIN BAŞLADI!",
     "infected_spread":  "Salgın yayılmaya devam ediyor.",

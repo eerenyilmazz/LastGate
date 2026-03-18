@@ -31,13 +31,6 @@ interface GameStore extends GameState {
   addDaySpEarned: (amount: number) => void
   resetDaySpEarned: () => void
 
-  adsWatchedThisRun: number
-  incrementAdsWatched: () => void
-  pendingAdReason: string | null
-  setPendingAdReason: (reason: string | null) => void
-  spAdUsedToday: boolean
-  setSpAdUsedToday: (v: boolean) => void
-
   advanceDay: (queryCharges?: number) => void
   setQueryCharges: (n: number) => void
 
@@ -48,7 +41,7 @@ interface GameStore extends GameState {
   _load: (state: Partial<GameState & { pendingTraits: PendingTrait[]; usedEventIDs: string[] }>) => void
 }
 
-const INITIAL: GameState & { pendingTraits: PendingTrait[]; usedEventIDs: string[]; notifications: string[]; adsWatchedThisRun: number; pendingAdReason: string | null; spAdUsedToday: boolean } = {
+const INITIAL: GameState & { pendingTraits: PendingTrait[]; usedEventIDs: string[]; notifications: string[] } = {
   day: 1,
   phase: 'npc_arrival',
   activeNPC: null,
@@ -64,9 +57,6 @@ const INITIAL: GameState & { pendingTraits: PendingTrait[]; usedEventIDs: string
   usedEventIDs: [],
   notifications: [],
   daySpEarned: 0,
-  adsWatchedThisRun: 0,
-  pendingAdReason: null,
-  spAdUsedToday: false,
 }
 
 export const useGameStore = create<GameStore>((set, get) => ({
@@ -138,18 +128,6 @@ export const useGameStore = create<GameStore>((set, get) => ({
     set({ daySpEarned: 0 })
   },
 
-  incrementAdsWatched() {
-    set(s => ({ adsWatchedThisRun: s.adsWatchedThisRun + 1 }))
-  },
-
-  setPendingAdReason(reason) {
-    set({ pendingAdReason: reason })
-  },
-
-  setSpAdUsedToday(v) {
-    set({ spAdUsedToday: v })
-  },
-
   advanceDay(queryCharges = config.query_charges_per_day) {
     const { day } = get()
     set({
@@ -159,7 +137,6 @@ export const useGameStore = create<GameStore>((set, get) => ({
       activeEvent: null,
       queryChargesLeft:  queryCharges,
       queryChargesTotal: queryCharges,
-      spAdUsedToday: false,
     })
   },
 

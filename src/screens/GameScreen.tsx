@@ -24,7 +24,6 @@ import { DaySummary } from '../components/Overlays/DaySummary'
 import { IntroScreen } from '../components/Overlays/IntroScreen'
 import { NotificationOverlay } from '../components/Overlays/NotificationOverlay'
 import { TutorialOverlay } from '../components/Overlays/TutorialOverlay'
-import { RewardAdModal } from '../components/Overlays/RewardAdModal'
 import { StatType, StatDelta } from '../types/stat.types'
 import { NPCRole } from '../types/npc.types'
 import config from '../data/config.json'
@@ -419,13 +418,6 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX, stopAllSFX })
         <DaySummary onContinue={endDay} onBuilding={() => game.setPhase('building')} />
       )}
       {npc && <CardDetails npc={npc} visible={detailsVisible} onClose={() => setDetailsVisible(false)} />}
-      {game.pendingAdReason && (
-        <RewardAdModal
-          reason={game.pendingAdReason}
-          onContinue={() => {}}
-          onGameOver={() => {}}
-        />
-      )}
     </SafeAreaView>
   )
 }

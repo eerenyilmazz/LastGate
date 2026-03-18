@@ -8,6 +8,7 @@ interface SettingsStore {
   toggleMusic:  () => void
   toggleSfx:    () => void
   setDifficulty: (d: Difficulty) => void
+  _load: (state: { musicEnabled?: boolean; sfxEnabled?: boolean; difficulty?: Difficulty }) => void
 }
 
 export const useSettingsStore = create<SettingsStore>((set) => ({
@@ -22,5 +23,8 @@ export const useSettingsStore = create<SettingsStore>((set) => ({
   },
   setDifficulty(d) {
     set({ difficulty: d })
+  },
+  _load(state) {
+    set(s => ({ ...s, ...state }))
   },
 }))
