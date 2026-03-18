@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {
   View, Text, TouchableOpacity, ScrollView, StyleSheet,
-  Platform, Modal, Switch,
+  Platform, Modal, Switch, Image,
 } from 'react-native'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import Animated, {
@@ -363,7 +363,11 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
       <AppBar />
 
       <View style={styles.logoArea}>
-        <Animated.Text style={[styles.emblem, emblemStyle]}>☣</Animated.Text>
+        <Animated.Image
+          source={require('../../assets/splash-icon.png')}
+          style={[styles.emblem, emblemStyle]}
+          resizeMode="contain"
+        />
         <Text style={styles.title}>{STRINGS.menu_title}</Text>
         <Text style={styles.titleSub}>{STRINGS.menu_subtitle}</Text>
 
@@ -497,11 +501,8 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   emblem: {
-    fontSize: TY.size_display,
-    color: C.danger_dark,
-    textShadowColor: C.danger + '66',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 20,
+    width: 90,
+    height: 90,
   },
   title: {
     color: C.text_bright,
