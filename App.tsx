@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
@@ -19,8 +19,17 @@ type AppScreen = 'splash' | 'menu' | 'game'
 export default function App() {
   const [appScreen, setAppScreen] = useState<AppScreen>('splash')
   const game = useGameStore()
-  const { startGame } = useGameLoop()
+  const { startGame, loadSave } = useGameLoop()
   const { playSFX, stopAllSFX, startAmbient } = useAudio()
+
+  useEffect(() => {
+    loadSave().then(({ hasResumableGame }) => {
+      if (hasResumableGame) {
+        startAmbient()
+        setAppScreen('game')
+      }
+    })
+  }, [])
 
   const handleStart = () => {
     startGame()

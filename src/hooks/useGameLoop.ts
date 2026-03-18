@@ -11,6 +11,7 @@ import { StatEngine } from '../domain/StatEngine'
 import { SaveSystem } from '../domain/SaveSystem'
 import { NPC } from '../types/npc.types'
 import { StatDelta, StatState, StatType } from '../types/stat.types'
+import { ProgressState } from '../types/game.types'
 import config from '../data/config.json'
 import ui from '../data/ui.json'
 
@@ -312,6 +313,26 @@ export const useGameLoop = () => {
     game.setPhase('intro')
   }, [game, stats, progress, settings.difficulty])
 
+  const loadSave = useCallback(async (): Promise<{ hasResumableGame: boolean }> => {
+    const savedProgress = await SaveSystem.load<ProgressState>(SaveSystem.KEYS.PROGRESS)
+    if (savedProgress) {
+      progress._load(savedProgress)
+    }
+
+    const savedGame  = await SaveSystem.load<any>(SaveSystem.KEYS.GAME)
+    const savedStats = await SaveSystem.load<StatState>(SaveSystem.KEYS.STATS)
+    const savedQueue = await SaveSystem.load<any>(SaveSystem.KEYS.NPC_QUEUE)
+
+    if (savedGame && savedStats && !savedGame.isGameOver) {
+      stats._setStats(savedStats)
+      game._load(savedGame)
+      if (savedQueue) generator.loadState(savedQueue)
+      return { hasResumableGame: true }
+    }
+
+    return { hasResumableGame: false }
+  }, [game, stats, progress])
+
   const saveAll = useCallback(async () => {
     await SaveSystem.save({
       [SaveSystem.KEYS.GAME]: {
@@ -339,5 +360,5 @@ export const useGameLoop = () => {
     })
   }, [game, stats, progress])
 
-  return { handleAccept, handleReject, handleQuery, endDay, handleEventChoice, startGame }
+  return { handleAccept, handleReject, handleQuery, endDay, handleEventChoice, startGame, loadSave }
 }
