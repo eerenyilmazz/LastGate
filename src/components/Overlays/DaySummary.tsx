@@ -1,8 +1,11 @@
-import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
+import { View, Text, TouchableOpacity, StyleSheet, Platform, ActivityIndicator } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { RewardedAd, RewardedAdEventType, AdEventType, TestIds } from 'react-native-google-mobile-ads'
 import { useStatStore } from '../../store/useStatStore'
 import { useGameStore } from '../../store/useGameStore'
+import { useSettingsStore } from '../../store/useSettingsStore'
+import { useProgressStore } from '../../store/useProgressStore'
 import { StatType } from '../../types/stat.types'
 import themeData from '../../data/theme.json'
 import config from '../../data/config.json'
@@ -24,15 +27,62 @@ const STAT_SHORT = themeData.ui.stat_names_upper as Record<StatType, string>
 const STAT_COLORS = themeData.ui.stat_colors as Record<StatType, string>
 const STAT_MAX   = config.stat_max as Record<StatType, number>
 
+const SP_MULTS   = (config as any).ad_sp_multipliers as Record<string, number>
+const ANDROID_UNIT = (config as any).admob_android_rewarded as string
+const IOS_UNIT     = (config as any).admob_ios_rewarded     as string
+const AD_UNIT_ID   = __DEV__
+  ? TestIds.REWARDED
+  : (Platform.OS === 'android' ? ANDROID_UNIT : IOS_UNIT)
+
 interface Props {
   onContinue: () => void
   onBuilding: () => void
 }
 
+type AdState = 'idle' | 'confirm' | 'loading' | 'done'
+
 export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
-  const insets = useSafeAreaInsets()
-  const stats = useStatStore()
-  const game  = useGameStore()
+  const insets   = useSafeAreaInsets()
+  const stats    = useStatStore()
+  const game     = useGameStore()
+  const settings = useSettingsStore()
+  const progress = useProgressStore()
+
+  const [adState, setAdState] = useState<AdState>('idle')
+  const adRef     = useRef<RewardedAd | null>(null)
+  const earnedRef = useRef(false)
+
+  const mult      = SP_MULTS[settings.difficulty] ?? 1.0
+  const bonusSP   = Math.max(1, Math.round(game.daySpEarned * mult))
+
+  useEffect(() => {
+    if (game.spAdUsedToday || game.daySpEarned <= 0) return
+    const ad = RewardedAd.createForAdRequest(AD_UNIT_ID, { requestNonPersonalizedAdsOnly: true })
+    adRef.current = ad
+    ad.addAdEventListener(RewardedAdEventType.LOADED, () => {
+      if (adState === 'loading') setAdState('loading')
+    })
+    ad.addAdEventListener(RewardedAdEventType.EARNED_REWARD, () => {
+      earnedRef.current = true
+    })
+    ad.addAdEventListener(AdEventType.CLOSED, () => {
+      if (earnedRef.current) {
+        progress.addSP(bonusSP)
+        game.setSpAdUsedToday(true)
+        setAdState('done')
+      } else {
+        setAdState('idle')
+      }
+    })
+    ad.load()
+    return () => { adRef.current = null }
+  }, [])
+
+  const handleConfirmWatch = () => {
+    earnedRef.current = false
+    setAdState('loading')
+    adRef.current?.show()
+  }
 
   return (
     <TouchableOpacity
@@ -132,6 +182,54 @@ export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
                 </View>
               )
             })}
+          </View>
+        )}
+
+        {game.daySpEarned > 0 && !game.spAdUsedToday && adState !== 'done' && (
+          <View style={styles.spAdBlock}>
+            {adState === 'idle' && (
+              <TouchableOpacity
+                style={styles.spAdBtn}
+                activeOpacity={0.85}
+                onPress={() => setAdState('confirm')}
+              >
+                <Text style={styles.spAdIcon}>📺</Text>
+                <View style={styles.spAdCenter}>
+                  <Text style={[styles.spAdTitle, { fontFamily: MONO }]}>BONUS SP KAZAN</Text>
+                  <Text style={styles.spAdSub}>Bugünkü kazancına +{bonusSP} SP ekle</Text>
+                </View>
+                <Text style={[styles.spAdAmount, { fontFamily: MONO }]}>+{bonusSP}</Text>
+              </TouchableOpacity>
+            )}
+
+            {adState === 'confirm' && (
+              <View style={styles.spConfirm}>
+                <Text style={[styles.spConfirmText, { fontFamily: MONO }]}>
+                  Reklam izleyerek <Text style={{ color: C.query }}>+{bonusSP} SP</Text> kazanmak ister misin?
+                </Text>
+                <View style={styles.spConfirmRow}>
+                  <TouchableOpacity style={styles.spConfirmYes} activeOpacity={0.85} onPress={handleConfirmWatch}>
+                    <Text style={[styles.spConfirmYesText, { fontFamily: MONO }]}>EVET, İZLE</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.spConfirmNo} activeOpacity={0.7} onPress={() => setAdState('idle')}>
+                    <Text style={[styles.spConfirmNoText, { fontFamily: MONO }]}>HAYIR</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )}
+
+            {adState === 'loading' && (
+              <View style={styles.spLoading}>
+                <ActivityIndicator color={C.query} size="small" />
+                <Text style={[styles.spLoadingText, { fontFamily: MONO }]}>YÜKLENİYOR...</Text>
+              </View>
+            )}
+          </View>
+        )}
+
+        {adState === 'done' && (
+          <View style={styles.spDone}>
+            <Text style={[styles.spDoneText, { fontFamily: MONO }]}>✓  +{bonusSP} SP KAZANILDI</Text>
           </View>
         )}
 
@@ -285,6 +383,109 @@ const styles = StyleSheet.create({
     fontSize: TY.size_caption,
     fontWeight: TY.weight_bold,
     letterSpacing: 0.5,
+  },
+
+  spAdBlock: {
+    marginHorizontal: 16,
+    marginBottom: 10,
+    borderRadius: R.md,
+    borderWidth: 1,
+    borderColor: C.query + '44',
+    overflow: 'hidden',
+  },
+  spAdBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: C.query + '11',
+    paddingVertical: 12,
+    paddingHorizontal: 14,
+    gap: 10,
+  },
+  spAdIcon: { fontSize: TY.size_h5 },
+  spAdCenter: { flex: 1 },
+  spAdTitle: {
+    color: C.query,
+    fontSize: TY.size_xs,
+    fontWeight: TY.weight_black,
+    letterSpacing: 1.5,
+    marginBottom: 2,
+  },
+  spAdSub: {
+    color: C.text_muted,
+    fontSize: TY.size_caption,
+  },
+  spAdAmount: {
+    color: C.query,
+    fontSize: TY.size_h6,
+    fontWeight: TY.weight_black,
+  },
+  spConfirm: {
+    backgroundColor: C.query + '0d',
+    padding: 14,
+    gap: 10,
+  },
+  spConfirmText: {
+    color: C.text_secondary,
+    fontSize: TY.size_xs,
+    letterSpacing: 0.5,
+    textAlign: 'center',
+  },
+  spConfirmRow: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  spConfirmYes: {
+    flex: 1,
+    backgroundColor: C.query,
+    borderRadius: R.sm,
+    paddingVertical: 10,
+    alignItems: 'center',
+  },
+  spConfirmYesText: {
+    color: C.bg_deeper,
+    fontSize: TY.size_xs,
+    fontWeight: TY.weight_black,
+    letterSpacing: 1.5,
+  },
+  spConfirmNo: {
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  spConfirmNoText: {
+    color: C.text_muted,
+    fontSize: TY.size_xs,
+    letterSpacing: 1,
+  },
+  spLoading: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 10,
+    padding: 14,
+    backgroundColor: C.query + '0d',
+  },
+  spLoadingText: {
+    color: C.text_muted,
+    fontSize: TY.size_xs,
+    letterSpacing: 1,
+  },
+  spDone: {
+    marginHorizontal: 16,
+    marginBottom: 10,
+    backgroundColor: C.accept + '14',
+    borderRadius: R.md,
+    borderWidth: 1,
+    borderColor: C.accept + '44',
+    paddingVertical: 10,
+    alignItems: 'center',
+  },
+  spDoneText: {
+    color: C.accept,
+    fontSize: TY.size_xs,
+    fontWeight: TY.weight_black,
+    letterSpacing: 2,
   },
 
   buildingBtn: {
