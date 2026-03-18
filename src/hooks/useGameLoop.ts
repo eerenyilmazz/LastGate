@@ -34,6 +34,8 @@ const BUILDINGS = config.buildings as Array<{
   infection_reduction?: number
 }>
 
+const AD_LIMITS = (config as any).ad_limits as Record<string, number>
+
 type DiffMod = { daily_food_bonus: number; starvation_extra: number; npc_neg_scale: number }
 const DIFF_MODS = (config as any).difficulty_modifiers as Record<string, DiffMod>
 
@@ -186,11 +188,16 @@ export const useGameLoop = () => {
 
     const overReason = stats.getGameOverReason()
     if (overReason) {
-      progress.updateBestRun(game.day, false)
-      game.setGameOver(overReason as any)
-      progress.addSP(config.sp_rewards.game_over)
-      game.addDaySpEarned(config.sp_rewards.game_over)
-      saveAll()
+      const adLimit = AD_LIMITS[settings.difficulty] ?? 0
+      if (game.adsWatchedThisRun < adLimit) {
+        game.setPendingAdReason(overReason)
+      } else {
+        progress.updateBestRun(game.day, false)
+        game.setGameOver(overReason as any)
+        progress.addSP(config.sp_rewards.game_over)
+        game.addDaySpEarned(config.sp_rewards.game_over)
+        saveAll()
+      }
       return
     }
 
@@ -210,10 +217,15 @@ export const useGameLoop = () => {
 
     const overReason = stats.getGameOverReason()
     if (overReason) {
-      progress.updateBestRun(game.day, false)
-      game.setGameOver(overReason as any)
-      progress.addSP(config.sp_rewards.game_over)
-      saveAll()
+      const adLimit = AD_LIMITS[settings.difficulty] ?? 0
+      if (game.adsWatchedThisRun < adLimit) {
+        game.setPendingAdReason(overReason)
+      } else {
+        progress.updateBestRun(game.day, false)
+        game.setGameOver(overReason as any)
+        progress.addSP(config.sp_rewards.game_over)
+        saveAll()
+      }
       return
     }
 
