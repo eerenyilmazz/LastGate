@@ -13,8 +13,8 @@
     "stat_immunity": "#a78bfa",
     "stat_food":     "#fb923c",
     "stat_population":"#38bdf4",
-    "stat_defense":  "#f87171",
-    "stat_economy":  "#4ade80",
+    "stat_defense":  "#60a5fa",
+    "stat_economy":  "#fbbf24",
     "stat_critical": "#ff1744",
     "warning_overlay":"#ff000033",
     "day_summary_bg":"#0c0c0cee",
@@ -171,8 +171,8 @@
       "immunity": "#a78bfa",
       "food":     "#fb923c",
       "population":"#38bdf4",
-      "defense":  "#f87171",
-      "economy":  "#4ade80"
+      "defense":  "#60a5fa",
+      "economy":  "#fbbf24"
     },
     "role_colors": {
       "Doctor":    "#a78bfa",
