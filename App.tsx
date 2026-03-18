@@ -20,7 +20,7 @@ export default function App() {
   const [appScreen, setAppScreen] = useState<AppScreen>('splash')
   const game = useGameStore()
   const { startGame } = useGameLoop()
-  const { playSFX, startAmbient } = useAudio()
+  const { playSFX, stopAllSFX, startAmbient } = useAudio()
 
   const handleStart = () => {
     startGame()
@@ -44,7 +44,7 @@ export default function App() {
       return <GameOverScreen onRestart={handleRestart} onMainMenu={handleMainMenu} />
     }
     if (game.phase === 'building') return <BuildingScreen onMainMenu={handleMainMenu} />
-    return <GameScreen onMainMenu={handleMainMenu} playSFX={playSFX} />
+    return <GameScreen onMainMenu={handleMainMenu} playSFX={playSFX} stopAllSFX={stopAllSFX} />
   }
 
   return (

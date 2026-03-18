@@ -24,6 +24,7 @@ export const useAudio = () => {
   const bgSound        = useRef<Audio.Sound | null>(null)
   const currentKey     = useRef<string>('')
   const started        = useRef(false)
+  const sfxSounds      = useRef<Audio.Sound[]>([])
 
   const stats          = useStatStore(s => s.stats)
   const isCritical     = useStatStore(s => s.isCritical)
@@ -75,14 +76,26 @@ export const useAudio = () => {
     try {
       const volume = SFX_VOLUMES[key] ?? SFX_VOLUME
       const { sound } = await Audio.Sound.createAsync(src, { volume })
+      sfxSounds.current.push(sound)
       await sound.playAsync()
       sound.setOnPlaybackStatusUpdate(status => {
-        if (status.isLoaded && status.didJustFinish) sound.unloadAsync()
+        if (status.isLoaded && status.didJustFinish) {
+          sound.unloadAsync()
+          sfxSounds.current = sfxSounds.current.filter(s => s !== sound)
+        }
       })
     } catch (e) {
       console.warn('[useAudio] playSFX error:', e)
     }
   }, [sfxEnabled])
+
+  const stopAllSFX = useCallback(async () => {
+    const toStop = [...sfxSounds.current]
+    sfxSounds.current = []
+    for (const s of toStop) {
+      try { await s.stopAsync(); await s.unloadAsync() } catch {}
+    }
+  }, [])
 
   useEffect(() => {
     if (!bgSound.current) return
@@ -119,5 +132,5 @@ export const useAudio = () => {
     return () => { bgSound.current?.unloadAsync() }
   }, [])
 
-  return { playSFX, startAmbient }
+  return { playSFX, stopAllSFX, startAmbient }
 }

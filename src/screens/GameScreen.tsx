@@ -176,9 +176,10 @@ const CARD_ASPECT = 3 / 4
 interface Props {
   onMainMenu?: () => void
   playSFX: (key: string) => void
+  stopAllSFX: () => void
 }
 
-export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
+export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX, stopAllSFX }) => {
   const { width: sw } = useWindowDimensions()
   const theme    = useTheme()
   const game     = useGameStore()
@@ -215,11 +216,12 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX }) => {
 
   useEffect(() => {
     if (!queryResult) return
-    const t = setTimeout(() => setQueryResult(null), config.query_result_timeout_ms)
+    const t = setTimeout(() => { setQueryResult(null); stopAllSFX() }, config.query_result_timeout_ms)
     return () => clearTimeout(t)
   }, [queryResult])
 
   useEffect(() => {
+    stopAllSFX()
     setQueryResult(null)
     setQueryWarnPending(false)
     dragX.value = 0

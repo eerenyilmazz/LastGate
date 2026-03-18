@@ -81,6 +81,7 @@ export const useGameLoop = () => {
   const endDay = useCallback(() => {
     const dayStartStats: StatState = { ...stats.stats }
 
+    game.clearNotifications()
     game.resetDaySpEarned()
 
     stats.applyPassive(progress.buildings)
