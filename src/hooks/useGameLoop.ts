@@ -188,16 +188,14 @@ export const useGameLoop = () => {
 
     const overReason = stats.getGameOverReason()
     if (overReason) {
-      const adLimit = AD_LIMITS[settings.difficulty] ?? 0
-      if (game.adsWatchedThisRun < adLimit) {
-        game.setPendingAdReason(overReason)
-      } else {
-        progress.updateBestRun(game.day, false)
-        game.setGameOver(overReason as any)
-        progress.addSP(config.sp_rewards.game_over)
-        game.addDaySpEarned(config.sp_rewards.game_over)
-        saveAll()
-      }
+      // ADMOB_DISABLED — ad rescue flow commented out, goes directly to game over
+      // const adLimit = AD_LIMITS[settings.difficulty] ?? 0
+      // if (game.adsWatchedThisRun < adLimit) { game.setPendingAdReason(overReason) } else { ... }
+      progress.updateBestRun(game.day, false)
+      game.setGameOver(overReason as any)
+      progress.addSP(config.sp_rewards.game_over)
+      game.addDaySpEarned(config.sp_rewards.game_over)
+      saveAll()
       return
     }
 
@@ -217,15 +215,13 @@ export const useGameLoop = () => {
 
     const overReason = stats.getGameOverReason()
     if (overReason) {
-      const adLimit = AD_LIMITS[settings.difficulty] ?? 0
-      if (game.adsWatchedThisRun < adLimit) {
-        game.setPendingAdReason(overReason)
-      } else {
-        progress.updateBestRun(game.day, false)
-        game.setGameOver(overReason as any)
-        progress.addSP(config.sp_rewards.game_over)
-        saveAll()
-      }
+      // ADMOB_DISABLED — ad rescue flow commented out, goes directly to game over
+      // const adLimit = AD_LIMITS[settings.difficulty] ?? 0
+      // if (game.adsWatchedThisRun < adLimit) { game.setPendingAdReason(overReason) } else { ... }
+      progress.updateBestRun(game.day, false)
+      game.setGameOver(overReason as any)
+      progress.addSP(config.sp_rewards.game_over)
+      saveAll()
       return
     }
 

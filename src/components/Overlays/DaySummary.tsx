@@ -1,21 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Platform, ActivityIndicator } from 'react-native'
+import React from 'react'
+import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-let RewardedAd: any, RewardedAdEventType: any, AdEventType: any, TestIds: any
-try {
-  const ads = require('react-native-google-mobile-ads')
-  RewardedAd = ads.RewardedAd; RewardedAdEventType = ads.RewardedAdEventType
-  AdEventType = ads.AdEventType; TestIds = ads.TestIds
-} catch {
-  RewardedAd = null
-  RewardedAdEventType = { LOADED: 'loaded', EARNED_REWARD: 'earned_reward' }
-  AdEventType = { CLOSED: 'closed', ERROR: 'error' }
-  TestIds = { REWARDED: '' }
-}
+// ADMOB_DISABLED — import { RewardedAd, RewardedAdEventType, AdEventType, TestIds } from 'react-native-google-mobile-ads'
 import { useStatStore } from '../../store/useStatStore'
 import { useGameStore } from '../../store/useGameStore'
-import { useSettingsStore } from '../../store/useSettingsStore'
-import { useProgressStore } from '../../store/useProgressStore'
+// ADMOB_DISABLED — import { useSettingsStore } from '../../store/useSettingsStore'
+// ADMOB_DISABLED — import { useProgressStore } from '../../store/useProgressStore'
 import { StatType } from '../../types/stat.types'
 import themeData from '../../data/theme.json'
 import config from '../../data/config.json'
@@ -37,62 +27,30 @@ const STAT_SHORT = themeData.ui.stat_names_upper as Record<StatType, string>
 const STAT_COLORS = themeData.ui.stat_colors as Record<StatType, string>
 const STAT_MAX   = config.stat_max as Record<StatType, number>
 
-const SP_MULTS   = (config as any).ad_sp_multipliers as Record<string, number>
-const ANDROID_UNIT = (config as any).admob_android_rewarded as string
-const IOS_UNIT     = (config as any).admob_ios_rewarded     as string
-const AD_UNIT_ID   = __DEV__
-  ? TestIds.REWARDED
-  : (Platform.OS === 'android' ? ANDROID_UNIT : IOS_UNIT)
+// ADMOB_DISABLED — const SP_MULTS   = (config as any).ad_sp_multipliers as Record<string, number>
+// ADMOB_DISABLED — const AD_UNIT_ID = __DEV__ ? TestIds.REWARDED : Platform.OS === 'android' ? admob_android_rewarded : admob_ios_rewarded
 
 interface Props {
   onContinue: () => void
   onBuilding: () => void
 }
 
-type AdState = 'idle' | 'confirm' | 'loading' | 'done'
+// ADMOB_DISABLED — type AdState = 'idle' | 'confirm' | 'loading' | 'done'
 
 export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
-  const insets   = useSafeAreaInsets()
-  const stats    = useStatStore()
-  const game     = useGameStore()
-  const settings = useSettingsStore()
-  const progress = useProgressStore()
+  const insets = useSafeAreaInsets()
+  const stats  = useStatStore()
+  const game   = useGameStore()
 
-  const [adState, setAdState] = useState<AdState>('idle')
-  const adRef     = useRef<RewardedAd | null>(null)
-  const earnedRef = useRef(false)
-
-  const mult      = SP_MULTS[settings.difficulty] ?? 1.0
-  const bonusSP   = Math.max(1, Math.round(game.daySpEarned * mult))
-
-  useEffect(() => {
-    if (game.spAdUsedToday || game.daySpEarned <= 0 || !RewardedAd) return
-    const ad = RewardedAd.createForAdRequest(AD_UNIT_ID, { requestNonPersonalizedAdsOnly: true })
-    adRef.current = ad
-    ad.addAdEventListener(RewardedAdEventType.LOADED, () => {
-      if (adState === 'loading') setAdState('loading')
-    })
-    ad.addAdEventListener(RewardedAdEventType.EARNED_REWARD, () => {
-      earnedRef.current = true
-    })
-    ad.addAdEventListener(AdEventType.CLOSED, () => {
-      if (earnedRef.current) {
-        progress.addSP(bonusSP)
-        game.setSpAdUsedToday(true)
-        setAdState('done')
-      } else {
-        setAdState('idle')
-      }
-    })
-    ad.load()
-    return () => { adRef.current = null }
-  }, [])
-
-  const handleConfirmWatch = () => {
-    earnedRef.current = false
-    setAdState('loading')
-    adRef.current?.show()
-  }
+  // ADMOB_DISABLED — const settings = useSettingsStore()
+  // ADMOB_DISABLED — const progress = useProgressStore()
+  // ADMOB_DISABLED — const [adState, setAdState] = useState<AdState>('idle')
+  // ADMOB_DISABLED — const adRef = useRef<any>(null)
+  // ADMOB_DISABLED — const earnedRef = useRef(false)
+  // ADMOB_DISABLED — const mult = SP_MULTS[settings.difficulty] ?? 1.0
+  // ADMOB_DISABLED — const bonusSP = Math.max(1, Math.round(game.daySpEarned * mult))
+  // ADMOB_DISABLED — useEffect(() => { ... ad loading ... }, [])
+  // ADMOB_DISABLED — const handleConfirmWatch = () => { adRef.current?.show() }
 
   return (
     <TouchableOpacity
@@ -195,53 +153,11 @@ export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
           </View>
         )}
 
-        {game.daySpEarned > 0 && !game.spAdUsedToday && adState !== 'done' && (
-          <View style={styles.spAdBlock}>
-            {adState === 'idle' && (
-              <TouchableOpacity
-                style={styles.spAdBtn}
-                activeOpacity={0.85}
-                onPress={() => setAdState('confirm')}
-              >
-                <Text style={styles.spAdIcon}>📺</Text>
-                <View style={styles.spAdCenter}>
-                  <Text style={[styles.spAdTitle, { fontFamily: MONO }]}>BONUS SP KAZAN</Text>
-                  <Text style={styles.spAdSub}>Bugünkü kazancına +{bonusSP} SP ekle</Text>
-                </View>
-                <Text style={[styles.spAdAmount, { fontFamily: MONO }]}>+{bonusSP}</Text>
-              </TouchableOpacity>
-            )}
-
-            {adState === 'confirm' && (
-              <View style={styles.spConfirm}>
-                <Text style={[styles.spConfirmText, { fontFamily: MONO }]}>
-                  Reklam izleyerek <Text style={{ color: C.query }}>+{bonusSP} SP</Text> kazanmak ister misin?
-                </Text>
-                <View style={styles.spConfirmRow}>
-                  <TouchableOpacity style={styles.spConfirmYes} activeOpacity={0.85} onPress={handleConfirmWatch}>
-                    <Text style={[styles.spConfirmYesText, { fontFamily: MONO }]}>EVET, İZLE</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.spConfirmNo} activeOpacity={0.7} onPress={() => setAdState('idle')}>
-                    <Text style={[styles.spConfirmNoText, { fontFamily: MONO }]}>HAYIR</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            )}
-
-            {adState === 'loading' && (
-              <View style={styles.spLoading}>
-                <ActivityIndicator color={C.query} size="small" />
-                <Text style={[styles.spLoadingText, { fontFamily: MONO }]}>YÜKLENİYOR...</Text>
-              </View>
-            )}
-          </View>
+        {/* ADMOB_DISABLED — SP bonus ad block (re-enable when native build ready)
+        {game.daySpEarned > 0 && !game.spAdUsedToday && (
+          <View style={styles.spAdBlock}>...</View>
         )}
-
-        {adState === 'done' && (
-          <View style={styles.spDone}>
-            <Text style={[styles.spDoneText, { fontFamily: MONO }]}>✓  +{bonusSP} SP KAZANILDI</Text>
-          </View>
-        )}
+        */}
 
         <TouchableOpacity
           onPress={onBuilding}

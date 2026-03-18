@@ -1,20 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Platform, ActivityIndicator } from 'react-native'
+import React from 'react'
+import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native'
 import Animated, {
   useSharedValue, useAnimatedStyle,
   withRepeat, withSequence, withTiming,
 } from 'react-native-reanimated'
-let RewardedAd: any, RewardedAdEventType: any, AdEventType: any, TestIds: any
-try {
-  const ads = require('react-native-google-mobile-ads')
-  RewardedAd = ads.RewardedAd; RewardedAdEventType = ads.RewardedAdEventType
-  AdEventType = ads.AdEventType; TestIds = ads.TestIds
-} catch {
-  RewardedAd = null
-  RewardedAdEventType = { LOADED: 'loaded', EARNED_REWARD: 'earned_reward' }
-  AdEventType = { CLOSED: 'closed', ERROR: 'error' }
-  TestIds = { REWARDED: '' }
-}
+// ADMOB_DISABLED — import { RewardedAd, RewardedAdEventType, AdEventType, TestIds } from 'react-native-google-mobile-ads'
 import { useGameStore } from '../../store/useGameStore'
 import { useStatStore } from '../../store/useStatStore'
 import { useProgressStore } from '../../store/useProgressStore'
@@ -39,10 +29,11 @@ const STAT_COLORS  = {
   economy:    C.stat_economy,
 } as Record<string, string>
 
-const AD_LIMITS    = (config as any).ad_limits       as Record<string, number>
-const AD_REWARD    = (config as any).ad_reward_amount as number
-const ANDROID_UNIT = (config as any).admob_android_rewarded as string
-const IOS_UNIT     = (config as any).admob_ios_rewarded     as string
+const AD_LIMITS = (config as any).ad_limits as Record<string, number>
+const AD_REWARD = (config as any).ad_reward_amount as number
+// ADMOB_DISABLED — const ANDROID_UNIT = (config as any).admob_android_rewarded as string
+// ADMOB_DISABLED — const IOS_UNIT     = (config as any).admob_ios_rewarded     as string
+// ADMOB_DISABLED — const AD_UNIT_ID   = __DEV__ ? TestIds.REWARDED : (Platform.OS === 'android' ? ANDROID_UNIT : IOS_UNIT)
 
 const REASON_STAT: Record<string, string> = {
   starvation: 'food',
@@ -51,10 +42,6 @@ const REASON_STAT: Record<string, string> = {
   extinction: 'population',
   collapse:   'economy',
 }
-
-const AD_UNIT_ID = __DEV__
-  ? TestIds.REWARDED
-  : (Platform.OS === 'android' ? ANDROID_UNIT : IOS_UNIT)
 
 interface Props {
   reason: string
@@ -68,63 +55,24 @@ export const RewardAdModal: React.FC<Props> = ({ reason, onContinue, onGameOver 
   const progress = useProgressStore()
   const settings = useSettingsStore()
 
-  const adRef     = useRef<RewardedAd | null>(null)
-  const earnedRef = useRef(false)
-  const [adReady, setAdReady] = useState(false)
-  const [loading, setLoading] = useState(false)
-
-  const statKey  = REASON_STAT[reason] ?? 'food'
-  const statIcon = STAT_ICONS[statKey]  ?? '?'
-  const statName = STAT_NAMES[statKey]  ?? statKey
-  const statColor= STAT_COLORS[statKey] ?? C.danger
+  const statKey   = REASON_STAT[reason] ?? 'food'
+  const statIcon  = STAT_ICONS[statKey]  ?? '?'
+  const statName  = STAT_NAMES[statKey]  ?? statKey
+  const statColor = STAT_COLORS[statKey] ?? C.danger
 
   const adLimit = AD_LIMITS[settings.difficulty] ?? 0
   const adsLeft = adLimit - game.adsWatchedThisRun
 
-  const pulseOp = useSharedValue(1)
+  const pulseOp    = useSharedValue(1)
   const borderAnim = useAnimatedStyle(() => ({ opacity: pulseOp.value }))
 
-  useEffect(() => {
+  React.useEffect(() => {
     pulseOp.value = withRepeat(
       withSequence(withTiming(0.3, { duration: 600 }), withTiming(1, { duration: 600 })),
       -1, true,
     )
-
-    if (!RewardedAd) { setAdReady(false); return }
-    const ad = RewardedAd.createForAdRequest(AD_UNIT_ID, { requestNonPersonalizedAdsOnly: true })
-    adRef.current = ad
-
-    const loadedSub = ad.addAdEventListener(RewardedAdEventType.LOADED, () => {
-      setAdReady(true)
-      setLoading(false)
-    })
-
-    const earnedSub = ad.addAdEventListener(RewardedAdEventType.EARNED_REWARD, () => {
-      earnedRef.current = true
-    })
-
-    const closedSub = ad.addAdEventListener(AdEventType.CLOSED, () => {
-      if (earnedRef.current) {
-        stats.apply({ [statKey]: AD_REWARD } as any)
-        game.incrementAdsWatched()
-        game.setPendingAdReason(null)
-        onContinue()
-      } else {
-        triggerGameOver()
-      }
-    })
-
-    ad.load()
-
-    return () => { loadedSub(); earnedSub(); closedSub() }
+    // ADMOB_DISABLED — ad loading removed, re-enable when native build ready
   }, [])
-
-  const handleWatch = () => {
-    if (adRef.current && adReady) {
-      setLoading(true)
-      adRef.current.show()
-    }
-  }
 
   const triggerGameOver = () => {
     game.setPendingAdReason(null)
@@ -187,20 +135,11 @@ export const RewardAdModal: React.FC<Props> = ({ reason, onContinue, onGameOver 
 
         <View style={styles.divider} />
 
-        <TouchableOpacity
-          style={[styles.btnWatch, !adReady && styles.btnDisabled]}
-          onPress={handleWatch}
-          disabled={!adReady || loading}
-          activeOpacity={0.85}
-        >
-          {loading ? (
-            <ActivityIndicator color={C.bg_deeper} size="small" />
-          ) : (
-            <Text style={[styles.btnWatchText, { fontFamily: MONO }]}>
-              {adReady ? `▶  KAYNAK AL  (+${AD_REWARD})` : '■  YÜKLENİYOR...'}
-            </Text>
-          )}
+        {/* ADMOB_DISABLED — Watch Ad button hidden until native build
+        <TouchableOpacity style={styles.btnWatch} onPress={handleWatch} activeOpacity={0.85}>
+          <Text style={[styles.btnWatchText, { fontFamily: MONO }]}>▶  KAYNAK AL  (+{AD_REWARD})</Text>
         </TouchableOpacity>
+        */}
 
         <TouchableOpacity
           style={styles.btnDecline}
@@ -208,7 +147,7 @@ export const RewardAdModal: React.FC<Props> = ({ reason, onContinue, onGameOver 
           activeOpacity={0.7}
         >
           <Text style={[styles.btnDeclineText, { fontFamily: MONO }]}>
-            HAYIR — OYUN BİTSİN
+            DEVAM ET
           </Text>
         </TouchableOpacity>
 
@@ -265,9 +204,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: SP.md,
     paddingVertical: SP.sm,
   },
-  statIcon: {
-    fontSize: TY.size_h5,
-  },
+  statIcon: { fontSize: TY.size_h5 },
   statLabel: {
     fontSize: TY.size_md,
     fontWeight: TY.weight_bold,
@@ -318,9 +255,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: 50,
-  },
-  btnDisabled: {
-    backgroundColor: C.text_muted + '88',
   },
   btnWatchText: {
     fontSize: TY.size_sm,
