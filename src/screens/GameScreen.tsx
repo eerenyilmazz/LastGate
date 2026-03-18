@@ -215,6 +215,11 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX, stopAllSFX })
   }, [game.phase, game.notifications.length])
 
   useEffect(() => {
+    if (game.phase === 'npc_decision') return
+    stopAllSFX()
+  }, [game.phase])
+
+  useEffect(() => {
     if (!queryResult) return
     const t = setTimeout(() => { setQueryResult(null); stopAllSFX() }, config.query_result_timeout_ms)
     return () => clearTimeout(t)
