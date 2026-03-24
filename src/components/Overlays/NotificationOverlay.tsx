@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     lineHeight: 19,
   },
   tapHint: {
-    color: C.button_border,
+    color: C.text_bright,
     fontSize: TY.size_caption,
     letterSpacing: 2,
     textAlign: 'center',

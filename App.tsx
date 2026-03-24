@@ -24,6 +24,7 @@ export default function App() {
 
   useEffect(() => {
     loadSave()
+    startAmbient()
   }, [])
 
   const handleStart = () => {
@@ -58,7 +59,7 @@ export default function App() {
         <StatusBar style="light" />
         {appScreen === 'splash' && (
           <View style={StyleSheet.absoluteFillObject}>
-            <SplashScreen onDone={() => { startAmbient(); setAppScreen('menu') }} />
+            <SplashScreen onDone={() => { setAppScreen('menu') }} />
           </View>
         )}
         {appScreen === 'menu' && (

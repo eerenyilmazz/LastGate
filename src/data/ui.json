@@ -188,11 +188,11 @@
     { "icon": "🦸", "name": "Koruyucu",  "desc": "Gizli ekstra bonus sağlar." }
   ],
   "strings": {
-    "splash_alert":         ">> ACİL DURUM · BÖLGE 7 · ENFEKSİYON · HAYATTA KAL · SON KAPI AKTİF >>",
-    "splash_subtitle":      "— SON KAPI —",
+"splash_alert": "⚠ ACİL DURUM · VİRÜS YAYILIYOR · ŞEHİR KARANTİNADA · KAPIYI KORU · SON SAVUNMA HATTI ⚠",   "splash_subtitle":      "— SON KAPI —",
     "splash_terminal":      "DURUM RAPORU / ZONE-7",
     "splash_tagline":       ">> 100 GÜN HAYATTA KAL <<",
     "splash_hint":          "  KAPIYA DOKUN  ",
+    "splash_loading":       "SİSTEM YÜKLENİYOR",
     "splash_version":       "BETA v0.1 · SEKTOR 7",
     "menu_footer":          "BETA v0.1 · SEKTÖR 7 KARANTİNA BÖLGESİ",
     "day_label":            "GÜN",

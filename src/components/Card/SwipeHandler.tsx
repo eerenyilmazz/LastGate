@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     borderRadius: R.sm,
     borderWidth: 2,
   },
-  acceptLabel: { right: 16, borderColor: TC.accept_glow, backgroundColor: TC.accept_glow + '22' },
-  rejectLabel: { left: 16,  borderColor: TC.reject_glow, backgroundColor: TC.reject_glow + '22' },
+  acceptLabel: { left: 16,  borderColor: TC.accept_glow, backgroundColor: TC.accept_glow + '22' },
+  rejectLabel: { right: 16, borderColor: TC.reject_glow, backgroundColor: TC.reject_glow + '22' },
   dirText: { fontWeight: TY.weight_black, fontSize: TY.size_md, letterSpacing: 1 },
 })

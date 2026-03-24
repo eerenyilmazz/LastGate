@@ -457,7 +457,7 @@ const styles = StyleSheet.create({
   },
 
   hint: {
-    color: C.button_border,
+    color: C.text_bright,
     fontSize: TY.size_caption,
     letterSpacing: 2,
     textAlign: 'center',

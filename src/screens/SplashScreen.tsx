@@ -20,7 +20,9 @@ const MONO         = Platform.select(themeData.ui.font_mono) as string
 const STATUS_ITEMS = ui.splash_status_items
 
 export const SplashScreen: React.FC<Props> = ({ onDone }) => {
-  const { height } = useWindowDimensions()
+  const { width, height } = useWindowDimensions()
+  const emblemSize = Math.round(width * 0.88)
+
   const exitOp    = useSharedValue(1)
   const logoOp    = useSharedValue(0)
   const logoScale = useSharedValue(0.88)
@@ -33,18 +35,11 @@ export const SplashScreen: React.FC<Props> = ({ onDone }) => {
   const bottomOp  = useSharedValue(0)
   const hintOp    = useSharedValue(0)
   const scanY     = useSharedValue(0)
-  const alertOp   = useSharedValue(0)
-  const bloodOp   = useSharedValue(0)
+  const shakeX    = useSharedValue(0)
+  const shakeY    = useSharedValue(0)
+  const progressW = useSharedValue(0)
 
   useEffect(() => {
-    alertOp.value = withDelay(100,
-      withRepeat(withSequence(
-        withTiming(1,    { duration: 80  }),
-        withTiming(0.55, { duration: 140 }),
-        withTiming(1,    { duration: 80  }),
-        withTiming(0.85, { duration: 450 }),
-      ), -1, true),
-    )
     logoOp.value    = withDelay(500,  withTiming(1, { duration: 900 }))
     logoScale.value = withDelay(500,  withTiming(1, { duration: 900, easing: Easing.out(Easing.back(1.05)) }))
     subOp.value     = withDelay(1100, withTiming(1, { duration: 500 }))
@@ -64,12 +59,23 @@ export const SplashScreen: React.FC<Props> = ({ onDone }) => {
       withTiming(height + 10, { duration: themeData.animation.splash_scanline_ms, easing: Easing.linear }),
       -1, false,
     )
-    bloodOp.value = withDelay(400,
-      withRepeat(withSequence(
-        withTiming(1,   { duration: 2400, easing: Easing.inOut(Easing.ease) }),
-        withTiming(0.2, { duration: 3600, easing: Easing.inOut(Easing.ease) }),
-      ), -1, true),
-    )
+    shakeX.value = withRepeat(withSequence(
+      withTiming( 1.5, { duration: 60,  easing: Easing.linear }),
+      withTiming(-2,   { duration: 80,  easing: Easing.linear }),
+      withTiming( 1,   { duration: 55,  easing: Easing.linear }),
+      withTiming(-1.5, { duration: 70,  easing: Easing.linear }),
+      withTiming( 0,   { duration: 50,  easing: Easing.linear }),
+      withTiming( 0,   { duration: 900, easing: Easing.linear }),
+    ), -1, false)
+    shakeY.value = withRepeat(withSequence(
+      withTiming( 1,   { duration: 70,  easing: Easing.linear }),
+      withTiming(-1.5, { duration: 60,  easing: Easing.linear }),
+      withTiming( 0.5, { duration: 80,  easing: Easing.linear }),
+      withTiming(-1,   { duration: 55,  easing: Easing.linear }),
+      withTiming( 0,   { duration: 50,  easing: Easing.linear }),
+      withTiming( 0,   { duration: 900, easing: Easing.linear }),
+    ), -1, false)
+    progressW.value = withDelay(500, withTiming(1, { duration: 2800, easing: Easing.out(Easing.quad) }))
   }, [])
 
   const exitStyle   = useAnimatedStyle(() => ({ opacity: exitOp.value }))
@@ -83,8 +89,8 @@ export const SplashScreen: React.FC<Props> = ({ onDone }) => {
   const bottomStyle = useAnimatedStyle(() => ({ opacity: bottomOp.value }))
   const hintStyle   = useAnimatedStyle(() => ({ opacity: hintOp.value }))
   const scanStyle   = useAnimatedStyle(() => ({ transform: [{ translateY: scanY.value }] }))
-  const alertStyle  = useAnimatedStyle(() => ({ opacity: alertOp.value }))
-  const bloodStyle  = useAnimatedStyle(() => ({ opacity: bloodOp.value }))
+  const shakeStyle  = useAnimatedStyle(() => ({ transform: [{ translateX: shakeX.value }, { translateY: shakeY.value }] }))
+  const progressBarStyle = useAnimatedStyle(() => ({ width: `${progressW.value * 100}%` as any }))
 
   const statusStyles = [s0Style, s1Style, s2Style, s3Style]
 
@@ -97,66 +103,63 @@ export const SplashScreen: React.FC<Props> = ({ onDone }) => {
   return (
     <TouchableOpacity activeOpacity={1} onPress={handleDone} style={styles.root}>
       <Animated.View style={[StyleSheet.absoluteFillObject, exitStyle]} pointerEvents="none" />
-
       <Animated.View style={[styles.scanline, scanStyle]} pointerEvents="none" />
 
-      <Animated.View style={[styles.bloodVignette, bloodStyle]} pointerEvents="none" />
+      <Animated.View style={[styles.shakeWrap, shakeStyle]}>
 
-      <Animated.View style={[styles.alertStripe, alertStyle]} pointerEvents="none">
-        <Text style={[styles.alertText, { fontFamily: MONO }]} numberOfLines={1}>
-          {uiStrings.splash_alert}
-        </Text>
-      </Animated.View>
+        <View style={styles.center}>
+          <Animated.View style={[styles.logoBlock, logoStyle]}>
+            <Image source={require('../../assets/android-icon-foreground.png')} style={[styles.emblem, { width: emblemSize, height: emblemSize }]} resizeMode="contain" />
+            <Animated.Text style={[styles.subtitle, subStyle, { fontFamily: MONO }]}>
+              {uiStrings.splash_subtitle}
+            </Animated.Text>
+          </Animated.View>
 
-      <View style={styles.center}>
+          <Animated.View style={[styles.terminal, termStyle]}>
+            <View style={styles.termHeader}>
+              <View style={styles.termDot} />
+              <View style={[styles.termDot, { backgroundColor: C.text_muted }]} />
+              <View style={[styles.termDot, { backgroundColor: C.border_pos }]} />
+              <Text style={[styles.termTitle, { fontFamily: MONO }]}>{uiStrings.splash_terminal}</Text>
+            </View>
 
-        <Animated.View style={[styles.logoBlock, logoStyle]}>
-          <Image source={require('../../assets/icon.png')} style={styles.emblem} resizeMode="contain" />
-          <Text style={styles.title}>LAST GATE</Text>
+            <View style={styles.termDivider} />
+
+            <View style={styles.termBody}>
+              {STATUS_ITEMS.map((item, i) => (
+                <Animated.View key={i} style={[styles.statusRow, statusStyles[i]]}>
+                  <Text style={[styles.statusTag, { color: item.color, fontFamily: MONO }]}>{item.tag}</Text>
+                  <Text style={[styles.statusLabel, { fontFamily: MONO }]}>{item.label}</Text>
+                  <View style={styles.dotsRow}>
+                    {Array(10).fill(null).map((_, di) => <View key={di} style={styles.dot} />)}
+                  </View>
+                  <Text style={[styles.statusValue, { color: item.color, fontFamily: MONO }]}>{item.value}</Text>
+                </Animated.View>
+              ))}
+            </View>
+          </Animated.View>
+        </View>
+
+        <Animated.View style={[styles.taglineWrap, bottomStyle]} pointerEvents="none">
+          <Text style={[styles.tagline, { fontFamily: MONO }]}>{uiStrings.splash_tagline}</Text>
         </Animated.View>
 
-        <Animated.Text style={[styles.subtitle, subStyle, { fontFamily: MONO }]}>
-          {uiStrings.splash_subtitle}
-        </Animated.Text>
-
-        <Animated.View style={[styles.terminal, termStyle]}>
-          <View style={styles.termHeader}>
-            <View style={styles.termDot} />
-            <View style={[styles.termDot, { backgroundColor: C.text_muted }]} />
-            <View style={[styles.termDot, { backgroundColor: C.border_pos }]} />
-            <Text style={[styles.termTitle, { fontFamily: MONO }]}>{uiStrings.splash_terminal}</Text>
+        <View style={styles.progressWrap}>
+          <Text style={[styles.progressLabel, { fontFamily: MONO }]}>{uiStrings.splash_loading}</Text>
+          <View style={styles.progressTrack}>
+            <Animated.View style={[styles.progressFill, progressBarStyle]} />
           </View>
+        </View>
 
-          <View style={styles.termDivider} />
-
-          <View style={styles.termBody}>
-            {STATUS_ITEMS.map((item, i) => (
-              <Animated.View key={i} style={[styles.statusRow, statusStyles[i]]}>
-                <Text style={[styles.statusTag, { color: item.color, fontFamily: MONO }]}>{item.tag}</Text>
-                <Text style={[styles.statusLabel, { fontFamily: MONO }]}>{item.label}</Text>
-                <View style={styles.dotsRow}>
-                  {Array(10).fill(null).map((_, di) => <View key={di} style={styles.dot} />)}
-                </View>
-                <Text style={[styles.statusValue, { color: item.color, fontFamily: MONO }]}>{item.value}</Text>
-              </Animated.View>
-            ))}
-          </View>
+        <Animated.View style={[styles.hintWrap, hintStyle]}>
+          <Text style={[styles.hintBracket, { fontFamily: MONO }]}>[</Text>
+          <Text style={[styles.hintText, { fontFamily: MONO }]}>{uiStrings.splash_hint}</Text>
+          <Text style={[styles.hintBracket, { fontFamily: MONO }]}>]</Text>
         </Animated.View>
 
-      </View>
+        <Text style={[styles.version, { fontFamily: MONO }]}>{uiStrings.splash_version}</Text>
 
-      <Animated.View style={[styles.taglineWrap, bottomStyle]} pointerEvents="none">
-        <Text style={[styles.tagline, { fontFamily: MONO }]}>{uiStrings.splash_tagline}</Text>
       </Animated.View>
-
-      <Animated.View style={[styles.hintWrap, hintStyle]}>
-        <Text style={[styles.hintBracket, { fontFamily: MONO }]}>[</Text>
-        <Text style={[styles.hintText, { fontFamily: MONO }]}>{uiStrings.splash_hint}</Text>
-        <Text style={[styles.hintBracket, { fontFamily: MONO }]}>]</Text>
-      </Animated.View>
-
-      <Text style={[styles.version, { fontFamily: MONO }]}>{uiStrings.splash_version}</Text>
-
     </TouchableOpacity>
   )
 }
@@ -167,47 +170,28 @@ const styles = StyleSheet.create({
     backgroundColor: C.bg_deeper,
     alignItems: 'center',
   },
+  shakeWrap: {
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
+  },
 
   scanline: {
     position: 'absolute', left: 0, right: 0, top: -4,
     height: 2, backgroundColor: 'rgba(255,255,255,0.04)', zIndex: 20,
   },
 
-  bloodVignette: {
-    position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
-    backgroundColor: C.splash_vignette,
-    zIndex: 1,
-  },
-  alertStripe: {
-    backgroundColor: C.bg_deeper,
-    width: '100%',
-    paddingVertical: 7,
-    paddingHorizontal: 12,
-    marginTop: Platform.OS === 'android' ? 40 : 52,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderColor: C.bg_deeper,
-    overflow: 'hidden',
-  },
-  alertText: { color: C.text_muted, fontSize: TY.size_caption, fontWeight: TY.weight_heavy, letterSpacing: 2 },
-
   center: {
     flex: 1,
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 14,
+    gap: 4,
     paddingHorizontal: 20,
   },
 
-  logoBlock: { alignItems: 'center', gap: 8 },
-  emblem: { width: 90, height: 90 },
-  title: {
-    fontSize: TY.size_display,
-    fontWeight: TY.weight_black,
-    color: C.text_bright,
-    letterSpacing: 9,
-  },
+  logoBlock: { alignItems: 'center', gap: 0 },
+  emblem: { width: 450, height: 450, marginBottom: -40 },
   subtitle: { fontSize: TY.size_xs, fontWeight: TY.weight_bold, color: C.text_muted, letterSpacing: 8 },
 
   terminal: {
@@ -237,13 +221,37 @@ const styles = StyleSheet.create({
   taglineWrap: { alignItems: 'center', marginBottom: 14 },
   tagline: { color: C.text_muted, fontSize: TY.size_xs, letterSpacing: 2, fontWeight: TY.weight_bold },
 
+  progressWrap: {
+    width: '88%',
+    gap: 6,
+    marginBottom: 16,
+  },
+  progressLabel: {
+    color: C.text_muted,
+    fontSize: TY.size_caption,
+    letterSpacing: 3,
+    fontWeight: TY.weight_heavy,
+  },
+  progressTrack: {
+    height: 2,
+    width: '100%',
+    backgroundColor: C.card_dark,
+    borderRadius: 1,
+    overflow: 'hidden',
+  },
+  progressFill: {
+    height: 2,
+    backgroundColor: C.text_muted,
+    borderRadius: 1,
+  },
+
   hintWrap: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 12,
   },
-  hintBracket: { color: C.text_muted, fontSize: TY.size_body, fontWeight: TY.weight_black },
-  hintText:    { color: C.text_muted, fontSize: TY.size_xs, fontWeight: TY.weight_heavy, letterSpacing: 3 },
+  hintBracket: { color: C.text_bright, fontSize: TY.size_body, fontWeight: TY.weight_black },
+  hintText:    { color: C.text_bright, fontSize: TY.size_xs, fontWeight: TY.weight_heavy, letterSpacing: 3 },
 
   version: {
     fontSize: TY.size_2xs,
