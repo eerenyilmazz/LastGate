@@ -1,11 +1,8 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Platform, ScrollView } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-// ADMOB_DISABLED — import { RewardedAd, RewardedAdEventType, AdEventType, TestIds } from 'react-native-google-mobile-ads'
 import { useStatStore } from '../../store/useStatStore'
 import { useGameStore } from '../../store/useGameStore'
-// ADMOB_DISABLED — import { useSettingsStore } from '../../store/useSettingsStore'
-// ADMOB_DISABLED — import { useProgressStore } from '../../store/useProgressStore'
 import { StatType } from '../../types/stat.types'
 import themeData from '../../data/theme.json'
 import config from '../../data/config.json'
@@ -27,30 +24,15 @@ const STAT_SHORT = themeData.ui.stat_names_upper as Record<StatType, string>
 const STAT_COLORS = themeData.ui.stat_colors as Record<StatType, string>
 const STAT_MAX   = config.stat_max as Record<StatType, number>
 
-// ADMOB_DISABLED — const SP_MULTS   = (config as any).ad_sp_multipliers as Record<string, number>
-// ADMOB_DISABLED — const AD_UNIT_ID = __DEV__ ? TestIds.REWARDED : Platform.OS === 'android' ? admob_android_rewarded : admob_ios_rewarded
-
 interface Props {
   onContinue: () => void
   onBuilding: () => void
 }
 
-// ADMOB_DISABLED — type AdState = 'idle' | 'confirm' | 'loading' | 'done'
-
 export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
   const insets = useSafeAreaInsets()
   const stats  = useStatStore()
   const game   = useGameStore()
-
-  // ADMOB_DISABLED — const settings = useSettingsStore()
-  // ADMOB_DISABLED — const progress = useProgressStore()
-  // ADMOB_DISABLED — const [adState, setAdState] = useState<AdState>('idle')
-  // ADMOB_DISABLED — const adRef = useRef<any>(null)
-  // ADMOB_DISABLED — const earnedRef = useRef(false)
-  // ADMOB_DISABLED — const mult = SP_MULTS[settings.difficulty] ?? 1.0
-  // ADMOB_DISABLED — const bonusSP = Math.max(1, Math.round(game.daySpEarned * mult))
-  // ADMOB_DISABLED — useEffect(() => { ... ad loading ... }, [])
-  // ADMOB_DISABLED — const handleConfirmWatch = () => { adRef.current?.show() }
 
   return (
     <TouchableOpacity
@@ -156,12 +138,6 @@ export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
             })}
           </View>
         )}
-
-        {/* ADMOB_DISABLED — SP bonus ad block (re-enable when native build ready)
-        {game.daySpEarned > 0 && !game.spAdUsedToday && (
-          <View style={styles.spAdBlock}>...</View>
-        )}
-        */}
 
         <TouchableOpacity
           onPress={onBuilding}

@@ -15,8 +15,6 @@ import { GameOverReason, ProgressState } from '../types/game.types'
 import config from '../data/config.json'
 import ui from '../data/ui.json'
 
-// ── Module-level constants ────────────────────────────────────────────────────
-
 const generator = new NPCGenerator()
 
 const QUERY_COSTS    = config.query_costs    as Record<string, number>[]
@@ -33,8 +31,6 @@ const BUILDINGS = config.buildings as Array<{
 }>
 
 const CASCADE_NOTES = ui.cascade_notifications as Record<string, string>
-
-// ── Pure helpers ──────────────────────────────────────────────────────────────
 
 function randomiseCost(base: Record<string, number>, variance: number): Record<string, number> {
   const out: Record<string, number> = {}
@@ -71,8 +67,6 @@ function computeInfectionReduction(ownedBuildings: string[]): number {
   return Math.min(total, config.infection_reduction_cap)
 }
 
-// ── Hook ──────────────────────────────────────────────────────────────────────
-
 export const useGameLoop = () => {
   const game     = useGameStore()
   const stats    = useStatStore()
@@ -85,8 +79,6 @@ export const useGameLoop = () => {
       Math.random() * (config.npcs_per_day_max - config.npcs_per_day_min + 1)
     ) + config.npcs_per_day_min
   }
-
-  // ── Save ──────────────────────────────────────────────────────────────
 
   const saveAll = useCallback(async (): Promise<void> => {
     await SaveSystem.save({
@@ -122,8 +114,6 @@ export const useGameLoop = () => {
       },
     })
   }, [game, stats, progress, settings])
-
-  // ── endDay helpers ────────────────────────────────────────────────────
 
   const applyDailyStats = useCallback(() => {
     stats.applyPassive(progress.buildings)
@@ -210,8 +200,6 @@ export const useGameLoop = () => {
     game.setActiveNPC(generator.getNext())
   }, [game, progress])
 
-  // ── endDay ────────────────────────────────────────────────────────────
-
   const endDay = useCallback(async () => {
     const dayStartStats: StatState = { ...stats.stats }
     game.clearNotifications()
@@ -236,8 +224,6 @@ export const useGameLoop = () => {
     advanceToNextDay()
     await saveAll()
   }, [game, stats, progress, applyDailyStats, finishWithGameOver, tryTriggerEvent, awardDaySP, advanceToNextDay, saveAll])
-
-  // ── NPC decisions ─────────────────────────────────────────────────────
 
   const handleAccept = useCallback(async (npc: NPC) => {
     const rawStats = npc.hidden_trait === 'liar'
@@ -303,8 +289,6 @@ export const useGameLoop = () => {
     return result.queryIndex === 0 ? npc.clue_text : npc.scan_result
   }, [game, stats])
 
-  // ── Event resolution ──────────────────────────────────────────────────
-
   const handleEventChoice = useCallback(async (choiceId: 'A' | 'B' | 'C') => {
     const event = game.activeEvent
     if (!event) return
@@ -331,8 +315,6 @@ export const useGameLoop = () => {
     await saveAll()
   }, [game, stats, progress, settings, finishWithGameOver, advanceToNextDay, saveAll])
 
-  // ── Game start ────────────────────────────────────────────────────────
-
   const startGame = useCallback(() => {
     generator.reset()
     game.reset()
@@ -354,8 +336,6 @@ export const useGameLoop = () => {
     game.setActiveNPC(generator.getNext())
     game.setPhase('intro')
   }, [game, stats, progress, settings])
-
-  // ── Save load ─────────────────────────────────────────────────────────
 
   const loadSave = useCallback(async (): Promise<{ hasResumableGame: boolean }> => {
     const savedProgress = await SaveSystem.load<ProgressState>(SaveSystem.KEYS.PROGRESS)

@@ -63,7 +63,7 @@ export const useStatStore = create<StatStore>((set, get) => ({
   },
 
   getGameOverReason() {
-    return StatEngine.getGameOverReason(get().stats)  // GameOverReason | null
+    return StatEngine.getGameOverReason(get().stats)
   },
 
   reset() {

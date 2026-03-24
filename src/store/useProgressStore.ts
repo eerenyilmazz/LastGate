@@ -5,7 +5,7 @@ import config from '../data/config.json'
 
 interface ProgressStore extends ProgressState {
   achievements:    AchievementId[]
-  newAchievements: AchievementId[]   // cleared after shown
+  newAchievements: AchievementId[]
 
   addSP:              (amount: number) => void
   spendSP:            (amount: number) => boolean
@@ -82,7 +82,7 @@ export const useProgressStore = create<ProgressStore>((set, get) => ({
       input,
       s.achievements,
       s.totalRuns,
-      s.totalWins + (input.isVictory ? 1 : 0), // include this run's result
+      s.totalWins + (input.isVictory ? 1 : 0),
     )
     if (newUnlocks.length > 0) {
       set(prev => ({

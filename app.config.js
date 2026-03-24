@@ -1,7 +1,3 @@
-// app.config.js — dynamic config (replaces app.json)
-// AdMob IDs are read from environment variables.
-// Set ADMOB_ANDROID_ID and ADMOB_IOS_ID in your .env or EAS secrets.
-
 const admobAndroidId = process.env.ADMOB_ANDROID_ID
 const admobIosId     = process.env.ADMOB_IOS_ID
 const sentryDsn      = process.env.SENTRY_DSN

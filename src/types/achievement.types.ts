@@ -1,16 +1,16 @@
 export type AchievementId =
-  | 'survivor_10'       // 10. güne ulaş
-  | 'survivor_50'       // 50. güne ulaş
-  | 'first_win'         // İlk galibiyeti kazan
-  | 'iron_gate'         // Zor modda kazan
-  | 'builder'           // Aynı runda 5 bina inşa et
-  | 'ten_runs'          // 10 run tamamla
-  | 'veteran'           // 25 run tamamla
-  | 'interrogator'      // Tek runda 15+ sorgulama
-  | 'healer_synergy'    // Doktor sinerjisini aktif et (3+ doktor kabul)
-  | 'fortress'          // Runda asker sinerjisini aktif et (2+ asker)
-  | 'clean_gate'        // Runda hiç ajan/enfekte NPC kabul etme (yok ya da 0)
-  | 'three_wins'        // 3 kez kazan
+  | 'survivor_10'
+  | 'survivor_50'
+  | 'first_win'
+  | 'iron_gate'
+  | 'builder'
+  | 'ten_runs'
+  | 'veteran'
+  | 'interrogator'
+  | 'healer_synergy'
+  | 'fortress'
+  | 'clean_gate'
+  | 'three_wins'
 
 export interface Achievement {
   id: AchievementId
