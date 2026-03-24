@@ -8,6 +8,7 @@ import Animated, {
 import { useGameStore } from '../store/useGameStore'
 import { useProgressStore } from '../store/useProgressStore'
 import { GameOverReason } from '../types/game.types'
+import { ACHIEVEMENT_DEFS } from '../types/achievement.types'
 import ui from '../data/ui.json'
 import themeData from '../data/theme.json'
 const STRINGS = (ui as any).strings as Record<string, string>
@@ -32,6 +33,11 @@ export const GameOverScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
 
   const reason = game.gameOverReason ?? 'extinction'
   const ending = ENDINGS[reason]
+  const newAchievements = ACHIEVEMENT_DEFS.filter(a => progress.newAchievements.includes(a.id))
+
+  useEffect(() => {
+    return () => { progress.clearNewAchievements() }
+  }, [])
 
   const vignetteOp = useSharedValue(0)
   const contentOp  = useSharedValue(0)
@@ -131,6 +137,23 @@ export const GameOverScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
           <Text style={[styles.spLabel, { fontFamily: MONO }]}>{ui.labels.earned_sp}</Text>
           <Text style={[styles.spNum, { color: ending.color }]}>★  {progress.sp}</Text>
         </View>
+
+        {newAchievements.length > 0 && (
+          <View style={[styles.achieveBox, { borderColor: ending.color + '33' }]}>
+            <Text style={[styles.achieveHeader, { fontFamily: MONO, color: ending.color + 'aa' }]}>
+              YENİ BAŞARIM
+            </Text>
+            {newAchievements.map(a => (
+              <View key={a.id} style={styles.achieveRow}>
+                <Text style={styles.achieveIcon}>{a.icon}</Text>
+                <View style={styles.achieveText}>
+                  <Text style={[styles.achieveTitle, { fontFamily: MONO }]}>{a.title}</Text>
+                  <Text style={[styles.achieveDesc, { fontFamily: MONO }]}>{a.desc}</Text>
+                </View>
+              </View>
+            ))}
+          </View>
+        )}
 
         <TouchableOpacity
           onPress={onRestart}
@@ -273,4 +296,31 @@ const styles = StyleSheet.create({
 
   btnGhost: { paddingVertical: 14, alignItems: 'center' },
   btnGhostText: { color: C.text_muted, fontSize: TY.size_note, letterSpacing: 1.5 },
+
+  achieveBox: {
+    width: '100%',
+    borderWidth: 1,
+    borderRadius: R.md,
+    paddingHorizontal: 18,
+    paddingVertical: 14,
+    marginBottom: 14,
+    backgroundColor: C.bg_deeper,
+    gap: 10,
+  },
+  achieveHeader: {
+    fontSize: TY.size_2xs,
+    fontWeight: TY.weight_heavy,
+    letterSpacing: 2,
+    textAlign: 'center',
+    marginBottom: 4,
+  },
+  achieveRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  achieveIcon:  { fontSize: TY.size_h5 },
+  achieveText:  { flex: 1, gap: 2 },
+  achieveTitle: { color: C.text_bright, fontSize: TY.size_xs, fontWeight: TY.weight_heavy, letterSpacing: 1 },
+  achieveDesc:  { color: C.text_muted,  fontSize: TY.size_2xs, letterSpacing: 0.3 },
 })

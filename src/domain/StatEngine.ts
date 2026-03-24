@@ -1,9 +1,14 @@
 import { StatDelta, StatState, StatType } from '../types/stat.types'
+import { GameOverReason } from '../types/game.types'
 import config from '../data/config.json'
 
-const MAX = config.stat_max as StatState
-const MIN = config.stat_min as StatState
+const MAX        = config.stat_max            as StatState
+const MIN        = config.stat_min            as StatState
 const THRESHOLDS = config.critical_thresholds as StatState
+
+const CASCADE_EFFECTS          = config.cascade_effects          as Record<string, Record<string, number>>
+const ECONOMY_FOOD_RATE: number = (config as { economy_food_conversion_rate?: number }).economy_food_conversion_rate ?? 0.05
+const ROLE_SYNERGY              = config.role_synergy             as Record<string, { min_count: number; bonus: StatDelta }>
 
 export const StatEngine = {
   apply(current: StatState, delta: StatDelta): StatState {
@@ -40,8 +45,7 @@ export const StatEngine = {
 
   applyEconomyConversion(current: StatState, hasMarket: boolean): StatState {
     if (!hasMarket) return current
-    const rate = (config as any).economy_food_conversion_rate ?? 0.05
-    const foodBonus = Math.floor(current.economy * rate)
+    const foodBonus = Math.floor(current.economy * ECONOMY_FOOD_RATE)
     if (foodBonus <= 0) return current
     return StatEngine.apply(current, { food: foodBonus })
   },
@@ -51,19 +55,18 @@ export const StatEngine = {
   },
 
   applyCascade(current: StatState): { next: StatState; triggered: StatType[] } {
-    const cascades = (config as any).cascade_effects as Record<string, Record<string, number>>
     let next = { ...current }
     const triggered: StatType[] = []
-    for (const stat of Object.keys(cascades) as StatType[]) {
+    for (const stat of Object.keys(CASCADE_EFFECTS) as StatType[]) {
       if (current[stat] <= THRESHOLDS[stat]) {
-        next = StatEngine.apply(next, cascades[stat] as StatDelta)
+        next = StatEngine.apply(next, CASCADE_EFFECTS[stat] as StatDelta)
         triggered.push(stat)
       }
     }
     return { next, triggered }
   },
 
-  getGameOverReason(state: StatState): string | null {
+  getGameOverReason(state: StatState): GameOverReason | null {
     if (state.food <= 0)       return 'starvation'
     if (state.immunity <= 0)   return 'plague'
     if (state.defense <= 0)    return 'breach'
@@ -73,9 +76,8 @@ export const StatEngine = {
   },
 
   computeRoleSynergy(roleCounts: Record<string, number>): StatDelta {
-    const synergy = config.role_synergy as Record<string, { min_count: number; bonus: StatDelta }>
     const result: StatDelta = {}
-    for (const [role, def] of Object.entries(synergy)) {
+    for (const [role, def] of Object.entries(ROLE_SYNERGY)) {
       const count = roleCounts[role] ?? 0
       if (count >= def.min_count) {
         for (const key of Object.keys(def.bonus) as Array<keyof StatDelta>) {

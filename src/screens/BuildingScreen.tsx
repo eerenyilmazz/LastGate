@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import {
   View, Text, TouchableOpacity, ScrollView,
-  StyleSheet, Platform, Modal,
+  StyleSheet, Platform, Modal, Animated,
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useProgressStore } from '../store/useProgressStore'
@@ -54,6 +54,18 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
   const game     = useGameStore()
   const [tab, setTab] = useState<Tab>('buildings')
   const [confirm, setConfirm] = useState<ConfirmState>(null)
+  const [justBought, setJustBought] = useState<string | null>(null)
+  const flashAnim = useRef(new Animated.Value(0)).current
+
+  const triggerFlash = (id: string) => {
+    setJustBought(id)
+    flashAnim.setValue(1)
+    Animated.sequence([
+      Animated.timing(flashAnim, { toValue: 0.6, duration: 120, useNativeDriver: true }),
+      Animated.timing(flashAnim, { toValue: 1,   duration: 120, useNativeDriver: true }),
+      Animated.timing(flashAnim, { toValue: 0,   duration: 600, useNativeDriver: true }),
+    ]).start(() => setJustBought(null))
+  }
   const buildings = config.buildings as Array<BuildingConfig & { icon: string; color: string; chips: string[] }>
 
   const goBack = () => game.setPhase('day_summary')
@@ -106,12 +118,14 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
           const notEnough = !owned && !locked && progress.sp < b.cost
           const accentClr = owned ? C.accept : locked ? C.text_muted : b.color
 
+          const isFlashing = justBought === b.id
           return (
-            <View key={b.id} style={[
+            <Animated.View key={b.id} style={[
               styles.card,
               { borderLeftColor: accentClr },
               locked && styles.cardLocked,
               owned  && styles.cardOwned,
+              isFlashing && { borderColor: b.color, opacity: flashAnim },
             ]}>
               <View style={styles.cardRow}>
                 <View style={[styles.iconBox, { backgroundColor: b.color + '18', borderColor: b.color + '33' }]}>
@@ -166,7 +180,7 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
                     desc: b.description,
                     cost: b.cost,
                     color: b.color,
-                    onConfirm: () => progress.buyBuilding(b.id),
+                    onConfirm: () => { progress.buyBuilding(b.id); triggerFlash(b.id) },
                   })}
                   style={[styles.actionBtn, { backgroundColor: b.color + '22', borderColor: b.color + '66' }]}
                   activeOpacity={0.8}
@@ -180,7 +194,7 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
                   {b.cost - progress.sp}{L.building_sp_needed_suffix}
                 </Text>
               )}
-            </View>
+            </Animated.View>
           )
         })}
 
@@ -206,16 +220,19 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
                 if (!progress.spendSP(skill.cost)) return
                 progress.markUsed(skill.id)
                 stats.apply(skill.effect)
+                triggerFlash(skill.id)
               },
             })
           }
 
+          const isFlashing = justBought === skill.id
           return (
-            <View key={skill.id} style={[
+            <Animated.View key={skill.id} style={[
               styles.card,
               { borderLeftColor: accentClr },
               locked && styles.cardLocked,
               used   && styles.cardUsed,
+              isFlashing && { borderColor: skill.color, opacity: flashAnim },
             ]}>
               <View style={styles.cardRow}>
                 <View style={[styles.iconBox, { backgroundColor: skill.color + '18', borderColor: skill.color + '33' }]}>
@@ -283,7 +300,7 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
                   {skill.cost - progress.sp}{L.building_sp_needed_suffix}
                 </Text>
               )}
-            </View>
+            </Animated.View>
           )
         })}
 

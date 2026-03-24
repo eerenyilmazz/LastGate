@@ -1,31 +1,39 @@
 import { create } from 'zustand'
 import { ProgressState } from '../types/game.types'
+import { AchievementId, AchievementCheckInput, evaluateAchievements } from '../types/achievement.types'
 import config from '../data/config.json'
 
 interface ProgressStore extends ProgressState {
-  addSP: (amount: number) => void
-  spendSP: (amount: number) => boolean
-  buyBuilding: (id: string) => boolean
-  markUsed: (id: string) => void
-  hasBuilding: (id: string) => boolean
-  canUnlockBuilding: (id: string, currentDay: number) => boolean
-  updateBestRun: (day: number, isVictory: boolean) => void
-  reset: () => void
-  _load: (state: ProgressState) => void
+  achievements:    AchievementId[]
+  newAchievements: AchievementId[]   // cleared after shown
+
+  addSP:              (amount: number) => void
+  spendSP:            (amount: number) => boolean
+  buyBuilding:        (id: string) => boolean
+  markUsed:           (id: string) => void
+  hasBuilding:        (id: string) => boolean
+  canUnlockBuilding:  (id: string, currentDay: number) => boolean
+  updateBestRun:      (day: number, isVictory: boolean) => void
+  checkAchievements:  (input: AchievementCheckInput) => void
+  clearNewAchievements: () => void
+  reset:              () => void
+  _load:              (state: Partial<ProgressState & { achievements?: AchievementId[] }>) => void
 }
 
 const INITIAL: ProgressState = {
-  sp: 0,
-  buildings: [],
-  unlockedNPCPacks: 0,
+  sp:                 0,
+  buildings:          [],
+  unlockedNPCPacks:   0,
   unlockedEventPacks: 0,
-  totalRuns: 0,
-  bestDay: 0,
-  totalWins: 0,
+  totalRuns:          0,
+  bestDay:            0,
+  totalWins:          0,
 }
 
 export const useProgressStore = create<ProgressStore>((set, get) => ({
   ...INITIAL,
+  achievements:    [],
+  newAchievements: [],
 
   addSP(amount) {
     set(s => ({ sp: s.sp + amount }))
@@ -68,16 +76,44 @@ export const useProgressStore = create<ProgressStore>((set, get) => ({
     }))
   },
 
+  checkAchievements(input) {
+    const s = get()
+    const newUnlocks = evaluateAchievements(
+      input,
+      s.achievements,
+      s.totalRuns,
+      s.totalWins + (input.isVictory ? 1 : 0), // include this run's result
+    )
+    if (newUnlocks.length > 0) {
+      set(prev => ({
+        achievements:    [...prev.achievements, ...newUnlocks],
+        newAchievements: [...prev.newAchievements, ...newUnlocks],
+      }))
+    }
+  },
+
+  clearNewAchievements() {
+    set({ newAchievements: [] })
+  },
+
   reset() {
     set(s => ({
       ...INITIAL,
-      totalRuns: s.totalRuns + 1,
-      bestDay:   s.bestDay,
-      totalWins: s.totalWins,
+      totalRuns:       s.totalRuns + 1,
+      bestDay:         s.bestDay,
+      totalWins:       s.totalWins,
+      achievements:    s.achievements,
+      newAchievements: s.newAchievements,
+      sp:              s.sp,
     }))
   },
 
   _load(state) {
-    set({ ...INITIAL, ...state })
+    set(s => ({
+      ...INITIAL,
+      ...state,
+      achievements:    state.achievements    ?? s.achievements,
+      newAchievements: s.newAchievements,
+    }))
   },
 }))

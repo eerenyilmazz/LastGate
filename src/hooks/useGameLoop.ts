@@ -9,16 +9,32 @@ import { EventManager } from '../domain/EventManager'
 import { TraitHandler } from '../domain/TraitHandler'
 import { StatEngine } from '../domain/StatEngine'
 import { SaveSystem } from '../domain/SaveSystem'
-import { NPC } from '../types/npc.types'
-import { StatDelta, StatState, StatType } from '../types/stat.types'
-import { ProgressState } from '../types/game.types'
+import { NPC, NPCRole } from '../types/npc.types'
+import { StatDelta, StatState } from '../types/stat.types'
+import { GameOverReason, ProgressState } from '../types/game.types'
 import config from '../data/config.json'
 import ui from '../data/ui.json'
 
+// ── Module-level constants ────────────────────────────────────────────────────
+
 const generator = new NPCGenerator()
 
-const QUERY_COSTS    = config.query_costs as Record<string, number>[]
+const QUERY_COSTS    = config.query_costs    as Record<string, number>[]
 const QUERY_VARIANCE = config.query_cost_variance as number[]
+
+type DiffMod = { daily_food_bonus: number; starvation_extra: number; npc_neg_scale: number }
+const DIFF_MODS = config.difficulty_modifiers as Record<string, DiffMod>
+const DIFF_MULT: Record<string, number> = { easy: 0.3, normal: 0.0, hard: -0.25 }
+
+const BUILDINGS = config.buildings as Array<{
+  id: string
+  extra_query_charge?: number
+  infection_reduction?: number
+}>
+
+const CASCADE_NOTES = ui.cascade_notifications as Record<string, string>
+
+// ── Pure helpers ──────────────────────────────────────────────────────────────
 
 function randomiseCost(base: Record<string, number>, variance: number): Record<string, number> {
   const out: Record<string, number> = {}
@@ -28,17 +44,6 @@ function randomiseCost(base: Record<string, number>, variance: number): Record<s
   }
   return out
 }
-
-const BUILDINGS = config.buildings as Array<{
-  id: string
-  extra_query_charge?: number
-  infection_reduction?: number
-}>
-
-// ADMOB_DISABLED — const AD_LIMITS = (config as any).ad_limits as Record<string, number>
-
-type DiffMod = { daily_food_bonus: number; starvation_extra: number; npc_neg_scale: number }
-const DIFF_MODS = (config as any).difficulty_modifiers as Record<string, DiffMod>
 
 function scaleDelta(delta: StatDelta, difficulty: string): StatDelta {
   const mod = DIFF_MODS[difficulty]
@@ -66,6 +71,8 @@ function computeInfectionReduction(ownedBuildings: string[]): number {
   return Math.min(total, config.infection_reduction_cap)
 }
 
+// ── Hook ──────────────────────────────────────────────────────────────────────
+
 export const useGameLoop = () => {
   const game     = useGameStore()
   const stats    = useStatStore()
@@ -79,19 +86,52 @@ export const useGameLoop = () => {
     ) + config.npcs_per_day_min
   }
 
-  const endDay = useCallback(() => {
-    const dayStartStats: StatState = { ...stats.stats }
+  // ── Save ──────────────────────────────────────────────────────────────
 
-    game.clearNotifications()
-    game.resetDaySpEarned()
+  const saveAll = useCallback(async (): Promise<void> => {
+    await SaveSystem.save({
+      [SaveSystem.KEYS.GAME]: {
+        day:               game.day,
+        phase:             game.phase,
+        acceptedNPCRoles:  game.acceptedNPCRoles,
+        acceptedRoleCounts:game.acceptedRoleCounts,
+        pendingTraits:     game.pendingTraits,
+        usedEventIDs:      game.usedEventIDs,
+        queryChargesLeft:  game.queryChargesLeft,
+        queryChargesTotal: game.queryChargesTotal,
+        isGameOver:        game.isGameOver,
+        gameOverReason:    game.gameOverReason,
+        runStats:          game.runStats,
+      },
+      [SaveSystem.KEYS.STATS]:    stats.stats,
+      [SaveSystem.KEYS.PROGRESS]: {
+        sp:                 progress.sp,
+        buildings:          progress.buildings,
+        unlockedNPCPacks:   progress.unlockedNPCPacks,
+        unlockedEventPacks: progress.unlockedEventPacks,
+        totalRuns:          progress.totalRuns,
+        bestDay:            progress.bestDay,
+        totalWins:          progress.totalWins,
+        achievements:       progress.achievements,
+      },
+      [SaveSystem.KEYS.NPC_QUEUE]: generator.getState(),
+      [SaveSystem.KEYS.SETTINGS]: {
+        musicEnabled: settings.musicEnabled,
+        sfxEnabled:   settings.sfxEnabled,
+        difficulty:   settings.difficulty,
+      },
+    })
+  }, [game, stats, progress, settings])
 
+  // ── endDay helpers ────────────────────────────────────────────────────
+
+  const applyDailyStats = useCallback(() => {
     stats.applyPassive(progress.buildings)
 
     const synergyDelta = StatEngine.computeRoleSynergy(game.acceptedRoleCounts)
     stats.apply(synergyDelta)
 
     stats.applyEconomyConversion(progress.buildings.includes('market'))
-
     stats.applyFoodConsumption()
 
     const diffMod = DIFF_MODS[settings.difficulty]
@@ -108,9 +148,8 @@ export const useGameLoop = () => {
     const { next: cascaded, triggered } = StatEngine.applyCascade(stats.stats)
     if (triggered.length > 0) {
       stats._setStats(cascaded)
-      const cascadeNotes = (ui as any).cascade_notifications as Record<string, string>
       for (const stat of triggered) {
-        if (cascadeNotes[stat]) game.addNotification(cascadeNotes[stat])
+        if (CASCADE_NOTES[stat]) game.addNotification(CASCADE_NOTES[stat])
       }
     }
 
@@ -124,60 +163,88 @@ export const useGameLoop = () => {
     for (const delta of deltas) stats.apply(delta)
     for (const note of notifications) game.addNotification(note)
     game.removeTraits(remaining)
+  }, [game, stats, progress, settings])
 
-    const reason = stats.getGameOverReason()
-    if (reason) {
-      progress.updateBestRun(game.day, false)
-      game.setGameOver(reason as any)
-      progress.addSP(config.sp_rewards.game_over)
-      game.addDaySpEarned(config.sp_rewards.game_over)
-      saveAll()
-      return
-    }
+  const finishWithGameOver = useCallback(async (reason: GameOverReason, isVictory: boolean) => {
+    progress.updateBestRun(game.day, isVictory)
+    game.setGameOver(reason)
+    progress.addSP(config.sp_rewards.game_over)
+    game.addDaySpEarned(config.sp_rewards.game_over)
+    progress.checkAchievements({
+      day:        game.day,
+      difficulty: settings.difficulty,
+      runStats:   game.runStats,
+      buildings:  progress.buildings,
+      roleCounts: game.acceptedRoleCounts,
+      isVictory,
+    })
+    await saveAll()
+  }, [game, stats, progress, settings, saveAll])
 
-    if (game.day >= config.win_condition_day) {
-      progress.updateBestRun(game.day, true)
-      game.setGameOver('victory' as any)
-      progress.addSP(config.sp_rewards.game_over)
-      game.addDaySpEarned(config.sp_rewards.game_over)
-      saveAll()
-      return
-    }
+  const tryTriggerEvent = useCallback((): boolean => {
+    if (!EventManager.shouldTrigger(game.day)) return false
+    const event = EventManager.pickEvent(stats.stats, game.usedEventIDs)
+    if (!event) return false
+    game.setActiveEvent(event)
+    game.setPhase('event')
+    return true
+  }, [game, stats])
 
-    if (EventManager.shouldTrigger(game.day)) {
-      const event = EventManager.pickEvent(stats.stats, game.usedEventIDs)
-      if (event) {
-        game.setActiveEvent(event)
-        game.setPhase('event')
-        return
-      }
-    }
-
+  const awardDaySP = useCallback((dayStartStats: StatState) => {
     progress.addSP(config.sp_rewards.day_survived)
     game.addDaySpEarned(config.sp_rewards.day_survived)
 
-    const cur    = stats.stats
-    const noDrop = Object.keys(cur).every(k => cur[k as keyof typeof cur] >= dayStartStats[k as keyof typeof dayStartStats])
+    const cur = stats.stats
+    const noDrop = Object.keys(cur).every(
+      k => cur[k as keyof typeof cur] >= dayStartStats[k as keyof typeof dayStartStats]
+    )
     if (noDrop) {
       progress.addSP(config.sp_rewards.perfect_day)
       game.addDaySpEarned(config.sp_rewards.perfect_day)
     }
-
-    rollDay()
-    game.advanceDay(computeQueryCharges(progress.buildings))
-    const nextNPC = generator.getNext()
-    game.setActiveNPC(nextNPC)
-
-    saveAll()
   }, [game, stats, progress])
 
-  const handleAccept = useCallback((npc: NPC) => {
+  const advanceToNextDay = useCallback(() => {
+    rollDay()
+    game.advanceDay(computeQueryCharges(progress.buildings))
+    game.setActiveNPC(generator.getNext())
+  }, [game, progress])
+
+  // ── endDay ────────────────────────────────────────────────────────────
+
+  const endDay = useCallback(async () => {
+    const dayStartStats: StatState = { ...stats.stats }
+    game.clearNotifications()
+    game.resetDaySpEarned()
+
+    applyDailyStats()
+
+    const overReason = stats.getGameOverReason()
+    if (overReason) {
+      await finishWithGameOver(overReason, false)
+      return
+    }
+
+    if (game.day >= config.win_condition_day) {
+      await finishWithGameOver('victory', true)
+      return
+    }
+
+    if (tryTriggerEvent()) return
+
+    awardDaySP(dayStartStats)
+    advanceToNextDay()
+    await saveAll()
+  }, [game, stats, progress, applyDailyStats, finishWithGameOver, tryTriggerEvent, awardDaySP, advanceToNextDay, saveAll])
+
+  // ── NPC decisions ─────────────────────────────────────────────────────
+
+  const handleAccept = useCallback(async (npc: NPC) => {
     const rawStats = npc.hidden_trait === 'liar'
       ? TraitHandler.getLiarAcceptStats(npc.accept)
       : npc.accept
 
-    const effectiveStats = scaleDelta(rawStats as StatDelta, settings.difficulty)
-    stats.apply(effectiveStats as StatDelta)
+    stats.apply(scaleDelta(rawStats as StatDelta, settings.difficulty))
     game.addAcceptedRole(npc.role)
     game.incrementRunStat('accepted')
 
@@ -190,52 +257,37 @@ export const useGameLoop = () => {
 
     const overReason = stats.getGameOverReason()
     if (overReason) {
-      // ADMOB_DISABLED — ad rescue flow commented out, goes directly to game over
-      // const adLimit = AD_LIMITS[settings.difficulty] ?? 0
-      // if (game.adsWatchedThisRun < adLimit) { game.setPendingAdReason(overReason) } else { ... }
-      progress.updateBestRun(game.day, false)
-      game.setGameOver(overReason as any)
-      progress.addSP(config.sp_rewards.game_over)
-      game.addDaySpEarned(config.sp_rewards.game_over)
-      saveAll()
+      await finishWithGameOver(overReason, false)
       return
     }
 
     npcsLeft.current -= 1
     if (npcsLeft.current > 0) {
-      const nextNPC = generator.getNext()
-      game.setActiveNPC(nextNPC)
+      game.setActiveNPC(generator.getNext())
       game.setPhase('npc_decision')
     } else {
       game.setPhase('day_summary')
     }
-  }, [game, stats, progress, endDay, settings.difficulty])
+  }, [game, stats, progress, settings, finishWithGameOver])
 
-  const handleReject = useCallback((npc: NPC) => {
+  const handleReject = useCallback(async (npc: NPC) => {
     stats.apply(scaleDelta(npc.reject as StatDelta, settings.difficulty))
     game.incrementRunStat('rejected')
 
     const overReason = stats.getGameOverReason()
     if (overReason) {
-      // ADMOB_DISABLED — ad rescue flow commented out, goes directly to game over
-      // const adLimit = AD_LIMITS[settings.difficulty] ?? 0
-      // if (game.adsWatchedThisRun < adLimit) { game.setPendingAdReason(overReason) } else { ... }
-      progress.updateBestRun(game.day, false)
-      game.setGameOver(overReason as any)
-      progress.addSP(config.sp_rewards.game_over)
-      saveAll()
+      await finishWithGameOver(overReason, false)
       return
     }
 
     npcsLeft.current -= 1
     if (npcsLeft.current > 0) {
-      const nextNPC = generator.getNext()
-      game.setActiveNPC(nextNPC)
+      game.setActiveNPC(generator.getNext())
       game.setPhase('npc_decision')
     } else {
       game.setPhase('day_summary')
     }
-  }, [game, stats, progress, endDay, settings.difficulty])
+  }, [game, stats, settings, finishWithGameOver])
 
   const handleQuery = useCallback((npc: NPC): string => {
     const result = game.consumeQueryCharge()
@@ -248,21 +300,19 @@ export const useGameLoop = () => {
       stats.apply(randomiseCost(base, variance))
     }
 
-    if (result.queryIndex === 0) {
-      return npc.clue_text
-    }
-
-    return npc.scan_result
+    return result.queryIndex === 0 ? npc.clue_text : npc.scan_result
   }, [game, stats])
 
-  const handleEventChoice = useCallback((choiceId: 'A' | 'B' | 'C') => {
+  // ── Event resolution ──────────────────────────────────────────────────
+
+  const handleEventChoice = useCallback(async (choiceId: 'A' | 'B' | 'C') => {
     const event = game.activeEvent
     if (!event) return
 
     const choice = event.choices.find(c => c.id === choiceId)
     if (!choice) return
 
-    const delta = EventManager.resolveChoice(choice, game.acceptedNPCRoles as any)
+    const delta = EventManager.resolveChoice(choice, game.acceptedNPCRoles as NPCRole[])
     stats.apply(delta)
     game.markEventUsed(event.event_id)
     game.addNotification(choice.outcome)
@@ -271,24 +321,17 @@ export const useGameLoop = () => {
 
     const overReason = stats.getGameOverReason()
     if (overReason) {
-      game.setGameOver(overReason as any)
-      progress.addSP(config.sp_rewards.game_over)
-      game.addDaySpEarned(config.sp_rewards.game_over)
-      saveAll()
+      await finishWithGameOver(overReason, false)
       return
     }
 
     progress.addSP(config.sp_rewards.day_survived)
     game.addDaySpEarned(config.sp_rewards.day_survived)
-    rollDay()
-    game.advanceDay(computeQueryCharges(progress.buildings))
-    const nextNPC = generator.getNext()
-    game.setActiveNPC(nextNPC)
+    advanceToNextDay()
+    await saveAll()
+  }, [game, stats, progress, settings, finishWithGameOver, advanceToNextDay, saveAll])
 
-    saveAll()
-  }, [game, stats, progress, settings.difficulty])
-
-  const DIFF_MULT: Record<string, number> = { easy: 0.3, normal: 0.0, hard: -0.25 }
+  // ── Game start ────────────────────────────────────────────────────────
 
   const startGame = useCallback(() => {
     generator.reset()
@@ -299,75 +342,51 @@ export const useGameLoop = () => {
     const mult = DIFF_MULT[settings.difficulty] ?? 0
     if (mult !== 0) {
       const initial = config.initial_stats as Record<string, number>
-      const delta: Record<string, number> = {}
+      const delta: StatDelta = {}
       for (const key of Object.keys(initial)) {
-        delta[key] = Math.round(initial[key] * mult)
+        delta[key as keyof StatDelta] = Math.round(initial[key] * mult)
       }
-      stats.apply(delta as any)
+      stats.apply(delta)
     }
 
     game.setQueryCharges(computeQueryCharges(progress.buildings))
     rollDay()
-    const firstNPC = generator.getNext()
-    game.setActiveNPC(firstNPC)
+    game.setActiveNPC(generator.getNext())
     game.setPhase('intro')
-  }, [game, stats, progress, settings.difficulty])
+  }, [game, stats, progress, settings])
+
+  // ── Save load ─────────────────────────────────────────────────────────
 
   const loadSave = useCallback(async (): Promise<{ hasResumableGame: boolean }> => {
     const savedProgress = await SaveSystem.load<ProgressState>(SaveSystem.KEYS.PROGRESS)
-    if (savedProgress) {
+    if (savedProgress && typeof savedProgress === 'object') {
       progress._load(savedProgress)
     }
 
-    const savedSettings = await SaveSystem.load<any>(SaveSystem.KEYS.SETTINGS)
-    if (savedSettings) {
+    const savedSettings = await SaveSystem.load<{ musicEnabled: boolean; sfxEnabled: boolean; difficulty: string }>(SaveSystem.KEYS.SETTINGS)
+    if (savedSettings && typeof savedSettings === 'object') {
       settings._load(savedSettings)
     }
 
-    const savedGame  = await SaveSystem.load<any>(SaveSystem.KEYS.GAME)
+    const savedGame  = await SaveSystem.load<Record<string, unknown>>(SaveSystem.KEYS.GAME)
     const savedStats = await SaveSystem.load<StatState>(SaveSystem.KEYS.STATS)
-    const savedQueue = await SaveSystem.load<any>(SaveSystem.KEYS.NPC_QUEUE)
+    const savedQueue = await SaveSystem.load<{ queue: NPC[]; usedIDs: string[] }>(SaveSystem.KEYS.NPC_QUEUE)
 
-    if (savedGame && savedStats && !savedGame.isGameOver) {
+    const isResumable =
+      savedGame !== null &&
+      typeof savedGame === 'object' &&
+      savedStats !== null &&
+      typeof savedStats === 'object' &&
+      savedGame.isGameOver === false
+
+    if (isResumable && savedGame && savedStats) {
       stats._setStats(savedStats)
-      game._load(savedGame)
+      game._load(savedGame as Parameters<typeof game._load>[0])
       if (savedQueue) generator.loadState(savedQueue)
       return { hasResumableGame: true }
     }
 
     return { hasResumableGame: false }
-  }, [game, stats, progress, settings])
-
-  const saveAll = useCallback(async () => {
-    await SaveSystem.save({
-      [SaveSystem.KEYS.GAME]: {
-        day: game.day,
-        phase: game.phase,
-        acceptedNPCRoles: game.acceptedNPCRoles,
-        pendingTraits: game.pendingTraits,
-        usedEventIDs: game.usedEventIDs,
-        queryChargesLeft:  game.queryChargesLeft,
-        queryChargesTotal: game.queryChargesTotal,
-        isGameOver: game.isGameOver,
-        gameOverReason: game.gameOverReason,
-      },
-      [SaveSystem.KEYS.STATS]: stats.stats,
-      [SaveSystem.KEYS.PROGRESS]: {
-        sp: progress.sp,
-        buildings: progress.buildings,
-        unlockedNPCPacks: progress.unlockedNPCPacks,
-        unlockedEventPacks: progress.unlockedEventPacks,
-        totalRuns: progress.totalRuns,
-        bestDay: progress.bestDay,
-        totalWins: progress.totalWins,
-      },
-      [SaveSystem.KEYS.NPC_QUEUE]: generator.getState(),
-      [SaveSystem.KEYS.SETTINGS]: {
-        musicEnabled: settings.musicEnabled,
-        sfxEnabled:   settings.sfxEnabled,
-        difficulty:   settings.difficulty,
-      },
-    })
   }, [game, stats, progress, settings])
 
   return { handleAccept, handleReject, handleQuery, endDay, handleEventChoice, startGame, loadSave }
