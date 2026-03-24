@@ -201,6 +201,7 @@ export const useGameLoop = () => {
   }, [game, progress])
 
   const endDay = useCallback(async () => {
+    if (game.phase !== 'day_summary') return
     const dayStartStats: StatState = { ...stats.stats }
     game.clearNotifications()
     game.resetDaySpEarned()
