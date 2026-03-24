@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { StatState, StatDelta, StatType } from '../types/stat.types'
+import { GameOverReason } from '../types/game.types'
 import { StatEngine } from '../domain/StatEngine'
 import config from '../data/config.json'
 
@@ -12,7 +13,7 @@ interface StatStore {
   applyStarvation: () => void
   applyEconomyConversion: (hasMarket: boolean) => void
   isCritical: (stat: StatType) => boolean
-  getGameOverReason: () => string | null
+  getGameOverReason: () => GameOverReason | null
   reset: () => void
   _setStats: (stats: StatState) => void
 }

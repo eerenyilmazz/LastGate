@@ -11,7 +11,7 @@ import { StatEngine } from '../domain/StatEngine'
 import { SaveSystem } from '../domain/SaveSystem'
 import { NPC, NPCRole } from '../types/npc.types'
 import { StatDelta, StatState } from '../types/stat.types'
-import { GameOverReason, ProgressState } from '../types/game.types'
+import { GameOverReason, ProgressState, Difficulty } from '../types/game.types'
 import config from '../data/config.json'
 import ui from '../data/ui.json'
 
@@ -343,7 +343,7 @@ export const useGameLoop = () => {
       progress._load(savedProgress)
     }
 
-    const savedSettings = await SaveSystem.load<{ musicEnabled: boolean; sfxEnabled: boolean; difficulty: string }>(SaveSystem.KEYS.SETTINGS)
+    const savedSettings = await SaveSystem.load<{ musicEnabled: boolean; sfxEnabled: boolean; difficulty: Difficulty }>(SaveSystem.KEYS.SETTINGS)
     if (savedSettings && typeof savedSettings === 'object') {
       settings._load(savedSettings)
     }
