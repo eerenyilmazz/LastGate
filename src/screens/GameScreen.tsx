@@ -218,11 +218,6 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX, stopAllSFX })
     stopAllSFX()
   }, [game.phase])
 
-  useEffect(() => {
-    if (!queryResult) return
-    const t = setTimeout(() => { setQueryResult(null); stopAllSFX() }, config.query_result_timeout_ms)
-    return () => clearTimeout(t)
-  }, [queryResult])
 
   useEffect(() => {
     stopAllSFX()
@@ -332,6 +327,9 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX, stopAllSFX })
                   <Text style={[styles.queryStripCost, { fontFamily: MONO, color: C.text_muted }]}>
                     {costStr}
                   </Text>
+                  <TouchableOpacity onPress={() => setQueryWarnPending(false)} style={styles.queryClose} hitSlop={8}>
+                    <Text style={[styles.queryCloseText, { fontFamily: MONO }]}>✕</Text>
+                  </TouchableOpacity>
                 </View>
                 <Text style={[styles.queryStripText, { fontFamily: MONO, color: C.text_secondary }]}>
                   {STRINGS.query_confirm}
@@ -349,8 +347,11 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX, stopAllSFX })
                     {formatCost(queryResult.queryIndex)}
                   </Text>
                 )}
+                <TouchableOpacity onPress={() => { setQueryResult(null); stopAllSFX() }} style={styles.queryClose} hitSlop={8}>
+                  <Text style={[styles.queryCloseText, { fontFamily: MONO }]}>✕</Text>
+                </TouchableOpacity>
               </View>
-              <Text style={[styles.queryStripText, { fontFamily: MONO, color: C.text_secondary }]} numberOfLines={2}>
+              <Text style={[styles.queryStripText, { fontFamily: MONO, color: C.text_secondary }]}>
                 {queryResult.text.charAt(0).toUpperCase() + queryResult.text.slice(1)}
               </Text>
             </>
@@ -463,6 +464,16 @@ const styles = StyleSheet.create({
   queryStripCost: {
     fontSize: 9,
     letterSpacing: 0.5,
+  },
+  queryClose: {
+    marginLeft: 8,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+  },
+  queryCloseText: {
+    fontSize: TY.size_xs,
+    color: C.text_muted,
+    fontWeight: TY.weight_black,
   },
   queryStripText: {
     fontSize: TY.size_xs,
