@@ -4,8 +4,19 @@
 
 const admobAndroidId = process.env.ADMOB_ANDROID_ID
 const admobIosId     = process.env.ADMOB_IOS_ID
+const sentryDsn      = process.env.SENTRY_DSN
 
-const plugins = []
+const plugins = [
+  [
+    '@sentry/react-native/expo',
+    {
+      organization: 'code-vivus',
+      project:      'lastgate',
+      ...(sentryDsn ? { dsn: sentryDsn } : {}),
+    },
+  ],
+]
+
 if (admobAndroidId && admobIosId) {
   plugins.push([
     'react-native-google-mobile-ads',
