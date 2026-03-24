@@ -32,7 +32,7 @@ Post-apokaliptik bir hayatta kalma stratejisi. Sektör 7 karantina bölgesinin s
 - **Platform**: iOS & Android (React Native / Expo)
 - **Dil**: Türkçe
 - **Hedef**: 100 günü hayatta geçir
-- **Durum**: BETA v0.1
+- **Durum**: BETA v0.2
 
 ---
 
@@ -282,6 +282,29 @@ Her son, kendine özel anlatı metni ve ikon ile gösterilir.
 
 ---
 
+## Başarımlar
+
+12 kilidini açılabilir başarım:
+
+| Başarım | Koşul |
+|---------|-------|
+| İlk Adım | 10. güne ulaş |
+| Direnişçi | 50. güne ulaş |
+| Son Savunma | 100 günü hayatta geçir |
+| Demir Kapı | Zor modda kazan |
+| Mimar | Aynı runda 5 bina inşa et |
+| Deneyimli | 10 run tamamla |
+| Efsane Kapıcı | 25 run tamamla |
+| Dedektif | Tek runda 15+ sorgulama yap |
+| Sağlık Ağı | Doktor sinerjisini aktif et |
+| Kale | Asker sinerjisini aktif et |
+| Temiz Sicil | Bir runda 20+ NPC kabul et |
+| Üç Kez Zafer | 3 kez galibiyete ulaş |
+
+Yeni açılan başarımlar oyun sonu ekranında gösterilir.
+
+---
+
 ## Teknik Altyapı
 
 ### Stack
@@ -295,7 +318,9 @@ Her son, kendine özel anlatı metni ve ikon ile gösterilir.
 | Depolama | AsyncStorage |
 | Ses | Expo AV |
 | Haptic | Expo Haptics |
+| Crash Reporting | Sentry (`@sentry/react-native`) |
 | Build | Expo EAS |
+| CI/CD | GitHub Actions |
 
 ### Klasör Yapısı
 
@@ -317,6 +342,23 @@ src/
     └── scenarios.json # 154 NPC kartı
 ```
 
+### CI/CD
+
+Her `main` push'ta GitHub Actions otomatik olarak:
+1. TypeScript tip kontrolü (`npx tsc --noEmit`)
+2. EAS preview build (her iki platform)
+
+Her `v*.*.*` etiketinde:
+1. TypeScript tip kontrolü
+2. EAS production build
+3. App Store ve Google Play'e otomatik gönderim
+
+Gerekli GitHub Secrets: `EXPO_TOKEN`, `SENTRY_DSN`, `SENTRY_AUTH_TOKEN`, `ADMOB_ANDROID_ID`, `ADMOB_IOS_ID`
+
+### Crash Reporting
+
+Sentry ile production crash raporlaması. `.env` veya EAS secrets'ta `SENTRY_DSN` ayarlanmadığında devre dışı kalır. Org: `code-vivus`, Proje: `lastgate`.
+
 ### Kayıt Sistemi
 
 5 AsyncStorage slotu:
@@ -325,7 +367,7 @@ src/
 |---------|--------|
 | `lastgate_game` | Faz, gün, aktif NPC/olay, şarj |
 | `lastgate_stats` | Mevcut stat değerleri |
-| `lastgate_progress` | SP, binalar, run istatistikleri |
+| `lastgate_progress` | SP, binalar, run istatistikleri, başarımlar |
 | `lastgate_npc_queue` | NPC havuzu durumu |
 | `lastgate_settings` | Müzik/SFX/zorluk tercihleri |
 
@@ -337,6 +379,15 @@ src/
 git clone <repo>
 cd LastGate
 npm install
+```
+
+`.env.example` dosyasını `.env` olarak kopyala ve değerleri doldur:
+
+```bash
+cp .env.example .env
+```
+
+```bash
 npx expo start
 ```
 
@@ -345,4 +396,4 @@ Android için: `npx expo run:android`
 
 ---
 
-*BETA v0.1 · Sektör 7 Karantina Bölgesi*
+*BETA v0.2 · Sektör 7 Karantina Bölgesi*
