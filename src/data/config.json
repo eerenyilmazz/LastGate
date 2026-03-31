@@ -85,6 +85,13 @@
         "immunity": 2,
         "economy": 2
       }
+    },
+    "Scavenger": {
+      "min_count": 2,
+      "bonus": {
+        "food": 3,
+        "economy": 2
+      }
     }
   },
   "trait_effects": {

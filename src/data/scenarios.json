@@ -11,12 +11,12 @@
       "illustration_tier": "tier1",
       "illustration_key": "serge_infected_liar",
       "accept": {
-        "immunity": 14,
-        "food": -5,
-        "economy": 3
+        "immunity": -18,
+        "population": 5
       },
       "reject": {
-        "immunity": -5
+        "immunity": 9,
+        "population": -5
       },
       "delayed_effect": {
         "day": 4,
@@ -36,12 +36,11 @@
       "illustration_tier": "tier1",
       "illustration_key": "dr_park",
       "accept": {
-        "immunity": 18,
-        "food": -6,
-        "economy": 4
+        "immunity": 12,
+        "population": 5
       },
       "reject": {
-        "immunity": -6
+        "economy": -5
       },
       "delayed_effect": null
     },
@@ -56,12 +55,11 @@
       "illustration_tier": "tier1",
       "illustration_key": "dr_keiko",
       "accept": {
-        "immunity": 20,
-        "food": -7,
-        "economy": 5
+        "immunity": 16,
+        "population": 8
       },
       "reject": {
-        "immunity": -7
+        "economy": -3
       },
       "delayed_effect": null
     },
@@ -76,12 +74,11 @@
       "illustration_tier": "tier1",
       "illustration_key": "dr_volkov",
       "accept": {
-        "immunity": 16,
-        "food": -4,
-        "economy": 3
+        "immunity": 14,
+        "population": 7
       },
       "reject": {
-        "immunity": -4
+        "immunity": -3
       },
       "delayed_effect": {
         "day": 10,
@@ -100,12 +97,13 @@
       "illustration_tier": "tier2",
       "illustration_key": "doctor_female_01",
       "accept": {
-        "immunity": 13,
-        "food": -4,
-        "economy": 2
+        "immunity": 14,
+        "economy": -6,
+        "population": 10
       },
       "reject": {
-        "immunity": -4
+        "economy": 4,
+        "immunity": -6
       },
       "delayed_effect": null
     },
@@ -120,12 +118,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "doctor_male_01",
       "accept": {
-        "immunity": 19,
-        "food": -5,
-        "economy": 3
+        "immunity": 23,
+        "population": 18,
+        "economy": -2
       },
       "reject": {
-        "immunity": -5
+        "immunity": -7
       },
       "delayed_effect": null
     },
@@ -140,12 +138,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "doctor_female_01",
       "accept": {
-        "immunity": 11,
-        "food": -3,
-        "economy": 2
+        "immunity": -10,
+        "population": 9
       },
       "reject": {
-        "immunity": -3
+        "immunity": 8,
+        "population": -2
       },
       "delayed_effect": {
         "day": 3,
@@ -165,12 +163,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "doctor_male_01",
       "accept": {
-        "immunity": 22,
-        "food": -5,
-        "economy": 5
+        "immunity": 17,
+        "population": 9
       },
       "reject": {
-        "immunity": -6
+        "economy": -4
       },
       "delayed_effect": null
     },
@@ -185,12 +182,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "doctor_female_01",
       "accept": {
-        "immunity": 15,
-        "food": -5,
-        "economy": 3
+        "immunity": 8,
+        "economy": -18
       },
       "reject": {
-        "immunity": -5
+        "economy": 9,
+        "immunity": -4
       },
       "delayed_effect": null
     },
@@ -205,12 +202,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "doctor_male_01",
       "accept": {
-        "immunity": 12,
-        "food": -4,
-        "economy": 2
+        "immunity": 16,
+        "population": 4
       },
       "reject": {
-        "immunity": -4
+        "immunity": -7
       },
       "delayed_effect": {
         "day": 2,
@@ -230,12 +226,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "doctor_female_01",
       "accept": {
-        "immunity": 17,
-        "food": -5,
-        "economy": 4
+        "immunity": 23,
+        "population": 20,
+        "economy": -3
       },
       "reject": {
-        "immunity": -5
+        "immunity": -4
       },
       "delayed_effect": null
     },
@@ -250,12 +246,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "doctor_male_01",
       "accept": {
-        "immunity": 10,
-        "food": -3,
-        "economy": 2
+        "immunity": -11,
+        "population": 6
       },
       "reject": {
-        "immunity": -3
+        "immunity": 8,
+        "population": -2
       },
       "delayed_effect": {
         "day": 5,
@@ -275,12 +271,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "doctor_female_01",
       "accept": {
-        "immunity": 16,
-        "food": -6,
-        "economy": 3
+        "immunity": 11,
+        "population": 7
       },
       "reject": {
-        "immunity": -6
+        "economy": -7
       },
       "delayed_effect": null
     },
@@ -296,11 +291,10 @@
       "illustration_key": "doctor_male_01",
       "accept": {
         "immunity": 13,
-        "food": -4,
-        "economy": 2
+        "population": 4
       },
       "reject": {
-        "immunity": -4
+        "immunity": -7
       },
       "delayed_effect": {
         "day": 9,
@@ -319,12 +313,13 @@
       "illustration_tier": "tier2",
       "illustration_key": "doctor_female_01",
       "accept": {
-        "immunity": 12,
-        "food": -4,
-        "economy": 2
+        "immunity": 21,
+        "economy": -12,
+        "population": 6
       },
       "reject": {
-        "immunity": -4
+        "economy": 6,
+        "immunity": -7
       },
       "delayed_effect": null
     },
@@ -339,12 +334,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "doctor_male_01",
       "accept": {
-        "immunity": 20,
-        "food": -6,
-        "economy": 4
+        "immunity": 24,
+        "population": 17,
+        "economy": -5
       },
       "reject": {
-        "immunity": -6
+        "immunity": -7
       },
       "delayed_effect": null
     },
@@ -359,12 +354,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "doctor_female_01",
       "accept": {
-        "immunity": 10,
-        "food": -3,
-        "economy": 2
+        "immunity": -17,
+        "population": 8
       },
       "reject": {
-        "immunity": -3
+        "immunity": 9,
+        "population": -2
       },
       "delayed_effect": {
         "day": 3,
@@ -384,12 +379,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "doctor_male_01",
       "accept": {
-        "immunity": 17,
-        "food": -5,
-        "economy": 4
+        "immunity": 11,
+        "economy": -12
       },
       "reject": {
-        "immunity": -5
+        "economy": 8,
+        "immunity": -3
       },
       "delayed_effect": null
     },
@@ -404,12 +399,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "doctor_female_01",
       "accept": {
-        "immunity": 11,
-        "food": -3,
-        "economy": 2
+        "immunity": 7,
+        "economy": -9
       },
       "reject": {
-        "immunity": -3
+        "economy": 8,
+        "immunity": -4
       },
       "delayed_effect": {
         "day": 3,
@@ -430,11 +425,10 @@
       "illustration_key": "doctor_male_01",
       "accept": {
         "immunity": 12,
-        "food": -4,
-        "economy": 3
+        "population": 9
       },
       "reject": {
-        "immunity": -4
+        "economy": -5
       },
       "delayed_effect": null
     },
@@ -449,12 +443,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "doctor_female_01",
       "accept": {
-        "immunity": 10,
-        "food": -3,
-        "economy": 2
+        "immunity": -14,
+        "population": 7
       },
       "reject": {
-        "immunity": -3
+        "immunity": 4,
+        "population": -3
       },
       "delayed_effect": {
         "day": 4,
@@ -474,12 +468,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "doctor_male_01",
       "accept": {
-        "immunity": 18,
-        "food": -5,
-        "economy": 4
+        "immunity": 32,
+        "population": 16,
+        "economy": -4
       },
       "reject": {
-        "immunity": -5
+        "immunity": -7
       },
       "delayed_effect": null
     },
@@ -494,12 +488,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "doctor_female_01",
       "accept": {
-        "immunity": 15,
-        "food": -5,
-        "economy": 3
+        "immunity": 12,
+        "population": 5
       },
       "reject": {
-        "immunity": -5
+        "economy": -5
       },
       "delayed_effect": null
     },
@@ -514,12 +507,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "doctor_male_01",
       "accept": {
-        "immunity": 14,
-        "food": -4,
-        "economy": 3
+        "immunity": 16,
+        "population": 10
       },
       "reject": {
-        "immunity": -4
+        "immunity": -7
       },
       "delayed_effect": {
         "day": 11,
@@ -538,12 +530,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "doctor_female_01",
       "accept": {
-        "immunity": 11,
-        "food": -3,
-        "economy": 2
+        "immunity": -18,
+        "population": 9
       },
       "reject": {
-        "immunity": -3
+        "immunity": 8,
+        "population": -3
       },
       "delayed_effect": {
         "day": 5,
@@ -563,11 +555,11 @@
       "illustration_tier": "tier1",
       "illustration_key": "bekir_dede",
       "accept": {
-        "food": 28,
-        "population": 3
+        "food": 22,
+        "population": 12
       },
       "reject": {
-        "food": -6
+        "defense": -6
       },
       "delayed_effect": null
     },
@@ -582,11 +574,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "farmer_female_01",
       "accept": {
-        "food": 20,
-        "population": 2
+        "food": 8,
+        "defense": -16
       },
       "reject": {
-        "food": -5
+        "defense": 10,
+        "food": -2
       },
       "delayed_effect": null
     },
@@ -601,11 +594,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "farmer_male_01",
       "accept": {
-        "food": 22,
-        "population": 2
+        "food": 11,
+        "defense": -12
       },
       "reject": {
-        "food": -5
+        "defense": 7,
+        "food": -3
       },
       "delayed_effect": null
     },
@@ -620,8 +614,9 @@
       "illustration_tier": "tier2",
       "illustration_key": "farmer_female_01",
       "accept": {
-        "food": 26,
-        "population": 3
+        "food": 25,
+        "population": 15,
+        "defense": -3
       },
       "reject": {
         "food": -6
@@ -639,11 +634,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "farmer_male_01",
       "accept": {
-        "food": 12,
-        "population": 1
+        "immunity": -12,
+        "food": 7
       },
       "reject": {
-        "food": -4
+        "immunity": 8,
+        "food": -2
       },
       "delayed_effect": {
         "day": 4,
@@ -663,11 +659,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "farmer_female_01",
       "accept": {
-        "food": 18,
-        "population": 2
+        "food": 11,
+        "population": 11
       },
       "reject": {
-        "food": -5
+        "defense": -4
       },
       "delayed_effect": null
     },
@@ -682,8 +678,8 @@
       "illustration_tier": "tier2",
       "illustration_key": "farmer_male_01",
       "accept": {
-        "food": 14,
-        "population": 1
+        "food": 10,
+        "population": 5
       },
       "reject": {
         "food": -4
@@ -706,11 +702,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "farmer_female_01",
       "accept": {
-        "food": 19,
-        "population": 2
+        "food": 15,
+        "population": 9
       },
       "reject": {
-        "food": -5
+        "defense": -8
       },
       "delayed_effect": null
     },
@@ -725,11 +721,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "farmer_male_01",
       "accept": {
-        "food": 13,
-        "population": 1
+        "food": 10,
+        "population": 9
       },
       "reject": {
-        "food": -4
+        "food": -5
       },
       "delayed_effect": {
         "day": 8,
@@ -748,11 +744,13 @@
       "illustration_tier": "tier2",
       "illustration_key": "farmer_female_01",
       "accept": {
-        "food": 17,
-        "population": 2
+        "food": 19,
+        "defense": -7,
+        "population": 7
       },
       "reject": {
-        "food": -4
+        "defense": 4,
+        "food": -7
       },
       "delayed_effect": null
     },
@@ -767,11 +765,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "farmer_male_01",
       "accept": {
-        "food": 24,
-        "population": 3
+        "food": 34,
+        "population": 19,
+        "defense": -3
       },
       "reject": {
-        "food": -6
+        "food": -3
       },
       "delayed_effect": null
     },
@@ -786,11 +785,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "farmer_female_01",
       "accept": {
-        "food": 11,
-        "population": 1
+        "immunity": -18,
+        "food": 6
       },
       "reject": {
-        "food": -4
+        "immunity": 5,
+        "food": -5
       },
       "delayed_effect": {
         "day": 5,
@@ -810,11 +810,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "farmer_male_01",
       "accept": {
-        "food": 16,
-        "population": 2
+        "food": 10,
+        "defense": -20
       },
       "reject": {
-        "food": -4
+        "defense": 7,
+        "food": -2
       },
       "delayed_effect": null
     },
@@ -829,11 +830,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "farmer_female_01",
       "accept": {
-        "food": 13,
-        "population": 1
+        "food": 11,
+        "defense": -10
       },
       "reject": {
-        "food": -3
+        "defense": 9,
+        "food": -4
       },
       "delayed_effect": {
         "day": 3,
@@ -853,11 +855,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "farmer_male_01",
       "accept": {
-        "food": 23,
-        "population": 2
+        "food": 15,
+        "population": 12
       },
       "reject": {
-        "food": -5
+        "defense": -5
       },
       "delayed_effect": null
     },
@@ -872,11 +874,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "farmer_female_01",
       "accept": {
-        "food": 15,
-        "population": 2
+        "food": 14,
+        "population": 6
       },
       "reject": {
-        "food": -4
+        "defense": -4
       },
       "delayed_effect": null
     },
@@ -891,11 +893,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "farmer_male_01",
       "accept": {
-        "food": 22,
-        "population": 3
+        "food": 26,
+        "population": 20,
+        "defense": -5
       },
       "reject": {
-        "food": -5
+        "food": -7
       },
       "delayed_effect": null
     },
@@ -910,11 +913,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "farmer_female_01",
       "accept": {
-        "food": 10,
-        "population": 1
+        "immunity": -16,
+        "food": 9
       },
       "reject": {
-        "food": -3
+        "immunity": 8,
+        "food": -5
       },
       "delayed_effect": {
         "day": 3,
@@ -934,11 +938,13 @@
       "illustration_tier": "tier2",
       "illustration_key": "farmer_male_01",
       "accept": {
-        "food": 21,
-        "population": 2
+        "food": 19,
+        "defense": -8,
+        "population": 4
       },
       "reject": {
-        "food": -5
+        "defense": 4,
+        "food": -7
       },
       "delayed_effect": null
     },
@@ -953,10 +959,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "farmer_female_01",
       "accept": {
-        "food": 12,
-        "population": 1
+        "food": 6,
+        "defense": -10
       },
       "reject": {
+        "defense": 4,
         "food": -4
       },
       "delayed_effect": {
@@ -976,10 +983,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "farmer_male_01",
       "accept": {
-        "food": 18,
-        "population": 2
+        "food": 17,
+        "defense": -11,
+        "population": 5
       },
       "reject": {
+        "defense": 6,
         "food": -4
       },
       "delayed_effect": null
@@ -995,11 +1004,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "farmer_female_01",
       "accept": {
-        "food": 26,
-        "population": 3
+        "food": 22,
+        "population": 7
       },
       "reject": {
-        "food": -6
+        "defense": -4
       },
       "delayed_effect": null
     },
@@ -1014,11 +1023,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "farmer_male_01",
       "accept": {
-        "food": 25,
-        "population": 3
+        "food": 24,
+        "population": 16,
+        "defense": -4
       },
       "reject": {
-        "food": -6
+        "food": -7
       },
       "delayed_effect": null
     },
@@ -1033,11 +1043,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "farmer_female_01",
       "accept": {
-        "food": 17,
-        "population": 2
+        "food": 5,
+        "defense": -12
       },
       "reject": {
-        "food": -4
+        "defense": 10,
+        "food": -2
       },
       "delayed_effect": null
     },
@@ -1052,11 +1063,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "farmer_male_01",
       "accept": {
-        "food": 10,
-        "population": 1
+        "immunity": -15,
+        "food": 7
       },
       "reject": {
-        "food": -3
+        "immunity": 5,
+        "food": -4
       },
       "delayed_effect": {
         "day": 4,
@@ -1076,12 +1088,10 @@
       "illustration_tier": "tier1",
       "illustration_key": "marcus_group_5",
       "accept": {
-        "defense": 20,
-        "food": -7,
-        "economy": -4
+        "defense": 14
       },
       "reject": {
-        "defense": -7
+        "food": -4
       },
       "delayed_effect": null
     },
@@ -1097,11 +1107,10 @@
       "illustration_key": "warrior_mothers",
       "accept": {
         "defense": 24,
-        "food": -5,
-        "economy": -3
+        "economy": 6
       },
       "reject": {
-        "defense": -7
+        "food": -7
       },
       "delayed_effect": null
     },
@@ -1116,12 +1125,10 @@
       "illustration_tier": "tier1",
       "illustration_key": "phoenix_cia",
       "accept": {
-        "defense": 16,
-        "food": -4,
-        "economy": -3
+        "defense": 16
       },
       "reject": {
-        "defense": -5
+        "defense": -7
       },
       "delayed_effect": {
         "day": 12,
@@ -1140,12 +1147,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "soldier_male_01",
       "accept": {
-        "defense": 18,
-        "food": -5,
-        "economy": -4
+        "defense": 20,
+        "food": -11
       },
       "reject": {
-        "defense": -6
+        "food": 5,
+        "defense": -7
       },
       "delayed_effect": null
     },
@@ -1160,12 +1167,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "soldier_female_01",
       "accept": {
-        "defense": 15,
-        "food": -4,
-        "economy": -3
+        "defense": 18,
+        "food": -11
       },
       "reject": {
-        "defense": -5
+        "food": 5,
+        "defense": -4
       },
       "delayed_effect": null
     },
@@ -1180,12 +1187,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "soldier_male_01",
       "accept": {
-        "defense": 22,
-        "food": -6,
-        "economy": -4
+        "defense": 36,
+        "food": -4
       },
       "reject": {
-        "defense": -7
+        "defense": -6
       },
       "delayed_effect": null
     },
@@ -1200,12 +1206,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "soldier_female_01",
       "accept": {
-        "defense": 10,
-        "food": -3,
-        "economy": -3
+        "immunity": -10,
+        "defense": 7
       },
       "reject": {
-        "defense": -4
+        "immunity": 4,
+        "defense": -5
       },
       "delayed_effect": {
         "day": 3,
@@ -1225,12 +1231,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "soldier_male_01",
       "accept": {
-        "defense": 14,
-        "food": -4,
-        "economy": -3
+        "defense": 9,
+        "food": -9
       },
       "reject": {
-        "defense": -5
+        "food": 9,
+        "defense": -2
       },
       "delayed_effect": {
         "day": 2,
@@ -1250,12 +1256,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "soldier_female_01",
       "accept": {
-        "defense": 19,
-        "food": -5,
-        "economy": -4
+        "defense": 11,
+        "food": -18
       },
       "reject": {
-        "defense": -6
+        "food": 8,
+        "defense": -5
       },
       "delayed_effect": null
     },
@@ -1270,12 +1276,10 @@
       "illustration_tier": "tier2",
       "illustration_key": "soldier_male_01",
       "accept": {
-        "defense": 16,
-        "food": -5,
-        "economy": -4
+        "defense": 10
       },
       "reject": {
-        "defense": -5
+        "food": -3
       },
       "delayed_effect": null
     },
@@ -1290,12 +1294,10 @@
       "illustration_tier": "tier2",
       "illustration_key": "soldier_female_01",
       "accept": {
-        "defense": 13,
-        "food": -3,
-        "economy": -3
+        "defense": 12
       },
       "reject": {
-        "defense": -4
+        "defense": -3
       },
       "delayed_effect": {
         "day": 10,
@@ -1314,12 +1316,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "soldier_male_01",
       "accept": {
-        "defense": 20,
-        "food": -5,
-        "economy": -4
+        "defense": 34,
+        "food": -2
       },
       "reject": {
-        "defense": -6
+        "defense": -7
       },
       "delayed_effect": null
     },
@@ -1334,12 +1335,10 @@
       "illustration_tier": "tier2",
       "illustration_key": "soldier_female_01",
       "accept": {
-        "defense": 17,
-        "food": -4,
-        "economy": -3
+        "defense": 16
       },
       "reject": {
-        "defense": -5
+        "food": -6
       },
       "delayed_effect": null
     },
@@ -1354,12 +1353,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "soldier_male_01",
       "accept": {
-        "defense": 18,
-        "food": -5,
-        "economy": -4
+        "defense": 22,
+        "food": -8
       },
       "reject": {
-        "defense": -6
+        "food": 3,
+        "defense": -5
       },
       "delayed_effect": null
     },
@@ -1374,11 +1373,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "soldier_female_01",
       "accept": {
-        "defense": 9,
-        "food": -3,
-        "economy": -3
+        "immunity": -11,
+        "defense": 7
       },
       "reject": {
+        "immunity": 9,
         "defense": -4
       },
       "delayed_effect": {
@@ -1399,12 +1398,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "soldier_male_01",
       "accept": {
-        "defense": 15,
-        "food": -4,
-        "economy": -3
+        "defense": 22,
+        "food": -6
       },
       "reject": {
-        "defense": -5
+        "food": 4,
+        "defense": -7
       },
       "delayed_effect": null
     },
@@ -1419,12 +1418,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "soldier_female_01",
       "accept": {
-        "defense": 13,
-        "food": -3,
-        "economy": -3
+        "defense": 10,
+        "food": -11
       },
       "reject": {
-        "defense": -4
+        "food": 6,
+        "defense": -2
       },
       "delayed_effect": {
         "day": 3,
@@ -1444,12 +1443,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "soldier_male_01",
       "accept": {
-        "defense": 14,
-        "food": -3,
-        "economy": -3
+        "defense": 10,
+        "food": -16
       },
       "reject": {
-        "defense": -5
+        "food": 8,
+        "defense": -2
       },
       "delayed_effect": null
     },
@@ -1464,12 +1463,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "soldier_female_01",
       "accept": {
-        "defense": 19,
-        "food": -5,
-        "economy": -4
+        "defense": 32,
+        "food": -5
       },
       "reject": {
-        "defense": -6
+        "defense": -3
       },
       "delayed_effect": null
     },
@@ -1484,12 +1482,10 @@
       "illustration_tier": "tier2",
       "illustration_key": "soldier_male_01",
       "accept": {
-        "defense": 12,
-        "food": -3,
-        "economy": -3
+        "defense": 13
       },
       "reject": {
-        "defense": -4
+        "defense": -5
       },
       "delayed_effect": {
         "day": 8,
@@ -1508,12 +1504,10 @@
       "illustration_tier": "tier2",
       "illustration_key": "soldier_female_01",
       "accept": {
-        "defense": 17,
-        "food": -5,
-        "economy": -4
+        "defense": 14
       },
       "reject": {
-        "defense": -6
+        "food": -3
       },
       "delayed_effect": null
     },
@@ -1528,12 +1522,10 @@
       "illustration_tier": "tier2",
       "illustration_key": "soldier_male_01",
       "accept": {
-        "defense": 16,
-        "food": -4,
-        "economy": -3
+        "defense": 10
       },
       "reject": {
-        "defense": -5
+        "food": -8
       },
       "delayed_effect": null
     },
@@ -1548,12 +1540,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "soldier_female_01",
       "accept": {
-        "defense": 8,
-        "food": -2,
-        "economy": -3
+        "immunity": -10,
+        "defense": 10
       },
       "reject": {
-        "defense": -3
+        "immunity": 6,
+        "defense": -4
       },
       "delayed_effect": {
         "day": 4,
@@ -1573,11 +1565,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "soldier_male_01",
       "accept": {
-        "defense": 15,
-        "food": -4,
-        "economy": -3
+        "defense": 20,
+        "food": -6
       },
       "reject": {
+        "food": 4,
         "defense": -5
       },
       "delayed_effect": null
@@ -1593,12 +1585,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "soldier_female_01",
       "accept": {
-        "defense": 21,
-        "food": -5,
-        "economy": -4
+        "defense": 36,
+        "food": -4
       },
       "reject": {
-        "defense": -6
+        "defense": -7
       },
       "delayed_effect": null
     },
@@ -1613,11 +1604,13 @@
       "illustration_tier": "tier1",
       "illustration_key": "pastor_john_crowd",
       "accept": {
-        "economy": 18,
-        "food": -4
+        "economy": 19,
+        "defense": -11,
+        "food": 5
       },
       "reject": {
-        "economy": -6
+        "defense": 4,
+        "economy": -4
       },
       "delayed_effect": null
     },
@@ -1632,11 +1625,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "trader_male_01",
       "accept": {
-        "economy": 14,
-        "food": -4
+        "economy": 9,
+        "defense": -14
       },
       "reject": {
-        "economy": -5
+        "defense": 5,
+        "economy": -4
       },
       "delayed_effect": {
         "day": 3,
@@ -1656,10 +1650,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "trader_female_01",
       "accept": {
-        "economy": 16,
-        "food": -3
+        "economy": 5,
+        "defense": -19
       },
       "reject": {
+        "defense": 9,
         "economy": -5
       },
       "delayed_effect": null
@@ -1675,11 +1670,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "trader_male_01",
       "accept": {
-        "economy": 22,
-        "food": -4
+        "economy": 24,
+        "food": 15,
+        "defense": -3
       },
       "reject": {
-        "economy": -6
+        "economy": -7
       },
       "delayed_effect": null
     },
@@ -1694,11 +1690,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "trader_female_01",
       "accept": {
-        "economy": 15,
-        "food": -3
+        "economy": 11,
+        "food": 11
       },
       "reject": {
-        "economy": -5
+        "defense": -8
       },
       "delayed_effect": null
     },
@@ -1713,11 +1709,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "trader_male_01",
       "accept": {
-        "economy": 13,
-        "food": -3
+        "economy": 12,
+        "food": 5
       },
       "reject": {
-        "economy": -4
+        "economy": -3
       },
       "delayed_effect": {
         "day": 9,
@@ -1736,11 +1732,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "trader_female_01",
       "accept": {
-        "economy": 17,
-        "food": -3
+        "economy": 14,
+        "food": 9
       },
       "reject": {
-        "economy": -5
+        "defense": -4
       },
       "delayed_effect": null
     },
@@ -1755,11 +1751,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "trader_male_01",
       "accept": {
-        "economy": 11,
-        "food": -3
+        "immunity": -10,
+        "economy": 8
       },
       "reject": {
-        "economy": -4
+        "immunity": 8,
+        "economy": -3
       },
       "delayed_effect": {
         "day": 4,
@@ -1779,11 +1776,13 @@
       "illustration_tier": "tier2",
       "illustration_key": "trader_female_01",
       "accept": {
-        "economy": 19,
-        "food": -4
+        "economy": 20,
+        "defense": -11,
+        "food": 9
       },
       "reject": {
-        "economy": -6
+        "defense": 4,
+        "economy": -4
       },
       "delayed_effect": null
     },
@@ -1798,11 +1797,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "trader_male_01",
       "accept": {
-        "economy": 24,
-        "food": -5
+        "economy": 22,
+        "food": 20,
+        "defense": -2
       },
       "reject": {
-        "economy": -7
+        "economy": -5
       },
       "delayed_effect": null
     },
@@ -1817,11 +1817,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "trader_female_01",
       "accept": {
-        "economy": 12,
-        "food": -3
+        "economy": 11,
+        "defense": -11
       },
       "reject": {
-        "economy": -4
+        "defense": 6,
+        "economy": -5
       },
       "delayed_effect": {
         "day": 2,
@@ -1841,11 +1842,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "trader_male_01",
       "accept": {
-        "economy": 20,
-        "food": -4
+        "economy": 5,
+        "defense": -12
       },
       "reject": {
-        "economy": -6
+        "defense": 8,
+        "economy": -3
       },
       "delayed_effect": null
     },
@@ -1860,11 +1862,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "trader_female_01",
       "accept": {
-        "economy": 14,
-        "food": -3
+        "economy": 5,
+        "defense": -15
       },
       "reject": {
-        "economy": -5
+        "defense": 8,
+        "economy": -3
       },
       "delayed_effect": null
     },
@@ -1879,11 +1882,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "trader_male_01",
       "accept": {
-        "economy": 23,
-        "food": -4
+        "economy": 18,
+        "food": 10
       },
       "reject": {
-        "economy": -6
+        "defense": -4
       },
       "delayed_effect": null
     },
@@ -1898,8 +1901,8 @@
       "illustration_tier": "tier2",
       "illustration_key": "trader_female_01",
       "accept": {
-        "economy": 12,
-        "food": -3
+        "economy": 10,
+        "food": 4
       },
       "reject": {
         "economy": -4
@@ -1921,11 +1924,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "trader_male_01",
       "accept": {
-        "economy": 16,
-        "food": -3
+        "economy": 10,
+        "food": 7
       },
       "reject": {
-        "economy": -5
+        "defense": -4
       },
       "delayed_effect": null
     },
@@ -1940,11 +1943,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "trader_female_01",
       "accept": {
-        "economy": 10,
-        "food": -3
+        "immunity": -12,
+        "economy": 8
       },
       "reject": {
-        "economy": -4
+        "immunity": 8,
+        "economy": -3
       },
       "delayed_effect": {
         "day": 5,
@@ -1964,11 +1968,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "trader_male_01",
       "accept": {
-        "economy": 21,
-        "food": -4
+        "economy": 23,
+        "food": 20,
+        "defense": -2
       },
       "reject": {
-        "economy": -6
+        "economy": -4
       },
       "delayed_effect": null
     },
@@ -1983,11 +1988,13 @@
       "illustration_tier": "tier2",
       "illustration_key": "trader_female_01",
       "accept": {
-        "economy": 15,
-        "food": -3
+        "economy": 22,
+        "defense": -7,
+        "food": 9
       },
       "reject": {
-        "economy": -5
+        "defense": 3,
+        "economy": -3
       },
       "delayed_effect": null
     },
@@ -2002,10 +2009,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "trader_male_01",
       "accept": {
-        "economy": 13,
-        "food": -3
+        "economy": 11,
+        "defense": -10
       },
       "reject": {
+        "defense": 5,
         "economy": -4
       },
       "delayed_effect": {
@@ -2026,10 +2034,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "trader_female_01",
       "accept": {
-        "economy": 18,
-        "food": -4
+        "economy": 16,
+        "defense": -8,
+        "food": 8
       },
       "reject": {
+        "defense": 6,
         "economy": -6
       },
       "delayed_effect": null
@@ -2045,11 +2055,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "trader_male_01",
       "accept": {
-        "economy": 19,
-        "food": -4
+        "economy": 8,
+        "defense": -14
       },
       "reject": {
-        "economy": -6
+        "defense": 8,
+        "economy": -3
       },
       "delayed_effect": null
     },
@@ -2064,8 +2075,9 @@
       "illustration_tier": "tier2",
       "illustration_key": "trader_female_01",
       "accept": {
-        "economy": 23,
-        "food": -5
+        "economy": 31,
+        "food": 15,
+        "defense": -4
       },
       "reject": {
         "economy": -7
@@ -2083,11 +2095,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "trader_male_01",
       "accept": {
-        "economy": 17,
-        "food": -3
+        "economy": 8,
+        "defense": -16
       },
       "reject": {
-        "economy": -5
+        "defense": 8,
+        "economy": -3
       },
       "delayed_effect": null
     },
@@ -2102,11 +2115,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "trader_female_01",
       "accept": {
-        "economy": 13,
-        "food": -3
+        "economy": 15,
+        "food": 6
       },
       "reject": {
-        "economy": -4
+        "economy": -6
       },
       "delayed_effect": {
         "day": 10,
@@ -2125,12 +2138,11 @@
       "illustration_tier": "tier1",
       "illustration_key": "gizmo",
       "accept": {
-        "defense": 14,
         "economy": 10,
-        "food": -4
+        "defense": 7
       },
       "reject": {
-        "economy": -4
+        "food": -8
       },
       "delayed_effect": null
     },
@@ -2145,12 +2157,11 @@
       "illustration_tier": "tier1",
       "illustration_key": "kim_prodigy",
       "accept": {
-        "defense": 12,
         "economy": 12,
-        "food": -3
+        "defense": 6
       },
       "reject": {
-        "economy": -4
+        "food": -8
       },
       "delayed_effect": null
     },
@@ -2165,12 +2176,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "engineer_male_01",
       "accept": {
-        "defense": 15,
-        "economy": 8,
-        "food": -4
+        "economy": 13,
+        "defense": 5
       },
       "reject": {
-        "economy": -4
+        "food": -5
       },
       "delayed_effect": null
     },
@@ -2185,12 +2195,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "engineer_female_01",
       "accept": {
-        "defense": 19,
-        "economy": 14,
-        "food": -6
+        "economy": 26,
+        "defense": 22,
+        "food": -3
       },
       "reject": {
-        "economy": -5
+        "economy": -7
       },
       "delayed_effect": null
     },
@@ -2205,12 +2215,13 @@
       "illustration_tier": "tier2",
       "illustration_key": "engineer_male_01",
       "accept": {
-        "defense": 10,
-        "economy": 12,
-        "food": -3
+        "economy": 22,
+        "food": -7,
+        "defense": 7
       },
       "reject": {
-        "economy": -4
+        "food": 7,
+        "economy": -6
       },
       "delayed_effect": null
     },
@@ -2225,12 +2236,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "engineer_female_01",
       "accept": {
-        "defense": 9,
-        "economy": 8,
-        "food": -2
+        "immunity": -17,
+        "economy": 9
       },
       "reject": {
-        "economy": -3
+        "immunity": 9,
+        "economy": -2
       },
       "delayed_effect": {
         "day": 4,
@@ -2250,12 +2261,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "engineer_male_01",
       "accept": {
-        "defense": 16,
-        "economy": 9,
-        "food": -4
+        "economy": 11,
+        "food": -17
       },
       "reject": {
-        "economy": -4
+        "food": 9,
+        "economy": -3
       },
       "delayed_effect": null
     },
@@ -2270,11 +2281,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "engineer_female_01",
       "accept": {
-        "defense": 11,
-        "economy": 9,
-        "food": -3
+        "economy": 11,
+        "food": -8
       },
       "reject": {
+        "food": 6,
         "economy": -3
       },
       "delayed_effect": {
@@ -2294,12 +2305,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "engineer_male_01",
       "accept": {
-        "defense": 10,
-        "economy": 8,
-        "food": -2
+        "economy": 11,
+        "food": -14
       },
       "reject": {
-        "economy": -3
+        "food": 4,
+        "economy": -4
       },
       "delayed_effect": {
         "day": 2,
@@ -2319,12 +2330,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "engineer_female_01",
       "accept": {
-        "defense": 8,
         "economy": 11,
-        "food": -3
+        "defense": 5
       },
       "reject": {
-        "economy": -4
+        "food": -8
       },
       "delayed_effect": null
     },
@@ -2339,9 +2349,9 @@
       "illustration_tier": "tier2",
       "illustration_key": "engineer_male_01",
       "accept": {
-        "defense": 22,
-        "economy": 15,
-        "food": -6
+        "economy": 22,
+        "defense": 16,
+        "food": -2
       },
       "reject": {
         "economy": -5
@@ -2359,12 +2369,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "engineer_female_01",
       "accept": {
-        "defense": 14,
-        "economy": 15,
-        "food": -4
+        "economy": 24,
+        "defense": 10
       },
       "reject": {
-        "economy": -5
+        "food": -6
       },
       "delayed_effect": null
     },
@@ -2379,12 +2388,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "engineer_male_01",
       "accept": {
-        "defense": 12,
-        "economy": 13,
-        "food": -4
+        "economy": 12,
+        "defense": 5
       },
       "reject": {
-        "economy": -4
+        "food": -6
       },
       "delayed_effect": null
     },
@@ -2399,11 +2407,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "engineer_female_01",
       "accept": {
-        "defense": 9,
-        "economy": 11,
-        "food": -3
+        "economy": 22,
+        "food": -6,
+        "defense": 9
       },
       "reject": {
+        "food": 7,
         "economy": -4
       },
       "delayed_effect": null
@@ -2419,11 +2428,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "engineer_male_01",
       "accept": {
-        "defense": 8,
-        "economy": 7,
-        "food": -2
+        "immunity": -10,
+        "economy": 7
       },
       "reject": {
+        "immunity": 9,
         "economy": -3
       },
       "delayed_effect": {
@@ -2444,12 +2453,13 @@
       "illustration_tier": "tier2",
       "illustration_key": "engineer_female_01",
       "accept": {
-        "defense": 8,
-        "economy": 12,
-        "food": -3
+        "economy": 22,
+        "food": -11,
+        "defense": 8
       },
       "reject": {
-        "economy": -4
+        "food": 5,
+        "economy": -5
       },
       "delayed_effect": null
     },
@@ -2464,12 +2474,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "engineer_male_01",
       "accept": {
-        "defense": 18,
-        "economy": 16,
-        "food": -6
+        "economy": 36,
+        "defense": 20,
+        "food": -4
       },
       "reject": {
-        "economy": -5
+        "economy": -4
       },
       "delayed_effect": null
     },
@@ -2484,11 +2494,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "engineer_female_01",
       "accept": {
-        "defense": 7,
-        "economy": 10,
-        "food": -2
+        "economy": 6,
+        "food": -13
       },
       "reject": {
+        "food": 9,
         "economy": -3
       },
       "delayed_effect": null
@@ -2504,12 +2514,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "engineer_male_01",
       "accept": {
-        "defense": 10,
         "economy": 9,
-        "food": -2
+        "food": -8
       },
       "reject": {
-        "economy": -3
+        "food": 9,
+        "economy": -4
       },
       "delayed_effect": {
         "day": 10,
@@ -2528,12 +2538,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "engineer_female_01",
       "accept": {
-        "defense": 9,
-        "economy": 8,
-        "food": -2
+        "economy": 9,
+        "defense": 5
       },
       "reject": {
-        "economy": -3
+        "economy": -4
       },
       "delayed_effect": {
         "day": 3,
@@ -2553,12 +2562,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "engineer_male_01",
       "accept": {
-        "defense": 13,
-        "economy": 10,
-        "food": -3
+        "economy": 15,
+        "defense": 7
       },
       "reject": {
-        "economy": -4
+        "food": -8
       },
       "delayed_effect": null
     },
@@ -2573,12 +2581,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "engineer_female_01",
       "accept": {
-        "defense": 11,
-        "economy": 9,
-        "food": -2
+        "economy": 18,
+        "defense": 11
       },
       "reject": {
-        "economy": -3
+        "food": -4
       },
       "delayed_effect": null
     },
@@ -2593,12 +2600,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "engineer_male_01",
       "accept": {
-        "defense": 8,
-        "economy": 10,
-        "food": -3
+        "economy": 16,
+        "defense": 12
       },
       "reject": {
-        "economy": -3
+        "food": -3
       },
       "delayed_effect": null
     },
@@ -2613,12 +2619,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "engineer_female_01",
       "accept": {
-        "defense": 14,
-        "economy": 13,
-        "food": -4
+        "economy": 26,
+        "defense": 15,
+        "food": -3
       },
       "reject": {
-        "economy": -5
+        "economy": -4
       },
       "delayed_effect": null
     },
@@ -2633,11 +2639,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "engineer_male_01",
       "accept": {
-        "defense": 8,
-        "economy": 7,
-        "food": -2
+        "immunity": -10,
+        "economy": 8
       },
       "reject": {
+        "immunity": 4,
         "economy": -3
       },
       "delayed_effect": {
@@ -2658,12 +2664,13 @@
       "illustration_tier": "tier2",
       "illustration_key": "engineer_female_01",
       "accept": {
-        "defense": 14,
-        "economy": 8,
-        "food": -3
+        "economy": 18,
+        "food": -7,
+        "defense": 4
       },
       "reject": {
-        "economy": -3
+        "food": 3,
+        "economy": -6
       },
       "delayed_effect": null
     },
@@ -2679,10 +2686,10 @@
       "illustration_key": "little_mia",
       "accept": {
         "food": 12,
-        "population": 2,
-        "defense": -3
+        "immunity": -18
       },
       "reject": {
+        "immunity": 9,
         "food": -3
       },
       "delayed_effect": null
@@ -2698,13 +2705,12 @@
       "illustration_tier": "tier1",
       "illustration_key": "abandoned_baby",
       "accept": {
-        "food": 0,
-        "population": 1,
-        "defense": -2
+        "food": 9,
+        "immunity": -16
       },
       "reject": {
-        "food": -2,
-        "population": -1
+        "immunity": 7,
+        "food": -4
       },
       "delayed_effect": null
     },
@@ -2719,13 +2725,12 @@
       "illustration_tier": "tier1",
       "illustration_key": "child_group_10",
       "accept": {
-        "food": 8,
-        "population": 2,
-        "defense": -4
+        "food": 9,
+        "immunity": -12
       },
       "reject": {
-        "food": -4,
-        "population": -2
+        "immunity": 11,
+        "food": -2
       },
       "delayed_effect": null
     },
@@ -2740,12 +2745,12 @@
       "illustration_tier": "tier1",
       "illustration_key": "radioactive_group",
       "accept": {
-        "food": 7,
-        "population": 1,
-        "defense": -5
+        "immunity": -15,
+        "food": 7
       },
       "reject": {
-        "food": -3
+        "immunity": 5,
+        "food": -5
       },
       "delayed_effect": {
         "day": 3,
@@ -2765,12 +2770,11 @@
       "illustration_tier": "tier1",
       "illustration_key": "zombie_like_man",
       "accept": {
-        "food": 10,
-        "population": 1,
-        "defense": -3
+        "food": 17,
+        "economy": 9
       },
       "reject": {
-        "food": -3
+        "immunity": -7
       },
       "delayed_effect": null
     },
@@ -2785,12 +2789,11 @@
       "illustration_tier": "tier1",
       "illustration_key": "joe_and_dog",
       "accept": {
-        "food": 16,
-        "population": 2,
-        "defense": -2
+        "food": 24,
+        "economy": 9
       },
       "reject": {
-        "food": -3
+        "immunity": -5
       },
       "delayed_effect": null
     },
@@ -2805,12 +2808,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_male_01",
       "accept": {
-        "food": 13,
-        "population": 1,
-        "defense": -3
+        "food": 17,
+        "economy": 8
       },
       "reject": {
-        "food": -3
+        "immunity": -8
       },
       "delayed_effect": null
     },
@@ -2825,12 +2827,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_female_01",
       "accept": {
-        "food": 19,
-        "population": 2,
-        "defense": -4
+        "food": 25,
+        "economy": 22,
+        "immunity": -3
       },
       "reject": {
-        "food": -4
+        "food": -5
       },
       "delayed_effect": null
     },
@@ -2845,12 +2847,13 @@
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_male_01",
       "accept": {
-        "food": 11,
-        "population": 1,
-        "defense": -3
+        "food": 14,
+        "immunity": -12,
+        "economy": 6
       },
       "reject": {
-        "food": -2
+        "immunity": 5,
+        "food": -3
       },
       "delayed_effect": null
     },
@@ -2865,12 +2868,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_female_01",
       "accept": {
-        "food": 10,
-        "population": 1,
-        "defense": -3
+        "food": 11,
+        "immunity": -13
       },
       "reject": {
-        "food": -3
+        "immunity": 5,
+        "food": -4
       },
       "delayed_effect": {
         "day": 2,
@@ -2890,12 +2893,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_male_01",
       "accept": {
-        "food": 10,
-        "population": 1,
-        "defense": -3
+        "food": 11,
+        "immunity": -14
       },
       "reject": {
-        "food": -2
+        "immunity": 6,
+        "food": -4
       },
       "delayed_effect": null
     },
@@ -2910,12 +2913,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_female_01",
       "accept": {
-        "food": 8,
-        "population": 1,
-        "defense": -3
+        "immunity": -11,
+        "food": 7
       },
       "reject": {
-        "food": -2
+        "immunity": 6,
+        "food": -4
       },
       "delayed_effect": {
         "day": 5,
@@ -2935,12 +2938,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_male_01",
       "accept": {
-        "food": 14,
-        "population": 1,
-        "defense": -4
+        "food": 10,
+        "immunity": -19
       },
       "reject": {
-        "food": -3
+        "immunity": 6,
+        "food": -5
       },
       "delayed_effect": null
     },
@@ -2955,12 +2958,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_female_01",
       "accept": {
-        "food": 18,
-        "population": 2,
-        "defense": -4
+        "food": 30,
+        "economy": 20,
+        "immunity": -3
       },
       "reject": {
-        "food": -4
+        "food": -6
       },
       "delayed_effect": null
     },
@@ -2975,12 +2978,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_male_01",
       "accept": {
-        "food": 12,
-        "population": 1,
-        "defense": -3
+        "food": 15,
+        "economy": 11
       },
       "reject": {
-        "food": -2
+        "immunity": -3
       },
       "delayed_effect": null
     },
@@ -2995,12 +2997,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_female_01",
       "accept": {
-        "food": 9,
-        "population": 1,
-        "defense": -3
+        "food": 10,
+        "economy": 7
       },
       "reject": {
-        "food": -2
+        "food": -5
       },
       "delayed_effect": {
         "day": 8,
@@ -3019,12 +3020,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_male_01",
       "accept": {
-        "food": 11,
-        "population": 1,
-        "defense": -3
+        "food": 18,
+        "economy": 6
       },
       "reject": {
-        "food": -2
+        "immunity": -8
       },
       "delayed_effect": null
     },
@@ -3039,12 +3039,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_female_01",
       "accept": {
-        "food": 9,
-        "population": 1,
-        "defense": -3
+        "food": 12,
+        "economy": 7
       },
       "reject": {
-        "food": -2
+        "food": -7
       },
       "delayed_effect": {
         "day": 3,
@@ -3064,12 +3063,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_male_01",
       "accept": {
-        "food": 16,
-        "population": 1,
-        "defense": -3
+        "food": 23,
+        "economy": 11
       },
       "reject": {
-        "food": -3
+        "immunity": -5
       },
       "delayed_effect": null
     },
@@ -3084,12 +3082,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_female_01",
       "accept": {
-        "food": 15,
-        "population": 2,
-        "defense": -4
+        "food": 27,
+        "economy": 19,
+        "immunity": -3
       },
       "reject": {
-        "food": -3
+        "food": -5
       },
       "delayed_effect": null
     },
@@ -3104,11 +3102,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_male_01",
       "accept": {
-        "food": 10,
-        "population": 1,
-        "defense": -2
+        "immunity": -10,
+        "food": 9
       },
       "reject": {
+        "immunity": 7,
         "food": -2
       },
       "delayed_effect": {
@@ -3129,11 +3127,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_female_01",
       "accept": {
-        "food": 7,
-        "population": 1,
-        "defense": -3
+        "immunity": -16,
+        "food": 9
       },
       "reject": {
+        "immunity": 5,
         "food": -2
       },
       "delayed_effect": {
@@ -3154,12 +3152,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_male_01",
       "accept": {
-        "food": 11,
-        "population": 1,
-        "defense": -3
+        "food": 8,
+        "immunity": -13
       },
       "reject": {
-        "food": -2
+        "immunity": 6,
+        "food": -5
       },
       "delayed_effect": {
         "day": 2,
@@ -3179,12 +3177,12 @@
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_female_01",
       "accept": {
-        "food": 15,
-        "population": 1,
-        "defense": -3
+        "immunity": -16,
+        "food": 9
       },
       "reject": {
-        "food": -3
+        "immunity": 9,
+        "food": -5
       },
       "delayed_effect": {
         "day": 4,
@@ -3204,12 +3202,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_male_01",
       "accept": {
-        "food": 8,
-        "population": 1,
-        "defense": -3
+        "food": 15,
+        "economy": 8
       },
       "reject": {
-        "food": -2
+        "food": -4
       },
       "delayed_effect": {
         "day": 9,
@@ -3228,12 +3225,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_male_01",
       "accept": {
-        "food": 12,
-        "population": 1,
-        "defense": -3
+        "food": 10,
+        "economy": 9
       },
       "reject": {
-        "food": -3
+        "immunity": -4
       },
       "delayed_effect": null
     },
@@ -3248,12 +3244,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "scavenger_female_01",
       "accept": {
-        "food": 17,
-        "population": 2,
-        "defense": -3
+        "food": 22,
+        "economy": 6
       },
       "reject": {
-        "food": -3
+        "immunity": -4
       },
       "delayed_effect": null
     },
@@ -3268,12 +3263,11 @@
       "illustration_tier": "tier2",
       "illustration_key": "engineer_male_01",
       "accept": {
-        "defense": 9,
-        "economy": 8,
-        "food": -4
+        "economy": 15,
+        "defense": 10
       },
       "reject": {
-        "economy": -3
+        "economy": -7
       },
       "delayed_effect": {
         "day": 3,
