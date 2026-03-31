@@ -1,0 +1,114 @@
+[
+  {
+    "id": "famine",
+    "name": "Kıtlık Dönemi",
+    "description": "Gıda tüketimi %50 arttı. Kaynakları dikkatli yönet.",
+    "icon": "🌾",
+    "effects": { "food_consumption_mult": 1.5 }
+  },
+  {
+    "id": "golden_age",
+    "name": "Altın Çağ",
+    "description": "NPC'lerin olumsuz etkileri %30 azaldı. Nispeten huzurlu bir dönem.",
+    "icon": "✨",
+    "effects": { "npc_neg_scale_mult": 0.7 }
+  },
+  {
+    "id": "soldier_power",
+    "name": "Savaş Dönemi",
+    "description": "Askerler bu run'da 2 kat daha güçlü. Savunmayı önceliklendir.",
+    "icon": "⚔️",
+    "effects": { "role_mult": { "Soldier": 2.0 } }
+  },
+  {
+    "id": "shadow_plague",
+    "name": "Gölge Veba",
+    "description": "Bilinmeyen bir hastalık yayılıyor. Başlangıç bağışıklığı düşük, gıda tüketimi artmış.",
+    "icon": "🦠",
+    "effects": { "start_stat_delta": { "immunity": -20 }, "food_consumption_mult": 1.2 }
+  },
+  {
+    "id": "free_scout",
+    "name": "Bedava Keşif",
+    "description": "Tüm sorgulama işlemleri bu run'da ücretsiz. Ama dikkatli ol.",
+    "icon": "🔍",
+    "effects": { "query_free": true }
+  },
+  {
+    "id": "supply_drop",
+    "name": "İkmal Günü",
+    "description": "Bölgeye acil ikmal ulaştı. Gıda ve ekonomi yüksek başlıyor.",
+    "icon": "📦",
+    "effects": { "start_stat_delta": { "food": 40, "economy": 20 } }
+  },
+  {
+    "id": "harsh_start",
+    "name": "Zor Başlangıç",
+    "description": "Sektör harap durumda. Bağışıklık ve gıda kritik seviyede.",
+    "icon": "💀",
+    "effects": { "start_stat_delta": { "immunity": -20, "food": -30 } }
+  },
+  {
+    "id": "refugee_wave",
+    "name": "Mülteci Dalgası",
+    "description": "Her gün tam 3 kişi kapında. Duraksama yok.",
+    "icon": "🚶",
+    "effects": { "npcs_per_day_fixed": 3 }
+  },
+  {
+    "id": "quiet_days",
+    "name": "Sessiz Günler",
+    "description": "Kapı sakin. Her gün sadece 1 kişi geliyor.",
+    "icon": "🌙",
+    "effects": { "npcs_per_day_fixed": 1 }
+  },
+  {
+    "id": "doctor_era",
+    "name": "Tıp Çağı",
+    "description": "Doktorlar bu run'da 2 kat daha etkili. Sağlık sektörünü güçlendir.",
+    "icon": "🏥",
+    "effects": { "role_mult": { "Doctor": 2.0 } }
+  },
+  {
+    "id": "trader_market",
+    "name": "Ticaret Dönemi",
+    "description": "Tüccarlar bu run'da 2 kat daha değerli. Ekonomiyi merkeze al.",
+    "icon": "💰",
+    "effects": { "role_mult": { "Trader": 2.0 } }
+  },
+  {
+    "id": "engineer_boom",
+    "name": "Mühendislik Çağı",
+    "description": "Mühendisler bu run'da 2 kat daha etkili. İnşaata odaklan.",
+    "icon": "🔧",
+    "effects": { "role_mult": { "Engineer": 2.0 } }
+  },
+  {
+    "id": "paranoia",
+    "name": "Paranoya",
+    "description": "Reddetmek daha ağır bedel ödüyor. Kimin haklı olduğundan emin misin?",
+    "icon": "👁",
+    "effects": { "npc_neg_scale_mult": 1.5 }
+  },
+  {
+    "id": "fortified",
+    "name": "Tahkimat",
+    "description": "Savunma güçlü başlıyor ama ekonomi bedelini ödemişti.",
+    "icon": "🛡",
+    "effects": { "start_stat_delta": { "defense": 30, "economy": -20 } }
+  },
+  {
+    "id": "population_boom",
+    "name": "Nüfus Patlaması",
+    "description": "Çiftçiler 2 kat etkili ama artan nüfus gıda tüketimini artırıyor.",
+    "icon": "👥",
+    "effects": { "role_mult": { "Farmer": 2.0 }, "food_consumption_mult": 1.3 }
+  },
+  {
+    "id": "wasteland",
+    "name": "Çorak Topraklar",
+    "description": "Topraklar verimsiz, kaynaklar kıt. Her karar daha ağır sonuçlar doğuruyor.",
+    "icon": "🏜",
+    "effects": { "start_stat_delta": { "food": -20, "defense": -10 }, "npc_neg_scale_mult": 1.2 }
+  }
+]

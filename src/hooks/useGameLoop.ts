@@ -12,8 +12,10 @@ import { SaveSystem } from '../domain/SaveSystem'
 import { NPC, NPCRole } from '../types/npc.types'
 import { StatDelta, StatState } from '../types/stat.types'
 import { GameOverReason, ProgressState, Difficulty } from '../types/game.types'
+import { RunModifier } from '../types/modifier.types'
 import config from '../data/config.json'
 import ui from '../data/ui.json'
+import modifiersData from '../data/modifiers.json'
 
 const generator = new NPCGenerator()
 
@@ -31,6 +33,7 @@ const BUILDINGS = config.buildings as Array<{
 }>
 
 const CASCADE_NOTES = ui.cascade_notifications as Record<string, string>
+const MODIFIERS = modifiersData as RunModifier[]
 
 function randomiseCost(base: Record<string, number>, variance: number): Record<string, number> {
   const out: Record<string, number> = {}
@@ -41,14 +44,15 @@ function randomiseCost(base: Record<string, number>, variance: number): Record<s
   return out
 }
 
-function scaleDelta(delta: StatDelta, difficulty: string): StatDelta {
+function scaleDelta(delta: StatDelta, difficulty: string, modNegMult = 1): StatDelta {
   const mod = DIFF_MODS[difficulty]
-  if (!mod || mod.npc_neg_scale === 1.0) return delta
+  const finalScale = (mod?.npc_neg_scale ?? 1) * modNegMult
+  if (finalScale === 1.0) return delta
   const result: Partial<StatDelta> = {}
   for (const [key, val] of Object.entries(delta)) {
     const v = val as number
     result[key as keyof StatDelta] = v < 0
-      ? (mod.npc_neg_scale > 1 ? Math.floor(v * mod.npc_neg_scale) : Math.ceil(v * mod.npc_neg_scale))
+      ? (finalScale > 1 ? Math.floor(v * finalScale) : Math.ceil(v * finalScale))
       : v
   }
   return result as StatDelta
@@ -75,9 +79,10 @@ export const useGameLoop = () => {
 
   const npcsLeft = useRef(1)
   const rollDay  = () => {
-    npcsLeft.current = Math.floor(
+    const fixed = game.activeModifier?.effects.npcs_per_day_fixed
+    npcsLeft.current = fixed ?? (Math.floor(
       Math.random() * (config.npcs_per_day_max - config.npcs_per_day_min + 1)
-    ) + config.npcs_per_day_min
+    ) + config.npcs_per_day_min)
   }
 
   const saveAll = useCallback(async (): Promise<void> => {
@@ -123,6 +128,12 @@ export const useGameLoop = () => {
 
     stats.applyEconomyConversion(progress.buildings.includes('market'))
     stats.applyFoodConsumption()
+
+    const foodMult = game.activeModifier?.effects.food_consumption_mult ?? 1
+    if (foodMult !== 1) {
+      const extra = Math.round(stats.stats.population * 0.04 * (foodMult - 1))
+      if (extra !== 0) stats.apply({ food: -extra })
+    }
 
     const diffMod = DIFF_MODS[settings.difficulty]
     if (diffMod?.daily_food_bonus !== 0) {
@@ -231,7 +242,18 @@ export const useGameLoop = () => {
       ? TraitHandler.getLiarAcceptStats(npc.accept)
       : npc.accept
 
-    stats.apply(scaleDelta(rawStats as StatDelta, settings.difficulty))
+    const modNegMult = game.activeModifier?.effects.npc_neg_scale_mult ?? 1
+    stats.apply(scaleDelta(rawStats as StatDelta, settings.difficulty, modNegMult))
+
+    const roleMult = game.activeModifier?.effects.role_mult?.[npc.role] ?? 1
+    if (roleMult !== 1) {
+      const bonus: StatDelta = {}
+      for (const [k, v] of Object.entries(rawStats as Record<string, number>)) {
+        if (v > 0) bonus[k as keyof StatDelta] = Math.round(v * (roleMult - 1))
+      }
+      stats.apply(bonus)
+    }
+
     game.addAcceptedRole(npc.role)
     game.incrementRunStat('accepted')
 
@@ -258,7 +280,8 @@ export const useGameLoop = () => {
   }, [game, stats, progress, settings, finishWithGameOver])
 
   const handleReject = useCallback(async (npc: NPC) => {
-    stats.apply(scaleDelta(npc.reject as StatDelta, settings.difficulty))
+    const modNegMult = game.activeModifier?.effects.npc_neg_scale_mult ?? 1
+    stats.apply(scaleDelta(npc.reject as StatDelta, settings.difficulty, modNegMult))
     game.incrementRunStat('rejected')
 
     const overReason = stats.getGameOverReason()
@@ -281,7 +304,8 @@ export const useGameLoop = () => {
     if (!result.success) return ui.query_messages.no_charges
     game.incrementRunStat('queries')
 
-    if (!result.isFree) {
+    const queryFree = game.activeModifier?.effects.query_free ?? false
+    if (!result.isFree && !queryFree) {
       const base     = QUERY_COSTS[result.queryIndex]    ?? QUERY_COSTS[1]
       const variance = QUERY_VARIANCE[result.queryIndex] ?? 3
       stats.apply(randomiseCost(base, variance))
@@ -322,6 +346,9 @@ export const useGameLoop = () => {
     stats.reset()
     progress.reset()
 
+    const mod = MODIFIERS[Math.floor(Math.random() * MODIFIERS.length)]
+    game.setActiveModifier(mod)
+
     const mult = DIFF_MULT[settings.difficulty] ?? 0
     if (mult !== 0) {
       const initial = config.initial_stats as Record<string, number>
@@ -332,10 +359,14 @@ export const useGameLoop = () => {
       stats.apply(delta)
     }
 
+    if (mod.effects.start_stat_delta) {
+      stats.apply(mod.effects.start_stat_delta as StatDelta)
+    }
+
     game.setQueryCharges(computeQueryCharges(progress.buildings))
     rollDay()
     game.setActiveNPC(generator.getNext())
-    game.setPhase('intro')
+    game.setPhase('modifier_reveal')
   }, [game, stats, progress, settings])
 
   const loadSave = useCallback(async (): Promise<{ hasResumableGame: boolean }> => {

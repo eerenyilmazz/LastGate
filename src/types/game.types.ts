@@ -3,6 +3,7 @@ import { NPC } from './npc.types'
 import { GameEvent } from './event.types'
 
 export type GamePhase =
+  | 'modifier_reveal'
   | 'intro'
   | 'npc_arrival'
   | 'npc_decision'

@@ -22,6 +22,7 @@ import { CardDetails } from '../components/Card/CardDetails'
 import { EventModal } from '../components/Overlays/EventModal'
 import { DaySummary } from '../components/Overlays/DaySummary'
 import { IntroScreen } from '../components/Overlays/IntroScreen'
+import { ModifierOverlay } from '../components/Overlays/ModifierOverlay'
 import { NotificationOverlay } from '../components/Overlays/NotificationOverlay'
 import { TutorialOverlay } from '../components/Overlays/TutorialOverlay'
 import { StatType, StatDelta } from '../types/stat.types'
@@ -405,6 +406,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX, stopAllSFX })
         </View>
       </View>
 
+      {game.phase === 'modifier_reveal' && <ModifierOverlay onContinue={() => game.setPhase('intro')} />}
       {game.phase === 'intro' && <IntroScreen onStart={() => game.setPhase('npc_decision')} />}
       {game.phase === 'npc_arrival' && game.notifications.length > 0 && (
         <NotificationOverlay onContinue={() => { game.clearNotifications(); game.setPhase('npc_decision') }} />

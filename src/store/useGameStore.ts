@@ -3,14 +3,17 @@ import { GameState, GamePhase, GameOverReason, RunStats } from '../types/game.ty
 import { NPC, NPCRole } from '../types/npc.types'
 import { GameEvent } from '../types/event.types'
 import { PendingTrait } from '../domain/HiddenSystem'
+import { RunModifier } from '../types/modifier.types'
 import config from '../data/config.json'
 
 interface GameStore extends GameState {
   pendingTraits: PendingTrait[]
   usedEventIDs: string[]
   notifications: string[]
+  activeModifier: RunModifier | null
 
   setPhase: (phase: GamePhase) => void
+  setActiveModifier: (mod: RunModifier) => void
 
   setActiveNPC: (npc: NPC | null) => void
   addAcceptedRole: (role: NPCRole) => void
@@ -41,7 +44,7 @@ interface GameStore extends GameState {
   _load: (state: Partial<GameState & { pendingTraits: PendingTrait[]; usedEventIDs: string[] }>) => void
 }
 
-const INITIAL: GameState & { pendingTraits: PendingTrait[]; usedEventIDs: string[]; notifications: string[] } = {
+const INITIAL: GameState & { pendingTraits: PendingTrait[]; usedEventIDs: string[]; notifications: string[]; activeModifier: null } = {
   day: 1,
   phase: 'npc_arrival',
   activeNPC: null,
@@ -57,6 +60,7 @@ const INITIAL: GameState & { pendingTraits: PendingTrait[]; usedEventIDs: string
   usedEventIDs: [],
   notifications: [],
   daySpEarned: 0,
+  activeModifier: null,
 }
 
 export const useGameStore = create<GameStore>((set, get) => ({
@@ -64,6 +68,10 @@ export const useGameStore = create<GameStore>((set, get) => ({
 
   setPhase(phase) {
     set({ phase })
+  },
+
+  setActiveModifier(mod) {
+    set({ activeModifier: mod })
   },
 
   setActiveNPC(npc) {
