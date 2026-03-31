@@ -96,6 +96,37 @@ export interface ThemeAnimation {
   overlay_fade_ms: number
   card_enter_ms: number
   swipe_threshold: number
+  swipe_rotation_mult: number
+  swipe_hint_offset: number
+  splash_scanline_ms: number
+  splash_logo_delay_ms: number
+  splash_logo_ms: number
+  splash_sub_delay_ms: number
+  splash_term_delay_ms: number
+  splash_dot_delay_base_ms: number
+  splash_dot_step_ms: number
+  splash_dot_ms: number
+  splash_bottom_delay_ms: number
+  splash_bottom_ms: number
+  splash_hint_delay_ms: number
+  splash_hint_blink_ms: number
+  splash_progress_ms: number
+  gameover_scanline_ms: number
+  gameover_fade_ms: number
+  gameover_bg_ms: number
+  gameover_content_delay_ms: number
+  gameover_content_ms: number
+  gameover_slide_ms: number
+  gameover_icon_delay_ms: number
+  gameover_icon_ms: number
+  gameover_title_delay_ms: number
+  gameover_title_ms: number
+  menu_logo_pulse_ms: number
+  intro_line_delay_ms: number
+  intro_first_delay_ms: number
+  intro_cta_delay_ms: number
+  intro_cursor_blink_ms: number
+  critical_pulse_ms: number
 }
 
 export interface ThemeStatBar {

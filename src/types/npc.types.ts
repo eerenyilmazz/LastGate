@@ -10,6 +10,11 @@ export type NPCRole =
   | 'Engineer'
   | 'Scavenger'
 
+export interface NPCDelayedEffect {
+  day: number
+  [stat: string]: number
+}
+
 export interface NPC {
   npc_id: string
   name: string
@@ -22,4 +27,5 @@ export interface NPC {
   illustration_key: string
   accept: StatDelta
   reject: StatDelta
+  delayed_effect: NPCDelayedEffect | null
 }

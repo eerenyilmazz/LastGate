@@ -7,6 +7,7 @@ export type GamePhase =
   | 'intro'
   | 'npc_arrival'
   | 'npc_decision'
+  | 'npc_return'
   | 'event'
   | 'day_summary'
   | 'building'

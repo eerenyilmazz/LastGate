@@ -18,6 +18,7 @@ const C  = themeData.colors
 const TY = themeData.typography as any
 const SP = themeData.spacing
 const R  = themeData.radius
+const A  = themeData.animation
 const MONO    = Platform.select(themeData.ui.font_mono) as string
 const ENDINGS   = ui.game_over_endings as Record<GameOverReason, { title: string; desc: string; color: string; icon: string; tag: string }>
 const RS_LABELS = ui.run_stats_labels as { header: string; accepted: string; rejected: string; queries: string; days: string }
@@ -49,18 +50,18 @@ export const GameOverScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
   useEffect(() => {
     const isVictory = reason === 'victory'
     vignetteOp.value = withRepeat(withSequence(
-      withTiming(1,   { duration: 1800, easing: Easing.inOut(Easing.ease) }),
-      withTiming(0.3, { duration: 2600, easing: Easing.inOut(Easing.ease) }),
+      withTiming(1,   { duration: A.gameover_fade_ms, easing: Easing.inOut(Easing.ease) }),
+      withTiming(0.3, { duration: A.gameover_bg_ms,   easing: Easing.inOut(Easing.ease) }),
     ), -1, true)
 
-    contentOp.value = withDelay(200, withTiming(1, { duration: 700 }))
-    contentY.value  = withDelay(200, withTiming(0, { duration: 600, easing: Easing.out(Easing.back(1.15)) }))
-    iconScale.value = withDelay(400, withTiming(1, { duration: 800, easing: Easing.out(Easing.back(1.1)) }))
+    contentOp.value = withDelay(A.gameover_content_delay_ms, withTiming(1, { duration: A.gameover_content_ms }))
+    contentY.value  = withDelay(A.gameover_content_delay_ms, withTiming(0, { duration: A.gameover_slide_ms, easing: Easing.out(Easing.back(1.15)) }))
+    iconScale.value = withDelay(A.gameover_icon_delay_ms,    withTiming(1, { duration: A.gameover_icon_ms,  easing: Easing.out(Easing.back(1.1)) }))
 
     if (isVictory) {
-      titleOp.value = withDelay(700, withTiming(1, { duration: 600 }))
+      titleOp.value = withDelay(A.gameover_title_delay_ms, withTiming(1, { duration: A.gameover_title_ms }))
     } else {
-      titleOp.value = withDelay(700, withRepeat(withSequence(
+      titleOp.value = withDelay(A.gameover_title_delay_ms, withRepeat(withSequence(
         withTiming(1,    { duration: 55  }),
         withTiming(0.5,  { duration: 90  }),
         withTiming(1,    { duration: 55  }),

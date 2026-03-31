@@ -39,8 +39,10 @@ const SwipeHandlerInner: React.FC<Props> = ({
 }) => {
   const theme     = useTheme()
   const C         = theme.colors
-  const THRESHOLD = theme.animation.swipe_threshold
-  const DURATION  = theme.animation.swipe_duration_ms
+  const THRESHOLD     = theme.animation.swipe_threshold
+  const DURATION      = theme.animation.swipe_duration_ms
+  const ROTATION_MULT = theme.animation.swipe_rotation_mult
+  const HINT_OFFSET   = theme.animation.swipe_hint_offset
   const { width: SCREEN_W } = useWindowDimensions()
 
   const translateX = useSharedValue(0)
@@ -61,7 +63,7 @@ const SwipeHandlerInner: React.FC<Props> = ({
     .onUpdate(e => {
       'worklet'
       translateX.value = e.translationX
-      rotation.value   = e.translationX * 0.06
+      rotation.value   = e.translationX * ROTATION_MULT
       if (dragX) dragX.value = e.translationX
       if (dragY) dragY.value = e.translationY
     })
@@ -102,10 +104,10 @@ const SwipeHandlerInner: React.FC<Props> = ({
   }))
 
   const acceptLabelStyle = useAnimatedStyle(() => ({
-    opacity: interpolate(translateX.value, [20, THRESHOLD], [0, 1], Extrapolation.CLAMP),
+    opacity: interpolate(translateX.value, [HINT_OFFSET, THRESHOLD], [0, 1], Extrapolation.CLAMP),
   }))
   const rejectLabelStyle = useAnimatedStyle(() => ({
-    opacity: interpolate(translateX.value, [-20, -THRESHOLD], [0, 1], Extrapolation.CLAMP),
+    opacity: interpolate(translateX.value, [-HINT_OFFSET, -THRESHOLD], [0, 1], Extrapolation.CLAMP),
   }))
 
   return (

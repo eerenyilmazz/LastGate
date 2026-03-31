@@ -4,6 +4,7 @@ import { NPC, NPCRole } from '../types/npc.types'
 import { GameEvent } from '../types/event.types'
 import { PendingTrait } from '../domain/HiddenSystem'
 import { RunModifier } from '../types/modifier.types'
+import { NPCReturn, PendingDelayed } from '../types/return.types'
 import config from '../data/config.json'
 
 interface GameStore extends GameState {
@@ -11,6 +12,9 @@ interface GameStore extends GameState {
   usedEventIDs: string[]
   notifications: string[]
   activeModifier: RunModifier | null
+  pendingReturns: NPCReturn[]
+  pendingDelayeds: PendingDelayed[]
+  activeReturn: NPCReturn | null
 
   setPhase: (phase: GamePhase) => void
   setActiveModifier: (mod: RunModifier) => void
@@ -27,6 +31,12 @@ interface GameStore extends GameState {
   enqueueTrait: (trait: PendingTrait) => void
   removeTraits: (remaining: PendingTrait[]) => void
 
+  enqueuePendingReturn: (r: NPCReturn) => void
+  enqueuePendingDelayed: (d: PendingDelayed) => void
+  removeReturns: (remaining: NPCReturn[]) => void
+  removeDelayeds: (remaining: PendingDelayed[]) => void
+  setActiveReturn: (r: NPCReturn | null) => void
+
   addNotification: (text: string) => void
   clearNotifications: () => void
 
@@ -41,10 +51,18 @@ interface GameStore extends GameState {
 
   reset: () => void
 
-  _load: (state: Partial<GameState & { pendingTraits: PendingTrait[]; usedEventIDs: string[] }>) => void
+  _load: (state: Partial<GameState & { pendingTraits: PendingTrait[]; usedEventIDs: string[]; pendingReturns: NPCReturn[]; pendingDelayeds: PendingDelayed[] }>) => void
 }
 
-const INITIAL: GameState & { pendingTraits: PendingTrait[]; usedEventIDs: string[]; notifications: string[]; activeModifier: null } = {
+const INITIAL: GameState & {
+  pendingTraits: PendingTrait[]
+  usedEventIDs: string[]
+  notifications: string[]
+  activeModifier: null
+  pendingReturns: NPCReturn[]
+  pendingDelayeds: PendingDelayed[]
+  activeReturn: null
+} = {
   day: 1,
   phase: 'npc_arrival',
   activeNPC: null,
@@ -61,6 +79,9 @@ const INITIAL: GameState & { pendingTraits: PendingTrait[]; usedEventIDs: string
   notifications: [],
   daySpEarned: 0,
   activeModifier: null,
+  pendingReturns: [],
+  pendingDelayeds: [],
+  activeReturn: null,
 }
 
 export const useGameStore = create<GameStore>((set, get) => ({
@@ -117,6 +138,26 @@ export const useGameStore = create<GameStore>((set, get) => ({
 
   removeTraits(remaining) {
     set({ pendingTraits: remaining })
+  },
+
+  enqueuePendingReturn(r) {
+    set(s => ({ pendingReturns: [...s.pendingReturns, r] }))
+  },
+
+  enqueuePendingDelayed(d) {
+    set(s => ({ pendingDelayeds: [...s.pendingDelayeds, d] }))
+  },
+
+  removeReturns(remaining) {
+    set({ pendingReturns: remaining })
+  },
+
+  removeDelayeds(remaining) {
+    set({ pendingDelayeds: remaining })
+  },
+
+  setActiveReturn(r) {
+    set({ activeReturn: r })
   },
 
   addNotification(text) {

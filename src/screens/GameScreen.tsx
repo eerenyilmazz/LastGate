@@ -23,6 +23,7 @@ import { EventModal } from '../components/Overlays/EventModal'
 import { DaySummary } from '../components/Overlays/DaySummary'
 import { IntroScreen } from '../components/Overlays/IntroScreen'
 import { ModifierOverlay } from '../components/Overlays/ModifierOverlay'
+import { ReturnCard } from '../components/Overlays/ReturnCard'
 import { NotificationOverlay } from '../components/Overlays/NotificationOverlay'
 import { TutorialOverlay } from '../components/Overlays/TutorialOverlay'
 import { StatType, StatDelta } from '../types/stat.types'
@@ -129,7 +130,7 @@ const sIcon = StyleSheet.create({
   wrap:  { alignItems: 'center', flex: 1, paddingVertical: 8, paddingHorizontal: 2 },
   emoji: { fontSize: 20 },
   val:   { fontSize: TY.size_sm, fontWeight: TY.weight_black, marginTop: 3, letterSpacing: 0.3 },
-  diff:   { fontSize: 9, fontWeight: TY.weight_heavy, marginTop: 2, letterSpacing: 0.3, height: 12, lineHeight: 12 },
+  diff:   { fontSize: TY.size_caption, fontWeight: TY.weight_heavy, marginTop: 2, letterSpacing: 0.3, height: 12, lineHeight: 12 },
   abbrev: { fontSize: TY.size_sm, color: C.text_muted, letterSpacing: 0, fontWeight: TY.weight_bold, marginTop: 2, opacity: 0.85, textAlign: 'center' },
 })
 
@@ -185,7 +186,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX, stopAllSFX })
   const game     = useGameStore()
   const stats    = useStatStore()
   const progress = useProgressStore()
-  const { handleAccept, handleReject, handleQuery, handleEventChoice, endDay } = useGameLoop()
+  const { handleAccept, handleReject, handleQuery, handleEventChoice, handleReturn, endDay } = useGameLoop()
 
   const dragX = useSharedValue(0)
   const dragY = useSharedValue(0)
@@ -406,6 +407,9 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX, stopAllSFX })
         </View>
       </View>
 
+      {game.phase === 'npc_return' && game.activeReturn && (
+        <ReturnCard ret={game.activeReturn} onChoice={handleReturn} />
+      )}
       {game.phase === 'modifier_reveal' && <ModifierOverlay onContinue={() => game.setPhase('intro')} />}
       {game.phase === 'intro' && <IntroScreen onStart={() => game.setPhase('npc_decision')} />}
       {game.phase === 'npc_arrival' && game.notifications.length > 0 && (
@@ -459,12 +463,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   queryStripLabel: {
-    fontSize: 9,
+    fontSize: TY.size_caption,
     fontWeight: TY.weight_black,
     letterSpacing: 1.5,
   },
   queryStripCost: {
-    fontSize: 9,
+    fontSize: TY.size_caption,
     letterSpacing: 0.5,
   },
   queryClose: {

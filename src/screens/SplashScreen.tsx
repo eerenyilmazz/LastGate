@@ -16,6 +16,7 @@ const C  = themeData.colors
 const TY = themeData.typography as any
 const SP = themeData.spacing
 const R  = themeData.radius
+const A  = themeData.animation
 const MONO         = Platform.select(themeData.ui.font_mono) as string
 const STATUS_ITEMS = ui.splash_status_items
 
@@ -40,23 +41,23 @@ export const SplashScreen: React.FC<Props> = ({ onDone }) => {
   const progressW = useSharedValue(0)
 
   useEffect(() => {
-    logoOp.value    = withDelay(500,  withTiming(1, { duration: 900 }))
-    logoScale.value = withDelay(500,  withTiming(1, { duration: 900, easing: Easing.out(Easing.back(1.05)) }))
-    subOp.value     = withDelay(1100, withTiming(1, { duration: 500 }))
-    termOp.value    = withDelay(1300, withTiming(1, { duration: 300 }))
-    s0.value        = withDelay(1450, withTiming(1, { duration: 200 }))
-    s1.value        = withDelay(1750, withTiming(1, { duration: 200 }))
-    s2.value        = withDelay(2050, withTiming(1, { duration: 200 }))
-    s3.value        = withDelay(2350, withTiming(1, { duration: 200 }))
-    bottomOp.value  = withDelay(2650, withTiming(1, { duration: 500 }))
-    hintOp.value    = withDelay(3200,
+    logoOp.value    = withDelay(A.splash_logo_delay_ms,   withTiming(1, { duration: A.splash_logo_ms }))
+    logoScale.value = withDelay(A.splash_logo_delay_ms,   withTiming(1, { duration: A.splash_logo_ms, easing: Easing.out(Easing.back(1.05)) }))
+    subOp.value     = withDelay(A.splash_sub_delay_ms,    withTiming(1, { duration: A.splash_bottom_ms }))
+    termOp.value    = withDelay(A.splash_term_delay_ms,   withTiming(1, { duration: A.swipe_duration_ms }))
+    s0.value        = withDelay(A.splash_dot_delay_base_ms + A.splash_dot_step_ms * 0, withTiming(1, { duration: A.splash_dot_ms }))
+    s1.value        = withDelay(A.splash_dot_delay_base_ms + A.splash_dot_step_ms * 1, withTiming(1, { duration: A.splash_dot_ms }))
+    s2.value        = withDelay(A.splash_dot_delay_base_ms + A.splash_dot_step_ms * 2, withTiming(1, { duration: A.splash_dot_ms }))
+    s3.value        = withDelay(A.splash_dot_delay_base_ms + A.splash_dot_step_ms * 3, withTiming(1, { duration: A.splash_dot_ms }))
+    bottomOp.value  = withDelay(A.splash_bottom_delay_ms, withTiming(1, { duration: A.splash_bottom_ms }))
+    hintOp.value    = withDelay(A.splash_hint_delay_ms,
       withRepeat(withSequence(
-        withTiming(1,    { duration: 700 }),
-        withTiming(0.12, { duration: 700 }),
+        withTiming(1,    { duration: A.splash_hint_blink_ms }),
+        withTiming(0.12, { duration: A.splash_hint_blink_ms }),
       ), -1, true),
     )
     scanY.value = withRepeat(
-      withTiming(height + 10, { duration: themeData.animation.splash_scanline_ms, easing: Easing.linear }),
+      withTiming(height + 10, { duration: A.splash_scanline_ms, easing: Easing.linear }),
       -1, false,
     )
     shakeX.value = withRepeat(withSequence(
@@ -75,7 +76,7 @@ export const SplashScreen: React.FC<Props> = ({ onDone }) => {
       withTiming( 0,   { duration: 50,  easing: Easing.linear }),
       withTiming( 0,   { duration: 900, easing: Easing.linear }),
     ), -1, false)
-    progressW.value = withDelay(500, withTiming(1, { duration: 2800, easing: Easing.out(Easing.quad) }))
+    progressW.value = withDelay(A.splash_logo_delay_ms, withTiming(1, { duration: A.splash_progress_ms, easing: Easing.out(Easing.quad) }))
   }, [])
 
   const exitStyle   = useAnimatedStyle(() => ({ opacity: exitOp.value }))

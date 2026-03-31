@@ -11,6 +11,7 @@ const C  = themeData.colors
 const TY = themeData.typography as any
 const SP = themeData.spacing
 const R  = themeData.radius
+const UI = themeData.ui as any
 const MONO  = Platform.select(themeData.ui.font_mono) as string
 const INTRO   = uiData.intro
 const DOTS    = themeData.ui.terminal_dots
@@ -126,8 +127,8 @@ const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: C.background,
-    zIndex: 100,
-    elevation: 100,
+    zIndex: UI.overlay_z_index,
+    elevation: UI.overlay_z_index,
   },
   safe: { flex: 1, backgroundColor: C.background },
 

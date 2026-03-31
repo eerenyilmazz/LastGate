@@ -6,6 +6,7 @@ import themeData from '../../data/theme.json'
 const C  = themeData.colors
 const TY = themeData.typography as any
 const SP = themeData.spacing
+const UI = themeData.ui as any
 
 interface Props {
   onContinue: () => void
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
     backgroundColor: C.overlay_backdrop_dark,
     justifyContent: 'center',
     alignItems: 'center',
-    zIndex: 100,
+    zIndex: UI.overlay_z_index,
   },
   card: {
     width: '80%',

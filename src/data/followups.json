@@ -1,0 +1,227 @@
+[
+  {
+    "npc_id": "npc_002",
+    "delay_days": 9,
+    "dialogue": "Dr. Ji-hun Park geri döndü. 'Hastanede ilaç kalmadı. Şehrin stoklarından yardım istiyorum — yoksa hastaları kaybedeceğiz.'",
+    "accept_effects": { "immunity": 20, "economy": -14 },
+    "reject_effects": { "immunity": -18, "population": -10 },
+    "outcome_accept": "Dr. Park ilaçlarla bağışıklığı güçlendirdi.",
+    "outcome_reject": "İlaçsız kalan hastane salgını durduramadı."
+  },
+  {
+    "npc_id": "npc_003",
+    "delay_days": 11,
+    "dialogue": "Dr. Keiko Tanaka döndü. 'Araştırma tamamlandı — ama laboratuvar için ekipman lazım. Yatırım yapar mısın?'",
+    "accept_effects": { "immunity": 25, "economy": -18 },
+    "reject_effects": { "immunity": -8 },
+    "outcome_accept": "Tanaka'nın aşı araştırması sonuç verdi. Bağışıklık sıçraması.",
+    "outcome_reject": "Araştırma yarım kaldı. Fırsat kaçtı."
+  },
+  {
+    "npc_id": "npc_005",
+    "delay_days": 7,
+    "dialogue": "Ayşe Kaya kapıya geldi. 'Köy salgına yakalandı. Oradakileri buraya getirmem için izin lazım.'",
+    "accept_effects": { "population": 12, "immunity": -10 },
+    "reject_effects": { "population": -6, "immunity": -5 },
+    "outcome_accept": "Köylüler kurtarıldı, nüfus arttı — ama hastalık riski de.",
+    "outcome_reject": "Köylüler yardımsız kaldı. Halk moraliniz düştü."
+  },
+  {
+    "npc_id": "npc_008",
+    "delay_days": 13,
+    "dialogue": "Emre Şahin eli boş döndü. 'Dışarıda bir çocuk grubu bulduk, ama taşımak için araç yok. Bir araç tahsis eder misin?'",
+    "accept_effects": { "population": 15, "economy": -10, "defense": -5 },
+    "reject_effects": { "population": -4 },
+    "outcome_accept": "Çocuklar kurtarıldı. Şehre umut geldi.",
+    "outcome_reject": "Araç bulunamadı. Çocuklardan haber kesildi."
+  },
+  {
+    "npc_id": "npc_027",
+    "delay_days": 8,
+    "dialogue": "Hatice Yıldırım döndü. 'Tarlalar kurudu. Ya sulama kanalı için kaynak ayır, ya da bu yılın hasadını unut.'",
+    "accept_effects": { "food": 30, "economy": -20 },
+    "reject_effects": { "food": -25 },
+    "outcome_accept": "Sulama kanalı açıldı. Hasat kurtarıldı.",
+    "outcome_reject": "Tarlalar çoraklaştı. Gıda sıkıntısı başladı."
+  },
+  {
+    "npc_id": "npc_028",
+    "delay_days": 10,
+    "dialogue": "Mehmet Çiftçi heyecanla geldi. 'Eski bir tohum deposu buldum — içi dolu. Ama oraya ulaşmak için asker lazım.'",
+    "accept_effects": { "food": 40, "defense": -8 },
+    "reject_effects": { "food": 0 },
+    "outcome_accept": "Depo açıldı. Aylarca yetecek tohum getirildi.",
+    "outcome_reject": "Depo başkalarının eline geçti."
+  },
+  {
+    "npc_id": "npc_030",
+    "delay_days": 6,
+    "dialogue": "Ahmet Toprak soluğu kesilmiş döndü. 'Komşu yerleşim gıda için savaş başlatmak üzere. Onlara yiyecek ver ya da savaşa hazırlan.'",
+    "accept_effects": { "food": -20, "defense": 10, "population": 5 },
+    "reject_effects": { "defense": -15, "population": -8, "food": -10 },
+    "outcome_accept": "Barış sağlandı. Komşular müttefike döndü.",
+    "outcome_reject": "Baskın geldi. Kayıplar verildi."
+  },
+  {
+    "npc_id": "npc_053",
+    "delay_days": 12,
+    "dialogue": "Phoenix döndü. 'Doğuda yeni bir tehdit var. Bunu durdurmak için ek asker ve silah gerekiyor — ama pahalı.'",
+    "accept_effects": { "defense": 25, "economy": -22 },
+    "reject_effects": { "defense": -20, "population": -12 },
+    "outcome_accept": "Tehdit püskürtüldü. Savunma hattı güçlendi.",
+    "outcome_reject": "Doğu hattı çöktü. Ağır kayıplar."
+  },
+  {
+    "npc_id": "npc_054",
+    "delay_days": 8,
+    "dialogue": "Kenan Arslan döndü. 'Kaçak asker grupları şehre yaklaşıyor. Onları içeri al — ya da sınıra takviye gönder.'",
+    "accept_effects": { "defense": 15, "food": -12, "population": 8 },
+    "reject_effects": { "defense": -12 },
+    "outcome_accept": "Kaçaklar güvenilir savaşçılara dönüştü.",
+    "outcome_reject": "Takviyesiz sınır zorlandı."
+  },
+  {
+    "npc_id": "npc_055",
+    "delay_days": 14,
+    "dialogue": "Ceyda Yılmaz yaralı döndü. 'Keşif sırasında tuzağa düştüm. Tıbbi yardım için kaynaklar gerekiyor.'",
+    "accept_effects": { "defense": 12, "immunity": 5, "economy": -10 },
+    "reject_effects": { "defense": -8 },
+    "outcome_accept": "Ceyda iyileşti ve gruba döndü, moraller yükseldi.",
+    "outcome_reject": "Tedavisiz kalan Ceyda görevden çekilmek zorunda kaldı."
+  },
+  {
+    "npc_id": "npc_077",
+    "delay_days": 7,
+    "dialogue": "Fuat Sarraf döndü. 'Batıdaki tüccarlarla anlaştım — ama mal karşılığı ön ödeme istiyorlar. Risk var ama kazanç büyük.'",
+    "accept_effects": { "economy": 35, "food": 15 },
+    "reject_effects": { "economy": -5 },
+    "outcome_accept": "Ticaret anlaşması kazançlı çıktı. Ekonomi canlandı.",
+    "outcome_reject": "Fırsat kaçtı. Tüccarlar başkasıyla anlaştı."
+  },
+  {
+    "npc_id": "npc_078",
+    "delay_days": 10,
+    "dialogue": "Dilara Özcan gizlice döndü. 'Kuzey grubu çift taraflı oynuyor. Onları deşifre etmek için kaynak ayırırsam büyük kazanç sağlayabilirim.'",
+    "accept_effects": { "economy": 25, "defense": 10 },
+    "reject_effects": { "economy": -12 },
+    "outcome_accept": "Çifte ajan ağı çökertildi. Ekonomi ve güvenlik kazanımlı.",
+    "outcome_reject": "Ajan ağı büyümeye devam etti. Kayıplar arttı."
+  },
+  {
+    "npc_id": "npc_079",
+    "delay_days": 9,
+    "dialogue": "Cemil Akyüz döndü. 'Güneyde terk edilmiş bir depo bulduk — içi mal dolu. Ama başkaları da peşinde, hızlı karar lazım.'",
+    "accept_effects": { "economy": 30, "food": 20, "defense": -5 },
+    "reject_effects": { "economy": -8 },
+    "outcome_accept": "Depo güvence altına alındı. Büyük kazanım.",
+    "outcome_reject": "Rakipler depoyu ele geçirdi."
+  },
+  {
+    "npc_id": "npc_080",
+    "delay_days": 11,
+    "dialogue": "Hacer Uysal döndü. 'Şehirde sahte para dönüyor. Kökünü kazımak için kısa vadeli ekonomik fedakârlık gerekiyor.'",
+    "accept_effects": { "economy": -10, "defense": 5 },
+    "reject_effects": { "economy": -20 },
+    "outcome_accept": "Sahte para ağı temizlendi. Uzun vadede ekonomi kurtuldu.",
+    "outcome_reject": "Sahteciler güçlendi. Ekonomi daha çok zarar gördü."
+  },
+  {
+    "npc_id": "npc_102",
+    "delay_days": 10,
+    "dialogue": "Kim Ji-young koşarak geldi. 'Su arıtma sistemini tamir edebilirim — ama parça lazım. Ekonomiden kaynak ayır.'",
+    "accept_effects": { "immunity": 15, "food": 10, "economy": -15 },
+    "reject_effects": { "immunity": -12, "food": -8 },
+    "outcome_accept": "Su sistemi onarıldı. Salgın riski azaldı.",
+    "outcome_reject": "Kirli su yayılmaya devam etti. Sağlık krizi büyüdü."
+  },
+  {
+    "npc_id": "npc_103",
+    "delay_days": 12,
+    "dialogue": "Tarkan Bilgin döndü. 'Savunma duvarlarını güçlendirebilirim ama inşaat malzemesi gerekiyor — ve zaman.'",
+    "accept_effects": { "defense": 22, "economy": -18 },
+    "reject_effects": { "defense": -5 },
+    "outcome_accept": "Duvarlar pekiştirildi. Şehir çok daha güvenli.",
+    "outcome_reject": "Duvarlar zayıf kaldı. Savunma açığı büyüdü."
+  },
+  {
+    "npc_id": "npc_104",
+    "delay_days": 9,
+    "dialogue": "Ayla Kesen döndü. 'Radyo alıcısı inşa ettim — ama güç kaynağı için yakıt lazım. Gıda stoğumuzdan harcayabilir miyiz?'",
+    "accept_effects": { "defense": 10, "economy": 8, "food": -12 },
+    "reject_effects": { "defense": -3 },
+    "outcome_accept": "Radyo ağı kuruldu. Keşif kapasitesi arttı.",
+    "outcome_reject": "Radyo projesi yarım kaldı."
+  },
+  {
+    "npc_id": "npc_105",
+    "delay_days": 14,
+    "dialogue": "Serkan Boztaş döndü. 'Enerji jeneratörünü büyütebilirim — ama malzeme için ekonomiden destek lazım.'",
+    "accept_effects": { "economy": 20, "defense": 8, "food": 5 },
+    "reject_effects": { "economy": -8 },
+    "outcome_accept": "Jeneratör genişletildi. Tüm sistemler güçlendi.",
+    "outcome_reject": "Jeneratör yetersiz kalmaya devam etti."
+  },
+  {
+    "npc_id": "npc_128",
+    "delay_days": 6,
+    "dialogue": "Bebek için baktığı aileden bir haberci geldi. 'Çocuk hasta. Tıbbi yardım için acilen kaynak lazım.'",
+    "accept_effects": { "immunity": 8, "population": 5, "economy": -10 },
+    "reject_effects": { "population": -5, "immunity": -5 },
+    "outcome_accept": "Bebek iyileşti. Şehirde umut kıvılcımı yandı.",
+    "outcome_reject": "Yardım gelmedi. Kaybedilen can, moralleri sarstı."
+  },
+  {
+    "npc_id": "npc_129",
+    "delay_days": 8,
+    "dialogue": "Çocuk grubundan biri geri döndü. 'Grubun büyükleri yetersiz kalmaya başladı. Onlara eğitim verecek biri lazım.'",
+    "accept_effects": { "defense": 10, "economy": -8, "population": 8 },
+    "reject_effects": { "population": -6 },
+    "outcome_accept": "Genç nesil şehrin savunucuları oldu.",
+    "outcome_reject": "Çocuklar dağıldı. Kayıplar yaşandı."
+  },
+  {
+    "npc_id": "npc_131",
+    "delay_days": 11,
+    "dialogue": "Zombi görünümlü adam geri döndü, bu sefer daha sağlıklı. 'Dışarıda hayatta kalan küçük bir grup var. Onları getirmeme yardım eder misin?'",
+    "accept_effects": { "population": 18, "food": -15, "immunity": -8 },
+    "reject_effects": { "population": -3 },
+    "outcome_accept": "Hayatta kalanlar kurtarıldı. Şehir nüfusu güçlendi.",
+    "outcome_reject": "Grup dışarıda mahsur kaldı."
+  },
+  {
+    "npc_id": "npc_101",
+    "delay_days": 13,
+    "dialogue": "Gizmo döndü. 'Alarm sistemi için bileşenler buldum — ama montaj için savunma birliğinden destek lazım.'",
+    "accept_effects": { "defense": 18, "economy": -10 },
+    "reject_effects": { "defense": -6 },
+    "outcome_accept": "Erken uyarı sistemi devreye girdi. Savunma güçlendi.",
+    "outcome_reject": "Alarm kurulmadı. İlk baskında hazırlıksız yakalandık."
+  },
+  {
+    "npc_id": "npc_052",
+    "delay_days": 10,
+    "dialogue": "Savaşan Anneler temsilcisi döndü. 'Kayıp verdik ama sınırı koruduk. Yaralılarımız için tıbbi destek istiyoruz.'",
+    "accept_effects": { "defense": 12, "immunity": 8, "economy": -12 },
+    "reject_effects": { "defense": -10, "population": -6 },
+    "outcome_accept": "Yaralılar iyileşti. Savaşan Anneler daha güçlü döndü.",
+    "outcome_reject": "Desteksiz kalan grup dağıldı. Sınır savunması zayıfladı."
+  },
+  {
+    "npc_id": "npc_076",
+    "delay_days": 7,
+    "dialogue": "Papaz John döndü. 'Cemaat yardım topladı. Ama dağıtım için güvenli bir güzergah lazım — asker desteği ister misin?'",
+    "accept_effects": { "population": 10, "food": 15, "defense": -5 },
+    "reject_effects": { "food": -5, "population": -4 },
+    "outcome_accept": "Yardım dağıtıldı. Halkın morali yükseldi.",
+    "outcome_reject": "Güzergah tehlikeli kaldı. Yardım ulaşamadı."
+  },
+  {
+    "npc_id": "npc_051",
+    "delay_days": 15,
+    "dialogue": "Marcus ve grubu döndü. 'Uzun keşif sonrası kaynaklarımız bitti. Bize destek verirseniz kuzey rotasını güvence altına alabiliriz.'",
+    "accept_effects": { "defense": 20, "food": -18, "economy": -12 },
+    "reject_effects": { "defense": -15 },
+    "outcome_accept": "Kuzey rota güvende. Uzun vadeli savunma avantajı sağlandı.",
+    "outcome_reject": "Marcus grubu dağıldı. Kuzey tehlikeli kaldı."
+  }
+]

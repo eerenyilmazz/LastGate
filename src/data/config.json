@@ -6,8 +6,16 @@
   "card_min_height": 200,
   "stat_display_max": 999,
   "ad_reward_amount": 5,
-  "ad_limits": { "easy": 8, "normal": 4, "hard": 1 },
-  "ad_sp_multipliers": { "easy": 0.5, "normal": 1.0, "hard": 1.5 },
+  "ad_limits": {
+    "easy": 8,
+    "normal": 4,
+    "hard": 1
+  },
+  "ad_sp_multipliers": {
+    "easy": 0.5,
+    "normal": 1.0,
+    "hard": 1.5
+  },
   "admob_android_app_id": "ca-app-pub-9361043299105218~8765754448",
   "admob_android_rewarded": "ca-app-pub-9361043299105218/6846034663",
   "admob_ios_app_id": "ca-app-pub-9361043299105218~8765754448",
@@ -135,16 +143,42 @@
   "query_food_cost": 5,
   "query_costs": [
     {},
-    { "economy": -8, "food": -5 },
-    { "economy": -10, "defense": -6, "immunity": -3 }
+    {
+      "economy": -8,
+      "food": -5
+    },
+    {
+      "economy": -10,
+      "defense": -6,
+      "immunity": -3
+    }
   ],
-  "query_cost_variance": [0, 3, 4],
+  "query_cost_variance": [
+    0,
+    3,
+    4
+  ],
   "cascade_effects": {
-    "immunity":   { "population": -2 },
-    "food":       { "economy": -3, "defense": -2 },
-    "defense":    { "food": -8, "economy": -5, "population": -3 },
-    "economy":    { "food": -5, "defense": -3 },
-    "population": { "economy": -5, "defense": -3 }
+    "immunity": {
+      "population": -2
+    },
+    "food": {
+      "economy": -3,
+      "defense": -2
+    },
+    "defense": {
+      "food": -8,
+      "economy": -5,
+      "population": -3
+    },
+    "economy": {
+      "food": -5,
+      "defense": -3
+    },
+    "population": {
+      "economy": -5,
+      "defense": -3
+    }
   },
   "infection_reduction_cap": 0.9,
   "query_result_timeout_ms": 6000,
@@ -154,9 +188,9 @@
     "sfx": 0.75
   },
   "sfx_volumes": {
-    "sfx_query":      0.35,
-    "sfx_critical":   0.65,
-    "sfx_door_open":  0.75,
+    "sfx_query": 0.35,
+    "sfx_critical": 0.65,
+    "sfx_door_open": 0.75,
     "sfx_door_close": 0.75
   },
   "buildings": [
@@ -473,5 +507,11 @@
       "starvation_extra": 2,
       "npc_neg_scale": 1.3
     }
-  }
+  },
+  "difficulty_start_multipliers": {
+    "easy": 0.3,
+    "normal": 0.0,
+    "hard": -0.25
+  },
+  "food_consumption_rate": 0.04
 }
