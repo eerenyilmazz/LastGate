@@ -24,7 +24,7 @@ export const SplashScreen: React.FC<Props> = ({ onDone }) => {
   const { width, height } = useWindowDimensions()
   const emblemSize = Math.round(width * 0.88)
 
-  const exitOp    = useSharedValue(1)
+  const exitOp    = useSharedValue(0)
   const logoOp    = useSharedValue(0)
   const logoScale = useSharedValue(0.88)
   const subOp     = useSharedValue(0)
@@ -96,14 +96,14 @@ export const SplashScreen: React.FC<Props> = ({ onDone }) => {
   const statusStyles = [s0Style, s1Style, s2Style, s3Style]
 
   const handleDone = () => {
-    exitOp.value = withTiming(0, { duration: 280, easing: Easing.out(Easing.ease) }, (finished) => {
+    exitOp.value = withTiming(1, { duration: 280, easing: Easing.in(Easing.ease) }, (finished) => {
       if (finished) runOnJS(onDone)()
     })
   }
 
   return (
     <TouchableOpacity activeOpacity={1} onPress={handleDone} style={styles.root}>
-      <Animated.View style={[StyleSheet.absoluteFillObject, exitStyle]} pointerEvents="none" />
+      <Animated.View style={[StyleSheet.absoluteFillObject, { backgroundColor: C.bg_deeper }, exitStyle]} pointerEvents="none" />
       <Animated.View style={[styles.scanline, scanStyle]} pointerEvents="none" />
 
       <Animated.View style={[styles.shakeWrap, shakeStyle]}>
