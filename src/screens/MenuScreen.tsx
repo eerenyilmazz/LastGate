@@ -15,6 +15,7 @@ import { AppBar } from '../components/AppBar'
 import ui from '../data/ui.json'
 import config from '../data/config.json'
 import themeData from '../data/theme.json'
+import modifiersData from '../data/modifiers.json'
 
 const C  = themeData.colors
 const TY = themeData.typography as any
@@ -27,7 +28,7 @@ const STATS_INFO = ui.stats_info
 const STRINGS    = (ui as any).strings as Record<string, string>
 
 type OverlayType = 'howto' | 'guide' | 'settings' | null
-type GuideTab = 'chars' | 'traits' | 'stats' | 'buildings' | 'skills'
+type GuideTab = 'chars' | 'traits' | 'stats' | 'buildings' | 'skills' | 'modifiers'
 
 const InfoRow: React.FC<{ icon: string; name: string; desc: string; accentColor?: string }> = ({
   icon, name, desc, accentColor = C.text_muted,
@@ -199,6 +200,7 @@ const GuideContent: React.FC = () => {
     { id: 'stats',     label: 'Değerler' },
     { id: 'buildings', label: 'Binalar' },
     { id: 'skills',    label: 'Yetenekler' },
+    { id: 'modifiers', label: 'Run Modifikatörleri' },
   ]
 
   return (
@@ -273,6 +275,23 @@ const GuideContent: React.FC = () => {
                     <Text style={guide.sub}>Gün {s.unlock_day} · {s.cost} SP</Text>
                   </View>
                   <Text style={row.desc}>{s.desc}</Text>
+                </View>
+              </View>
+            ))}
+          </View>
+        )}
+        {tab === 'modifiers' && (
+          <View>
+            <Text style={content.note}>Her seferde rastgele 1 kural belirlenir. 1. gün bittikten sonra açıklanır.</Text>
+            <View style={content.warnBox}>
+              <Text style={content.warnText}>Menüden "Run Modifikatörü" kapalıysa bu sistem devre dışı kalır.</Text>
+            </View>
+            {(modifiersData as Array<{ id: string; icon: string; name: string; description: string }>).map(m => (
+              <View key={m.id} style={row.container}>
+                <Text style={row.icon}>{m.icon}</Text>
+                <View style={row.text}>
+                  <Text style={row.name}>{m.name}</Text>
+                  <Text style={row.desc}>{m.description}</Text>
                 </View>
               </View>
             ))}
@@ -419,7 +438,7 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
           activeOpacity={0.8}
         >
           <Text style={[diff.modLabel, { color: settings.modifiersEnabled ? C.query : C.text_muted }]}>
-            🎲 Run Modifikatörü
+            Run Modifikatörü
           </Text>
           <Text style={[diff.modValue, { fontFamily: MONO, color: settings.modifiersEnabled ? C.query : C.text_muted }]}>
             {settings.modifiersEnabled ? 'AÇIK' : 'KAPALI'}

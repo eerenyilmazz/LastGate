@@ -19,7 +19,8 @@ export const ModifierOverlay: React.FC<Props> = ({ onContinue }) => {
   return (
     <View style={styles.backdrop}>
       <View style={styles.card}>
-        <Text style={styles.label}>BU RUN'UN KURALI</Text>
+        <Text style={styles.label}>BU SEFERİN KURALI</Text>
+        <Text style={styles.sub}>1. günü atlattın. Artık bu kural devrede.</Text>
         <Text style={styles.icon}>{mod.icon}</Text>
         <Text style={styles.name}>{mod.name}</Text>
         <Text style={styles.description}>{mod.description}</Text>
@@ -54,6 +55,12 @@ const styles = StyleSheet.create({
     fontSize: TY.size_xs,
     letterSpacing: 2,
     fontWeight: TY.weight_bold,
+  },
+  sub: {
+    color: C.text_muted,
+    fontSize: TY.size_caption,
+    textAlign: 'center',
+    marginTop: -2,
   },
   icon: {
     fontSize: 64,
