@@ -375,6 +375,14 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX, stopAllSFX })
           </View>
           <Text style={[styles.progressPct, { fontFamily: MONO }]}>{dayPct}%</Text>
         </View>
+        {game.activeModifier && (
+          <View style={styles.modBadge}>
+            <Text style={styles.modBadgeIcon}>{game.activeModifier.icon}</Text>
+            <Text style={[styles.modBadgeName, { fontFamily: MONO }]} numberOfLines={1}>
+              {game.activeModifier.name}
+            </Text>
+          </View>
+        )}
       </View>
 
       <View style={[styles.detailRow, {
@@ -554,6 +562,26 @@ const styles = StyleSheet.create({
     fontWeight: TY.weight_heavy,
     letterSpacing: 1,
     textAlign: 'right',
+  },
+  modBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingHorizontal: 7,
+    paddingVertical: 4,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: C.query + '55',
+    backgroundColor: C.query + '0d',
+    maxWidth: 110,
+  },
+  modBadgeIcon: { fontSize: 13 },
+  modBadgeName: {
+    color: C.query,
+    fontSize: 8,
+    fontWeight: TY.weight_black,
+    letterSpacing: 0.5,
+    flex: 1,
   },
 
   detailRow: {

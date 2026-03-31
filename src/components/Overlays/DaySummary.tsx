@@ -106,6 +106,16 @@ export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
           })}
         </View>
 
+        {game.activeModifier && (
+          <View style={styles.modRow}>
+            <Text style={styles.modIcon}>{game.activeModifier.icon}</Text>
+            <View style={styles.modText}>
+              <Text style={[styles.modName, { fontFamily: MONO }]}>{game.activeModifier.name}</Text>
+              <Text style={[styles.modDesc, { fontFamily: MONO }]}>{game.activeModifier.description}</Text>
+            </View>
+          </View>
+        )}
+
         <View style={styles.divider}>
           <View style={styles.dividerLine} />
         </View>
@@ -254,6 +264,34 @@ const styles = StyleSheet.create({
   diffText: {
     fontSize: TY.size_note,
     fontWeight: TY.weight_heavy,
+  },
+
+  modRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    marginHorizontal: 20,
+    marginTop: 14,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: C.query + '44',
+    backgroundColor: C.query + '0d',
+  },
+  modIcon: { fontSize: 22 },
+  modText: { flex: 1 },
+  modName: {
+    color: C.query,
+    fontSize: TY.size_caption,
+    fontWeight: TY.weight_black,
+    letterSpacing: 1,
+    marginBottom: 2,
+  },
+  modDesc: {
+    color: C.text_secondary,
+    fontSize: TY.size_caption,
+    letterSpacing: 0.3,
   },
 
   divider: {
