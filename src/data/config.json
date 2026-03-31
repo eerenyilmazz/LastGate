@@ -30,14 +30,14 @@
   "critical_thresholds": {
     "immunity": 15,
     "food": 35,
-    "population": 10,
+    "population": 25,
     "defense": 10,
     "economy": 5
   },
   "stat_max": {
     "immunity": 100,
     "food": 200,
-    "population": 500,
+    "population": 150,
     "defense": 100,
     "economy": 100
   },
@@ -167,24 +167,24 @@
   ],
   "cascade_effects": {
     "immunity": {
-      "population": -2
+      "population": -1
     },
     "food": {
-      "economy": -3,
-      "defense": -2
+      "economy": -2,
+      "defense": -1
     },
     "defense": {
-      "food": -8,
-      "economy": -5,
-      "population": -3
+      "food": -4,
+      "economy": -3,
+      "population": -2
     },
     "economy": {
-      "food": -5,
-      "defense": -3
+      "food": -3,
+      "defense": -2
     },
     "population": {
-      "economy": -5,
-      "defense": -3
+      "economy": -3,
+      "defense": -2
     }
   },
   "infection_reduction_cap": 0.9,
