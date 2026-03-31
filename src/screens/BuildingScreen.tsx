@@ -7,7 +7,6 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useProgressStore } from '../store/useProgressStore'
 import { useStatStore } from '../store/useStatStore'
 import { useGameStore } from '../store/useGameStore'
-import { useGameLoop } from '../hooks/useGameLoop'
 import { BuildingConfig } from '../types/config.types'
 import { StatDelta } from '../types/stat.types'
 import { AppBar } from '../components/AppBar'
@@ -53,7 +52,6 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
   const progress  = useProgressStore()
   const stats     = useStatStore()
   const game      = useGameStore()
-  const { endDay } = useGameLoop()
   const [tab, setTab] = useState<Tab>('buildings')
   const [confirm, setConfirm] = useState<ConfirmState>(null)
   const [justBought, setJustBought] = useState<string | null>(null)
@@ -70,7 +68,7 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
   }
   const buildings = config.buildings as Array<BuildingConfig & { icon: string; color: string; chips: string[] }>
 
-  const goBack = () => endDay()
+  const goBack = () => game.setPhase('day_summary')
 
   return (
     <SafeAreaView style={styles.safe}>
