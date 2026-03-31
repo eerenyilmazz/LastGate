@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {
   View, Text, TouchableOpacity, ScrollView, StyleSheet,
-  Platform, Modal, Switch, Image,
+  Platform, Modal, Switch, Image, Linking,
 } from 'react-native'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import Animated, {
@@ -469,7 +469,12 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
 
       </View>
 
-      <Text style={styles.footer}>{STRINGS.menu_footer}</Text>
+      <View style={styles.footerRow}>
+        <Text style={styles.footer}>{STRINGS.menu_footer}</Text>
+        <TouchableOpacity onPress={() => Linking.openURL((config as any).privacy_policy_url)} activeOpacity={0.6}>
+          <Text style={styles.footerLink}>GİZLİLİK POLİTİKASI</Text>
+        </TouchableOpacity>
+      </View>
 
       <Modal
         visible={overlay !== null}
@@ -625,12 +630,23 @@ const styles = StyleSheet.create({
     fontWeight: TY.weight_black,
   },
 
+  footerRow: {
+    alignItems: 'center',
+    gap: 6,
+    paddingBottom: Platform.OS === 'android' ? 12 : 8,
+  },
   footer: {
     color: C.danger_dark,
     fontSize: TY.size_2xs,
     letterSpacing: 2,
     textAlign: 'center',
-    paddingBottom: Platform.OS === 'android' ? 12 : 8,
+  },
+  footerLink: {
+    color: C.text_muted,
+    fontSize: TY.size_2xs,
+    letterSpacing: 1.5,
+    textDecorationLine: 'underline',
+    opacity: 0.5,
   },
 })
 
