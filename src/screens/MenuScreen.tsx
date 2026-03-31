@@ -413,6 +413,19 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
           })}
         </View>
 
+        <TouchableOpacity
+          onPress={settings.toggleModifiers}
+          style={[diff.modRow, settings.modifiersEnabled && diff.modRowOn]}
+          activeOpacity={0.8}
+        >
+          <Text style={[diff.modLabel, { color: settings.modifiersEnabled ? C.query : C.text_muted }]}>
+            🎲 Run Modifikatörü
+          </Text>
+          <Text style={[diff.modValue, { fontFamily: MONO, color: settings.modifiersEnabled ? C.query : C.text_muted }]}>
+            {settings.modifiersEnabled ? 'AÇIK' : 'KAPALI'}
+          </Text>
+        </TouchableOpacity>
+
         <TouchableOpacity onPress={onStart} style={styles.startBtn} activeOpacity={0.85}>
           <Text style={styles.startText}>{STRINGS.menu_new_game}</Text>
           <Text style={styles.startArrow}>▶</Text>
@@ -905,6 +918,21 @@ const diff = StyleSheet.create({
     alignItems: 'center',
   },
   label: { fontSize: TY.size_xs, fontWeight: TY.weight_black, letterSpacing: 1.5 },
+  modRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 8,
+    paddingHorizontal: SP.md,
+    borderRadius: R.md,
+    borderWidth: 1,
+    borderColor: C.card_dark,
+    backgroundColor: C.bg_deeper,
+    marginBottom: 10,
+  },
+  modRowOn: { borderColor: C.query + '55', backgroundColor: C.query + '0a' },
+  modLabel: { fontSize: TY.size_xs, fontWeight: TY.weight_bold },
+  modValue: { fontSize: TY.size_caption, fontWeight: TY.weight_black, letterSpacing: 2 },
 })
 
 const row = StyleSheet.create({

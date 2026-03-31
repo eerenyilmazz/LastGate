@@ -186,7 +186,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX, stopAllSFX })
   const game     = useGameStore()
   const stats    = useStatStore()
   const progress = useProgressStore()
-  const { handleAccept, handleReject, handleQuery, handleEventChoice, handleReturn, endDay } = useGameLoop()
+  const { handleAccept, handleReject, handleQuery, handleEventChoice, handleReturn, continueAfterModifier, endDay } = useGameLoop()
 
   const dragX = useSharedValue(0)
   const dragY = useSharedValue(0)
@@ -410,7 +410,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX, stopAllSFX })
       {game.phase === 'npc_return' && game.activeReturn && (
         <ReturnCard ret={game.activeReturn} onChoice={handleReturn} />
       )}
-      {game.phase === 'modifier_reveal' && <ModifierOverlay onContinue={() => game.setPhase('intro')} />}
+      {game.phase === 'modifier_reveal' && <ModifierOverlay onContinue={continueAfterModifier} />}
       {game.phase === 'intro' && <IntroScreen onStart={() => game.setPhase('npc_decision')} />}
       {game.phase === 'npc_arrival' && game.notifications.length > 0 && (
         <NotificationOverlay onContinue={() => { game.clearNotifications(); game.setPhase('npc_decision') }} />

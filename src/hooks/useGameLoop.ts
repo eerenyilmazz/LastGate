@@ -120,9 +120,10 @@ export const useGameLoop = () => {
       },
       [SaveSystem.KEYS.NPC_QUEUE]: generator.getState(),
       [SaveSystem.KEYS.SETTINGS]: {
-        musicEnabled: settings.musicEnabled,
-        sfxEnabled:   settings.sfxEnabled,
-        difficulty:   settings.difficulty,
+        musicEnabled:     settings.musicEnabled,
+        sfxEnabled:       settings.sfxEnabled,
+        difficulty:       settings.difficulty,
+        modifiersEnabled: settings.modifiersEnabled,
       },
     })
   }, [game, stats, progress, settings])
@@ -236,6 +237,16 @@ export const useGameLoop = () => {
 
   const dayStartStatsRef = useRef<StatState>({ immunity: 0, food: 0, population: 0, defense: 0, economy: 0 })
 
+  const continueAfterModifier = useCallback(async () => {
+    const overReason = stats.getGameOverReason()
+    if (overReason) { await finishWithGameOver(overReason, false); return }
+    if (game.day >= config.win_condition_day) { await finishWithGameOver('victory', true); return }
+    if (tryTriggerEvent()) return
+    awardDaySP(dayStartStatsRef.current)
+    advanceToNextDay()
+    await saveAll()
+  }, [game, stats, finishWithGameOver, tryTriggerEvent, awardDaySP, advanceToNextDay, saveAll])
+
   const endDay = useCallback(async () => {
     if (game.phase !== 'day_summary') return
     dayStartStatsRef.current = { ...stats.stats }
@@ -261,12 +272,18 @@ export const useGameLoop = () => {
       return
     }
 
+    if (game.day === 1 && settings.modifiersEnabled && game.activeModifier) {
+      game.setPhase('modifier_reveal')
+      await saveAll()
+      return
+    }
+
     if (tryTriggerEvent()) return
 
     awardDaySP(dayStartStatsRef.current)
     advanceToNextDay()
     await saveAll()
-  }, [game, stats, progress, applyDailyStats, finishWithGameOver, tryTriggerEvent, awardDaySP, advanceToNextDay, saveAll])
+  }, [game, stats, progress, settings, applyDailyStats, finishWithGameOver, tryTriggerEvent, awardDaySP, advanceToNextDay, saveAll])
 
   const handleAccept = useCallback(async (npc: NPC) => {
     const rawStats = npc.hidden_trait === 'liar'
@@ -410,9 +427,6 @@ export const useGameLoop = () => {
     stats.reset()
     progress.reset()
 
-    const mod = MODIFIERS[Math.floor(Math.random() * MODIFIERS.length)]
-    game.setActiveModifier(mod)
-
     const mult = DIFF_MULT[settings.difficulty] ?? 0
     if (mult !== 0) {
       const initial = config.initial_stats as Record<string, number>
@@ -423,14 +437,18 @@ export const useGameLoop = () => {
       stats.apply(delta)
     }
 
-    if (mod.effects.start_stat_delta) {
-      stats.apply(mod.effects.start_stat_delta as StatDelta)
+    if (settings.modifiersEnabled) {
+      const mod = MODIFIERS[Math.floor(Math.random() * MODIFIERS.length)]
+      game.setActiveModifier(mod)
+      if (mod.effects.start_stat_delta) {
+        stats.apply(mod.effects.start_stat_delta as StatDelta)
+      }
     }
 
     game.setQueryCharges(computeQueryCharges(progress.buildings))
     rollDay()
     game.setActiveNPC(generator.getNext())
-    game.setPhase('modifier_reveal')
+    game.setPhase('intro')
   }, [game, stats, progress, settings])
 
   const loadSave = useCallback(async (): Promise<{ hasResumableGame: boolean }> => {
@@ -465,5 +483,5 @@ export const useGameLoop = () => {
     return { hasResumableGame: false }
   }, [game, stats, progress, settings])
 
-  return { handleAccept, handleReject, handleQuery, endDay, handleReturn, handleEventChoice, startGame, loadSave }
+  return { handleAccept, handleReject, handleQuery, endDay, handleReturn, continueAfterModifier, handleEventChoice, startGame, loadSave }
 }
