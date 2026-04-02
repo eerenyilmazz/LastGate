@@ -47,18 +47,19 @@ export const useAudio = () => {
     const src = AUDIO_PATHS[key]
     if (!src) return
     try {
-      if (bgSound.current) {
-        await bgSound.current.stopAsync()
-        await bgSound.current.unloadAsync()
-        bgSound.current = null
-      }
+      // Yeni sesi önce yükle, sonra eskiyi durdur — sessizliği minimuma indir
       currentKey.current = key
-      const { sound } = await Audio.Sound.createAsync(src, {
+      const { sound: newSound } = await Audio.Sound.createAsync(src, {
         isLooping: true,
         volume: musicEnabled ? AMBIENT_VOLUME : 0,
       })
-      bgSound.current = sound
-      if (musicEnabled) await sound.playAsync()
+      const old = bgSound.current
+      bgSound.current = newSound
+      if (musicEnabled) await newSound.playAsync()
+      if (old) {
+        old.stopAsync().catch(() => {})
+        old.unloadAsync().catch(() => {})
+      }
     } catch (e) {
       console.warn('[useAudio] loadBg error:', e)
     }
