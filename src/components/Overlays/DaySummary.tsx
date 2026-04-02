@@ -1,8 +1,10 @@
-import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Platform, ScrollView } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { View, Text, TouchableOpacity, StyleSheet, Platform, ScrollView, ActivityIndicator } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useStatStore } from '../../store/useStatStore'
 import { useGameStore } from '../../store/useGameStore'
+import { useSettingsStore } from '../../store/useSettingsStore'
+import { useRewardedAd } from '../../hooks/useRewardedAd'
 import { StatType } from '../../types/stat.types'
 import themeData from '../../data/theme.json'
 import config from '../../data/config.json'
@@ -27,12 +29,34 @@ const STAT_MAX   = config.stat_max as Record<StatType, number>
 interface Props {
   onContinue: () => void
   onBuilding: () => void
+  onAdSP: (amount: number) => void
 }
 
-export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
-  const insets = useSafeAreaInsets()
-  const stats  = useStatStore()
-  const game   = useGameStore()
+export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding, onAdSP }) => {
+  const insets   = useSafeAreaInsets()
+  const stats    = useStatStore()
+  const game     = useGameStore()
+  const settings = useSettingsStore()
+  const ad       = useRewardedAd()
+  const [adLoading, setAdLoading] = useState(false)
+  const [adDone, setAdDone]       = useState(false)
+
+  useEffect(() => { ad.load() }, [])
+
+  const canWatchAd = ad.isAvailable && ad.canShow(settings.difficulty) && !adDone
+  const reward     = ad.spReward(settings.difficulty)
+
+  const handleAdPress = () => {
+    if (adLoading) return
+    setAdLoading(true)
+    ad.show(result => {
+      setAdLoading(false)
+      if (result === 'earned') {
+        setAdDone(true)
+        onAdSP(reward)
+      }
+    })
+  }
 
   return (
     <TouchableOpacity
@@ -147,6 +171,25 @@ export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding }) => {
               )
             })}
           </View>
+        )}
+
+        {canWatchAd && (
+          <TouchableOpacity
+            onPress={handleAdPress}
+            style={styles.spAdBlock}
+            activeOpacity={0.8}
+            disabled={adLoading}
+          >
+            <Text style={styles.spAdIcon}>📺</Text>
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.spAdTitle, { fontFamily: MONO }]}>Reklam İzle → +{reward} SP</Text>
+              <Text style={[styles.spAdSub, { fontFamily: MONO }]}>Günde bir kez</Text>
+            </View>
+            {adLoading
+              ? <ActivityIndicator size="small" color={C.query} />
+              : <Text style={[styles.spAdArrow, { color: C.query }]}>›</Text>
+            }
+          </TouchableOpacity>
         )}
 
         <TouchableOpacity
@@ -330,11 +373,17 @@ const styles = StyleSheet.create({
   },
 
   spAdBlock: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
     marginHorizontal: 16,
     marginBottom: 10,
     borderRadius: R.md,
     borderWidth: 1,
     borderColor: C.query + '44',
+    backgroundColor: C.query + '11',
+    paddingVertical: 12,
+    paddingHorizontal: 14,
     overflow: 'hidden',
   },
   spAdBtn: {
@@ -357,6 +406,10 @@ const styles = StyleSheet.create({
   spAdSub: {
     color: C.text_muted,
     fontSize: TY.size_caption,
+  },
+  spAdArrow: {
+    fontSize: TY.size_h5,
+    fontWeight: TY.weight_black,
   },
   spAdAmount: {
     color: C.query,

@@ -6,9 +6,11 @@ import config from '../data/config.json'
 interface ProgressStore extends ProgressState {
   achievements:    AchievementId[]
   newAchievements: AchievementId[]
+  adsWatchedThisRun: number
 
   addSP:              (amount: number) => void
   spendSP:            (amount: number) => boolean
+  incrementAdsWatched: () => void
   buyBuilding:        (id: string) => boolean
   markUsed:           (id: string) => void
   hasBuilding:        (id: string) => boolean
@@ -34,6 +36,11 @@ export const useProgressStore = create<ProgressStore>((set, get) => ({
   ...INITIAL,
   achievements:    [],
   newAchievements: [],
+  adsWatchedThisRun: 0,
+
+  incrementAdsWatched() {
+    set(s => ({ adsWatchedThisRun: s.adsWatchedThisRun + 1 }))
+  },
 
   addSP(amount) {
     set(s => ({ sp: s.sp + amount }))
@@ -98,7 +105,7 @@ export const useProgressStore = create<ProgressStore>((set, get) => ({
 
   reset() {
     set(s => {
-      const buildingRefund = s.buildings.reduce((sum, id) => {
+      const buildingRefund = s.buildings.reduce((sum: number, id: string) => {
         const b = config.buildings.find(b => b.id === id)
         return sum + (b?.cost ?? 0)
       }, 0)
@@ -110,6 +117,7 @@ export const useProgressStore = create<ProgressStore>((set, get) => ({
         achievements:    s.achievements,
         newAchievements: s.newAchievements,
         sp:              s.sp + buildingRefund,
+        adsWatchedThisRun: 0,
       }
     })
   },

@@ -24,6 +24,7 @@ import { DaySummary } from '../components/Overlays/DaySummary'
 import { IntroScreen } from '../components/Overlays/IntroScreen'
 import { ModifierOverlay } from '../components/Overlays/ModifierOverlay'
 import { ReturnCard } from '../components/Overlays/ReturnCard'
+import { StatRescue } from '../components/Overlays/StatRescue'
 import { NotificationOverlay } from '../components/Overlays/NotificationOverlay'
 import { TutorialOverlay } from '../components/Overlays/TutorialOverlay'
 import { StatType, StatDelta } from '../types/stat.types'
@@ -186,7 +187,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX, stopAllSFX })
   const game     = useGameStore()
   const stats    = useStatStore()
   const progress = useProgressStore()
-  const { handleAccept, handleReject, handleQuery, handleEventChoice, handleReturn, continueAfterModifier, endDay } = useGameLoop()
+  const { handleAccept, handleReject, handleQuery, handleEventChoice, handleReturn, continueAfterModifier, endDay, handleRescue, handleRescueGiveUp } = useGameLoop()
 
   const dragX = useSharedValue(0)
   const dragY = useSharedValue(0)
@@ -430,7 +431,18 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX, stopAllSFX })
         <EventModal event={event} acceptedRoles={game.acceptedNPCRoles as NPCRole[]} onChoice={handleEventChoice} />
       )}
       {game.phase === 'day_summary' && (
-        <DaySummary onContinue={endDay} onBuilding={() => game.setPhase('building')} />
+        <DaySummary
+          onContinue={endDay}
+          onBuilding={() => game.setPhase('building')}
+          onAdSP={amount => { progress.addSP(amount); game.addDaySpEarned(amount) }}
+        />
+      )}
+      {game.phase === 'stat_rescue' && game.pendingRescueReason && game.pendingRescueReason !== 'victory' && (
+        <StatRescue
+          reason={game.pendingRescueReason}
+          onRescue={handleRescue}
+          onGiveUp={handleRescueGiveUp}
+        />
       )}
       {npc && <CardDetails npc={npc} visible={detailsVisible} onClose={() => setDetailsVisible(false)} />}
     </SafeAreaView>

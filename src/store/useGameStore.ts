@@ -49,6 +49,9 @@ interface GameStore extends GameState {
 
   setGameOver: (reason: GameOverReason) => void
 
+  pendingRescueReason: GameOverReason | null
+  setPendingRescue: (reason: GameOverReason | null) => void
+
   reset: () => void
 
   _load: (state: Partial<GameState & { pendingTraits: PendingTrait[]; usedEventIDs: string[]; pendingReturns: NPCReturn[]; pendingDelayeds: PendingDelayed[] }>) => void
@@ -84,8 +87,11 @@ const INITIAL: GameState & {
   activeReturn: null,
 }
 
+const RESCUE_INITIAL = { pendingRescueReason: null as GameOverReason | null }
+
 export const useGameStore = create<GameStore>((set, get) => ({
   ...INITIAL,
+  ...RESCUE_INITIAL,
 
   setPhase(phase) {
     set({ phase })
@@ -197,8 +203,12 @@ export const useGameStore = create<GameStore>((set, get) => ({
     set({ isGameOver: true, gameOverReason: reason, phase: 'game_over' })
   },
 
+  setPendingRescue(reason) {
+    set({ pendingRescueReason: reason, phase: reason ? 'stat_rescue' : get().phase })
+  },
+
   reset() {
-    set({ ...INITIAL })
+    set({ ...INITIAL, ...RESCUE_INITIAL })
   },
 
   _load(state) {

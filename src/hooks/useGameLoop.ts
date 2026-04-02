@@ -206,6 +206,43 @@ export const useGameLoop = () => {
     await saveAll()
   }, [game, stats, progress, settings, saveAll])
 
+  // Game over yerine rescue ekranı aç (zafer için bypass)
+  const triggerRescueOrGameOver = useCallback(async (reason: GameOverReason) => {
+    game.setPendingRescue(reason)
+  }, [game])
+
+  const handleRescue = useCallback(async (method: 'ad' | 'sp') => {
+    const reason = game.pendingRescueReason
+    if (!reason) return
+
+    const RESCUE_STATS: Record<string, Partial<Record<string, number>>> = {
+      starvation: { food:       25 },
+      plague:     { immunity:   20 },
+      breach:     { defense:    20 },
+      extinction: { population: 15 },
+      collapse:   { economy:    20 },
+    }
+
+    const SP_COST: Record<string, number> = { easy: 15, normal: 25, hard: 40 }
+
+    if (method === 'sp') {
+      const cost = SP_COST[settings.difficulty] ?? 25
+      const ok = progress.spendSP(cost)
+      if (!ok) return
+    }
+
+    stats.apply(RESCUE_STATS[reason] as any)
+    game.setPendingRescue(null)
+    game.setPhase('day_summary')
+    await saveAll()
+  }, [game, stats, progress, settings, saveAll])
+
+  const handleRescueGiveUp = useCallback(async () => {
+    const reason = game.pendingRescueReason
+    game.setPendingRescue(null)
+    if (reason) await finishWithGameOver(reason, false)
+  }, [game, finishWithGameOver])
+
   const tryTriggerEvent = useCallback((): boolean => {
     if (!EventManager.shouldTrigger(game.day)) return false
     const event = EventManager.pickEvent(stats.stats, game.usedEventIDs)
@@ -239,7 +276,7 @@ export const useGameLoop = () => {
 
   const continueAfterModifier = useCallback(async () => {
     const overReason = stats.getGameOverReason()
-    if (overReason) { await finishWithGameOver(overReason, false); return }
+    if (overReason) { await triggerRescueOrGameOver(overReason); return }
     if (game.day >= config.win_condition_day) { await finishWithGameOver('victory', true); return }
     if (tryTriggerEvent()) return
     awardDaySP(dayStartStatsRef.current)
@@ -257,7 +294,7 @@ export const useGameLoop = () => {
 
     const overReason = stats.getGameOverReason()
     if (overReason) {
-      await finishWithGameOver(overReason, false)
+      await triggerRescueOrGameOver(overReason)
       return
     }
 
@@ -320,7 +357,7 @@ export const useGameLoop = () => {
 
     const overReason = stats.getGameOverReason()
     if (overReason) {
-      await finishWithGameOver(overReason, false)
+      await triggerRescueOrGameOver(overReason)
       return
     }
 
@@ -331,7 +368,7 @@ export const useGameLoop = () => {
     } else {
       game.setPhase('day_summary')
     }
-  }, [game, stats, progress, settings, finishWithGameOver])
+  }, [game, stats, progress, settings, triggerRescueOrGameOver])
 
   const handleReject = useCallback(async (npc: NPC) => {
     const modNegMult = game.activeModifier?.effects.npc_neg_scale_mult ?? 1
@@ -340,7 +377,7 @@ export const useGameLoop = () => {
 
     const overReason = stats.getGameOverReason()
     if (overReason) {
-      await finishWithGameOver(overReason, false)
+      await triggerRescueOrGameOver(overReason)
       return
     }
 
@@ -351,7 +388,7 @@ export const useGameLoop = () => {
     } else {
       game.setPhase('day_summary')
     }
-  }, [game, stats, settings, finishWithGameOver])
+  }, [game, stats, settings, triggerRescueOrGameOver])
 
   const handleQuery = useCallback((npc: NPC): string => {
     const result = game.consumeQueryCharge()
@@ -379,7 +416,7 @@ export const useGameLoop = () => {
 
     const overReason = stats.getGameOverReason()
     if (overReason) {
-      await finishWithGameOver(overReason, false)
+      await triggerRescueOrGameOver(overReason)
       return
     }
 
@@ -393,7 +430,7 @@ export const useGameLoop = () => {
     awardDaySP(dayStartStatsRef.current)
     advanceToNextDay()
     await saveAll()
-  }, [game, stats, progress, finishWithGameOver, tryTriggerEvent, awardDaySP, advanceToNextDay, saveAll])
+  }, [game, stats, progress, finishWithGameOver, triggerRescueOrGameOver, tryTriggerEvent, awardDaySP, advanceToNextDay, saveAll])
 
   const handleEventChoice = useCallback(async (choiceId: 'A' | 'B' | 'C') => {
     const event = game.activeEvent
@@ -411,7 +448,7 @@ export const useGameLoop = () => {
 
     const overReason = stats.getGameOverReason()
     if (overReason) {
-      await finishWithGameOver(overReason, false)
+      await triggerRescueOrGameOver(overReason)
       return
     }
 
@@ -419,7 +456,7 @@ export const useGameLoop = () => {
     game.addDaySpEarned(config.sp_rewards.day_survived)
     advanceToNextDay()
     await saveAll()
-  }, [game, stats, progress, settings, finishWithGameOver, advanceToNextDay, saveAll])
+  }, [game, stats, progress, settings, finishWithGameOver, triggerRescueOrGameOver, advanceToNextDay, saveAll])
 
   const startGame = useCallback(() => {
     generator.reset()
@@ -483,5 +520,5 @@ export const useGameLoop = () => {
     return { hasResumableGame: false }
   }, [game, stats, progress, settings])
 
-  return { handleAccept, handleReject, handleQuery, endDay, handleReturn, continueAfterModifier, handleEventChoice, startGame, loadSave }
+  return { handleAccept, handleReject, handleQuery, endDay, handleReturn, continueAfterModifier, handleEventChoice, startGame, loadSave, handleRescue, handleRescueGiveUp }
 }

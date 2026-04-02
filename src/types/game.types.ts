@@ -11,6 +11,7 @@ export type GamePhase =
   | 'event'
   | 'day_summary'
   | 'building'
+  | 'stat_rescue'
   | 'game_over'
 
 export type GameOverReason =
