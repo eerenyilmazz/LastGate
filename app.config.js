@@ -1,5 +1,4 @@
 const admobAndroidId = process.env.ADMOB_ANDROID_ID
-const admobIosId     = process.env.ADMOB_IOS_ID
 const sentryDsn      = process.env.SENTRY_DSN
 
 const plugins = [
@@ -13,10 +12,10 @@ const plugins = [
   ],
 ]
 
-if (admobAndroidId && admobIosId) {
+if (admobAndroidId) {
   plugins.push([
     'react-native-google-mobile-ads',
-    { androidAppId: admobAndroidId, iosAppId: admobIosId },
+    { androidAppId: admobAndroidId },
   ])
 }
 

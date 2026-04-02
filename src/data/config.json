@@ -17,10 +17,8 @@
     "normal": 1.0,
     "hard": 1.5
   },
-  "admob_android_app_id": "ca-app-pub-9361043299105218~8765754448",
-  "admob_android_rewarded": "ca-app-pub-9361043299105218/6846034663",
-  "admob_ios_app_id": "ca-app-pub-9361043299105218~8765754448",
-  "admob_ios_rewarded": "ca-app-pub-9361043299105218/5756447723",
+  "admob_android_app_id": "ca-app-pub-6570871250407994~6962320826",
+  "admob_android_rewarded": "ca-app-pub-6570871250407994/5964551429",
   "initial_stats": {
     "immunity": 65,
     "food": 100,
