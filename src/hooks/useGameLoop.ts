@@ -211,7 +211,7 @@ export const useGameLoop = () => {
     game.setPendingRescue(reason)
   }, [game])
 
-  const handleRescue = useCallback(async (method: 'ad' | 'sp') => {
+  const handleRescue = useCallback(async () => {
     const reason = game.pendingRescueReason
     if (!reason) return
 
@@ -223,19 +223,11 @@ export const useGameLoop = () => {
       collapse:   { economy:    20 },
     }
 
-    const SP_COST: Record<string, number> = { easy: 15, normal: 25, hard: 40 }
-
-    if (method === 'sp') {
-      const cost = SP_COST[settings.difficulty] ?? 25
-      const ok = progress.spendSP(cost)
-      if (!ok) return
-    }
-
     stats.apply(RESCUE_STATS[reason] as any)
     game.setPendingRescue(null)
     game.setPhase('day_summary')
     await saveAll()
-  }, [game, stats, progress, settings, saveAll])
+  }, [game, stats, saveAll])
 
   const handleRescueGiveUp = useCallback(async () => {
     const reason = game.pendingRescueReason

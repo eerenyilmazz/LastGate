@@ -6,7 +6,6 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useRewardedAd } from '../../hooks/useRewardedAd'
 import { useSettingsStore } from '../../store/useSettingsStore'
-import { useProgressStore } from '../../store/useProgressStore'
 import { GameOverReason } from '../../types/game.types'
 import themeData from '../../data/theme.json'
 
@@ -24,41 +23,32 @@ const REASON_LABELS: Record<GameOverReason, { icon: string; stat: string; rescue
   victory:    { icon: '🏆', stat: '',           rescue: '' },
 }
 
-const SP_COST: Record<string, number> = { easy: 15, normal: 25, hard: 40 }
 
 interface Props {
   reason:    GameOverReason
-  onRescue:  (method: 'ad' | 'sp') => void
+  onRescue:  () => void
   onGiveUp:  () => void
 }
 
 export const StatRescue: React.FC<Props> = ({ reason, onRescue, onGiveUp }) => {
   const insets   = useSafeAreaInsets()
   const settings = useSettingsStore()
-  const progress = useProgressStore()
   const ad       = useRewardedAd()
 
   const [adLoading, setAdLoading] = useState(false)
 
   useEffect(() => { ad.load() }, [])
 
-  const info     = REASON_LABELS[reason]
-  const spCost   = SP_COST[settings.difficulty] ?? 25
-  const canAd    = ad.isAvailable && ad.canShow(settings.difficulty)
-  const canSP    = progress.sp >= spCost
+  const info   = REASON_LABELS[reason]
+  const canAd  = ad.isAvailable && ad.canShow(settings.difficulty)
 
   const handleAd = () => {
     if (adLoading) return
     setAdLoading(true)
     ad.show(result => {
       setAdLoading(false)
-      if (result === 'earned') onRescue('ad')
+      if (result === 'earned') onRescue()
     })
-  }
-
-  const handleSP = () => {
-    if (!canSP) return
-    onRescue('sp')
   }
 
   return (
@@ -92,23 +82,6 @@ export const StatRescue: React.FC<Props> = ({ reason, onRescue, onGiveUp }) => {
             <Text style={[styles.adBtnArrow, { color: C.query }]}>›</Text>
           </TouchableOpacity>
         )}
-
-        <TouchableOpacity
-          style={[styles.spBtn, !canSP && styles.spBtnDisabled]}
-          onPress={handleSP}
-          activeOpacity={canSP ? 0.8 : 1}
-          disabled={!canSP}
-        >
-          <Text style={styles.adBtnIcon}>💎</Text>
-          <View style={{ flex: 1 }}>
-            <Text style={[styles.spBtnTitle, { fontFamily: MONO, color: canSP ? C.accept_glow : C.text_muted }]}>
-              {spCost} SP Harca
-            </Text>
-            <Text style={[styles.adBtnSub, { fontFamily: MONO }]}>
-              {canSP ? `Mevcut: ${progress.sp} SP` : `Yetersiz SP (${progress.sp}/${spCost})`}
-            </Text>
-          </View>
-        </TouchableOpacity>
 
         <TouchableOpacity style={styles.giveUpBtn} onPress={onGiveUp} activeOpacity={0.7}>
           <Text style={[styles.giveUpText, { fontFamily: MONO }]}>Teslim Ol</Text>
