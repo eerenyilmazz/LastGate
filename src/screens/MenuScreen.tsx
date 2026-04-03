@@ -362,6 +362,15 @@ export const MenuScreen: React.FC<Props> = ({ onStart, onResume, hasResumableGam
   const progress = useProgressStore()
   const settings = useSettingsStore()
   const [overlay, setOverlay] = useState<OverlayType>(null)
+  const [confirmNewGame, setConfirmNewGame] = useState(false)
+
+  const handleNewGame = () => {
+    if (hasResumableGame) {
+      setConfirmNewGame(true)
+    } else {
+      onStart()
+    }
+  }
 
   const emblemPulse = useSharedValue(1)
   useEffect(() => {
@@ -454,7 +463,7 @@ export const MenuScreen: React.FC<Props> = ({ onStart, onResume, hasResumableGam
           </TouchableOpacity>
         )}
 
-        <TouchableOpacity onPress={onStart} style={[styles.startBtn, hasResumableGame && styles.startBtnSecondary]} activeOpacity={0.85}>
+        <TouchableOpacity onPress={handleNewGame} style={[styles.startBtn, hasResumableGame && styles.startBtnSecondary]} activeOpacity={0.85}>
           <Text style={[styles.startText, hasResumableGame && styles.startTextSecondary]}>{STRINGS.menu_new_game}</Text>
           <Text style={[styles.startArrow, hasResumableGame && styles.startTextSecondary]}>▶</Text>
         </TouchableOpacity>
@@ -529,6 +538,21 @@ export const MenuScreen: React.FC<Props> = ({ onStart, onResume, hasResumableGam
                 </View>
               </>
             )}
+          </View>
+        </View>
+      </Modal>
+
+      <Modal visible={confirmNewGame} transparent animationType="fade" onRequestClose={() => setConfirmNewGame(false)}>
+        <View style={newGameConfirm.backdrop}>
+          <View style={newGameConfirm.box}>
+            <Text style={[newGameConfirm.title, { fontFamily: MONO }]}>YENİ OYUN</Text>
+            <Text style={newGameConfirm.msg}>Kaydedilmiş bir oyun var.{'\n'}Yeni oyun başlatırsan mevcut kayıt silinir.</Text>
+            <TouchableOpacity onPress={() => { setConfirmNewGame(false); onStart() }} style={newGameConfirm.btnConfirm} activeOpacity={0.8}>
+              <Text style={[newGameConfirm.btnText, { fontFamily: MONO, color: C.danger }]}>YENİ OYUN BAŞLAT</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setConfirmNewGame(false)} style={newGameConfirm.btnCancel} activeOpacity={0.8}>
+              <Text style={[newGameConfirm.btnText, { fontFamily: MONO, color: C.text_muted }]}>İPTAL</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
@@ -1026,4 +1050,15 @@ const row = StyleSheet.create({
   text: { flex: 1 },
   name: { color: C.text_bright, fontSize: TY.size_body, fontWeight: TY.weight_bold, marginBottom: 2 },
   desc: { color: C.text_muted, fontSize: TY.size_note, lineHeight: 16 },
+})
+
+
+const newGameConfirm = StyleSheet.create({
+  backdrop: { flex: 1, backgroundColor: '#000000cc', justifyContent: 'center', alignItems: 'center', padding: 32 },
+  box: { backgroundColor: C.surface, borderRadius: R.lg, padding: 24, width: '100%', borderWidth: 1, borderColor: C.danger + '44' },
+  title: { color: C.danger, fontSize: TY.size_h6_alt, fontWeight: TY.weight_black, letterSpacing: 3, marginBottom: 12 },
+  msg: { color: C.text_secondary, fontSize: TY.size_body, lineHeight: 22, marginBottom: 24 },
+  btnConfirm: { paddingVertical: 14, alignItems: 'center', backgroundColor: C.danger_dark, borderRadius: R.sm, marginBottom: 8 },
+  btnCancel: { paddingVertical: 14, alignItems: 'center' },
+  btnText: { fontSize: TY.size_sm, fontWeight: TY.weight_black, letterSpacing: 1.5 },
 })

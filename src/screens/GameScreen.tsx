@@ -176,12 +176,13 @@ const glowStyles = StyleSheet.create({
 const CARD_ASPECT = 3 / 4
 
 interface Props {
-  onMainMenu?: () => void
+  onMainMenu?:    () => void
+  onAbandonGame?: () => void
   playSFX: (key: string) => void
   stopAllSFX: () => void
 }
 
-export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX, stopAllSFX }) => {
+export const GameScreen: React.FC<Props> = ({ onMainMenu, onAbandonGame, playSFX, stopAllSFX }) => {
   const { width: sw } = useWindowDimensions()
   const theme    = useTheme()
   const game     = useGameStore()
@@ -276,7 +277,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, playSFX, stopAllSFX })
 
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: C.background }]}>
-      <AppBar onMainMenu={onMainMenu} />
+      <AppBar onMainMenu={onMainMenu} onAbandonGame={onAbandonGame} />
 
       <View style={styles.statBar}>
         {STATS.map((s, idx) => (

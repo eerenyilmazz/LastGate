@@ -6,6 +6,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
 import { useGameStore } from './src/store/useGameStore'
 import { useGameLoop } from './src/hooks/useGameLoop'
+import { SaveSystem } from './src/domain/SaveSystem'
 import { useAudio } from './src/hooks/useAudio'
 import { SplashScreen } from './src/screens/SplashScreen'
 import { MenuScreen } from './src/screens/MenuScreen'
@@ -49,6 +50,13 @@ export default function App() {
     setAppScreen('menu')
   }
 
+  const handleAbandon = async () => {
+    await SaveSystem.clear()
+    game.reset()
+    setHasResumableGame(false)
+    setAppScreen('menu')
+  }
+
   const handleMainMenu = () => {
     game.reset()
     setHasResumableGame(false)
@@ -63,7 +71,7 @@ export default function App() {
       return <GameOverScreen onRestart={handleRestart} onMainMenu={handleMainMenu} />
     }
     if (game.phase === 'building') return <BuildingScreen onMainMenu={handleMainMenu} />
-    return <GameScreen onMainMenu={handleSaveExit} playSFX={playSFX} stopAllSFX={stopAllSFX} />
+    return <GameScreen onMainMenu={handleSaveExit} onAbandonGame={handleAbandon} playSFX={playSFX} stopAllSFX={stopAllSFX} />
   }
 
   return (

@@ -17,10 +17,11 @@ const DOTS = themeData.ui.terminal_dots
 const STRINGS = (uiData as any).strings as Record<string, string>
 
 interface AppBarProps {
-  onMainMenu?: () => void
+  onMainMenu?:    () => void
+  onAbandonGame?: () => void
 }
 
-export const AppBar: React.FC<AppBarProps> = ({ onMainMenu }) => {
+export const AppBar: React.FC<AppBarProps> = ({ onMainMenu, onAbandonGame }) => {
   const [settingsVisible, setSettingsVisible] = useState(false)
   const [confirmVisible,  setConfirmVisible]  = useState(false)
   const { musicEnabled, sfxEnabled, toggleMusic, toggleSfx } = useSettingsStore()
@@ -33,6 +34,11 @@ export const AppBar: React.FC<AppBarProps> = ({ onMainMenu }) => {
   const handleConfirmExit = () => {
     setConfirmVisible(false)
     onMainMenu?.()
+  }
+
+  const handleConfirmAbandon = () => {
+    setConfirmVisible(false)
+    onAbandonGame?.()
   }
 
   return (
@@ -167,29 +173,33 @@ export const AppBar: React.FC<AppBarProps> = ({ onMainMenu }) => {
               <Text style={[confirm.title, { fontFamily: MONO }]}>{STRINGS.appbar_confirm_back}</Text>
             </View>
 
-            <Text style={confirm.message}>
-              {STRINGS.appbar_confirm_msg}
-            </Text>
-
             <View style={confirm.divider} />
 
-            <View style={confirm.btnRow}>
-              <TouchableOpacity
-                onPress={() => setConfirmVisible(false)}
-                style={[confirm.btn, confirm.btnCancel]}
-                activeOpacity={0.8}
-              >
-                <Text style={[confirm.btnText, confirm.btnCancelText, { fontFamily: MONO }]}>{STRINGS.appbar_cancel}</Text>
-              </TouchableOpacity>
+            <TouchableOpacity
+              onPress={handleConfirmExit}
+              style={[confirm.btn, confirm.btnExit, { marginBottom: 8 }]}
+              activeOpacity={0.8}
+            >
+              <Text style={[confirm.btnText, confirm.btnExitText, { fontFamily: MONO }]}>KAYDET & ÇIK</Text>
+            </TouchableOpacity>
 
+            {onAbandonGame && (
               <TouchableOpacity
-                onPress={handleConfirmExit}
-                style={[confirm.btn, confirm.btnExit]}
+                onPress={handleConfirmAbandon}
+                style={[confirm.btn, confirm.btnAbandon]}
                 activeOpacity={0.8}
               >
-                <Text style={[confirm.btnText, confirm.btnExitText, { fontFamily: MONO }]}>{STRINGS.appbar_exit}</Text>
+                <Text style={[confirm.btnText, confirm.btnAbandonText, { fontFamily: MONO }]}>BIRAK & ÇIK</Text>
               </TouchableOpacity>
-            </View>
+            )}
+
+            <TouchableOpacity
+              onPress={() => setConfirmVisible(false)}
+              style={[confirm.btn, confirm.btnCancel, { marginTop: 4 }]}
+              activeOpacity={0.8}
+            >
+              <Text style={[confirm.btnText, confirm.btnCancelText, { fontFamily: MONO }]}>{STRINGS.appbar_cancel}</Text>
+            </TouchableOpacity>
 
           </View>
         </View>
@@ -400,28 +410,32 @@ const confirm = StyleSheet.create({
     marginHorizontal: 0,
   },
 
-  btnRow: {
-    flexDirection: 'row',
-  },
   btn: {
-    flex: 1,
-    paddingVertical: 16,
+    width: '100%',
+    paddingVertical: 14,
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: R.sm,
   },
   btnCancel: {
-    borderRightWidth: 1,
-    borderRightColor: C.card_bg,
-    backgroundColor: C.bg_deeper,
+    backgroundColor: 'transparent',
   },
   btnExit: {
+    backgroundColor: C.accept + '22',
+    borderWidth: 1,
+    borderColor: C.accept + '44',
+  },
+  btnAbandon: {
     backgroundColor: C.danger_dark,
+    borderWidth: 1,
+    borderColor: C.danger + '44',
   },
   btnText: {
     fontSize: TY.size_sm,
     fontWeight: TY.weight_black,
     letterSpacing: 1.5,
   },
-  btnCancelText: { color: C.text_muted },
-  btnExitText:   { color: C.danger },
+  btnCancelText:  { color: C.text_muted },
+  btnExitText:    { color: C.accept_glow },
+  btnAbandonText: { color: C.danger },
 })
