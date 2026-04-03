@@ -47,6 +47,7 @@ export default function App() {
   }
 
   const handleSaveExit = () => {
+    setHasResumableGame(true)
     setAppScreen('menu')
   }
 
