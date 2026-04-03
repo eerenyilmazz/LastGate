@@ -104,22 +104,15 @@ export const useProgressStore = create<ProgressStore>((set, get) => ({
   },
 
   reset() {
-    set(s => {
-      const buildingRefund = s.buildings.reduce((sum: number, id: string) => {
-        const b = config.buildings.find(b => b.id === id)
-        return sum + (b?.cost ?? 0)
-      }, 0)
-      return {
-        ...INITIAL,
-        totalRuns:       s.totalRuns + 1,
-        bestDay:         s.bestDay,
-        totalWins:       s.totalWins,
-        achievements:    s.achievements,
-        newAchievements: s.newAchievements,
-        sp:              s.sp + buildingRefund,
-        adsWatchedThisRun: 0,
-      }
-    })
+    set(s => ({
+      ...INITIAL,
+      totalRuns:         s.totalRuns + 1,
+      bestDay:           s.bestDay,
+      totalWins:         s.totalWins,
+      achievements:      s.achievements,
+      newAchievements:   s.newAchievements,
+      adsWatchedThisRun: 0,
+    }))
   },
 
   _load(state) {

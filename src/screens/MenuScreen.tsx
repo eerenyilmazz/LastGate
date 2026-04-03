@@ -352,10 +352,12 @@ const SettingsContent: React.FC = () => {
 }
 
 interface Props {
-  onStart: () => void
+  onStart:           () => void
+  onResume?:         () => void
+  hasResumableGame?: boolean
 }
 
-export const MenuScreen: React.FC<Props> = ({ onStart }) => {
+export const MenuScreen: React.FC<Props> = ({ onStart, onResume, hasResumableGame }) => {
   const insets = useSafeAreaInsets()
   const progress = useProgressStore()
   const settings = useSettingsStore()
@@ -445,9 +447,16 @@ export const MenuScreen: React.FC<Props> = ({ onStart }) => {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={onStart} style={styles.startBtn} activeOpacity={0.85}>
-          <Text style={styles.startText}>{STRINGS.menu_new_game}</Text>
-          <Text style={styles.startArrow}>▶</Text>
+        {hasResumableGame && onResume && (
+          <TouchableOpacity onPress={onResume} style={styles.resumeBtn} activeOpacity={0.85}>
+            <Text style={styles.resumeText}>DEVAM ET</Text>
+            <Text style={styles.startArrow}>▶</Text>
+          </TouchableOpacity>
+        )}
+
+        <TouchableOpacity onPress={onStart} style={[styles.startBtn, hasResumableGame && styles.startBtnSecondary]} activeOpacity={0.85}>
+          <Text style={[styles.startText, hasResumableGame && styles.startTextSecondary]}>{STRINGS.menu_new_game}</Text>
+          <Text style={[styles.startArrow, hasResumableGame && styles.startTextSecondary]}>▶</Text>
         </TouchableOpacity>
 
         <View style={styles.menuSpacer} />
@@ -603,6 +612,39 @@ const styles = StyleSheet.create({
     color: C.reject_glow,
     fontSize: TY.size_h6,
     fontWeight: TY.weight_black,
+  },
+
+  resumeBtn: {
+    backgroundColor: C.accept + '22',
+    borderRadius: R.pill,
+    paddingVertical: 18,
+    paddingHorizontal: 24,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 12,
+    borderWidth: 1,
+    borderColor: C.accept + '66',
+    shadowColor: C.accept,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.35,
+    shadowRadius: 10,
+    elevation: 8,
+  },
+  resumeText: {
+    color: C.accept_glow,
+    fontSize: TY.size_h6_alt,
+    fontWeight: TY.weight_black,
+    letterSpacing: 4,
+  },
+  startBtnSecondary: {
+    backgroundColor: 'transparent',
+    borderColor: C.text_muted + '33',
+    shadowOpacity: 0,
+    elevation: 0,
+  },
+  startTextSecondary: {
+    color: C.text_muted,
   },
 
   menuSpacer: { height: 4 },

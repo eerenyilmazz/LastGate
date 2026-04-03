@@ -19,27 +19,39 @@ type AppScreen = 'splash' | 'menu' | 'game'
 
 export default function App() {
   const [appScreen, setAppScreen] = useState<AppScreen>('splash')
+  const [hasResumableGame, setHasResumableGame] = useState(false)
   const game = useGameStore()
   const { startGame, loadSave } = useGameLoop()
   const { playSFX, stopAllSFX, startAmbient } = useAudio()
 
   useEffect(() => {
     initCrashReporting()
-    loadSave()
+    loadSave().then(({ hasResumableGame: resumable }) => setHasResumableGame(resumable))
     startAmbient()
   }, [])
 
   const handleStart = () => {
     startGame()
+    setHasResumableGame(false)
+    setAppScreen('game')
+  }
+
+  const handleResume = () => {
     setAppScreen('game')
   }
 
   const handleRestart = () => {
     startGame()
+    setHasResumableGame(false)
+  }
+
+  const handleSaveExit = () => {
+    setAppScreen('menu')
   }
 
   const handleMainMenu = () => {
     game.reset()
+    setHasResumableGame(false)
     setAppScreen('menu')
   }
 
@@ -51,7 +63,7 @@ export default function App() {
       return <GameOverScreen onRestart={handleRestart} onMainMenu={handleMainMenu} />
     }
     if (game.phase === 'building') return <BuildingScreen onMainMenu={handleMainMenu} />
-    return <GameScreen onMainMenu={handleMainMenu} playSFX={playSFX} stopAllSFX={stopAllSFX} />
+    return <GameScreen onMainMenu={handleSaveExit} playSFX={playSFX} stopAllSFX={stopAllSFX} />
   }
 
   return (
@@ -66,7 +78,7 @@ export default function App() {
         )}
         {appScreen === 'menu' && (
           <View style={StyleSheet.absoluteFillObject}>
-            <MenuScreen onStart={handleStart} />
+            <MenuScreen onStart={handleStart} onResume={handleResume} hasResumableGame={hasResumableGame} />
           </View>
         )}
         {appScreen === 'game' && (
