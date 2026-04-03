@@ -459,7 +459,7 @@ export const MenuScreen: React.FC<Props> = ({ onStart, onResume, hasResumableGam
         {hasResumableGame && onResume && (
           <TouchableOpacity onPress={onResume} style={styles.resumeBtn} activeOpacity={0.85}>
             <Text style={styles.resumeText}>DEVAM ET</Text>
-            <Text style={styles.startArrow}>▶</Text>
+            <Text style={[styles.startArrow, { color: C.accept_glow }]}>▶</Text>
           </TouchableOpacity>
         )}
 
@@ -639,7 +639,7 @@ const styles = StyleSheet.create({
   },
 
   resumeBtn: {
-    backgroundColor: C.accept + '22',
+    backgroundColor: '#0d2e17',
     borderRadius: R.pill,
     paddingVertical: 18,
     paddingHorizontal: 24,
@@ -648,10 +648,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 12,
     borderWidth: 1,
-    borderColor: C.accept + '66',
+    borderColor: C.accept + '33',
     shadowColor: C.accept,
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.35,
+    shadowOpacity: 0.3,
     shadowRadius: 10,
     elevation: 8,
   },
