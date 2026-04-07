@@ -173,6 +173,8 @@ export const AppBar: React.FC<AppBarProps> = ({ onMainMenu, onAbandonGame }) => 
               <Text style={[confirm.title, { fontFamily: MONO }]}>{STRINGS.appbar_confirm_back}</Text>
             </View>
 
+            <Text style={confirm.message}>{STRINGS.appbar_confirm_msg}</Text>
+
             <View style={confirm.divider} />
 
             <TouchableOpacity
