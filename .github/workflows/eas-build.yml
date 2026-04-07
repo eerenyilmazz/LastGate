@@ -50,7 +50,7 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: EAS Build (preview)
-        run: eas build --platform all --profile preview --non-interactive
+        run: eas build --platform android --profile preview --non-interactive
         env:
           ADMOB_ANDROID_ID:   ${{ secrets.ADMOB_ANDROID_ID }}
           ADMOB_IOS_ID:       ${{ secrets.ADMOB_IOS_ID }}
@@ -81,7 +81,7 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: EAS Build (production)
-        run: eas build --platform all --profile production --non-interactive
+        run: eas build --platform android --profile production --non-interactive
         env:
           ADMOB_ANDROID_ID:  ${{ secrets.ADMOB_ANDROID_ID }}
           ADMOB_IOS_ID:      ${{ secrets.ADMOB_IOS_ID }}
@@ -89,6 +89,6 @@ jobs:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
       - name: EAS Submit (auto-submit to stores)
-        run: eas submit --platform all --latest --non-interactive
+        run: eas submit --platform android --latest --non-interactive
         env:
           EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
