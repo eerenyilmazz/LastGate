@@ -206,7 +206,6 @@ export const useGameLoop = () => {
     await saveAll()
   }, [game, stats, progress, settings, saveAll])
 
-  // Game over yerine rescue ekranı aç (zafer için bypass)
   const triggerRescueOrGameOver = useCallback(async (reason: GameOverReason) => {
     game.setPendingRescue(reason)
   }, [game])

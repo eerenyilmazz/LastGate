@@ -47,7 +47,6 @@ export const useAudio = () => {
     const src = AUDIO_PATHS[key]
     if (!src) return
     try {
-      // Yeni sesi önce yükle, sonra eskiyi durdur — sessizliği minimuma indir
       currentKey.current = key
       const { sound: newSound } = await Audio.Sound.createAsync(src, {
         isLooping: true,

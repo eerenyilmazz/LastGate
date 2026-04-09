@@ -9,7 +9,6 @@ const AD_LIMITS = config.ad_limits as Record<string, number>
 const AD_SP_MULT = config.ad_sp_multipliers as Record<string, number>
 const AD_REWARD = config.ad_reward_amount
 
-// Reklam modülü Expo Go'da yok — try/catch ile handle edilir
 let RewardedAd: any = null
 let RewardedAdEventType: any = null
 let TestIds: any = null
@@ -61,7 +60,6 @@ export const useRewardedAd = () => {
     return Math.round(AD_REWARD * mult)
   }, [])
 
-  // Reklamı göster. Callback: 'earned' | 'dismissed' | 'unavailable'
   const show = useCallback((onResult: (result: 'earned' | 'dismissed' | 'unavailable') => void) => {
     if (!isAvailable || !adRef.current || !loadedRef.current) {
       onResult('unavailable')
@@ -76,13 +74,11 @@ export const useRewardedAd = () => {
           cleanup()
           progress.incrementAdsWatched()
           onResult('earned')
-          // Sonraki reklam için önceden yükle
           setTimeout(load, 500)
         }
       ))
       unsubs.push(adRef.current.addAdEventListener(
         RewardedAdEventType.CLOSED, () => {
-          // EARNED_REWARD gelmediyse dismissed
           cleanup()
           onResult('dismissed')
         }
