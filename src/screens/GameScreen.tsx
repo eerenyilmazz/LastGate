@@ -113,9 +113,6 @@ const StatIcon = React.memo<{
 
   return (
     <Animated.View style={[sIcon.wrap, isCrit && blinkStyle]}>
-      {showDiff && (
-        <View style={[sIcon.edge, { backgroundColor: diffPos ? C.accept_glow : C.reject_glow }]} />
-      )}
       <Text style={sIcon.emoji} allowFontScaling={false}>{icon}</Text>
       <Text style={[sIcon.abbrev, { fontFamily: MONO }]} allowFontScaling={false}>{abbrev}</Text>
       <View style={sIcon.barTrack}>
@@ -127,7 +124,6 @@ const StatIcon = React.memo<{
 
 const sIcon = StyleSheet.create({
   wrap:     { alignItems: 'center', flex: 1, paddingVertical: 8, paddingHorizontal: 4 },
-  edge:     { position: 'absolute', left: 0, top: 0, bottom: 0, width: 2, borderRadius: 1 },
   emoji:    { fontSize: 18 },
   abbrev:   { fontSize: 8, color: C.text_muted, letterSpacing: 0.5, fontWeight: TY.weight_bold, marginTop: 2, opacity: 0.7, textAlign: 'center' },
   barTrack: { width: '100%', height: 5, backgroundColor: C.surface, borderRadius: 2, marginTop: 4, overflow: 'hidden' },
@@ -280,9 +276,8 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, onAbandonGame, playSFX
       <AppBar onMainMenu={onMainMenu} onAbandonGame={onAbandonGame} />
 
       <View style={styles.statBar}>
-        {STATS.map((s, idx) => (
+        {STATS.map((s) => (
           <React.Fragment key={s}>
-            {idx > 0 && <View style={styles.statDivider} />}
             <StatIcon
               icon={(UI.stat_icons as any)[s]}
               val={Math.round(stats.stats[s])}
