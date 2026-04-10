@@ -201,9 +201,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, onAbandonGame, playSFX
   const [queryWarnPending, setQueryWarnPending] = useState(false)
   const [cardZoneH,        setCardZoneH]        = useState(360)
   const [tutorialDone,     setTutorialDone]     = useState(false)
-  const canQuery   = game.queryChargesLeft > 0
-  const anyCritical = STATS.some(s => stats.isCritical(s))
-  const [crisisTimer, setCrisisTimer] = useState<number | null>(null)
+  const canQuery = game.queryChargesLeft > 0
 
   const naturalCardH = Math.round(sw * (config as any).card_width_ratio / CARD_ASPECT)
   const cardSlotH    = Math.min(naturalCardH, Math.max((config as any).card_min_height, cardZoneH))
@@ -228,11 +226,6 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, onAbandonGame, playSFX
     setQueryWarnPending(false)
     dragX.value = 0
     dragY.value = 0
-    if (anyCritical && game.phase === 'npc_decision') {
-      setCrisisTimer(15)
-    } else {
-      setCrisisTimer(null)
-    }
   }, [npc?.npc_id])
 
   useEffect(() => {
@@ -278,13 +271,6 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, onAbandonGame, playSFX
 
   const isDecision = !!(npc && game.phase === 'npc_decision')
 
-  useEffect(() => {
-    if (crisisTimer === null || !isDecision) return
-    if (crisisTimer <= 0) { doReject(); setCrisisTimer(null); return }
-    const id = setTimeout(() => setCrisisTimer(t => (t !== null ? t - 1 : null)), 1000)
-    return () => clearTimeout(id)
-  }, [crisisTimer, isDecision])
-
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: C.background }]}>
       <AppBar onMainMenu={onMainMenu} onAbandonGame={onAbandonGame} />
@@ -306,15 +292,6 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, onAbandonGame, playSFX
           </React.Fragment>
         ))}
       </View>
-
-      {crisisTimer !== null && (
-        <View style={styles.crisisBar}>
-          <View style={[styles.crisisFill, { width: ((crisisTimer / 15) * 100 + '%') as any, backgroundColor: crisisTimer <= 5 ? C.danger : C.reject_glow }]} />
-          <Text style={[styles.crisisLabel, { fontFamily: MONO, color: crisisTimer <= 5 ? C.danger : C.reject_glow }]}>
-            {crisisTimer}s
-          </Text>
-        </View>
-      )}
 
       <View style={styles.cardZone} onLayout={onCardZoneLayout}>
         {npc && (
@@ -486,28 +463,6 @@ const styles = StyleSheet.create({
     width: 1,
     backgroundColor: C.surface,
     alignSelf: 'stretch',
-  },
-
-  crisisBar: {
-    height: 6,
-    backgroundColor: C.surface,
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  crisisFill: {
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    bottom: 0,
-    borderRadius: 0,
-  },
-  crisisLabel: {
-    position: 'absolute',
-    right: 8,
-    top: -1,
-    fontSize: 9,
-    fontWeight: '700',
-    letterSpacing: 0.5,
   },
 
   cardZone: {
