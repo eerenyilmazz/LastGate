@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  View, Text, TouchableOpacity, Modal, ScrollView,
+  View, Text, TouchableOpacity, ScrollView,
   StyleSheet, Platform,
 } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -66,19 +66,15 @@ export const CardDetails: React.FC<Props> = ({ npc, visible, onClose }) => {
   const insets = useSafeAreaInsets()
   const roleColor = ROLE_COLORS[npc.role] ?? C.text_muted
 
+  if (!visible) return null
+
   return (
-    <Modal
-      visible={visible}
-      transparent
-      animationType="slide"
-      onRequestClose={onClose}
+    <TouchableOpacity
+      style={ds.backdrop}
+      activeOpacity={1}
+      onPress={onClose}
     >
-      <TouchableOpacity
-        style={ds.backdrop}
-        activeOpacity={1}
-        onPress={onClose}
-      >
-        <View style={[ds.sheet, { paddingBottom: insets.bottom + 16 }]} onStartShouldSetResponder={() => true}>
+      <View style={[ds.sheet, { paddingBottom: insets.bottom + 16 }]} onStartShouldSetResponder={() => true}>
 
           <View style={ds.termHeader}>
             <View style={ds.dots}>
@@ -142,16 +138,16 @@ export const CardDetails: React.FC<Props> = ({ npc, visible, onClose }) => {
           </TouchableOpacity>
 
         </View>
-      </TouchableOpacity>
-    </Modal>
+    </TouchableOpacity>
   )
 }
 
 const ds = StyleSheet.create({
   backdrop: {
-    flex: 1,
+    ...StyleSheet.absoluteFillObject,
     backgroundColor: C.overlay_backdrop,
     justifyContent: 'flex-end',
+    zIndex: 50,
   },
   sheet: {
     backgroundColor: C.background,

@@ -28,7 +28,7 @@ export interface GameConfig {
   critical_thresholds: StatState
   event_trigger_chance: number
   query_charges_per_day: number
-  win_condition_day: number
+  win_condition_days: Record<string, number>
   sp_rewards: SPRewards
   buildings: BuildingConfig[]
 }

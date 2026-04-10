@@ -268,7 +268,7 @@ export const useGameLoop = () => {
   const continueAfterModifier = useCallback(async () => {
     const overReason = stats.getGameOverReason()
     if (overReason) { await triggerRescueOrGameOver(overReason); return }
-    if (game.day >= config.win_condition_day) { await finishWithGameOver('victory', true); return }
+    if (game.day >= config.win_condition_days[settings.difficulty]) { await finishWithGameOver('victory', true); return }
     if (tryTriggerEvent()) return
     awardDaySP(dayStartStatsRef.current)
     advanceToNextDay()
@@ -295,7 +295,7 @@ export const useGameLoop = () => {
       return
     }
 
-    if (game.day >= config.win_condition_day) {
+    if (game.day >= config.win_condition_days[settings.difficulty]) {
       await finishWithGameOver('victory', true)
       return
     }
@@ -411,7 +411,7 @@ export const useGameLoop = () => {
       return
     }
 
-    if (game.day >= config.win_condition_day) {
+    if (game.day >= config.win_condition_days[settings.difficulty]) {
       await finishWithGameOver('victory', true)
       return
     }

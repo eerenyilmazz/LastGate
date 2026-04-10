@@ -7,16 +7,18 @@ const TY = themeData.typography as any
 
 interface Props {
   day: number
+  difficulty: string
 }
 
-export const DayCounter: React.FC<Props> = ({ day }) => {
+export const DayCounter: React.FC<Props> = ({ day, difficulty }) => {
   const theme = useTheme()
+  const winDay = (config as any).win_condition_days[difficulty] ?? 100
 
   return (
     <View style={styles.container}>
       <Text style={[styles.label, { color: theme.colors.text_secondary }]}>GÜN</Text>
       <Text style={[styles.day, { color: theme.colors.text_primary }]}>{day}</Text>
-      <Text style={[styles.label, { color: theme.colors.text_secondary }]}>/ {config.win_condition_day}</Text>
+      <Text style={[styles.label, { color: theme.colors.text_secondary }]}>/ {winDay}</Text>
     </View>
   )
 }

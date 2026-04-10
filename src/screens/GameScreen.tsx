@@ -14,6 +14,7 @@ import { useTheme } from '../hooks/useTheme'
 import { useGameStore } from '../store/useGameStore'
 import { useStatStore } from '../store/useStatStore'
 import { useProgressStore } from '../store/useProgressStore'
+import { useSettingsStore } from '../store/useSettingsStore'
 import { useGameLoop } from '../hooks/useGameLoop'
 import { AppBar } from '../components/AppBar'
 import { NPCCard } from '../components/Card/NPCCard'
@@ -100,12 +101,13 @@ const StatIcon = React.memo<{
     }
   }, [isCrit])
 
-  const diff        = displayVal - val
-  const showDiff    = Math.abs(diff) >= 1
-  const diffPos     = diff > 0
-  const activeColor = isCrit      ? C.stat_critical
-    : showDiff ? (diffPos ? C.accept_glow : C.reject_glow)
+  const diff     = displayVal - val
+  const showDiff = Math.abs(diff) >= 1
+  const diffPos  = diff > 0
+  const barColor = isCrit    ? C.stat_critical
+    : showDiff ? (diffPos   ? C.accept_glow : C.reject_glow)
     : color
+  const barPct   = (Math.round(Math.max(0, Math.min(100, (displayVal / max) * 100))) + '%') as any
 
   const blinkStyle = useAnimatedStyle(() => ({ opacity: pulse.value }))
 
@@ -113,9 +115,9 @@ const StatIcon = React.memo<{
     <Animated.View style={[sIcon.wrap, isCrit && blinkStyle]}>
       <Text style={sIcon.emoji} allowFontScaling={false}>{icon}</Text>
       <Text style={[sIcon.abbrev, { fontFamily: MONO }]} allowFontScaling={false}>{abbrev}</Text>
-      <Text style={[sIcon.val, { color: activeColor, fontFamily: MONO }]} allowFontScaling={false}>
-        {displayVal > (config as any).stat_display_max ? String((config as any).stat_display_max) : displayVal}
-      </Text>
+      <View style={sIcon.barTrack}>
+        <View style={[sIcon.barFill, { width: barPct, backgroundColor: barColor }]} />
+      </View>
       <Text allowFontScaling={false} style={[sIcon.diff, {
         color: diffPos ? C.accept_glow : C.reject_glow,
         fontFamily: MONO,
@@ -128,11 +130,12 @@ const StatIcon = React.memo<{
 })
 
 const sIcon = StyleSheet.create({
-  wrap:  { alignItems: 'center', flex: 1, paddingVertical: 8, paddingHorizontal: 2 },
-  emoji: { fontSize: 20 },
-  val:   { fontSize: TY.size_sm, fontWeight: TY.weight_black, marginTop: 3, letterSpacing: 0.3 },
-  diff:   { fontSize: TY.size_caption, fontWeight: TY.weight_heavy, marginTop: 2, letterSpacing: 0.3, height: 12, lineHeight: 12 },
-  abbrev: { fontSize: TY.size_sm, color: C.text_muted, letterSpacing: 0, fontWeight: TY.weight_bold, marginTop: 2, opacity: 0.85, textAlign: 'center' },
+  wrap:     { alignItems: 'center', flex: 1, paddingVertical: 8, paddingHorizontal: 4 },
+  emoji:    { fontSize: 18 },
+  abbrev:   { fontSize: 8, color: C.text_muted, letterSpacing: 0.5, fontWeight: TY.weight_bold, marginTop: 2, opacity: 0.7, textAlign: 'center' },
+  barTrack: { width: '100%', height: 4, backgroundColor: C.surface, borderRadius: 2, marginTop: 4, overflow: 'hidden' },
+  barFill:  { height: 4, borderRadius: 2 },
+  diff:     { fontSize: TY.size_caption, fontWeight: TY.weight_heavy, marginTop: 3, letterSpacing: 0.3, height: 11, lineHeight: 11 },
 })
 
 const CardGlow = React.memo<{ dragX: SharedValue<number> }>(({ dragX }) => {
@@ -188,6 +191,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, onAbandonGame, playSFX
   const game     = useGameStore()
   const stats    = useStatStore()
   const progress = useProgressStore()
+  const settings = useSettingsStore()
   const { handleAccept, handleReject, handleQuery, handleEventChoice, handleReturn, continueAfterModifier, endDay, handleRescue, handleRescueGiveUp } = useGameLoop()
 
   const dragX = useSharedValue(0)
@@ -209,7 +213,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, onAbandonGame, playSFX
   const naturalCardH = Math.round(sw * (config as any).card_width_ratio / CARD_ASPECT)
   const cardSlotH    = Math.min(naturalCardH, Math.max((config as any).card_min_height, cardZoneH))
 
-  const dayPct = Math.round(((game.day - 1) / Math.max(1, config.win_condition_day - 1)) * 100)
+  const dayPct = Math.round(((game.day - 1) / Math.max(1, (config as any).win_condition_days[settings.difficulty] - 1)) * 100)
 
   useEffect(() => {
     if (game.phase !== 'npc_arrival') return
@@ -368,7 +372,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, onAbandonGame, playSFX
           <Text style={[styles.dayLabel, { fontFamily: MONO }]}>{STRINGS.day_label}</Text>
           <Text style={[styles.dayVal, { fontFamily: MONO }]}>
             {String(game.day).padStart(2, '0')}
-            <Text style={[styles.dayMax, { fontFamily: MONO }]}>/{config.win_condition_day}</Text>
+            <Text style={[styles.dayMax, { fontFamily: MONO }]}>/{(config as any).win_condition_days[settings.difficulty]}</Text>
           </Text>
         </View>
         <View style={styles.progressWrap}>
@@ -458,6 +462,8 @@ const styles = StyleSheet.create({
     backgroundColor: C.bg_deeper,
     borderBottomWidth: 1,
     borderBottomColor: C.surface,
+    zIndex: 100,
+    elevation: 10,
   },
   statDivider: {
     width: 1,

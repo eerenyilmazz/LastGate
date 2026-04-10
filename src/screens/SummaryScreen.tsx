@@ -8,6 +8,7 @@ import Animated, {
 import { useStatStore } from '../store/useStatStore'
 import { useProgressStore } from '../store/useProgressStore'
 import { useGameStore } from '../store/useGameStore'
+import { useSettingsStore } from '../store/useSettingsStore'
 import { StatType } from '../types/stat.types'
 import { AppBar } from '../components/AppBar'
 import config from '../data/config.json'
@@ -33,6 +34,7 @@ export const SummaryScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
   const stats    = useStatStore()
   const progress = useProgressStore()
   const game     = useGameStore()
+  const settings = useSettingsStore()
 
   const pulse = useSharedValue(1)
   React.useEffect(() => {
@@ -64,7 +66,7 @@ export const SummaryScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
             {STRINGS.summary_victory.replace('{day}', String(game.day))}
           </Text>
           <Text style={styles.sub}>
-            {STRINGS.summary_victory_body.replace('{win_day}', String(config.win_condition_day))}
+            {STRINGS.summary_victory_body.replace('{win_day}', String((config as any).win_condition_days[settings.difficulty] ?? 100))}
           </Text>
         </View>
 
