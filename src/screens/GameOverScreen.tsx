@@ -7,9 +7,11 @@ import Animated, {
 } from 'react-native-reanimated'
 import { useGameStore } from '../store/useGameStore'
 import { useProgressStore } from '../store/useProgressStore'
+import { useSettingsStore } from '../store/useSettingsStore'
 import { GameOverReason } from '../types/game.types'
 import { ACHIEVEMENT_DEFS } from '../types/achievement.types'
 import ui from '../data/ui.json'
+import config from '../data/config.json'
 import themeData from '../data/theme.json'
 const STRINGS = (ui as any).strings as Record<string, string>
 const { height } = Dimensions.get('window')
@@ -31,9 +33,11 @@ interface Props {
 export const GameOverScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
   const game     = useGameStore()
   const progress = useProgressStore()
+  const settings = useSettingsStore()
 
-  const reason = game.gameOverReason ?? 'extinction'
-  const ending = ENDINGS[reason]
+  const reason  = game.gameOverReason ?? 'extinction'
+  const winDay  = (config as any).win_condition_days[settings.difficulty] ?? 100
+  const ending  = { ...ENDINGS[reason], title: ENDINGS[reason].title.replace('{win_day}', String(winDay)) }
   const newAchievements = ACHIEVEMENT_DEFS.filter(a => progress.newAchievements.includes(a.id))
 
   useEffect(() => {

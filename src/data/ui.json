@@ -12,7 +12,7 @@
       "Hepsinin yüzünde aynı ifade:",
       "\"Beni içeri al.\"",
       "Sen bu şehrin son hattısın.",
-      "100 gün boyunca doğru kararı ver.",
+      "{win_day} gün boyunca doğru kararı ver.",
       "Şehir sana emanet."
     ],
     "cta": "[ KAPIYI AÇ ]"
@@ -77,7 +77,7 @@
     },
     "victory": {
       "icon": "★", "tag": "[ZAFER]",
-      "title": "100 GÜN HAYATTA KALDIN",
+      "title": "{win_day} GÜN HAYATTA KALDIN",
       "desc": "Kapılar hâlâ ayakta. Şehir yaşıyor.\nHayatta kaldın.",
       "color": "#4caf50"
     }
@@ -190,7 +190,7 @@
   "strings": {
 "splash_alert": "⚠ ACİL DURUM · VİRÜS YAYILIYOR · ŞEHİR KARANTİNADA · KAPIYI KORU · SON SAVUNMA HATTI ⚠",   "splash_subtitle":      "— SON KAPI —",
     "splash_terminal":      "DURUM RAPORU / ZONE-7",
-    "splash_tagline":       ">> 100 GÜN HAYATTA KAL <<",
+    "splash_tagline":       ">> {win_day} GÜN HAYATTA KAL <<",
     "splash_hint":          "  KAPIYA DOKUN  ",
     "splash_loading":       "SİSTEM YÜKLENİYOR",
     "splash_version":       "BETA v0.1 · SEKTOR 7",
@@ -205,7 +205,7 @@
     "summary_status_label": "— FİNAL DURUMU —",
     "summary_sp_label":     "TOPLAM SP",
     "intro_journal_title":  "SEFER GÜNLÜĞÜ",
-    "win_banner":           "100 GÜN → ŞEHİR KURTARILIR",
+    "win_banner":           "{win_day} GÜN → ŞEHİR KURTARILIR",
     "appbar_title": "LAST GATE",
     "appbar_settings": "AYARLAR",
     "appbar_music_label": "ORTAM MÜZİĞİ",
@@ -245,7 +245,7 @@
     "howto_goal": "[ HEDEF ]",
     "howto_goal_1": "›  Kapıya gelen kişileri kabul ya da reddet.",
     "howto_goal_2": "›  5 değerin sıfıra düşmemesini sağla.",
-    "howto_goal_3_days": "100 gün",
+    "howto_goal_3_days": "{win_day} gün",
     "howto_goal_3_rest": "hayatta kalırsan şehir kurtarılır.",
     "howto_stats": "[ DEĞERLERİN ANLAMI ]",
     "howto_chain": "[ ZİNCİRLEME ETKİLER ]",

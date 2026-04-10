@@ -6,7 +6,9 @@ import Animated, {
 } from 'react-native-reanimated'
 
 import ui from '../data/ui.json'
+import config from '../data/config.json'
 import themeData from '../data/theme.json'
+import { useSettingsStore } from '../store/useSettingsStore'
 
 const uiStrings = (ui as any).strings as Record<string, string>
 
@@ -21,6 +23,8 @@ const MONO         = Platform.select(themeData.ui.font_mono) as string
 const STATUS_ITEMS = ui.splash_status_items
 
 export const SplashScreen: React.FC<Props> = ({ onDone }) => {
+  const settings = useSettingsStore()
+  const winDay   = (config as any).win_condition_days[settings.difficulty] ?? 100
   const { width, height } = useWindowDimensions()
   const emblemSize = Math.round(width * 0.88)
 
@@ -142,7 +146,7 @@ export const SplashScreen: React.FC<Props> = ({ onDone }) => {
         </View>
 
         <Animated.View style={[styles.taglineWrap, bottomStyle]} pointerEvents="none">
-          <Text style={[styles.tagline, { fontFamily: MONO }]}>{uiStrings.splash_tagline}</Text>
+          <Text style={[styles.tagline, { fontFamily: MONO }]}>{uiStrings.splash_tagline.replace('{win_day}', String(winDay))}</Text>
         </Animated.View>
 
         <View style={styles.progressWrap}>

@@ -70,7 +70,7 @@ const SwipeRow: React.FC<{ gesture: string; action: string; color: string }> = (
   </View>
 )
 
-const HowToPlay: React.FC = () => (
+const HowToPlay: React.FC<{ winDay: number }> = ({ winDay }) => (
   <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
 
     <View style={content.block}>
@@ -85,10 +85,10 @@ const HowToPlay: React.FC = () => (
       <View style={content.infoCard}>
         <Text style={content.line}>{STRINGS.howto_goal_1}</Text>
         <Text style={content.line}>{STRINGS.howto_goal_2}</Text>
-        <Text style={content.line}>›  <Text style={{ color: C.accept, fontWeight: TY.weight_bold }}>{STRINGS.howto_goal_3_days}</Text> {STRINGS.howto_goal_3_rest}</Text>
+        <Text style={content.line}>›  <Text style={{ color: C.accept, fontWeight: TY.weight_bold }}>{STRINGS.howto_goal_3_days.replace('{win_day}', String(winDay))}</Text> {STRINGS.howto_goal_3_rest}</Text>
       </View>
       <View style={content.winBox}>
-        <Text style={[content.winText, { fontFamily: MONO }]}>{STRINGS.win_banner}</Text>
+        <Text style={[content.winText, { fontFamily: MONO }]}>{STRINGS.win_banner.replace('{win_day}', String(winDay))}</Text>
       </View>
     </View>
 
@@ -518,7 +518,7 @@ export const MenuScreen: React.FC<Props> = ({ onStart, onResume, hasResumableGam
               <>
                 <PanelHeader title={STRINGS.menu_howto} onClose={close} accentColor={C.panel_howto} />
                 <View style={{ flex: 1, paddingHorizontal: 20 }}>
-                  <HowToPlay />
+                  <HowToPlay winDay={(config as any).win_condition_days[settings.difficulty] ?? 100} />
                 </View>
               </>
             )}
