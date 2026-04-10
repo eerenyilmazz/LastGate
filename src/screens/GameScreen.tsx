@@ -104,8 +104,8 @@ const StatIcon = React.memo<{
   const diff     = displayVal - val
   const showDiff = Math.abs(diff) >= 1
   const diffPos  = diff > 0
-  const barColor = isCrit    ? C.stat_critical
-    : showDiff ? (diffPos   ? C.accept_glow : C.reject_glow)
+  const barColor = isCrit   ? C.stat_critical
+    : showDiff ? (diffPos  ? C.accept_glow : C.reject_glow)
     : color
   const barPct   = (Math.round(Math.max(0, Math.min(100, (displayVal / max) * 100))) + '%') as any
 
@@ -113,29 +113,25 @@ const StatIcon = React.memo<{
 
   return (
     <Animated.View style={[sIcon.wrap, isCrit && blinkStyle]}>
+      {showDiff && (
+        <View style={[sIcon.edge, { backgroundColor: diffPos ? C.accept_glow : C.reject_glow }]} />
+      )}
       <Text style={sIcon.emoji} allowFontScaling={false}>{icon}</Text>
       <Text style={[sIcon.abbrev, { fontFamily: MONO }]} allowFontScaling={false}>{abbrev}</Text>
       <View style={sIcon.barTrack}>
         <View style={[sIcon.barFill, { width: barPct, backgroundColor: barColor }]} />
       </View>
-      <Text allowFontScaling={false} style={[sIcon.diff, {
-        color: diffPos ? C.accept_glow : C.reject_glow,
-        fontFamily: MONO,
-        opacity: showDiff ? 1 : 0,
-      }]}>
-        {diff > 0 ? `+${diff}` : diff < 0 ? `${diff}` : '+0'}
-      </Text>
     </Animated.View>
   )
 })
 
 const sIcon = StyleSheet.create({
   wrap:     { alignItems: 'center', flex: 1, paddingVertical: 8, paddingHorizontal: 4 },
+  edge:     { position: 'absolute', left: 0, top: 0, bottom: 0, width: 2, borderRadius: 1 },
   emoji:    { fontSize: 18 },
   abbrev:   { fontSize: 8, color: C.text_muted, letterSpacing: 0.5, fontWeight: TY.weight_bold, marginTop: 2, opacity: 0.7, textAlign: 'center' },
-  barTrack: { width: '100%', height: 4, backgroundColor: C.surface, borderRadius: 2, marginTop: 4, overflow: 'hidden' },
-  barFill:  { height: 4, borderRadius: 2 },
-  diff:     { fontSize: TY.size_caption, fontWeight: TY.weight_heavy, marginTop: 3, letterSpacing: 0.3, height: 11, lineHeight: 11 },
+  barTrack: { width: '100%', height: 5, backgroundColor: C.surface, borderRadius: 2, marginTop: 4, overflow: 'hidden' },
+  barFill:  { height: 5, borderRadius: 2 },
 })
 
 const CardGlow = React.memo<{ dragX: SharedValue<number> }>(({ dragX }) => {
