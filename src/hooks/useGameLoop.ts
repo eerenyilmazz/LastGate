@@ -12,13 +12,14 @@ import { StatEngine } from '../domain/StatEngine'
 import { SaveSystem } from '../domain/SaveSystem'
 import { NPC, NPCRole } from '../types/npc.types'
 import { StatDelta, StatState } from '../types/stat.types'
-import { GameOverReason, ProgressState, Difficulty } from '../types/game.types'
+import { GameOverReason, ProgressState, Difficulty, Disaster } from '../types/game.types'
 import { RunModifier } from '../types/modifier.types'
 import { FollowupData } from '../types/return.types'
 import config from '../data/config.json'
 import ui from '../data/ui.json'
 import modifiersData from '../data/modifiers.json'
 import followupsData from '../data/followups.json'
+import disastersData from '../data/disasters.json'
 
 const FOLLOWUPS = followupsData as FollowupData[]
 
@@ -128,7 +129,7 @@ export const useGameLoop = () => {
     })
   }, [game, stats, progress, settings])
 
-  const applyDailyStats = useCallback((): { hasReturn: boolean } => {
+  const applyDailyStats = useCallback((): { hasReturn: boolean; hasDisaster: boolean } => {
     stats.applyPassive(progress.buildings)
 
     const synergyDelta = StatEngine.computeRoleSynergy(game.acceptedRoleCounts)
@@ -184,10 +185,24 @@ export const useGameLoop = () => {
     game.removeReturns(rRemain)
     if (returnTriggered) {
       game.setActiveReturn(returnTriggered)
-      return { hasReturn: true }
+      return { hasReturn: true, hasDisaster: false }
     }
 
-    return { hasReturn: false }
+    const daysSinceLast = game.day - game.lastDisasterDay
+    if (game.day >= 5 && daysSinceLast >= 6 && Math.random() < 0.18) {
+      const eligible = (disastersData as unknown as Disaster[]).filter(d => game.day >= d.min_day)
+      if (eligible.length > 0) {
+        const totalW = eligible.reduce((s, d) => s + d.weight, 0)
+        let r = Math.random() * totalW
+        const picked = eligible.find(d => { r -= d.weight; return r <= 0 }) ?? eligible[0]
+        stats.apply(picked.effects as StatDelta)
+        game.setActiveDisaster(picked)
+        game.setLastDisasterDay(game.day)
+        return { hasReturn: false, hasDisaster: true }
+      }
+    }
+
+    return { hasReturn: false, hasDisaster: false }
   }, [game, stats, progress, settings])
 
   const finishWithGameOver = useCallback(async (reason: GameOverReason, isVictory: boolean) => {
@@ -281,11 +296,17 @@ export const useGameLoop = () => {
     game.clearNotifications()
     game.resetDaySpEarned()
 
-    const { hasReturn } = applyDailyStats()
+    const { hasReturn, hasDisaster } = applyDailyStats()
 
     const overReason = stats.getGameOverReason()
     if (overReason) {
       await triggerRescueOrGameOver(overReason)
+      return
+    }
+
+    if (hasDisaster) {
+      game.setPhase('disaster')
+      await saveAll()
       return
     }
 
@@ -511,5 +532,26 @@ export const useGameLoop = () => {
     return { hasResumableGame: false }
   }, [game, stats, progress, settings])
 
-  return { handleAccept, handleReject, handleQuery, endDay, handleReturn, continueAfterModifier, handleEventChoice, startGame, loadSave, handleRescue, handleRescueGiveUp }
+  const handleDisasterContinue = useCallback(async () => {
+    game.setActiveDisaster(null)
+
+    const overReason = stats.getGameOverReason()
+    if (overReason) {
+      await triggerRescueOrGameOver(overReason)
+      return
+    }
+
+    if (game.day >= config.win_condition_days[settings.difficulty]) {
+      await finishWithGameOver('victory', true)
+      return
+    }
+
+    if (tryTriggerEvent()) return
+
+    awardDaySP(dayStartStatsRef.current)
+    advanceToNextDay()
+    await saveAll()
+  }, [game, stats, settings, finishWithGameOver, triggerRescueOrGameOver, tryTriggerEvent, awardDaySP, advanceToNextDay, saveAll])
+
+  return { handleAccept, handleReject, handleQuery, endDay, handleReturn, handleDisasterContinue, continueAfterModifier, handleEventChoice, startGame, loadSave, handleRescue, handleRescueGiveUp }
 }

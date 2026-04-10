@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { GameState, GamePhase, GameOverReason, RunStats } from '../types/game.types'
+import { GameState, GamePhase, GameOverReason, RunStats, Disaster } from '../types/game.types'
 import { NPC, NPCRole } from '../types/npc.types'
 import { GameEvent } from '../types/event.types'
 import { PendingTrait } from '../domain/HiddenSystem'
@@ -14,7 +14,9 @@ interface GameStore extends GameState {
   activeModifier: RunModifier | null
   pendingReturns: NPCReturn[]
   pendingDelayeds: PendingDelayed[]
-  activeReturn: NPCReturn | null
+  activeReturn:   NPCReturn | null
+  activeDisaster: Disaster | null
+  lastDisasterDay: number
 
   setPhase: (phase: GamePhase) => void
   setActiveModifier: (mod: RunModifier) => void
@@ -35,7 +37,9 @@ interface GameStore extends GameState {
   enqueuePendingDelayed: (d: PendingDelayed) => void
   removeReturns: (remaining: NPCReturn[]) => void
   removeDelayeds: (remaining: PendingDelayed[]) => void
-  setActiveReturn: (r: NPCReturn | null) => void
+  setActiveReturn:   (r: NPCReturn | null) => void
+  setActiveDisaster: (d: Disaster | null) => void
+  setLastDisasterDay: (day: number) => void
 
   addNotification: (text: string) => void
   clearNotifications: () => void
@@ -65,6 +69,8 @@ const INITIAL: GameState & {
   pendingReturns: NPCReturn[]
   pendingDelayeds: PendingDelayed[]
   activeReturn: null
+  activeDisaster: null
+  lastDisasterDay: number
 } = {
   day: 1,
   phase: 'npc_arrival',
@@ -81,10 +87,12 @@ const INITIAL: GameState & {
   usedEventIDs: [],
   notifications: [],
   daySpEarned: 0,
-  activeModifier: null,
-  pendingReturns: [],
-  pendingDelayeds: [],
-  activeReturn: null,
+  activeModifier:   null,
+  pendingReturns:   [],
+  pendingDelayeds:  [],
+  activeReturn:     null,
+  activeDisaster:   null,
+  lastDisasterDay:  -99,
 }
 
 const RESCUE_INITIAL = { pendingRescueReason: null as GameOverReason | null }
@@ -164,6 +172,14 @@ export const useGameStore = create<GameStore>((set, get) => ({
 
   setActiveReturn(r) {
     set({ activeReturn: r })
+  },
+
+  setActiveDisaster(d) {
+    set({ activeDisaster: d })
+  },
+
+  setLastDisasterDay(day) {
+    set({ lastDisasterDay: day })
   },
 
   addNotification(text) {

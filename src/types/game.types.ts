@@ -9,10 +9,21 @@ export type GamePhase =
   | 'npc_decision'
   | 'npc_return'
   | 'event'
+  | 'disaster'
   | 'day_summary'
   | 'building'
   | 'stat_rescue'
   | 'game_over'
+
+export interface Disaster {
+  id: string
+  icon: string
+  title: string
+  description: string
+  effects: Record<string, number>
+  min_day: number
+  weight: number
+}
 
 export type GameOverReason =
   | 'starvation'

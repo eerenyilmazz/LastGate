@@ -1,0 +1,137 @@
+[
+  {
+    "id": "warehouse_fire",
+    "icon": "🔥",
+    "title": "Depo Yangını",
+    "description": "Yiyecek depoları ateşe verildi. Şehir aç kalıyor.",
+    "effects": { "food": -35 },
+    "min_day": 5,
+    "weight": 3
+  },
+  {
+    "id": "plague_outbreak",
+    "icon": "🦠",
+    "title": "Salgın Patlak Verdi",
+    "description": "Bilinmeyen bir virüs şehrin içinde hızla yayılıyor.",
+    "effects": { "immunity": -28, "population": -6 },
+    "min_day": 6,
+    "weight": 3
+  },
+  {
+    "id": "economic_crash",
+    "icon": "📉",
+    "title": "Ekonomik Çöküş",
+    "description": "Piyasalar çöktü, ticaret durdu. Kasa boş.",
+    "effects": { "economy": -30 },
+    "min_day": 7,
+    "weight": 2
+  },
+  {
+    "id": "wall_breach",
+    "icon": "💥",
+    "title": "Savunma Hattı Yıkıldı",
+    "description": "Doğu duvarı yerle bir edildi. Şehir savunmasız.",
+    "effects": { "defense": -28 },
+    "min_day": 8,
+    "weight": 2
+  },
+  {
+    "id": "famine",
+    "icon": "🌾",
+    "title": "Kıtlık",
+    "description": "Tarlalar yanık, hayvan sürüleri yok oldu.",
+    "effects": { "food": -22, "population": -5 },
+    "min_day": 5,
+    "weight": 3
+  },
+  {
+    "id": "raid",
+    "icon": "⚔️",
+    "title": "Yabancı Baskın",
+    "description": "Gecenin karanlığında silahlı grup şehre girdi.",
+    "effects": { "defense": -22, "population": -8 },
+    "min_day": 10,
+    "weight": 2
+  },
+  {
+    "id": "civil_unrest",
+    "icon": "🚨",
+    "title": "İç Karışıklık",
+    "description": "Halk ayaklandı. Dükkanlar yağmalandı, sokaklar savaş alanına döndü.",
+    "effects": { "economy": -18, "defense": -12 },
+    "min_day": 8,
+    "weight": 2
+  },
+  {
+    "id": "poisoned_water",
+    "icon": "☠️",
+    "title": "Zehirli Su",
+    "description": "Su kaynakları kirletildi. Hastaneler dolup taşıyor.",
+    "effects": { "immunity": -22, "population": -6 },
+    "min_day": 6,
+    "weight": 2
+  },
+  {
+    "id": "flood",
+    "icon": "🌊",
+    "title": "Sel Felaketi",
+    "description": "Nehir taştı. Depolar su altında, surlar hasar gördü.",
+    "effects": { "food": -25, "defense": -10 },
+    "min_day": 5,
+    "weight": 2
+  },
+  {
+    "id": "trade_cut",
+    "icon": "🚫",
+    "title": "Ticaret Yolu Kesildi",
+    "description": "Tüm ticaret yolları düşman tarafından bloke edildi.",
+    "effects": { "economy": -25 },
+    "min_day": 7,
+    "weight": 2
+  },
+  {
+    "id": "desertion",
+    "icon": "🏳️",
+    "title": "Askeri Firar",
+    "description": "Garnizonun yarısı geceyi fırsatbilip kaçtı.",
+    "effects": { "defense": -30 },
+    "min_day": 10,
+    "weight": 1
+  },
+  {
+    "id": "mass_exodus",
+    "icon": "🚶",
+    "title": "Toplu Göç",
+    "description": "Korkuya kapılan halk şehri terk etti.",
+    "effects": { "population": -14, "economy": -10 },
+    "min_day": 8,
+    "weight": 2
+  },
+  {
+    "id": "epidemic_wave",
+    "icon": "🤒",
+    "title": "Hastalık Dalgası",
+    "description": "Ölümcül bir hastalık dalgası şehri kasıp kavurdu.",
+    "effects": { "immunity": -32 },
+    "min_day": 12,
+    "weight": 1
+  },
+  {
+    "id": "supply_theft",
+    "icon": "🗡️",
+    "title": "İkmal Soyuldu",
+    "description": "Organize bir çete ikmal kervanını bastı.",
+    "effects": { "economy": -18, "food": -15 },
+    "min_day": 9,
+    "weight": 2
+  },
+  {
+    "id": "night_assault",
+    "icon": "🌑",
+    "title": "Gece Baskını",
+    "description": "Şafak sökmeden önce surlar aşıldı. Pek çok kişi hayatını kaybetti.",
+    "effects": { "defense": -20, "population": -7 },
+    "min_day": 12,
+    "weight": 1
+  }
+]
