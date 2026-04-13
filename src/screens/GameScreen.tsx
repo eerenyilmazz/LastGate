@@ -34,6 +34,7 @@ import { NPCRole } from '../types/npc.types'
 import config from '../data/config.json'
 import themeData from '../data/theme.json'
 import uiData from '../data/ui.json'
+import { ms, fs, s } from '../utils/scale'
 
 const TY   = themeData.typography as any
 const SP   = themeData.spacing
@@ -124,11 +125,11 @@ const StatIcon = React.memo<{
 })
 
 const sIcon = StyleSheet.create({
-  wrap:     { alignItems: 'center', flex: 1, paddingVertical: 8, paddingHorizontal: 4 },
-  emoji:    { fontSize: 18 },
-  abbrev:   { fontSize: 8, color: C.text_muted, letterSpacing: 0.5, fontWeight: TY.weight_bold, marginTop: 2, opacity: 0.7, textAlign: 'center' },
-  barTrack: { width: '100%', height: 5, backgroundColor: C.surface, borderRadius: 2, marginTop: 4, overflow: 'hidden' },
-  barFill:  { height: 5, borderRadius: 2 },
+  wrap:     { alignItems: 'center', flex: 1, paddingVertical: ms(8), paddingHorizontal: ms(4) },
+  emoji:    { fontSize: ms(18) },
+  abbrev:   { fontSize: Math.max(8, fs(8)), color: C.text_muted, letterSpacing: 0.5, fontWeight: TY.weight_bold, marginTop: 2, opacity: 0.7, textAlign: 'center' },
+  barTrack: { width: '100%', height: ms(5), backgroundColor: C.surface, borderRadius: 2, marginTop: ms(4), overflow: 'hidden' },
+  barFill:  { height: ms(5), borderRadius: 2 },
 })
 
 const CardGlow = React.memo<{ dragX: SharedValue<number> }>(({ dragX }) => {
@@ -493,7 +494,7 @@ const styles = StyleSheet.create({
   },
   queryStrip: {
     paddingHorizontal: SP.md,
-    paddingVertical: 8,
+    paddingVertical: ms(8),
     backgroundColor: C.bg_deeper,
     borderTopWidth: 1,
     borderTopColor: C.divider,
@@ -534,19 +535,19 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   chargeLabel: {
-    fontSize: 11,
+    fontSize: Math.max(9, fs(11)),
     color: C.text_muted,
     fontWeight: TY.weight_black,
     letterSpacing: 2,
   },
   chargeDots: {
     flexDirection: 'row',
-    gap: 6,
+    gap: ms(6),
   },
   chargeDot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
+    width: ms(10),
+    height: ms(10),
+    borderRadius: ms(5),
   },
 
 
@@ -554,7 +555,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: SP.sm,
-    paddingVertical: 9,
+    paddingVertical: ms(9),
     gap: SP.sm,
     backgroundColor: C.bg_deeper,
     borderTopWidth: 1,
@@ -563,7 +564,7 @@ const styles = StyleSheet.create({
   dayBlock: { minWidth: 50 },
   dayLabel: {
     color: C.text_muted,
-    fontSize: 7,
+    fontSize: Math.max(9, fs(10)),
     fontWeight: TY.weight_heavy,
     letterSpacing: 2,
     marginBottom: 1,
@@ -579,14 +580,14 @@ const styles = StyleSheet.create({
     fontWeight: TY.weight_bold,
   },
   diffBadge: {
-    fontSize: 7,
+    fontSize: Math.max(9, fs(10)),
     fontWeight: TY.weight_heavy,
     letterSpacing: 1.5,
     marginTop: 2,
   },
   progressWrap: { flex: 1, gap: 3 },
   progressTrack: {
-    height: 4,
+    height: ms(4),
     borderRadius: 2,
     backgroundColor: C.card_dark,
     overflow: 'hidden',
@@ -597,7 +598,7 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
   progressPct: {
-    fontSize: 8,
+    fontSize: Math.max(9, fs(10)),
     color: C.text_muted,
     fontWeight: TY.weight_heavy,
     letterSpacing: 1,
@@ -606,19 +607,19 @@ const styles = StyleSheet.create({
   modBadge: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
-    paddingHorizontal: 7,
-    paddingVertical: 4,
-    borderRadius: 6,
+    gap: ms(4),
+    paddingHorizontal: ms(7),
+    paddingVertical: ms(4),
+    borderRadius: R.sm,
     borderWidth: 1,
     borderColor: C.query + '55',
     backgroundColor: C.query + '0d',
-    maxWidth: 110,
+    maxWidth: s(120),
   },
-  modBadgeIcon: { fontSize: 13 },
+  modBadgeIcon: { fontSize: ms(13) },
   modBadgeName: {
     color: C.query,
-    fontSize: 8,
+    fontSize: Math.max(9, fs(10)),
     fontWeight: TY.weight_black,
     letterSpacing: 0.5,
     flex: 1,

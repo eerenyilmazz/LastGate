@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Platform, useWindowDimensions, Image } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { ms } from '../utils/scale'
 import Animated, {
   useSharedValue, useAnimatedStyle,
   withTiming, withDelay, withRepeat, withSequence, Easing, runOnJS,
@@ -189,12 +190,12 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 4,
-    paddingHorizontal: 20,
+    gap: ms(4),
+    paddingHorizontal: ms(20),
   },
 
   logoBlock: { alignItems: 'center', gap: 0 },
-  emblem: { width: 450, height: 450, marginBottom: -40 },
+  emblem: { width: ms(450), height: ms(450), marginBottom: ms(-40) },
   subtitle: { fontSize: TY.size_xs, fontWeight: TY.weight_bold, color: C.text_muted, letterSpacing: 8 },
 
   terminal: {
@@ -206,28 +207,28 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   termHeader: {
-    flexDirection: 'row', alignItems: 'center', gap: 5,
-    paddingHorizontal: 12, paddingVertical: 8,
+    flexDirection: 'row', alignItems: 'center', gap: ms(5),
+    paddingHorizontal: ms(12), paddingVertical: ms(8),
     backgroundColor: C.bg_deeper,
   },
   termDot:    { width: 7, height: 7, borderRadius: R.xs, backgroundColor: C.text_muted },
   termTitle:  { color: C.text_muted, fontSize: TY.size_caption, letterSpacing: 2, fontWeight: TY.weight_bold, marginLeft: 6, flex: 1, textAlign: 'right' },
   termDivider:{ height: 1, backgroundColor: C.bg_deeper },
-  termBody:   { padding: 12, gap: 10 },
-  statusRow:  { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  termBody:   { padding: ms(12), gap: ms(10) },
+  statusRow:  { flexDirection: 'row', alignItems: 'center', gap: ms(6) },
   statusTag:  { fontSize: TY.size_caption, width: 26, fontWeight: TY.weight_heavy },
   statusLabel:{ color: C.text_muted, fontSize: TY.size_caption, fontWeight: TY.weight_bold, letterSpacing: 0.5, flex: 1 },
   dotsRow:    { flexDirection: 'row', gap: 2, alignItems: 'center', marginHorizontal: 4 },
   dot:        { width: 2, height: 2, borderRadius: 1, backgroundColor: C.bg_deeper },
   statusValue:{ fontSize: TY.size_caption, fontWeight: TY.weight_heavy, letterSpacing: 1.5 },
 
-  taglineWrap: { alignItems: 'center', marginBottom: 14 },
+  taglineWrap: { alignItems: 'center', marginBottom: ms(14) },
   tagline: { color: C.text_muted, fontSize: TY.size_xs, letterSpacing: 2, fontWeight: TY.weight_bold },
 
   progressWrap: {
     width: '88%',
-    gap: 6,
-    marginBottom: 16,
+    gap: ms(6),
+    marginBottom: ms(14),
   },
   progressLabel: {
     color: C.text_muted,
@@ -251,7 +252,7 @@ const styles = StyleSheet.create({
   hintWrap: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 12,
+    marginBottom: ms(10),
   },
   hintBracket: { color: C.text_bright, fontSize: TY.size_body, fontWeight: TY.weight_black },
   hintText:    { color: C.text_bright, fontSize: TY.size_xs, fontWeight: TY.weight_heavy, letterSpacing: 3 },

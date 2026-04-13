@@ -8,6 +8,7 @@ import { useRewardedAd } from '../../hooks/useRewardedAd'
 import { useSettingsStore } from '../../store/useSettingsStore'
 import { GameOverReason } from '../../types/game.types'
 import themeData from '../../data/theme.json'
+import { ms } from '../../utils/scale'
 
 const C    = themeData.colors
 const TY   = themeData.typography as any
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.85)',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 24,
+    padding: ms(24),
   },
   card: {
     width: '100%',
@@ -106,11 +107,11 @@ const styles = StyleSheet.create({
     borderRadius: R.lg,
     borderWidth: 1,
     borderColor: C.danger + '66',
-    padding: 24,
+    padding: ms(20),
     alignItems: 'center',
-    gap: 10,
+    gap: ms(10),
   },
-  warningIcon: { fontSize: 40, marginBottom: 4 },
+  warningIcon: { fontSize: ms(36), marginBottom: ms(4) },
   title: {
     color: C.danger,
     fontSize: TY.size_body,
@@ -137,16 +138,16 @@ const styles = StyleSheet.create({
   adBtn: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    gap: ms(12),
     width: '100%',
     backgroundColor: C.query + '11',
     borderWidth: 1,
     borderColor: C.query + '44',
     borderRadius: R.md,
-    paddingVertical: 14,
-    paddingHorizontal: 16,
+    paddingVertical: ms(14),
+    paddingHorizontal: ms(16),
   },
-  adBtnIcon: { fontSize: 22 },
+  adBtnIcon: { fontSize: ms(22) },
   adBtnTitle: {
     color: C.query,
     fontSize: TY.size_xs,
@@ -158,18 +159,18 @@ const styles = StyleSheet.create({
     fontSize: TY.size_caption,
     marginTop: 2,
   },
-  adBtnArrow: { fontSize: 22, fontWeight: TY.weight_black },
+  adBtnArrow: { fontSize: ms(22), fontWeight: TY.weight_black },
   spBtn: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    gap: ms(12),
     width: '100%',
     backgroundColor: C.accept + '11',
     borderWidth: 1,
     borderColor: C.accept + '44',
     borderRadius: R.md,
-    paddingVertical: 14,
-    paddingHorizontal: 16,
+    paddingVertical: ms(14),
+    paddingHorizontal: ms(16),
   },
   spBtnDisabled: {
     borderColor: C.button_border,
@@ -182,9 +183,9 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
   giveUpBtn: {
-    marginTop: 6,
-    paddingVertical: 10,
-    paddingHorizontal: 24,
+    marginTop: ms(6),
+    paddingVertical: ms(10),
+    paddingHorizontal: ms(24),
   },
   giveUpText: {
     color: C.text_muted,

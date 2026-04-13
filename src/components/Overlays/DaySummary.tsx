@@ -9,6 +9,7 @@ import { StatType } from '../../types/stat.types'
 import themeData from '../../data/theme.json'
 import config from '../../data/config.json'
 import uiData from '../../data/ui.json'
+import { ms, s } from '../../utils/scale'
 
 const TY = themeData.typography as any
 const SP = themeData.spacing
@@ -257,30 +258,30 @@ const styles = StyleSheet.create({
   },
 
   statsBlock: {
-    paddingHorizontal: 20,
-    paddingTop: 20,
-    paddingBottom: 6,
-    gap: 16,
+    paddingHorizontal: ms(20),
+    paddingTop: ms(16),
+    paddingBottom: ms(6),
+    gap: ms(14),
   },
 
   statRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: ms(8),
   },
 
-  statIcon: { fontSize: TY.size_h6, width: 24, textAlign: 'center' },
+  statIcon: { fontSize: TY.size_h6, width: ms(24), textAlign: 'center' },
 
   statShort: {
     fontSize: TY.size_caption,
     fontWeight: TY.weight_heavy,
     letterSpacing: 0.5,
-    width: 72,
+    width: s(72),
   },
 
   barTrack: {
     flex: 1,
-    height: 10,
+    height: ms(10),
     backgroundColor: C.surface,
     borderRadius: R.xs,
     overflow: 'hidden',
@@ -295,13 +296,13 @@ const styles = StyleSheet.create({
   statNum: {
     fontSize: TY.size_body,
     fontWeight: TY.weight_bold,
-    width: 36,
+    width: ms(36),
     textAlign: 'right',
   },
 
   diffBox: {
-    width: 40,
-    paddingVertical: 3,
+    width: ms(40),
+    paddingVertical: ms(3),
     borderRadius: R.xs,
     alignItems: 'center',
     backgroundColor: 'transparent',
@@ -316,17 +317,17 @@ const styles = StyleSheet.create({
   modRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
-    marginHorizontal: 20,
-    marginTop: 14,
-    paddingVertical: 10,
-    paddingHorizontal: 12,
-    borderRadius: 8,
+    gap: ms(10),
+    marginHorizontal: ms(20),
+    marginTop: ms(12),
+    paddingVertical: ms(10),
+    paddingHorizontal: ms(12),
+    borderRadius: R.md,
     borderWidth: 1,
     borderColor: C.query + '44',
     backgroundColor: C.query + '0d',
   },
-  modIcon: { fontSize: 22 },
+  modIcon: { fontSize: ms(22) },
   modText: { flex: 1 },
   modName: {
     color: C.query,
@@ -342,8 +343,8 @@ const styles = StyleSheet.create({
   },
 
   divider: {
-    marginHorizontal: 20,
-    marginVertical: 14,
+    marginHorizontal: ms(20),
+    marginVertical: ms(12),
   },
   dividerLine: {
     height: 1,
@@ -353,16 +354,16 @@ const styles = StyleSheet.create({
   roleRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 6,
-    paddingHorizontal: 16,
-    marginBottom: 14,
+    gap: ms(6),
+    paddingHorizontal: ms(16),
+    marginBottom: ms(12),
   },
   roleChip: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
-    paddingHorizontal: 9,
-    paddingVertical: 5,
+    gap: ms(4),
+    paddingHorizontal: ms(9),
+    paddingVertical: ms(5),
     borderRadius: R.md,
     borderWidth: 1,
   },
@@ -379,15 +380,15 @@ const styles = StyleSheet.create({
   spAdBlock: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
-    marginHorizontal: 16,
-    marginBottom: 10,
+    gap: ms(10),
+    marginHorizontal: ms(16),
+    marginBottom: ms(10),
     borderRadius: R.md,
     borderWidth: 1,
     borderColor: C.query + '44',
     backgroundColor: C.query + '11',
-    paddingVertical: 12,
-    paddingHorizontal: 14,
+    paddingVertical: ms(12),
+    paddingHorizontal: ms(14),
     overflow: 'hidden',
   },
   spAdBlockDim: {
@@ -493,8 +494,8 @@ const styles = StyleSheet.create({
   },
 
   buildingBtn: {
-    marginHorizontal: 16,
-    marginBottom: 14,
+    marginHorizontal: ms(16),
+    marginBottom: ms(12),
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: C.card_dark,
@@ -503,16 +504,16 @@ const styles = StyleSheet.create({
     borderColor: C.divider,
     borderLeftWidth: 4,
     borderLeftColor: C.query,
-    paddingVertical: 14,
-    paddingHorizontal: 14,
+    paddingVertical: ms(14),
+    paddingHorizontal: ms(14),
   },
   buildingLeft: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    gap: ms(12),
   },
-  buildingEmoji: { fontSize: TY.size_xl },
+  buildingEmoji: { fontSize: ms(TY.size_xl) },
   buildingTitle: {
     color: C.query,
     fontSize: TY.size_sm,
@@ -556,18 +557,18 @@ const styles = StyleSheet.create({
   },
 
   notifBlock: {
-    marginHorizontal: 16,
-    marginBottom: 12,
-    maxHeight: 110,
-    gap: 5,
+    marginHorizontal: ms(16),
+    marginBottom: ms(10),
+    maxHeight: ms(110),
+    gap: ms(5),
   },
   notifRow: {
     backgroundColor: C.surface,
     borderLeftWidth: 3,
     borderLeftColor: C.danger,
     borderRadius: R.xs,
-    paddingVertical: 8,
-    paddingHorizontal: 10,
+    paddingVertical: ms(8),
+    paddingHorizontal: ms(10),
   },
   notifText: {
     flex: 1,

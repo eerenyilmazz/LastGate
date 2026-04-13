@@ -16,6 +16,7 @@ import ui from '../data/ui.json'
 import config from '../data/config.json'
 import themeData from '../data/theme.json'
 import modifiersData from '../data/modifiers.json'
+import { ms } from '../utils/scale'
 
 const C  = themeData.colors
 const TY = themeData.typography as any
@@ -548,7 +549,7 @@ export const MenuScreen: React.FC<Props> = ({ onStart, onResume, hasResumableGam
             {overlay === 'howto' && (
               <>
                 <PanelHeader title={STRINGS.menu_howto} onClose={close} accentColor={C.panel_howto} />
-                <View style={{ flex: 1, paddingHorizontal: 20 }}>
+                <View style={{ flex: 1, paddingHorizontal: ms(20) }}>
                   <HowToPlay />
                 </View>
               </>
@@ -564,7 +565,7 @@ export const MenuScreen: React.FC<Props> = ({ onStart, onResume, hasResumableGam
             {overlay === 'settings' && (
               <>
                 <PanelHeader title={STRINGS.menu_settings} onClose={close} accentColor={C.panel_settings} />
-                <View style={{ flex: 1, paddingHorizontal: 20 }}>
+                <View style={{ flex: 1, paddingHorizontal: ms(20) }}>
                   <SettingsContent />
                 </View>
               </>
@@ -640,11 +641,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 8,
+    gap: ms(8),
   },
   emblem: {
-    width: 90,
-    height: 90,
+    width: ms(90),
+    height: ms(90),
   },
   title: {
     color: C.text_bright,
@@ -662,11 +663,11 @@ const styles = StyleSheet.create({
     marginTop: -2,
   },
   spRow: {
-    marginTop: 10,
+    marginTop: ms(10),
     backgroundColor: C.bg_deeper,
     borderRadius: 20,
-    paddingHorizontal: 14,
-    paddingVertical: 5,
+    paddingHorizontal: ms(14),
+    paddingVertical: ms(5),
     borderWidth: 1,
     borderColor: C.button_border,
   },
@@ -677,19 +678,19 @@ const styles = StyleSheet.create({
   },
 
   menuArea: {
-    paddingHorizontal: 24,
-    gap: 8,
+    paddingHorizontal: ms(24),
+    gap: ms(8),
   },
 
   startBtn: {
     backgroundColor: C.danger_dark,
     borderRadius: R.pill,
-    paddingVertical: 18,
-    paddingHorizontal: 24,
+    paddingVertical: ms(18),
+    paddingHorizontal: ms(24),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 12,
+    gap: ms(12),
     borderWidth: 1,
     borderColor: C.danger + '33',
     shadowColor: C.danger,
@@ -713,12 +714,12 @@ const styles = StyleSheet.create({
   resumeBtn: {
     backgroundColor: '#0d2e17',
     borderRadius: R.pill,
-    paddingVertical: 18,
-    paddingHorizontal: 24,
+    paddingVertical: ms(18),
+    paddingHorizontal: ms(24),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 12,
+    gap: ms(12),
     borderWidth: 1,
     borderColor: C.accept + '33',
     shadowColor: C.accept,
@@ -743,13 +744,13 @@ const styles = StyleSheet.create({
     color: C.text_muted,
   },
 
-  menuSpacer: { height: 4 },
+  menuSpacer: { height: ms(4) },
 
   menuBtn: {
     backgroundColor: C.bg_deeper,
     borderRadius: R.md,
-    paddingVertical: 14,
-    paddingHorizontal: 20,
+    paddingVertical: ms(14),
+    paddingHorizontal: ms(20),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -770,8 +771,8 @@ const styles = StyleSheet.create({
 
   footerRow: {
     alignItems: 'center',
-    gap: 6,
-    paddingBottom: Platform.OS === 'android' ? 12 : 8,
+    gap: ms(6),
+    paddingBottom: Platform.OS === 'android' ? ms(12) : ms(8),
   },
   footer: {
     color: C.danger_dark,
@@ -813,15 +814,15 @@ const panel = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
-    paddingHorizontal: 16,
-    paddingVertical: 14,
+    gap: ms(10),
+    paddingHorizontal: ms(16),
+    paddingVertical: ms(14),
     borderBottomWidth: 1,
     borderBottomColor: C.card_dark,
     backgroundColor: C.bg_deeper,
   },
-  dots: { flexDirection: 'row', gap: 5 },
-  dot:  { width: 7, height: 7, borderRadius: R.xs },
+  dots: { flexDirection: 'row', gap: ms(5) },
+  dot:  { width: ms(7), height: ms(7), borderRadius: R.xs },
   title: {
     flex: 1,
     color: C.danger,
@@ -831,8 +832,8 @@ const panel = StyleSheet.create({
     textAlign: 'center',
   },
   closeBtn: {
-    width: 28,
-    height: 28,
+    width: ms(28),
+    height: ms(28),
     borderRadius: R.lg,
     backgroundColor: C.card_dark,
     alignItems: 'center',
@@ -849,34 +850,34 @@ const panel = StyleSheet.create({
 
 const content = StyleSheet.create({
   block: {
-    marginBottom: 20,
-    gap: 8,
+    marginBottom: ms(20),
+    gap: ms(8),
   },
   blockTitle: {
     color: C.danger,
     fontSize: TY.size_xs,
     fontWeight: TY.weight_black,
     letterSpacing: 2,
-    marginBottom: 4,
+    marginBottom: ms(4),
   },
   infoCard: {
     backgroundColor: C.bg_deeper,
     borderWidth: 1,
     borderColor: C.card_dark,
     borderRadius: R.md,
-    padding: 12,
-    gap: 6,
+    padding: ms(12),
+    gap: ms(6),
   },
 
   swipeRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
-    marginBottom: 6,
+    gap: ms(8),
+    marginBottom: ms(6),
   },
   swipeGesture: {
-    width: 40,
-    height: 28,
+    width: ms(40),
+    height: ms(28),
     borderRadius: R.xs,
     borderWidth: 1,
     alignItems: 'center',
@@ -885,28 +886,28 @@ const content = StyleSheet.create({
   },
   swipeGestureText: { fontSize: TY.size_caption, fontWeight: TY.weight_black, letterSpacing: 0.5 },
   swipeArrow: {
-    width: 22,
-    height: 22,
-    borderRadius: 11,
+    width: ms(22),
+    height: ms(22),
+    borderRadius: ms(11),
     alignItems: 'center',
     justifyContent: 'center',
   },
   swipeArrowText: { fontSize: TY.size_h6, fontWeight: TY.weight_black, lineHeight: 20 },
   swipeAction: { color: C.text_bright, fontSize: TY.size_sm, fontWeight: TY.weight_bold, letterSpacing: 1 },
-  subNote: { color: C.text_muted, fontSize: TY.size_note, marginTop: 2 },
+  subNote: { color: C.text_muted, fontSize: TY.size_note, marginTop: ms(2) },
 
   statGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 6,
-    marginBottom: 8,
+    gap: ms(6),
+    marginBottom: ms(8),
   },
   statChip: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
-    paddingHorizontal: 8,
-    paddingVertical: 5,
+    gap: ms(4),
+    paddingHorizontal: ms(8),
+    paddingVertical: ms(5),
     borderRadius: R.sm,
     borderWidth: 1,
     backgroundColor: C.bg_deeper,
@@ -917,8 +918,8 @@ const content = StyleSheet.create({
   statEndRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
-    marginBottom: 6,
+    gap: ms(10),
+    marginBottom: ms(6),
   },
   statEndText: {
     flex: 1,
@@ -932,48 +933,48 @@ const content = StyleSheet.create({
     borderWidth: 1,
     borderColor: (C.accept + '55'),
     borderRadius: R.sm,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingHorizontal: ms(12),
+    paddingVertical: ms(8),
     alignItems: 'center',
-    marginTop: 4,
+    marginTop: ms(4),
   },
   winText: { color: C.accept, fontSize: TY.size_xs, fontWeight: TY.weight_heavy, letterSpacing: 1.5 },
 
-  section: { marginBottom: 20, gap: 4 },
+  section: { marginBottom: ms(20), gap: ms(4) },
   sectionTitle: {
     color: C.danger,
     fontSize: TY.size_xs,
     fontWeight: TY.weight_black,
     letterSpacing: 3,
-    marginBottom: 8,
-    marginTop: 4,
+    marginBottom: ms(8),
+    marginTop: ms(4),
   },
   line: { color: C.text_muted, fontSize: TY.size_sm, lineHeight: 21 },
   hi:   { color: C.query, fontWeight: TY.weight_bold },
-  note: { color: C.text_muted, fontSize: TY.size_sm, lineHeight: 18, marginBottom: 12, fontStyle: 'italic' },
+  note: { color: C.text_muted, fontSize: TY.size_sm, lineHeight: 18, marginBottom: ms(12), fontStyle: 'italic' },
   warnBox: {
     backgroundColor: C.warning_box_bg,
     borderLeftWidth: 2,
     borderLeftColor: C.danger,
     borderRadius: R.xs,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    marginBottom: 4,
+    paddingHorizontal: ms(10),
+    paddingVertical: ms(8),
+    marginBottom: ms(4),
   },
   warnText: { color: C.danger, fontSize: TY.size_note, fontWeight: TY.weight_bold },
 })
 
 const guide = StyleSheet.create({
-  tabScroll: { maxHeight: 44 },
+  tabScroll: { maxHeight: ms(44) },
   tabContent: {
-    paddingHorizontal: 16,
-    gap: 6,
+    paddingHorizontal: ms(16),
+    gap: ms(6),
     alignItems: 'center',
-    paddingVertical: 8,
+    paddingVertical: ms(8),
   },
   tabBtn: {
-    paddingHorizontal: 12,
-    paddingVertical: 5,
+    paddingHorizontal: ms(12),
+    paddingVertical: ms(5),
     borderRadius: R.sm,
     backgroundColor: C.bg_deeper,
     borderWidth: 1,
@@ -982,7 +983,7 @@ const guide = StyleSheet.create({
   tabBtnActive:  { backgroundColor: C.danger_dark, borderColor: C.danger },
   tabText:       { color: C.text_secondary, fontSize: TY.size_sm, fontWeight: TY.weight_semi },
   tabTextActive: { color: C.danger },
-  body: { flex: 1, paddingHorizontal: 16, paddingTop: 8 },
+  body: { flex: 1, paddingHorizontal: ms(16), paddingTop: ms(8) },
   sub:  { color: C.text_muted, fontSize: TY.size_xs, letterSpacing: 0.5 },
 })
 
@@ -995,22 +996,22 @@ const sett = StyleSheet.create({
     borderWidth: 1,
     borderColor: C.card_dark,
     borderRadius: R.pill,
-    padding: 14,
-    marginTop: 12,
-    gap: 10,
+    padding: ms(14),
+    marginTop: ms(12),
+    gap: ms(10),
   },
   cardLeft: { flex: 1 },
-  cardTitle: { color: C.text_bright, fontSize: TY.size_xs, fontWeight: TY.weight_heavy, letterSpacing: 1.5, marginBottom: 3 },
+  cardTitle: { color: C.text_bright, fontSize: TY.size_xs, fontWeight: TY.weight_heavy, letterSpacing: 1.5, marginBottom: ms(3) },
   cardSub:   { color: C.text_secondary, fontSize: TY.size_note, lineHeight: 15 },
 
   toggle: {
-    paddingHorizontal: 14,
-    paddingVertical: 8,
+    paddingHorizontal: ms(14),
+    paddingVertical: ms(8),
     borderRadius: 20,
     backgroundColor: C.card_dark,
     borderWidth: 1,
     borderColor: C.text_muted,
-    minWidth: 64,
+    minWidth: ms(64),
     alignItems: 'center',
   },
   toggleOn:   { backgroundColor: C.diff_pos_bg, borderColor: (C.accept + '55') },
@@ -1025,22 +1026,22 @@ const sett = StyleSheet.create({
     borderWidth: 1,
     borderColor: C.card_dark,
     borderRadius: R.md,
-    padding: 12,
-    marginTop: 12,
+    padding: ms(12),
+    marginTop: ms(12),
     gap: 0,
   },
   earnTitle: {
     color: C.query,
     fontSize: TY.size_xs,
     letterSpacing: 2,
-    marginBottom: 10,
+    marginBottom: ms(10),
     fontWeight: TY.weight_black,
   },
   earnRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 6,
+    paddingVertical: ms(6),
     borderBottomWidth: 1,
     borderBottomColor: C.card_dark,
   },
@@ -1049,8 +1050,8 @@ const sett = StyleSheet.create({
 
   versionBlock: {
     alignItems: 'center',
-    marginTop: 24,
-    gap: 4,
+    marginTop: ms(24),
+    gap: ms(4),
   },
   versionText: { color: C.text_muted, fontSize: TY.size_xs, letterSpacing: 2 },
   versionSub:  { color: C.text_muted, fontSize: TY.size_2xs, letterSpacing: 3, opacity: 0.5 },
@@ -1064,26 +1065,26 @@ const meta = StyleSheet.create({
     borderWidth: 1,
     borderColor: C.divider,
     borderRadius: R.md,
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    marginTop: 10,
+    paddingHorizontal: ms(16),
+    paddingVertical: ms(10),
+    marginTop: ms(10),
     gap: 0,
   },
-  runStat: { flex: 1, alignItems: 'center', gap: 2 },
+  runStat: { flex: 1, alignItems: 'center', gap: ms(2) },
   runVal: { color: C.text_muted, fontSize: TY.size_h6, fontWeight: TY.weight_black },
   runLabel: { color: C.text_muted, fontSize: TY.size_2xs, letterSpacing: 1.5, fontWeight: TY.weight_bold },
-  runDivider: { width: 1, height: 28, backgroundColor: C.card_dark },
+  runDivider: { width: 1, height: ms(28), backgroundColor: C.card_dark },
 })
 
 const diff = StyleSheet.create({
   row: {
     flexDirection: 'row',
-    gap: 6,
-    marginBottom: 6,
+    gap: ms(6),
+    marginBottom: ms(6),
   },
   btn: {
     flex: 1,
-    paddingVertical: 10,
+    paddingVertical: ms(10),
     borderRadius: R.md,
     borderWidth: 1,
     borderColor: C.card_dark,
@@ -1095,13 +1096,13 @@ const diff = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: 8,
+    paddingVertical: ms(8),
     paddingHorizontal: SP.md,
     borderRadius: R.md,
     borderWidth: 1,
     borderColor: C.card_dark,
     backgroundColor: C.bg_deeper,
-    marginBottom: 10,
+    marginBottom: ms(10),
   },
   modRowOn: { borderColor: C.query + '55', backgroundColor: C.query + '0a' },
   modLabel: { fontSize: TY.size_xs, fontWeight: TY.weight_bold },
@@ -1112,43 +1113,43 @@ const row = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: 10,
-    marginBottom: 10,
-    paddingLeft: 8,
+    gap: ms(10),
+    marginBottom: ms(10),
+    paddingLeft: ms(8),
     borderLeftWidth: 2,
     borderLeftColor: C.text_muted,
   },
-  icon: { fontSize: TY.size_lg, width: 26, textAlign: 'center' },
+  icon: { fontSize: TY.size_lg, width: ms(26), textAlign: 'center' },
   text: { flex: 1 },
-  name: { color: C.text_bright, fontSize: TY.size_body, fontWeight: TY.weight_bold, marginBottom: 2 },
+  name: { color: C.text_bright, fontSize: TY.size_body, fontWeight: TY.weight_bold, marginBottom: ms(2) },
   desc: { color: C.text_muted, fontSize: TY.size_note, lineHeight: 16 },
 })
 
 
 const newGameConfirm = StyleSheet.create({
-  backdrop: { flex: 1, backgroundColor: '#000000cc', justifyContent: 'center', alignItems: 'center', padding: 32 },
-  box: { backgroundColor: C.surface, borderRadius: R.lg, padding: 24, width: '100%', borderWidth: 1, borderColor: C.danger + '44' },
-  title: { color: C.danger, fontSize: TY.size_h6_alt, fontWeight: TY.weight_black, letterSpacing: 3, marginBottom: 12 },
-  msg: { color: C.text_secondary, fontSize: TY.size_body, lineHeight: 22, marginBottom: 24 },
-  btnConfirm: { paddingVertical: 14, alignItems: 'center', backgroundColor: C.danger_dark, borderRadius: R.sm, marginBottom: 8 },
-  btnCancel: { paddingVertical: 14, alignItems: 'center' },
+  backdrop: { flex: 1, backgroundColor: '#000000cc', justifyContent: 'center', alignItems: 'center', padding: ms(32) },
+  box: { backgroundColor: C.surface, borderRadius: R.lg, padding: ms(24), width: '100%', borderWidth: 1, borderColor: C.danger + '44' },
+  title: { color: C.danger, fontSize: TY.size_h6_alt, fontWeight: TY.weight_black, letterSpacing: 3, marginBottom: ms(12) },
+  msg: { color: C.text_secondary, fontSize: TY.size_body, lineHeight: 22, marginBottom: ms(24) },
+  btnConfirm: { paddingVertical: ms(14), alignItems: 'center', backgroundColor: C.danger_dark, borderRadius: R.sm, marginBottom: ms(8) },
+  btnCancel: { paddingVertical: ms(14), alignItems: 'center' },
   btnText: { fontSize: TY.size_sm, fontWeight: TY.weight_black, letterSpacing: 1.5 },
 })
 
 const modPrev = StyleSheet.create({
   backdrop: { flex: 1, backgroundColor: '#000000cc', justifyContent: 'flex-end' },
-  box: { backgroundColor: C.surface, borderTopLeftRadius: R.xl, borderTopRightRadius: R.xl, padding: 20, maxHeight: '80%' },
-  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 },
+  box: { backgroundColor: C.surface, borderTopLeftRadius: R.xl, borderTopRightRadius: R.xl, padding: ms(20), maxHeight: '80%' },
+  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: ms(16) },
   tag: { color: C.text_muted, fontSize: TY.size_xs, letterSpacing: 2.5, fontWeight: TY.weight_bold },
-  closeBtn: { color: C.text_muted, fontSize: TY.size_md, paddingHorizontal: 4 },
-  list: { marginBottom: 16 },
-  item: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingVertical: 12, paddingHorizontal: 12, borderRadius: R.sm, marginBottom: 4 },
+  closeBtn: { color: C.text_muted, fontSize: TY.size_md, paddingHorizontal: ms(4) },
+  list: { marginBottom: ms(16) },
+  item: { flexDirection: 'row', alignItems: 'center', gap: ms(12), paddingVertical: ms(12), paddingHorizontal: ms(12), borderRadius: R.sm, marginBottom: ms(4) },
   itemSelected: { backgroundColor: C.query + '18', borderWidth: 1, borderColor: C.query + '55' },
-  itemIcon: { fontSize: 28, width: 36, textAlign: 'center' },
+  itemIcon: { fontSize: ms(28), width: ms(36), textAlign: 'center' },
   itemText: { flex: 1 },
-  itemName: { color: C.text_bright, fontSize: TY.size_body, fontWeight: TY.weight_bold, marginBottom: 2 },
+  itemName: { color: C.text_bright, fontSize: TY.size_body, fontWeight: TY.weight_bold, marginBottom: ms(2) },
   itemDesc: { color: C.text_muted, fontSize: TY.size_caption, lineHeight: 16 },
   checkmark: { color: C.query, fontSize: TY.size_md, fontWeight: TY.weight_black },
-  btnOn: { paddingVertical: 14, alignItems: 'center', backgroundColor: C.query + '22', borderRadius: R.sm, borderWidth: 1, borderColor: C.query + '66', marginTop: 4 },
+  btnOn: { paddingVertical: ms(14), alignItems: 'center', backgroundColor: C.query + '22', borderRadius: R.sm, borderWidth: 1, borderColor: C.query + '66', marginTop: ms(4) },
   btnText: { fontSize: TY.size_sm, fontWeight: TY.weight_black, letterSpacing: 1.5 },
 })

@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import themeData from '../../data/theme.json'
 import uiData from '../../data/ui.json'
+import { ms } from '../../utils/scale'
 
 const C  = themeData.colors
 const TY = themeData.typography as any
@@ -41,7 +42,7 @@ export const TutorialOverlay: React.FC<Props> = ({ onClose }) => {
           <View style={[styles.dot, { backgroundColor: DOTS[2] }]} />
         </View>
         <Text style={[styles.headerText, { fontFamily: MONO }]}>{TUTORIAL.header}</Text>
-        <View style={{ width: 40 }} />
+        <View style={{ width: ms(40) }} />
       </View>
 
       <View style={styles.list}>
@@ -89,16 +90,16 @@ const styles = StyleSheet.create({
   termHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 18,
-    paddingVertical: 14,
+    paddingHorizontal: ms(18),
+    paddingVertical: ms(14),
     backgroundColor: C.surface,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderBottomWidth: 1,
     borderBottomColor: C.divider,
   },
-  dots: { flexDirection: 'row', gap: 5 },
-  dot:  { width: 8, height: 8, borderRadius: R.xs },
+  dots: { flexDirection: 'row', gap: ms(5) },
+  dot:  { width: ms(8), height: ms(8), borderRadius: R.xs },
   headerText: {
     flex: 1,
     textAlign: 'center',
@@ -108,18 +109,18 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
   },
   list: {
-    paddingHorizontal: 18,
-    paddingVertical: 18,
-    gap: 14,
+    paddingHorizontal: ms(18),
+    paddingVertical: ms(18),
+    gap: ms(14),
   },
   tipRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 14,
+    gap: ms(14),
   },
   iconBox: {
-    width: 44,
-    height: 44,
+    width: ms(44),
+    height: ms(44),
     borderRadius: R.md,
     borderWidth: 1,
     alignItems: 'center',
@@ -132,7 +133,7 @@ const styles = StyleSheet.create({
   },
   tipBody: {
     flex: 1,
-    gap: 2,
+    gap: ms(2),
   },
   tipTitle: {
     fontSize: TY.size_note,
@@ -145,9 +146,9 @@ const styles = StyleSheet.create({
     lineHeight: 16,
   },
   btn: {
-    marginHorizontal: 16,
-    marginTop: 4,
-    paddingVertical: 14,
+    marginHorizontal: ms(16),
+    marginTop: ms(4),
+    paddingVertical: ms(14),
     borderRadius: R.md,
     backgroundColor: C.surface,
     borderWidth: 1,

@@ -14,6 +14,7 @@ import { AppBar } from '../components/AppBar'
 import config from '../data/config.json'
 import themeData from '../data/theme.json'
 import uiData from '../data/ui.json'
+import { ms } from '../utils/scale'
 
 const TY = themeData.typography as any
 const SP = themeData.spacing
@@ -124,19 +125,19 @@ export const SummaryScreen: React.FC<Props> = ({ onRestart, onMainMenu }) => {
 
 const styles = StyleSheet.create({
   safe:   { flex: 1, backgroundColor: C.bg_deeper },
-  scroll: { paddingHorizontal: 20, paddingTop: 24 },
+  scroll: { paddingHorizontal: ms(20), paddingTop: ms(24) },
 
-  header: { alignItems: 'center', gap: 6, marginBottom: 24 },
+  header: { alignItems: 'center', gap: ms(6), marginBottom: ms(24) },
   tag: {
     color: C.accept,
     fontSize: TY.size_caption,
     fontWeight: TY.weight_black,
     letterSpacing: 3,
-    marginBottom: 4,
+    marginBottom: ms(4),
   },
   emblem: {
     fontSize: TY.size_banner,
-    marginVertical: 4,
+    marginVertical: ms(4),
   },
   title: {
     color: C.text_bright,
@@ -153,49 +154,49 @@ const styles = StyleSheet.create({
     fontSize: TY.size_body,
     fontWeight: TY.weight_bold,
     letterSpacing: 1,
-    marginTop: 2,
+    marginTop: ms(2),
   },
   sub: {
     color: C.text_muted,
     fontSize: TY.size_sm,
     lineHeight: 18,
     textAlign: 'center',
-    marginTop: 4,
+    marginTop: ms(4),
   },
 
   divider: {
     height: 1,
     backgroundColor: C.card_dark,
-    marginVertical: 16,
+    marginVertical: ms(16),
   },
 
-  section: { gap: 6, marginBottom: 4 },
+  section: { gap: ms(6), marginBottom: ms(4) },
   sectionLabel: {
     color: C.text_muted,
     fontSize: TY.size_caption,
     letterSpacing: 2,
     textAlign: 'center',
-    marginBottom: 8,
+    marginBottom: ms(8),
   },
   statRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
-    paddingVertical: 5,
+    gap: ms(8),
+    paddingVertical: ms(5),
     borderBottomWidth: 1,
     borderBottomColor: C.bg_deeper,
   },
-  statIcon: { fontSize: TY.size_md, width: 20, textAlign: 'center' },
-  statName: { width: 72, color: C.text_muted, fontSize: TY.size_xs, fontWeight: TY.weight_bold, letterSpacing: 0.5 },
+  statIcon: { fontSize: TY.size_md, width: ms(20), textAlign: 'center' },
+  statName: { width: ms(72), color: C.text_muted, fontSize: TY.size_xs, fontWeight: TY.weight_bold, letterSpacing: 0.5 },
   barTrack: {
     flex: 1,
-    height: 6,
+    height: ms(6),
     backgroundColor: C.card_dark,
     borderRadius: 3,
     overflow: 'hidden',
   },
   barFill: { height: '100%', borderRadius: 3 },
-  statVal: { width: 32, fontSize: TY.size_sm, fontWeight: TY.weight_heavy, textAlign: 'right' },
+  statVal: { width: ms(32), fontSize: TY.size_sm, fontWeight: TY.weight_heavy, textAlign: 'right' },
 
   spRow: {
     flexDirection: 'row',
@@ -205,22 +206,22 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: C.button_border,
     borderRadius: R.pill,
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-    marginBottom: 20,
+    paddingHorizontal: ms(16),
+    paddingVertical: ms(14),
+    marginBottom: ms(20),
   },
   spLabel: { color: C.text_muted, fontSize: TY.size_note, fontWeight: TY.weight_heavy, letterSpacing: 2 },
-  spRight: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  spRight: { flexDirection: 'row', alignItems: 'center', gap: ms(6) },
   spStar:  { color: C.query, fontSize: TY.size_md },
   spNum:   { color: C.query, fontSize: TY.size_xl, fontWeight: TY.weight_black },
 
-  btnGroup: { gap: 8 },
+  btnGroup: { gap: ms(8) },
   btnPrimary: {
     backgroundColor: C.diff_pos_bg,
     borderWidth: 1,
     borderColor: C.accept,
     borderRadius: R.pill,
-    paddingVertical: 16,
+    paddingVertical: ms(16),
     alignItems: 'center',
   },
   btnSecondary: {
@@ -228,7 +229,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: C.card_dark,
     borderRadius: R.pill,
-    paddingVertical: 14,
+    paddingVertical: ms(14),
     alignItems: 'center',
   },
   btnText:    { color: C.accept_glow, fontSize: TY.size_body, fontWeight: TY.weight_black, letterSpacing: 2 },

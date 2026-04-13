@@ -8,6 +8,7 @@ import { GameEvent, EventChoice } from '../../types/event.types'
 import { NPCRole } from '../../types/npc.types'
 import themeData from '../../data/theme.json'
 import uiData from '../../data/ui.json'
+import { ms } from '../../utils/scale'
 const STRINGS = (uiData as any).strings as Record<string, string>
 
 const C  = themeData.colors
@@ -130,7 +131,7 @@ export const EventModal: React.FC<Props> = ({ event, acceptedRoles, onChoice }) 
             <Text style={[es.termTitle, { fontFamily: MONO }]}>
               OLAY · {event.category.toUpperCase()}
             </Text>
-            <View style={{ width: 36 }} />
+            <View style={{ width: ms(36) }} />
           </View>
 
           <ScrollView
@@ -190,17 +191,17 @@ const es = StyleSheet.create({
   termHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
-    paddingHorizontal: 16,
-    paddingVertical: 13,
+    gap: ms(8),
+    paddingHorizontal: ms(16),
+    paddingVertical: ms(13),
     backgroundColor: C.surface,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderBottomWidth: 1,
     borderBottomColor: C.divider,
   },
-  dots: { flexDirection: 'row', gap: 5 },
-  dot:  { width: 8, height: 8, borderRadius: R.xs },
+  dots: { flexDirection: 'row', gap: ms(5) },
+  dot:  { width: ms(8), height: ms(8), borderRadius: R.xs },
   termTitle: {
     flex: 1,
     color: C.text_secondary,
@@ -211,10 +212,10 @@ const es = StyleSheet.create({
   },
 
   body: {
-    paddingHorizontal: 16,
-    paddingTop: 16,
-    paddingBottom: 8,
-    gap: 12,
+    paddingHorizontal: ms(16),
+    paddingTop: ms(16),
+    paddingBottom: ms(8),
+    gap: ms(12),
   },
 
   eventTitle: {
@@ -234,7 +235,7 @@ const es = StyleSheet.create({
     borderColor: C.divider,
     borderLeftWidth: 3,
     borderLeftColor: C.divider,
-    padding: 12,
+    padding: ms(12),
   },
   descText: {
     color: C.text_secondary,
@@ -245,7 +246,7 @@ const es = StyleSheet.create({
   divider: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: ms(8),
   },
   dividerLine: { flex: 1, height: 1, backgroundColor: C.divider },
   dividerText: {
@@ -255,25 +256,25 @@ const es = StyleSheet.create({
     letterSpacing: 1.5,
   },
 
-  choicesBlock: { gap: 8 },
+  choicesBlock: { gap: ms(8) },
 
   choiceBtn: {
     borderRadius: R.pill,
     borderWidth: 1,
     borderLeftWidth: 4,
-    padding: 12,
-    gap: 8,
+    padding: ms(12),
+    gap: ms(8),
   },
 
   choiceTop: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
+    gap: ms(10),
   },
 
   badge: {
-    width: 26,
-    height: 26,
+    width: ms(26),
+    height: ms(26),
     borderRadius: R.sm,
     borderWidth: 1,
     alignItems: 'center',
@@ -298,8 +299,8 @@ const es = StyleSheet.create({
     borderRadius: R.xs,
     borderWidth: 1,
     borderColor: (C.query + '44'),
-    paddingHorizontal: 5,
-    paddingVertical: 2,
+    paddingHorizontal: ms(5),
+    paddingVertical: ms(2),
     flexShrink: 0,
   },
   bonusText: {
@@ -309,15 +310,15 @@ const es = StyleSheet.create({
     letterSpacing: 0.5,
   },
 
-  chipArea: { paddingLeft: 36 },
+  chipArea: { paddingLeft: ms(36) },
 
-  chipRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 5 },
+  chipRow: { flexDirection: 'row', flexWrap: 'wrap', gap: ms(5) },
   chip: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 3,
-    paddingHorizontal: 7,
-    paddingVertical: 4,
+    gap: ms(3),
+    paddingHorizontal: ms(7),
+    paddingVertical: ms(4),
     borderRadius: R.xs,
     borderWidth: 1,
   },

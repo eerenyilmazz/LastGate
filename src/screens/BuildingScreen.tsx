@@ -13,6 +13,7 @@ import { AppBar } from '../components/AppBar'
 import config from '../data/config.json'
 import themeData from '../data/theme.json'
 import uiData from '../data/ui.json'
+import { ms } from '../utils/scale'
 
 const L = uiData.labels
 
@@ -375,70 +376,70 @@ const styles = StyleSheet.create({
 
   header: {
     flexDirection: 'row', alignItems: 'center',
-    paddingHorizontal: 16, paddingVertical: 12,
-    gap: 12, borderBottomWidth: 1, borderBottomColor: C.card_dark,
+    paddingHorizontal: ms(16), paddingVertical: ms(12),
+    gap: ms(12), borderBottomWidth: 1, borderBottomColor: C.card_dark,
   },
-  backBtn:     { flexDirection: 'row', alignItems: 'center', gap: 5, paddingHorizontal: 12, paddingVertical: 7, borderRadius: 20, backgroundColor: C.card_dark, borderWidth: 1, borderColor: C.building_border_warm },
+  backBtn:     { flexDirection: 'row', alignItems: 'center', gap: ms(5), paddingHorizontal: ms(12), paddingVertical: ms(7), borderRadius: 20, backgroundColor: C.card_dark, borderWidth: 1, borderColor: C.building_border_warm },
   backLabel:   { color: C.text_muted, fontSize: TY.size_xs, fontWeight: TY.weight_bold, letterSpacing: 1 },
   headerTitle: { flex: 1, color: C.text_primary, fontSize: TY.size_body, fontWeight: TY.weight_heavy, letterSpacing: 3, textAlign: 'center' },
-  spBadge:     { flexDirection: 'row', alignItems: 'center', gap: 2 },
+  spBadge:     { flexDirection: 'row', alignItems: 'center', gap: ms(2) },
   spStar:      { color: C.query, fontSize: TY.size_h7 },
   spNum:       { color: C.text_bright, fontSize: TY.size_h6, fontWeight: TY.weight_black },
 
-  tabBar:        { flexDirection: 'row', marginHorizontal: 16, marginVertical: 10, borderRadius: R.md, backgroundColor: C.bg_deeper, padding: 3, gap: 3, borderWidth: 1, borderColor: C.card_dark },
-  tabBtn:        { flex: 1, paddingVertical: 9, alignItems: 'center', borderRadius: R.sm },
+  tabBar:        { flexDirection: 'row', marginHorizontal: ms(16), marginVertical: ms(10), borderRadius: R.md, backgroundColor: C.bg_deeper, padding: ms(3), gap: ms(3), borderWidth: 1, borderColor: C.card_dark },
+  tabBtn:        { flex: 1, paddingVertical: ms(9), alignItems: 'center', borderRadius: R.sm },
   tabActive:     { backgroundColor: C.card_dark, borderWidth: 1, borderColor: C.divider },
   tabText:       { color: C.text_muted, fontSize: TY.size_caption, fontWeight: TY.weight_heavy, letterSpacing: 1 },
   tabTextActive: { color: C.text_secondary },
 
-  list: { paddingHorizontal: 16, paddingTop: 4, gap: 10 },
+  list: { paddingHorizontal: ms(16), paddingTop: ms(4), gap: ms(10) },
 
   card: {
     backgroundColor: C.bg_deeper,
     borderRadius: R.lg,
-    padding: 14,
+    padding: ms(14),
     borderWidth: 1,
     borderColor: C.card_dark,
     borderLeftWidth: 3,
-    gap: 10,
+    gap: ms(10),
   },
   cardOwned:  { backgroundColor: C.diff_pos_bg, borderColor: C.border_pos },
   cardUsed:   { backgroundColor: C.bg_deeper, borderColor: C.border_info, opacity: 0.45 },
   cardLocked: { opacity: 0.35 },
 
-  cardRow:  { flexDirection: 'row', alignItems: 'flex-start', gap: 12 },
-  iconBox:  { width: 46, height: 46, borderRadius: R.pill, borderWidth: 1, alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
+  cardRow:  { flexDirection: 'row', alignItems: 'flex-start', gap: ms(12) },
+  iconBox:  { width: ms(46), height: ms(46), borderRadius: R.pill, borderWidth: 1, alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
   iconText: { fontSize: TY.size_h4 },
-  cardBody: { flex: 1, gap: 4 },
-  labelRow: { flexDirection: 'row', alignItems: 'center', gap: 5, flexWrap: 'wrap' },
+  cardBody: { flex: 1, gap: ms(4) },
+  labelRow: { flexDirection: 'row', alignItems: 'center', gap: ms(5), flexWrap: 'wrap' },
   cardLabel:{ color: C.text_bright, fontSize: TY.size_note, fontWeight: TY.weight_heavy, letterSpacing: 1.5 },
   cardDesc: { color: C.text_muted, fontSize: TY.size_note, lineHeight: 16 },
 
-  dayTag:     { paddingHorizontal: 5, paddingVertical: 2, borderRadius: 3, borderWidth: 1, backgroundColor: 'transparent' },
+  dayTag:     { paddingHorizontal: ms(5), paddingVertical: ms(2), borderRadius: 3, borderWidth: 1, backgroundColor: 'transparent' },
   dayTagText: { fontSize: TY.size_2xs, fontWeight: TY.weight_bold, letterSpacing: 0.5 },
 
   statusCol: { alignItems: 'center', justifyContent: 'center' },
 
-  ownedBox:      { backgroundColor: C.diff_pos_bg, borderWidth: 1, borderColor: (C.accept + '66'), borderRadius: R.xs, paddingHorizontal: 5, paddingVertical: 3 },
+  ownedBox:      { backgroundColor: C.diff_pos_bg, borderWidth: 1, borderColor: (C.accept + '66'), borderRadius: R.xs, paddingHorizontal: ms(5), paddingVertical: ms(3) },
   ownedText:     { color: C.accept, fontSize: TY.size_2xs, fontWeight: TY.weight_heavy, letterSpacing: 0.5 },
   lockedBox:     { alignItems: 'center', gap: 0 },
   lockedDayLabel:{ color: C.text_muted, fontSize: 7, fontWeight: TY.weight_bold, letterSpacing: 1 },
   lockedDayNum:  { fontSize: TY.size_h5, fontWeight: TY.weight_black },
-  costBox:       { borderWidth: 1, borderRadius: R.sm, paddingHorizontal: 8, paddingVertical: 5, alignItems: 'center', gap: 1 },
+  costBox:       { borderWidth: 1, borderRadius: R.sm, paddingHorizontal: ms(8), paddingVertical: ms(5), alignItems: 'center', gap: 1 },
   costStar:      { fontSize: TY.size_note },
   costNum:       { fontSize: TY.size_h7, fontWeight: TY.weight_black },
 
-  onceBadge: { backgroundColor: C.card_dark, borderRadius: R.xs, paddingHorizontal: 5, paddingVertical: 2, borderWidth: 1, borderColor: C.divider },
+  onceBadge: { backgroundColor: C.card_dark, borderRadius: R.xs, paddingHorizontal: ms(5), paddingVertical: ms(2), borderWidth: 1, borderColor: C.divider },
   onceText:  { color: C.text_muted, fontSize: TY.size_2xs, fontWeight: TY.weight_bold, letterSpacing: 0.5 },
 
-  chipRow:        { flexDirection: 'row', flexWrap: 'wrap', gap: 6 },
-  actionBtn:      { borderRadius: 7, paddingVertical: 11, alignItems: 'center', borderWidth: 1, marginTop: 2 },
+  chipRow:        { flexDirection: 'row', flexWrap: 'wrap', gap: ms(6) },
+  actionBtn:      { borderRadius: 7, paddingVertical: ms(11), alignItems: 'center', borderWidth: 1, marginTop: ms(2) },
   actionBtnText:  { fontSize: TY.size_note, fontWeight: TY.weight_heavy, letterSpacing: 2 },
   insuffText:     { color: C.text_muted, fontSize: TY.size_xs, textAlign: 'center', letterSpacing: 0.5 },
 })
 
 const ch = StyleSheet.create({
-  wrap: { paddingHorizontal: 8, paddingVertical: 4, borderRadius: R.xs, borderWidth: 1 },
+  wrap: { paddingHorizontal: ms(8), paddingVertical: ms(4), borderRadius: R.xs, borderWidth: 1 },
   text: { fontSize: TY.size_xs, fontWeight: TY.weight_bold },
 })
 

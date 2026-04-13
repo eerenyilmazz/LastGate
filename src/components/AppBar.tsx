@@ -7,6 +7,7 @@ import { useSettingsStore } from '../store/useSettingsStore'
 import themeData from '../data/theme.json'
 import uiData from '../data/ui.json'
 import config from '../data/config.json'
+import { ms, s } from '../utils/scale'
 
 const C  = themeData.colors
 const TY = themeData.typography as any
@@ -212,16 +213,16 @@ export const AppBar: React.FC<AppBarProps> = ({ onMainMenu, onAbandonGame }) => 
 
 const styles = StyleSheet.create({
   bar: {
-    height: 48,
+    height: ms(48),
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 14,
+    paddingHorizontal: ms(14),
     backgroundColor: C.bg_deeper,
     borderBottomWidth: 1,
     borderBottomColor: C.danger_dark,
   },
-  dots: { flexDirection: 'row', gap: 5, width: 40 },
-  dot:  { width: 7, height: 7, borderRadius: R.xs },
+  dots: { flexDirection: 'row', gap: ms(5), width: ms(40) },
+  dot:  { width: ms(7), height: ms(7), borderRadius: R.xs },
   title: {
     flex: 1,
     textAlign: 'center',
@@ -230,7 +231,7 @@ const styles = StyleSheet.create({
     fontWeight: TY.weight_black,
     letterSpacing: 5,
   },
-  gearBtn:  { width: 40, alignItems: 'flex-end' },
+  gearBtn:  { width: ms(40), alignItems: 'flex-end' },
   gearIcon: { fontSize: TY.size_h5, color: C.text_muted },
 
   backdrop: {
@@ -240,27 +241,27 @@ const styles = StyleSheet.create({
   },
   sheet: {
     backgroundColor: C.background,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderTopLeftRadius: R.xxl,
+    borderTopRightRadius: R.xxl,
     borderTopWidth: 1,
     borderColor: C.card_bg,
-    paddingBottom: Platform.OS === 'android' ? 32 : 24,
+    paddingBottom: Platform.OS === 'android' ? ms(32) : ms(24),
   },
 
   termHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
-    paddingHorizontal: 18,
-    paddingVertical: 14,
+    gap: ms(8),
+    paddingHorizontal: ms(18),
+    paddingVertical: ms(14),
     backgroundColor: C.surface,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderTopLeftRadius: R.xxl,
+    borderTopRightRadius: R.xxl,
     borderBottomWidth: 1,
     borderBottomColor: C.card_bg,
   },
-  termDots: { flexDirection: 'row', gap: 5 },
-  termDot:  { width: 9, height: 9, borderRadius: R.xs },
+  termDots: { flexDirection: 'row', gap: ms(5) },
+  termDot:  { width: ms(9), height: ms(9), borderRadius: R.xs },
   termTitle: {
     flex: 1,
     color: C.text_muted,
@@ -270,8 +271,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   closeBtn: {
-    width: 30, height: 30,
-    borderRadius: 15,
+    width: ms(30), height: ms(30),
+    borderRadius: ms(15),
     backgroundColor: C.card_bg,
     alignItems: 'center',
     justifyContent: 'center',
@@ -284,8 +285,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 22,
-    paddingVertical: 20,
+    paddingHorizontal: ms(22),
+    paddingVertical: ms(16),
     borderBottomWidth: 1,
     borderBottomColor: C.card_dark,
   },
@@ -298,8 +299,8 @@ const styles = StyleSheet.create({
   },
   settingSub: { color: C.divider, fontSize: TY.size_note },
   toggle: {
-    paddingHorizontal: 16,
-    paddingVertical: 9,
+    paddingHorizontal: ms(16),
+    paddingVertical: ms(9),
     borderRadius: R.md,
     borderWidth: 1,
     minWidth: 90,
@@ -311,10 +312,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 18,
-    paddingVertical: 16,
-    marginHorizontal: 18,
-    marginTop: 8,
+    paddingHorizontal: ms(18),
+    paddingVertical: ms(14),
+    marginHorizontal: ms(18),
+    marginTop: ms(8),
     borderRadius: R.pill,
     borderWidth: 1,
     borderColor: C.border_neg,
@@ -337,12 +338,12 @@ const styles = StyleSheet.create({
     fontSize: TY.size_caption,
     letterSpacing: 1.5,
     textAlign: 'center',
-    paddingVertical: 18,
+    paddingVertical: ms(18),
   },
   closeButton: {
-    marginHorizontal: 18,
-    marginTop: 2,
-    paddingVertical: 14,
+    marginHorizontal: ms(18),
+    marginTop: ms(2),
+    paddingVertical: ms(14),
     borderRadius: R.pill,
     backgroundColor: C.surface,
     borderWidth: 1,
@@ -363,7 +364,7 @@ const confirm = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.88)',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 32,
+    paddingHorizontal: ms(32),
   },
   box: {
     width: '100%',
@@ -382,10 +383,10 @@ const confirm = StyleSheet.create({
   head: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
-    paddingHorizontal: 20,
-    paddingTop: 20,
-    paddingBottom: 12,
+    gap: ms(10),
+    paddingHorizontal: ms(20),
+    paddingTop: ms(20),
+    paddingBottom: ms(12),
   },
   warningIcon: {
     fontSize: TY.size_lg,
@@ -414,7 +415,7 @@ const confirm = StyleSheet.create({
 
   btn: {
     width: '100%',
-    paddingVertical: 14,
+    paddingVertical: ms(14),
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: R.sm,

@@ -4,6 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useGameStore } from '../../store/useGameStore'
 import themeData from '../../data/theme.json'
 import uiData from '../../data/ui.json'
+import { ms } from '../../utils/scale'
 
 const C  = themeData.colors
 const TY = themeData.typography as any
@@ -54,7 +55,7 @@ export const NotificationOverlay: React.FC<Props> = ({ onContinue }) => {
             <Text style={[styles.headerText, { fontFamily: MONO }]}>
               {REPORT.header_prefix}{day}{REPORT.header_suffix}
             </Text>
-            <View style={{ width: 40 }} />
+            <View style={{ width: ms(40) }} />
           </View>
 
           <View style={styles.list}>
@@ -100,16 +101,16 @@ const styles = StyleSheet.create({
   termHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 18,
-    paddingVertical: 14,
+    paddingHorizontal: ms(18),
+    paddingVertical: ms(14),
     backgroundColor: C.surface,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderBottomWidth: 1,
     borderBottomColor: C.card_bg,
   },
-  dots:       { flexDirection: 'row', gap: 5 },
-  dot:        { width: 8, height: 8, borderRadius: R.xs },
+  dots:       { flexDirection: 'row', gap: ms(5) },
+  dot:        { width: ms(8), height: ms(8), borderRadius: R.xs },
   headerText: {
     flex: 1,
     textAlign: 'center',
@@ -118,10 +119,10 @@ const styles = StyleSheet.create({
     fontWeight: TY.weight_heavy,
     letterSpacing: 2.5,
   },
-  list:   { paddingHorizontal: 20, paddingVertical: 18, gap: 14 },
+  list:   { paddingHorizontal: ms(20), paddingVertical: ms(18), gap: ms(14) },
   noteRow: {
     flexDirection: 'row',
-    gap: 10,
+    gap: ms(10),
     alignItems: 'flex-start',
   },
   bullet: {
