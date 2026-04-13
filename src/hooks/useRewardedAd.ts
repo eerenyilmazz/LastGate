@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { useSettingsStore } from '../store/useSettingsStore'
 import { useProgressStore } from '../store/useProgressStore'
 import config from '../data/config.json'
@@ -27,6 +27,7 @@ export const useRewardedAd = () => {
 
   const adRef     = useRef<any>(null)
   const loadedRef = useRef(false)
+  const [isLoaded, setIsLoaded] = useState(false)
 
   const getAdUnitId = () => {
     if (__DEV__ && TestIds) return TestIds.REWARDED
@@ -41,8 +42,10 @@ export const useRewardedAd = () => {
       })
       adRef.current = ad
       loadedRef.current = false
+      setIsLoaded(false)
       const unsubLoad = ad.addAdEventListener(RewardedAdEventType.LOADED, () => {
         loadedRef.current = true
+        setIsLoaded(true)
       })
       ad.load()
       return () => { try { unsubLoad() } catch {} }
@@ -85,10 +88,11 @@ export const useRewardedAd = () => {
       ))
       adRef.current.show()
       loadedRef.current = false
+      setIsLoaded(false)
     } catch {
       onResult('unavailable')
     }
   }, [load, progress])
 
-  return { load, show, canShow, spReward, isAvailable }
+  return { load, show, canShow, spReward, isAvailable, isLoaded }
 }

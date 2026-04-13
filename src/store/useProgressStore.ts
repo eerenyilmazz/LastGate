@@ -7,8 +7,11 @@ interface ProgressStore extends ProgressState {
   achievements:    AchievementId[]
   newAchievements: AchievementId[]
   adsWatchedThisRun: number
+  hasSeenModifierIntro: boolean
 
   addSP:              (amount: number) => void
+  markModifierIntroSeen: () => void
+
   spendSP:            (amount: number) => boolean
   incrementAdsWatched: () => void
   buyBuilding:        (id: string) => boolean
@@ -37,9 +40,14 @@ export const useProgressStore = create<ProgressStore>((set, get) => ({
   achievements:    [],
   newAchievements: [],
   adsWatchedThisRun: 0,
+  hasSeenModifierIntro: false,
 
   incrementAdsWatched() {
     set(s => ({ adsWatchedThisRun: s.adsWatchedThisRun + 1 }))
+  },
+
+  markModifierIntroSeen() {
+    set({ hasSeenModifierIntro: true })
   },
 
   addSP(amount) {
@@ -119,8 +127,9 @@ export const useProgressStore = create<ProgressStore>((set, get) => ({
     set(s => ({
       ...INITIAL,
       ...state,
-      achievements:    state.achievements    ?? s.achievements,
-      newAchievements: s.newAchievements,
+      achievements:         state.achievements    ?? s.achievements,
+      newAchievements:      s.newAchievements,
+      hasSeenModifierIntro: (state as any).hasSeenModifierIntro ?? s.hasSeenModifierIntro,
     }))
   },
 }))

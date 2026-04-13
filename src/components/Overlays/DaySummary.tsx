@@ -43,11 +43,13 @@ export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding, onAdSP }) 
 
   useEffect(() => { ad.load() }, [])
 
-  const canWatchAd = ad.isAvailable && ad.canShow(settings.difficulty) && !adDone
-  const reward     = ad.spReward(settings.difficulty)
+  const canWatchAd   = ad.isAvailable && ad.canShow(settings.difficulty) && !adDone
+  const adReady      = canWatchAd && ad.isLoaded
+  const adFetching   = canWatchAd && !ad.isLoaded
+  const reward       = ad.spReward(settings.difficulty)
 
   const handleAdPress = () => {
-    if (adLoading) return
+    if (adLoading || !ad.isLoaded) return
     setAdLoading(true)
     ad.show(result => {
       setAdLoading(false)
@@ -152,7 +154,7 @@ export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding, onAdSP }) 
           >
             {game.notifications.map((note, i) => (
               <View key={i} style={styles.notifRow}>
-                <Text style={[styles.notifText, { fontFamily: MONO }]}>{'⚠ '}{note}</Text>
+                <Text style={[styles.notifText, { fontFamily: MONO }]}>{note}</Text>
               </View>
             ))}
           </ScrollView>
@@ -176,16 +178,18 @@ export const DaySummary: React.FC<Props> = ({ onContinue, onBuilding, onAdSP }) 
         {canWatchAd && (
           <TouchableOpacity
             onPress={handleAdPress}
-            style={styles.spAdBlock}
+            style={[styles.spAdBlock, !adReady && styles.spAdBlockDim]}
             activeOpacity={0.8}
-            disabled={adLoading}
+            disabled={adLoading || !adReady}
           >
             <Text style={styles.spAdIcon}>📺</Text>
             <View style={{ flex: 1 }}>
               <Text style={[styles.spAdTitle, { fontFamily: MONO }]}>Reklam İzle → +{reward} SP</Text>
-              <Text style={[styles.spAdSub, { fontFamily: MONO }]}>Günde bir kez</Text>
+              <Text style={[styles.spAdSub, { fontFamily: MONO }]}>
+                {adFetching ? 'Yükleniyor...' : 'Günde bir kez'}
+              </Text>
             </View>
-            {adLoading
+            {adLoading || adFetching
               ? <ActivityIndicator size="small" color={C.query} />
               : <Text style={[styles.spAdArrow, { color: C.query }]}>›</Text>
             }
@@ -386,6 +390,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     overflow: 'hidden',
   },
+  spAdBlockDim: {
+    opacity: 0.45,
+  },
   spAdBtn: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -551,20 +558,22 @@ const styles = StyleSheet.create({
   notifBlock: {
     marginHorizontal: 16,
     marginBottom: 12,
-    maxHeight: 100,
-    gap: 6,
+    maxHeight: 110,
+    gap: 5,
   },
   notifRow: {
-    backgroundColor: C.danger_dark + '33',
+    backgroundColor: C.surface,
     borderLeftWidth: 3,
     borderLeftColor: C.danger,
     borderRadius: R.xs,
-    paddingVertical: 7,
+    paddingVertical: 8,
     paddingHorizontal: 10,
   },
   notifText: {
-    color: C.danger,
+    flex: 1,
+    color: C.text_bright,
     fontSize: TY.size_xs,
     fontWeight: TY.weight_semi,
+    lineHeight: 16,
   },
 })

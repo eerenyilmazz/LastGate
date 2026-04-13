@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import {
   View, Text, TouchableOpacity, ScrollView,
-  StyleSheet, Platform, Modal, Animated,
+  StyleSheet, Platform, Modal, Animated, BackHandler,
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useProgressStore } from '../store/useProgressStore'
@@ -69,6 +69,14 @@ export const BuildingScreen: React.FC<Props> = ({ onMainMenu }) => {
   const buildings = config.buildings as Array<BuildingConfig & { icon: string; color: string; chips: string[] }>
 
   const goBack = () => game.setPhase('day_summary')
+
+  useEffect(() => {
+    const sub = BackHandler.addEventListener('hardwareBackPress', () => {
+      goBack()
+      return true
+    })
+    return () => sub.remove()
+  }, [])
 
   return (
     <SafeAreaView style={styles.safe}>

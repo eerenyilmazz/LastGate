@@ -93,7 +93,7 @@
     "tips": [
       { "icon": "▶", "color": "accept",  "title": "KABUL ET",  "desc": "Sağa kaydır — kişiyi şehre al, istatistikler değişir." },
       { "icon": "◀", "color": "reject",  "title": "REDDET",    "desc": "Sola kaydır — kişiyi geri çevir." },
-      { "icon": "◉", "color": "query",   "title": "SORGULA",   "desc": "Karta dokun — kimliği araştır. Günde 3 hakkın var." },
+      { "icon": "◉", "color": "query",   "title": "SORGULA",   "desc": "Karta dokun veya alttaki SORGU butonuna bas — kimliği araştır. Günde sınırlı hakkın var." },
       { "icon": "☰", "color": "neutral", "title": "DETAY",     "desc": "Kart altı — etkileri ve ipuçlarını gör." },
       { "icon": "⚠", "color": "danger",  "title": "TEHLİKE",   "desc": "Bazı kişiler yalan söyler. Sorguyu iyi kullan." }
     ],
@@ -158,11 +158,11 @@
     "economy":    "EKONOMİ DURDU!"
   },
   "cascade_notifications": {
-    "immunity":   "Hastalık yayılıyor — nüfus eriyiyor.",
-    "food":       "Açlık ekonomiyi durduruyor, savunma zayıflıyor.",
-    "defense":    "Savunma çöktü — baskınlar yiyeceği ve parayı tüketiyor.",
-    "economy":    "Ekonomi durdu — gıda tedariki ve savunma çöküyor.",
-    "population": "Nüfus kritik — ekonomi ve savunma dağılıyor."
+    "immunity":   "danger|Hastalık yayılıyor — nüfus eriyiyor.",
+    "food":       "danger|Açlık ekonomiyi durduruyor, savunma zayıflıyor.",
+    "defense":    "danger|Savunma çöktü — baskınlar yiyeceği ve parayı tüketiyor.",
+    "economy":    "danger|Ekonomi durdu — gıda tedariki ve savunma çöküyor.",
+    "population": "danger|Nüfus kritik — ekonomi ve savunma dağılıyor."
   },
   "hidden_notifications": {
     "infected_early":   "Kimler bir şeyler taşıyor... bağışıklık zayıflıyor.",
@@ -190,7 +190,7 @@
   "strings": {
 "splash_alert": "⚠ ACİL DURUM · VİRÜS YAYILIYOR · ŞEHİR KARANTİNADA · KAPIYI KORU · SON SAVUNMA HATTI ⚠",   "splash_subtitle":      "— SON KAPI —",
     "splash_terminal":      "DURUM RAPORU / ZONE-7",
-    "splash_tagline":       ">> {win_day} GÜN HAYATTA KAL <<",
+    "splash_tagline":       ">> HAYATTA KAL <<",
     "splash_hint":          "  KAPIYA DOKUN  ",
     "splash_loading":       "SİSTEM YÜKLENİYOR",
     "splash_version":       "BETA v0.1 · SEKTOR 7",
@@ -205,7 +205,7 @@
     "summary_status_label": "— FİNAL DURUMU —",
     "summary_sp_label":     "TOPLAM SP",
     "intro_journal_title":  "SEFER GÜNLÜĞÜ",
-    "win_banner":           "{win_day} GÜN → ŞEHİR KURTARILIR",
+    "win_banner":           "HAYATTA KAL → ŞEHİR KURTARILIR",
     "appbar_title": "LAST GATE",
     "appbar_settings": "AYARLAR",
     "appbar_music_label": "ORTAM MÜZİĞİ",
@@ -241,12 +241,11 @@
     "howto_gest_left": "SOL",
     "howto_act_reject": "REDDET",
     "howto_gest_tap": "DOKUN",
-    "howto_act_query": "SORGULA",
+    "howto_act_query": "SORGULA (veya SORGU butonuna bas)",
     "howto_goal": "[ HEDEF ]",
     "howto_goal_1": "›  Kapıya gelen kişileri kabul ya da reddet.",
-    "howto_goal_2": "›  5 değerin sıfıra düşmemesini sağla.",
-    "howto_goal_3_days": "{win_day} gün",
-    "howto_goal_3_rest": "hayatta kalırsan şehir kurtarılır.",
+    "howto_goal_2": "›  Bağışıklık, Yiyecek, Nüfus, Savunma, Ekonomi — 5 değerin sıfıra düşmemesini sağla.",
+    "howto_goal_3": "›  Seçtiğin zorluk seviyesindeki gün sayısına ulaşırsan şehir kurtarılır.",
     "howto_stats": "[ DEĞERLERİN ANLAMI ]",
     "howto_chain": "[ ZİNCİRLEME ETKİLER ]",
     "howto_chain_warn": "Bir değer kritik seviyeye düşünce her gün diğerlerini de aşağı çeker!",
@@ -255,9 +254,9 @@
     "howto_hidden": "[ GİZLİ ÖZELLİKLER ]",
     "howto_hidden_warn": "Yanlış kişiyi kabul etmek şehri çökertebilir!",
     "howto_difficulty": "[ ZORLUK SEVİYELERİ ]",
-    "howto_diff_easy": "Her gün +2 Yiyecek bonus. NPC etkileri %25 hafifletilmiş. Başlangıç değerleri daha yüksek.",
-    "howto_diff_normal": "Standart denge. Hiçbir bonus veya ceza yok.",
-    "howto_diff_hard": "Her gün −3 Yiyecek. NPC etkileri %30 daha sert. Açlıkta nüfusa ek −2/gün. Başlangıç değerleri daha düşük.",
+    "howto_diff_easy": "100 gün hayatta kal. Her gün +2 Yiyecek bonus. NPC etkileri %25 hafifletilmiş. Başlangıç değerleri daha yüksek.",
+    "howto_diff_normal": "70 gün hayatta kal. Standart denge. Hiçbir bonus veya ceza yok.",
+    "howto_diff_hard": "50 gün hayatta kal. Her gün −5 Yiyecek. NPC etkileri iki katı sert. Açlıkta nüfusa ek −4/gün.",
     "summary_victory": "{day}. günde zafer",
     "summary_victory_body": "{win_day} günü geride bıraktın.\nSon Kapı hâlâ ayakta. Şehir yaşıyor.",
     "summary_replay": "[ TEKRAR OYNA ]",

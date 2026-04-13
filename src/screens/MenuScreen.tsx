@@ -70,7 +70,7 @@ const SwipeRow: React.FC<{ gesture: string; action: string; color: string }> = (
   </View>
 )
 
-const HowToPlay: React.FC<{ winDay: number }> = ({ winDay }) => (
+const HowToPlay: React.FC = () => (
   <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
 
     <View style={content.block}>
@@ -85,10 +85,10 @@ const HowToPlay: React.FC<{ winDay: number }> = ({ winDay }) => (
       <View style={content.infoCard}>
         <Text style={content.line}>{STRINGS.howto_goal_1}</Text>
         <Text style={content.line}>{STRINGS.howto_goal_2}</Text>
-        <Text style={content.line}>›  <Text style={{ color: C.accept, fontWeight: TY.weight_bold }}>{STRINGS.howto_goal_3_days.replace('{win_day}', String(winDay))}</Text> {STRINGS.howto_goal_3_rest}</Text>
+        <Text style={content.line}>{STRINGS.howto_goal_3}</Text>
       </View>
       <View style={content.winBox}>
-        <Text style={[content.winText, { fontFamily: MONO }]}>{STRINGS.win_banner.replace('{win_day}', String(winDay))}</Text>
+        <Text style={[content.winText, { fontFamily: MONO }]}>{STRINGS.win_banner}</Text>
       </View>
     </View>
 
@@ -357,12 +357,34 @@ interface Props {
   hasResumableGame?: boolean
 }
 
+type Modifier = { id: string; icon: string; name: string; description: string }
+const MODIFIERS_LIST = modifiersData as Modifier[]
+
 export const MenuScreen: React.FC<Props> = ({ onStart, onResume, hasResumableGame }) => {
   const insets = useSafeAreaInsets()
   const progress = useProgressStore()
   const settings = useSettingsStore()
   const [overlay, setOverlay] = useState<OverlayType>(null)
   const [confirmNewGame, setConfirmNewGame] = useState(false)
+  const [modPickerOpen, setModPickerOpen] = useState(false)
+  const [modSelected, setModSelected] = useState<string | null>(settings.selectedModifierId)
+
+  const handleModifierToggle = () => {
+    if (settings.modifiersEnabled) {
+      settings.toggleModifiers()
+      settings.setSelectedModifier(null)
+      setModSelected(null)
+    } else {
+      setModSelected(settings.selectedModifierId)
+      setModPickerOpen(true)
+    }
+  }
+
+  const handleModifierConfirm = () => {
+    settings.setSelectedModifier(modSelected)
+    if (!settings.modifiersEnabled) settings.toggleModifiers()
+    setModPickerOpen(false)
+  }
 
   const handleNewGame = () => {
     if (hasResumableGame) {
@@ -444,16 +466,25 @@ export const MenuScreen: React.FC<Props> = ({ onStart, onResume, hasResumableGam
         </View>
 
         <TouchableOpacity
-          onPress={settings.toggleModifiers}
+          onPress={handleModifierToggle}
           style={[diff.modRow, settings.modifiersEnabled && diff.modRowOn]}
           activeOpacity={0.8}
         >
           <Text style={[diff.modLabel, { color: settings.modifiersEnabled ? C.query : C.text_muted }]}>
             Run Modifikatörü
           </Text>
-          <Text style={[diff.modValue, { fontFamily: MONO, color: settings.modifiersEnabled ? C.query : C.text_muted }]}>
-            {settings.modifiersEnabled ? 'AÇIK' : 'KAPALI'}
-          </Text>
+          {settings.modifiersEnabled && settings.selectedModifierId ? (() => {
+            const m = MODIFIERS_LIST.find(x => x.id === settings.selectedModifierId)
+            return m ? (
+              <Text style={[diff.modValue, { fontFamily: MONO, color: C.query }]} numberOfLines={1}>
+                {m.icon} {m.name}
+              </Text>
+            ) : null
+          })() : (
+            <Text style={[diff.modValue, { fontFamily: MONO, color: settings.modifiersEnabled ? C.query : C.text_muted }]}>
+              {settings.modifiersEnabled ? 'AÇIK' : 'KAPALI'}
+            </Text>
+          )}
         </TouchableOpacity>
 
         {hasResumableGame && onResume && (
@@ -518,7 +549,7 @@ export const MenuScreen: React.FC<Props> = ({ onStart, onResume, hasResumableGam
               <>
                 <PanelHeader title={STRINGS.menu_howto} onClose={close} accentColor={C.panel_howto} />
                 <View style={{ flex: 1, paddingHorizontal: 20 }}>
-                  <HowToPlay winDay={(config as any).win_condition_days[settings.difficulty] ?? 100} />
+                  <HowToPlay />
                 </View>
               </>
             )}
@@ -552,6 +583,47 @@ export const MenuScreen: React.FC<Props> = ({ onStart, onResume, hasResumableGam
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setConfirmNewGame(false)} style={newGameConfirm.btnCancel} activeOpacity={0.8}>
               <Text style={[newGameConfirm.btnText, { fontFamily: MONO, color: C.text_muted }]}>İPTAL</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
+      <Modal visible={modPickerOpen} transparent animationType="slide" onRequestClose={() => setModPickerOpen(false)}>
+        <View style={modPrev.backdrop}>
+          <View style={[modPrev.box, { paddingBottom: insets.bottom + 8 }]}>
+            <View style={modPrev.header}>
+              <Text style={[modPrev.tag, { fontFamily: MONO }]}>MODİFİKATÖR SEC</Text>
+              <TouchableOpacity onPress={() => setModPickerOpen(false)}>
+                <Text style={modPrev.closeBtn}>✕</Text>
+              </TouchableOpacity>
+            </View>
+            <ScrollView style={modPrev.list} showsVerticalScrollIndicator={false}>
+              {MODIFIERS_LIST.map(m => {
+                const isSelected = modSelected === m.id
+                return (
+                  <TouchableOpacity
+                    key={m.id}
+                    onPress={() => setModSelected(m.id)}
+                    style={[modPrev.item, isSelected && modPrev.itemSelected]}
+                    activeOpacity={0.75}
+                  >
+                    <Text style={modPrev.itemIcon}>{m.icon}</Text>
+                    <View style={modPrev.itemText}>
+                      <Text style={[modPrev.itemName, isSelected && { color: C.query }]}>{m.name}</Text>
+                      <Text style={modPrev.itemDesc} numberOfLines={2}>{m.description}</Text>
+                    </View>
+                    {isSelected && <Text style={modPrev.checkmark}>✓</Text>}
+                  </TouchableOpacity>
+                )
+              })}
+            </ScrollView>
+            <TouchableOpacity
+              onPress={handleModifierConfirm}
+              style={[modPrev.btnOn, !modSelected && { opacity: 0.4 }]}
+              activeOpacity={0.8}
+              disabled={!modSelected}
+            >
+              <Text style={[modPrev.btnText, { fontFamily: MONO, color: C.query }]}>ONAYLA</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -1060,5 +1132,23 @@ const newGameConfirm = StyleSheet.create({
   msg: { color: C.text_secondary, fontSize: TY.size_body, lineHeight: 22, marginBottom: 24 },
   btnConfirm: { paddingVertical: 14, alignItems: 'center', backgroundColor: C.danger_dark, borderRadius: R.sm, marginBottom: 8 },
   btnCancel: { paddingVertical: 14, alignItems: 'center' },
+  btnText: { fontSize: TY.size_sm, fontWeight: TY.weight_black, letterSpacing: 1.5 },
+})
+
+const modPrev = StyleSheet.create({
+  backdrop: { flex: 1, backgroundColor: '#000000cc', justifyContent: 'flex-end' },
+  box: { backgroundColor: C.surface, borderTopLeftRadius: R.xl, borderTopRightRadius: R.xl, padding: 20, maxHeight: '80%' },
+  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 },
+  tag: { color: C.text_muted, fontSize: TY.size_xs, letterSpacing: 2.5, fontWeight: TY.weight_bold },
+  closeBtn: { color: C.text_muted, fontSize: TY.size_md, paddingHorizontal: 4 },
+  list: { marginBottom: 16 },
+  item: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingVertical: 12, paddingHorizontal: 12, borderRadius: R.sm, marginBottom: 4 },
+  itemSelected: { backgroundColor: C.query + '18', borderWidth: 1, borderColor: C.query + '55' },
+  itemIcon: { fontSize: 28, width: 36, textAlign: 'center' },
+  itemText: { flex: 1 },
+  itemName: { color: C.text_bright, fontSize: TY.size_body, fontWeight: TY.weight_bold, marginBottom: 2 },
+  itemDesc: { color: C.text_muted, fontSize: TY.size_caption, lineHeight: 16 },
+  checkmark: { color: C.query, fontSize: TY.size_md, fontWeight: TY.weight_black },
+  btnOn: { paddingVertical: 14, alignItems: 'center', backgroundColor: C.query + '22', borderRadius: R.sm, borderWidth: 1, borderColor: C.query + '66', marginTop: 4 },
   btnText: { fontSize: TY.size_sm, fontWeight: TY.weight_black, letterSpacing: 1.5 },
 })

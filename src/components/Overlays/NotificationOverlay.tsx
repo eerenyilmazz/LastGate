@@ -58,12 +58,22 @@ export const NotificationOverlay: React.FC<Props> = ({ onContinue }) => {
           </View>
 
           <View style={styles.list}>
-            {notes.map((text, i) => (
-              <View key={i} style={styles.noteRow}>
-                <Text style={[styles.bullet, { fontFamily: MONO }]}>›</Text>
-                <Text style={[styles.noteText, { fontFamily: MONO }]}>{text}</Text>
-              </View>
-            ))}
+            {notes.map((raw, i) => {
+              const [prefix, ...rest] = raw.split('|')
+              const hasPrefix = rest.length > 0
+              const type = hasPrefix ? prefix : 'neutral'
+              const text = hasPrefix ? rest.join('|') : raw
+              const isDanger  = type === 'danger'
+              const isWarning = type === 'warning'
+              const accent = isDanger ? C.danger : isWarning ? C.query : C.text_muted
+              const icon   = isDanger ? '!' : isWarning ? '▲' : '›'
+              return (
+                <View key={i} style={[styles.noteRow, (isDanger || isWarning) && { borderLeftWidth: 2, borderLeftColor: accent, paddingLeft: 10 }]}>
+                  <Text style={[styles.bullet, { fontFamily: MONO, color: accent }]}>{icon}</Text>
+                  <Text style={[styles.noteText, { fontFamily: MONO, color: isDanger ? C.danger : isWarning ? C.text_secondary : C.text_muted }]}>{text}</Text>
+                </View>
+              )
+            })}
           </View>
 
           <Text style={[styles.tapHint, { fontFamily: MONO }]}>{uiData.labels.continue_hint}</Text>

@@ -224,4 +224,185 @@
     "outcome_accept": "Kuzey rota güvende. Uzun vadeli savunma avantajı sağlandı.",
     "outcome_reject": "Marcus grubu dağıldı. Kuzey tehlikeli kaldı."
   }
+,
+  {
+    "npc_id": "npc_006",
+    "delay_days": 9,
+    "dialogue": "Leyla Öztürk kapıda bekliyordu. 'Köydeki hasat tahrip edildi. Tohumluk tahıl için destek ister misin — karşılığında gelecek hasadın yarısı senin.'",
+    "accept_effects": { "food": 35, "economy": -12 },
+    "reject_effects": { "food": -10 },
+    "outcome_accept": "Tohum verildi. Hasat iki katıyla geri döndü.",
+    "outcome_reject": "Köy aç kaldı. Oradan gelen yiyecek akışı kesildi."
+  },
+  {
+    "npc_id": "npc_009",
+    "delay_days": 7,
+    "dialogue": "Nalan Koç heyecanla döndü. 'Nehir kenarında terk edilmiş bir ambara rastladım — içi dolu ama tehlikeli bölgede. Koruma istiyorum.'",
+    "accept_effects": { "food": 45, "defense": -8 },
+    "reject_effects": { "food": -5 },
+    "outcome_accept": "Ambar temizlendi. Büyük gıda kazanımı.",
+    "outcome_reject": "Ambar başkasının eline geçti."
+  },
+  {
+    "npc_id": "npc_011",
+    "delay_days": 10,
+    "dialogue": "Zehra Polat geri geldi. 'Çiftçi ağını genişlettim. Ama sulama için mühendis desteği lazım — bir hafta içinde organize edebilir misin?'",
+    "accept_effects": { "food": 28, "economy": -10 },
+    "reject_effects": { "food": -8 },
+    "outcome_accept": "Sulama projesi başarıyla tamamlandı. Gıda üretimi arttı.",
+    "outcome_reject": "Proje askıya alındı. Çiftçiler hayal kırıklığına uğradı."
+  },
+  {
+    "npc_id": "npc_016",
+    "delay_days": 8,
+    "dialogue": "Oğuzhan Turan döndü. 'Şehir dışında eski bir askeri depo var. Silah ve ekipman dolu ama içine girmek için güçlü bir ekip lazım.'",
+    "accept_effects": { "defense": 28, "food": -10 },
+    "reject_effects": { "defense": -5 },
+    "outcome_accept": "Depo ele geçirildi. Silah kapasitesi büyük artış yaptı.",
+    "outcome_reject": "Depo boş kaldı. Başkaları daha sonra oraya gitti."
+  },
+  {
+    "npc_id": "npc_018",
+    "delay_days": 11,
+    "dialogue": "Caner Işık döndü. 'Kuzey savunma hattını güçlendirebilirim — ama malzeme çok pahalı. Ekonomiden kaynak ayırabilir misin?'",
+    "accept_effects": { "defense": 20, "economy": -16 },
+    "reject_effects": { "defense": -7 },
+    "outcome_accept": "Kuzey hattı güçlendi. İlk saldırı kolayca püskürtüldü.",
+    "outcome_reject": "Kuzey hattı zayıf kalmaya devam etti."
+  },
+  {
+    "npc_id": "npc_019",
+    "delay_days": 9,
+    "dialogue": "Pınar Kılıç gizli bir bilgiyle döndü. 'Rakip bir grubun ticaret rotamızı kesmeyi planladığını öğrendim. Önceden harekete geçmek ister misin?'",
+    "accept_effects": { "economy": 20, "defense": 8, "food": -8 },
+    "reject_effects": { "economy": -15 },
+    "outcome_accept": "Rota güvence altına alındı. Ticaret kazanımı sağlandı.",
+    "outcome_reject": "Rota kesildi. Ekonomi büyük darbe aldı."
+  },
+  {
+    "npc_id": "npc_020",
+    "delay_days": 6,
+    "dialogue": "Alper Şen soluğu kesilmiş geldi. 'Batıda büyük bir ticaret kafilesi var. Seninle anlaşmak istiyorlar — ama hızlı karar lazım, başkaları da peşinde.'",
+    "accept_effects": { "economy": 32, "food": 18 },
+    "reject_effects": { "economy": -5 },
+    "outcome_accept": "Kafile anlaşmayı kabul etti. Büyük ekonomik kazanım.",
+    "outcome_reject": "Kafile başka bir şehirle anlaştı."
+  },
+  {
+    "npc_id": "npc_022",
+    "delay_days": 12,
+    "dialogue": "Bekir Dede döndü. 'Yaşlılardan oluşan küçük bir topluluk var — bilgelik dolu insanlar. Onlara barınak verirsen şehre moral ve bağışıklık bilgisi katarlar.'",
+    "accept_effects": { "immunity": 12, "population": 8, "food": -10 },
+    "reject_effects": { "immunity": -3 },
+    "outcome_accept": "Yaşlılar şehrin deneyim kaynağı oldu.",
+    "outcome_reject": "Topluluk dağıldı. Bilgelik yitirildi."
+  },
+  {
+    "npc_id": "npc_031",
+    "delay_days": 8,
+    "dialogue": "Emine Sarı döndü. 'Kuzey tarlalarını genişlettim ama haşere krizi var. İlaçlama için ekonomiden destek lazım.'",
+    "accept_effects": { "food": 25, "economy": -12 },
+    "reject_effects": { "food": -18 },
+    "outcome_accept": "Haşereler yok edildi. Hasat kurtarıldı.",
+    "outcome_reject": "Haşereler yayıldı. Büyük gıda kaybı."
+  },
+  {
+    "npc_id": "npc_035",
+    "delay_days": 10,
+    "dialogue": "Rukiye Bozkurt döndü. 'Çevre köylerden kaçan aileler var. Onları getirmek istiyorum ama şehrin kapasitesi yeterli mi bilmiyorum.'",
+    "accept_effects": { "population": 20, "food": -15, "immunity": -5 },
+    "reject_effects": { "population": -3 },
+    "outcome_accept": "Aileler kurtarıldı. Nüfus arttı, kaynaklar zorlandı.",
+    "outcome_reject": "Aileler çaresiz kaldı. Halk morali düştü."
+  },
+  {
+    "npc_id": "npc_040",
+    "delay_days": 11,
+    "dialogue": "Songül Çelik döndü. 'Şehrin atıklarından enerji üretebilecek bir sistem kurdum. Başlatmak için ekonomiden destek gerekiyor.'",
+    "accept_effects": { "economy": 18, "immunity": 5, "food": 8 },
+    "reject_effects": { "economy": -5 },
+    "outcome_accept": "Enerji sistemi devreye girdi. Tüm kaynaklar hafifçe güçlendi.",
+    "outcome_reject": "Proje rafta kaldı. Fırsat kaçtı."
+  },
+  {
+    "npc_id": "npc_044",
+    "delay_days": 9,
+    "dialogue": "Gönül Kaya döndü. 'Zombi davranışlarında garip bir değişim fark ettim. Araştırmak için lab ekipmanı lazım — bulabilir misin?'",
+    "accept_effects": { "immunity": 18, "economy": -14 },
+    "reject_effects": { "immunity": -5 },
+    "outcome_accept": "Araştırma tamamlandı. Yeni savunma stratejisi geliştirildi.",
+    "outcome_reject": "Araştırma yapılamadı. Zombi tehdidi anlaşılamaz kaldı."
+  },
+  {
+    "npc_id": "npc_057",
+    "delay_days": 8,
+    "dialogue": "Şule Demirci döndü. 'Kuzey bölgesinde yeni bir tarım arazisi keşfettim. Ama temizlemek için asker lazım — zombiler var çevresinde.'",
+    "accept_effects": { "food": 32, "defense": -10 },
+    "reject_effects": { "food": -5 },
+    "outcome_accept": "Arazi temizlendi ve ekime açıldı. Gıda kapasitesi arttı.",
+    "outcome_reject": "Arazi ele geçirilemedi."
+  },
+  {
+    "npc_id": "npc_060",
+    "delay_days": 13,
+    "dialogue": "Melek Avcı döndü. 'Piyasada ciddi bir enflasyon başlayacak. Bunu önlemek için acil ekonomik tedbir almamı ister misin?'",
+    "accept_effects": { "economy": 22, "food": -8 },
+    "reject_effects": { "economy": -20 },
+    "outcome_accept": "Enflasyon önlendi. Ekonomi istikrar kazandı.",
+    "outcome_reject": "Enflasyon patladı. Ekonomi ciddi zarar gördü."
+  },
+  {
+    "npc_id": "npc_065",
+    "delay_days": 7,
+    "dialogue": "Derya Keskin döndü. 'Doğu sınırında bir grup zombi sürüsünü yönlendirmeyi başardım. Onları kanallamak için savunma hattı oluşturabilir misin?'",
+    "accept_effects": { "defense": 22, "food": -8, "economy": -10 },
+    "reject_effects": { "defense": -12 },
+    "outcome_accept": "Zombi sürüsü tuzağa çekildi ve imha edildi.",
+    "outcome_reject": "Sürü şehre yaklaştı. Savunma hatları zorlandı."
+  },
+  {
+    "npc_id": "npc_082",
+    "delay_days": 10,
+    "dialogue": "Sevgi Akar döndü. 'Yaralı bir çocuk grubu buldum. Onları kurtarmak için tıbbi ekip ve ulaşım gerekiyor.'",
+    "accept_effects": { "population": 12, "immunity": 8, "economy": -12 },
+    "reject_effects": { "population": -4, "immunity": -3 },
+    "outcome_accept": "Çocuklar kurtarıldı. Şehre umut ve nüfus geldi.",
+    "outcome_reject": "Çocuklar yardımsız kaldı. Trajedi şehri sarstı."
+  },
+  {
+    "npc_id": "npc_086",
+    "delay_days": 12,
+    "dialogue": "Tuba Öztaş döndü. 'Kayıp olduğu düşünülen bir ilaç deposu buldum. Ama onu geri getirmek için güvenlik ekibi lazım.'",
+    "accept_effects": { "immunity": 22, "defense": -8 },
+    "reject_effects": { "immunity": -6 },
+    "outcome_accept": "Depo kurtarıldı. Tıbbi kapasite önemli ölçüde arttı.",
+    "outcome_reject": "Depo ele geçirilemedi. İlaç sıkıntısı büyüdü."
+  },
+  {
+    "npc_id": "npc_090",
+    "delay_days": 9,
+    "dialogue": "Nur Tekin döndü. 'Şehirde güvenilir bir haber ağı kurdum. Ama sürdürmek için ekonomiden küçük bir destek lazım.'",
+    "accept_effects": { "defense": 10, "economy": -8, "immunity": 5 },
+    "reject_effects": { "defense": -4 },
+    "outcome_accept": "Haber ağı şehrin gözü kulağı oldu. Savunma güçlendi.",
+    "outcome_reject": "Ağ dağıldı. Tehditler geç fark ediliyor."
+  },
+  {
+    "npc_id": "npc_095",
+    "delay_days": 11,
+    "dialogue": "Selin Demirbaş döndü. 'Güneyde çökmekte olan bir gruba ulaştım. Onları şehre bağlamak ister misin — ama kaynak paylaşımı gerekiyor.'",
+    "accept_effects": { "population": 15, "economy": 10, "food": -12 },
+    "reject_effects": { "economy": -6 },
+    "outcome_accept": "Grup şehre entegre edildi. Hem nüfus hem ekonomi güçlendi.",
+    "outcome_reject": "Grup başkasıyla anlaştı. Fırsat kaçtı."
+  },
+  {
+    "npc_id": "npc_107",
+    "delay_days": 8,
+    "dialogue": "Mert Karaman döndü. 'Doğu çarşısını yeniden açmak istiyorum. Güvenlik desteği verirsen ticareti canlandırabilirim.'",
+    "accept_effects": { "economy": 25, "defense": -6 },
+    "reject_effects": { "economy": -8 },
+    "outcome_accept": "Çarşı açıldı. Ekonomi büyük canlanma yaşadı.",
+    "outcome_reject": "Çarşı kapalı kaldı. Ticaret oluşamadı."
+  }
 ]

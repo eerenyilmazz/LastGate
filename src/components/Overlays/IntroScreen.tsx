@@ -6,6 +6,8 @@ import {
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import uiData from '../../data/ui.json'
 import themeData from '../../data/theme.json'
+import config from '../../data/config.json'
+import { useSettingsStore } from '../../store/useSettingsStore'
 
 const C  = themeData.colors
 const TY = themeData.typography as any
@@ -26,13 +28,16 @@ interface Props {
 }
 
 export const IntroScreen: React.FC<Props> = ({ onStart }) => {
-  const insets = useSafeAreaInsets()
+  const insets   = useSafeAreaInsets()
+  const settings = useSettingsStore()
+  const winDay   = (config as any).win_condition_days[settings.difficulty] ?? 100
+  const lines    = INTRO.lines.map((l: string) => l.replace('{win_day}', String(winDay)))
   const [visibleCount, setVisibleCount] = useState(0)
   const [showCTA,      setShowCTA]      = useState(false)
   const [cursor,       setCursor]       = useState(true)
 
   useEffect(() => {
-    if (visibleCount >= INTRO.lines.length) {
+    if (visibleCount >= lines.length) {
       const t = setTimeout(() => setShowCTA(true), CTA_DELAY_MS)
       return () => clearTimeout(t)
     }
@@ -77,7 +82,7 @@ export const IntroScreen: React.FC<Props> = ({ onStart }) => {
             <View style={styles.gap} />
 
             <View style={styles.linesBlock}>
-              {INTRO.lines.map((line, i) => (
+              {lines.map((line, i) => (
                 <Text
                   key={i}
                   style={[

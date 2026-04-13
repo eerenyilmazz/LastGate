@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, BackHandler } from 'react-native'
 import { initCrashReporting } from './src/utils/crashReporting'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
@@ -30,6 +30,15 @@ export default function App() {
     loadSave().then(({ hasResumableGame: resumable }) => setHasResumableGame(resumable))
     startAmbient()
   }, [])
+
+  useEffect(() => {
+    const sub = BackHandler.addEventListener('hardwareBackPress', () => {
+      if (appScreen === 'splash') return true   // splash sırasında çıkışı engelle
+      if (appScreen === 'menu')   return false  // menüde Android'in normal çıkışına izin ver
+      return true  // oyun içinde blokla — GameScreen kendi fazlarını yönetir
+    })
+    return () => sub.remove()
+  }, [appScreen])
 
   const handleStart = () => {
     startGame()

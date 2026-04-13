@@ -16,7 +16,9 @@ export const EventManager = {
 
   pickEvent(state: StatState, usedEventIDs: string[]): GameEvent | null {
     const available = ALL_EVENTS.filter(e => {
+      if (e.is_dilemma) return false                          // dilemma'lar ayrı kanalla gelir
       if (usedEventIDs.includes(e.event_id)) return false
+      if (e.requires_event && !usedEventIDs.includes(e.requires_event)) return false  // zincir: önceki görülmeli
       if (!e.trigger_condition) return true
       const { stat, below } = e.trigger_condition
       return state[stat] <= below
@@ -33,6 +35,21 @@ export const EventManager = {
     }
 
     return available[available.length - 1]
+  },
+
+  pickDilemma(state: StatState, usedEventIDs: string[]): GameEvent | null {
+    const available = ALL_EVENTS.filter(e => {
+      if (!e.is_dilemma) return false
+      if (usedEventIDs.includes(e.event_id)) return false
+      if (!e.trigger_condition) return true
+      const { stat, below } = e.trigger_condition
+      return state[stat] <= below
+    })
+
+    if (available.length === 0) return null
+
+    const idx = Math.floor(Math.random() * available.length)
+    return available[idx]
   },
 
   resolveChoice(

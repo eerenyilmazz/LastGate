@@ -22,5 +22,7 @@ export interface GameEvent {
   description: string
   weight: number
   trigger_condition: TriggerCondition | null
+  requires_event?: string    // zincir olaylar: bu event_id görülmeden tetiklenme
+  is_dilemma?: boolean       // baskı olayı: her N günde bir zorla tetiklenir
   choices: [EventChoice, EventChoice, EventChoice]
 }

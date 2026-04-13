@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect, useMemo, useRef } from 'react'
 import {
   View, Text, TouchableOpacity, StyleSheet,
-  Platform, useWindowDimensions, type ViewStyle,
+  Platform, useWindowDimensions, BackHandler, type ViewStyle,
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import * as Haptics from 'expo-haptics'
@@ -105,8 +105,8 @@ const StatIcon = React.memo<{
   const diff     = displayVal - val
   const showDiff = Math.abs(diff) >= 1
   const diffPos  = diff > 0
-  const barColor = isCrit   ? C.stat_critical
-    : showDiff ? (diffPos  ? C.accept_glow : C.reject_glow)
+  const barColor = showDiff ? (diffPos ? C.accept_glow : C.reject_glow)
+    : isCrit  ? C.stat_critical
     : color
   const barPct   = (Math.round(Math.max(0, Math.min(100, (displayVal / max) * 100))) + '%') as any
 
@@ -178,6 +178,7 @@ interface Props {
   stopAllSFX: () => void
 }
 
+
 export const GameScreen: React.FC<Props> = ({ onMainMenu, onAbandonGame, playSFX, stopAllSFX }) => {
   const { width: sw } = useWindowDimensions()
   const theme    = useTheme()
@@ -213,6 +214,17 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, onAbandonGame, playSFX
     if (game.notifications.length > 0) return
     game.setPhase('npc_decision')
   }, [game.phase, game.notifications.length])
+
+  useEffect(() => {
+    const sub = BackHandler.addEventListener('hardwareBackPress', () => {
+      if (game.phase === 'day_summary') {
+        endDay()
+        return true
+      }
+      return true
+    })
+    return () => sub.remove()
+  }, [game.phase, endDay])
 
   useEffect(() => {
     if (game.phase === 'npc_decision') return
@@ -365,6 +377,9 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, onAbandonGame, playSFX
             {String(game.day).padStart(2, '0')}
             <Text style={[styles.dayMax, { fontFamily: MONO }]}>/{(config as any).win_condition_days[settings.difficulty]}</Text>
           </Text>
+          <Text style={[styles.diffBadge, { fontFamily: MONO, color: settings.difficulty === 'easy' ? C.accept : settings.difficulty === 'hard' ? C.reject : C.text_muted }]}>
+            {STRINGS[`diff_${settings.difficulty}`]}
+          </Text>
         </View>
         <View style={styles.progressWrap}>
           <View style={styles.progressTrack}>
@@ -397,7 +412,12 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, onAbandonGame, playSFX
           </Text>
         </TouchableOpacity>
 
-        <View style={styles.chargeIndicator}>
+        <TouchableOpacity
+          onPress={onQuery}
+          disabled={!isDecision || game.queryChargesLeft === 0}
+          style={styles.chargeIndicator}
+          activeOpacity={0.7}
+        >
           <Text style={[styles.chargeLabel, { fontFamily: MONO }]}>SORGU</Text>
           <View style={styles.chargeDots}>
             {Array.from({ length: game.queryChargesTotal }).map((_, i) => (
@@ -409,7 +429,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, onAbandonGame, playSFX
               />
             ))}
           </View>
-        </View>
+        </TouchableOpacity>
       </View>
 
       {game.phase === 'npc_return' && game.activeReturn && (
@@ -426,6 +446,7 @@ export const GameScreen: React.FC<Props> = ({ onMainMenu, onAbandonGame, playSFX
       {game.day === 1 && !tutorialDone && game.phase === 'npc_decision' && (
         <TutorialOverlay onClose={() => setTutorialDone(true)} />
       )}
+
       {event && game.phase === 'event' && (
         <EventModal event={event} acceptedRoles={game.acceptedNPCRoles as NPCRole[]} onChoice={handleEventChoice} />
       )}
@@ -513,19 +534,19 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   chargeLabel: {
-    fontSize: 8,
+    fontSize: 11,
     color: C.text_muted,
     fontWeight: TY.weight_black,
     letterSpacing: 2,
   },
   chargeDots: {
     flexDirection: 'row',
-    gap: 5,
+    gap: 6,
   },
   chargeDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
+    width: 10,
+    height: 10,
+    borderRadius: 5,
   },
 
 
@@ -556,6 +577,12 @@ const styles = StyleSheet.create({
     fontSize: TY.size_xs,
     color: C.text_muted,
     fontWeight: TY.weight_bold,
+  },
+  diffBadge: {
+    fontSize: 7,
+    fontWeight: TY.weight_heavy,
+    letterSpacing: 1.5,
+    marginTop: 2,
   },
   progressWrap: { flex: 1, gap: 3 },
   progressTrack: {

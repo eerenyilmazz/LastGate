@@ -2506,6 +2506,567 @@
           "outcome": "Aile önceliği çoğunluğu memnun etti; ama bekâr üyeler kırgın hissetti."
         }
       ]
+    },
+
+    {
+      "event_id": "ev_chain_spy_1",
+      "category": "casusluk",
+      "title": "Şüpheli Ajan İhbarı",
+      "description": "Bir vatandaş gizli bir ihbarda bulundu: şehirde dışarıya bilgi sızdıran biri var. İz belirsiz, kanıt yok — ama ihbarcı ısrarcı.",
+      "weight": 1.5,
+      "trigger_condition": null,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Gizli soruşturma başlat",
+          "requires_role": "Soldier",
+          "role_bonus": { "defense": 5 },
+          "effects": { "economy": -8, "defense": 5 },
+          "outcome": "Soruşturma başlatıldı. Bazı izler tespit edildi, takip sürüyor."
+        },
+        {
+          "id": "B",
+          "label": "Herkesi sorgula, şehri karat",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": { "economy": -12, "population": -5, "defense": 8 },
+          "outcome": "Kapsamlı sorgulama halkı gerdi ama izler kuvvetlendi."
+        },
+        {
+          "id": "C",
+          "label": "Kanıt yoksa görmezden gel",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": { "defense": -5 },
+          "outcome": "İhbar dosyalandı ama işlem yapılmadı. Ajan serbest kalmaya devam ediyor."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_chain_spy_2",
+      "category": "casusluk",
+      "title": "Ajan Şebekesi Deşifre",
+      "description": "Önceki soruşturmanın izleri bir isime ulaştı. Şehrin içinden biri, koordineli bir ajan ağının parçası. Artık harekete geçme zamanı.",
+      "weight": 1.8,
+      "trigger_condition": null,
+      "requires_event": "ev_chain_spy_1",
+      "choices": [
+        {
+          "id": "A",
+          "label": "Tutuklayıp sorgula",
+          "requires_role": "Soldier",
+          "role_bonus": { "defense": 10 },
+          "effects": { "defense": 15, "economy": -10 },
+          "outcome": "Ajan itirafçı oldu. Ağın tüm bağlantıları çökertildi."
+        },
+        {
+          "id": "B",
+          "label": "Çift taraflı ajan olarak kullan",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": { "defense": 8, "economy": 10, "immunity": -5 },
+          "outcome": "Ajan bilgi sızdırmaya devam ediyor — ama artık senin bilgin var."
+        },
+        {
+          "id": "C",
+          "label": "Şehirden sürgün et",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": { "defense": 5, "population": -3 },
+          "outcome": "Ajan gönderildi. Tehdit geçti ama ağın geri kalanı bilinmiyor."
+        }
+      ]
+    },
+
+    {
+      "event_id": "ev_chain_plague_1",
+      "category": "saglik",
+      "title": "Gizemli Hastalık Vakası",
+      "description": "Şehrin doğu bölgesinde birkaç kişi aynı anda hastalandı. Belirtiler tanımsız, doktorlar ne olduğunu bilmiyor. Erken müdahale şart.",
+      "weight": 1.6,
+      "trigger_condition": null,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Bölgeyi karantinaya al",
+          "requires_role": "Doctor",
+          "role_bonus": { "immunity": 8 },
+          "effects": { "immunity": 10, "population": -4, "economy": -6 },
+          "outcome": "Karantina yayılımı yavaşlattı. Doktorlar belirtileri incelemeye başladı."
+        },
+        {
+          "id": "B",
+          "label": "Hastaları tedavi et, karantina yok",
+          "requires_role": "Doctor",
+          "role_bonus": { "immunity": 5 },
+          "effects": { "immunity": -5, "economy": -8 },
+          "outcome": "Tedavi başladı ama yayılım devam ediyor. Daha fazla hasta çıktı."
+        },
+        {
+          "id": "C",
+          "label": "Bekle ve gözlemle",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": { "immunity": -10, "population": -3 },
+          "outcome": "Geç müdahale hastalığın yayılmasına izin verdi."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_chain_plague_2",
+      "category": "saglik",
+      "title": "Hastalık Kontrolden Çıkıyor",
+      "description": "Önceki vakalar buzdağının görünen kısmıymış. Hastalık şimdi tüm mahallelere sıçradı. Şehrin tıbbi kapasitesi yetersiz kalıyor.",
+      "weight": 2.0,
+      "trigger_condition": null,
+      "requires_event": "ev_chain_plague_1",
+      "choices": [
+        {
+          "id": "A",
+          "label": "Acil tıbbi operasyon başlat",
+          "requires_role": "Doctor",
+          "role_bonus": { "immunity": 15 },
+          "effects": { "immunity": 20, "economy": -20, "food": -10 },
+          "outcome": "Büyük kaynak harcamasıyla salgın kontrol altına alındı."
+        },
+        {
+          "id": "B",
+          "label": "Dışarıdan tıbbi yardım iste",
+          "requires_role": "Trader",
+          "role_bonus": { "immunity": 10 },
+          "effects": { "immunity": 12, "economy": -15 },
+          "outcome": "Dış yardım ulaştı. Salgın yavaşladı, tam kontrol için zaman gerekiyor."
+        },
+        {
+          "id": "C",
+          "label": "Hastalar tecrit edilsin, şehir devam etsin",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": { "immunity": -15, "population": -12 },
+          "outcome": "Hasta sayısı arttı. Tecritsiz şehirde kayıplar çığ gibi büyüdü."
+        }
+      ]
+    },
+
+    {
+      "event_id": "ev_chain_trade_1",
+      "category": "ekonomi",
+      "title": "Tüccar Anlaşmazlığı",
+      "description": "Şehrin ana tedarikçisi fiyatları aniden iki katına çıkardı. Müzakere yapsak mı, başka tedarikçi mi arasak?",
+      "weight": 1.4,
+      "trigger_condition": null,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Pazarlık et, indirim iste",
+          "requires_role": "Trader",
+          "role_bonus": { "economy": 8 },
+          "effects": { "economy": -5 },
+          "outcome": "Biraz indirim alındı ama tüccar memnun değil."
+        },
+        {
+          "id": "B",
+          "label": "Alternatif tedarikçi bul",
+          "requires_role": "Scavenger",
+          "role_bonus": { "economy": 6, "food": 4 },
+          "effects": { "economy": -10, "food": 5 },
+          "outcome": "Yeni tedarikçi bulundu ama nakliye maliyeti yüksek."
+        },
+        {
+          "id": "C",
+          "label": "Fiyatı kabul et",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": { "economy": -18, "food": 8 },
+          "outcome": "Mal geldi ama ekonomi büyük yara aldı."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_chain_trade_2",
+      "category": "ekonomi",
+      "title": "Ticaret Ablukası",
+      "description": "Anlaşmazlık büyüdü: tüccar ittifak kurdu ve şehre ambargo ilan etti. Yiyecek ve malzeme girişi kesildi. Bu bir ticaret savaşı.",
+      "weight": 1.8,
+      "trigger_condition": null,
+      "requires_event": "ev_chain_trade_1",
+      "choices": [
+        {
+          "id": "A",
+          "label": "Ambargoyu delmek için kendi üretimini artır",
+          "requires_role": "Farmer",
+          "role_bonus": { "food": 10 },
+          "effects": { "food": 15, "economy": -12, "defense": -5 },
+          "outcome": "Kendi kaynaklar güçlendirildi. Ambargo etkisi azaldı."
+        },
+        {
+          "id": "B",
+          "label": "Askerî tehdit uygula",
+          "requires_role": "Soldier",
+          "role_bonus": { "defense": 8 },
+          "effects": { "defense": 10, "economy": 5, "food": -8 },
+          "outcome": "Baskı işe yaradı — tüccar masaya geri döndü."
+        },
+        {
+          "id": "C",
+          "label": "Tazminat ödeyip barışı satın al",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": { "economy": -25, "food": 12 },
+          "outcome": "Ambargo kalktı ama ekonomiye büyük darbe vuruldu."
+        }
+      ]
+    },
+
+    {
+      "event_id": "ev_chain_wall_1",
+      "category": "savunma",
+      "title": "Savunma Duvarında Çatlak",
+      "description": "Kuzeybatı duvarında derin çatlaklar keşfedildi. Mühendisler acil müdahale gerektiğini söylüyor. Zombiler sezdi mi bilinmez.",
+      "weight": 1.5,
+      "trigger_condition": { "stat": "defense", "below": 60 },
+      "choices": [
+        {
+          "id": "A",
+          "label": "Acil onarım yap",
+          "requires_role": "Engineer",
+          "role_bonus": { "defense": 10 },
+          "effects": { "defense": 12, "economy": -15 },
+          "outcome": "Çatlaklar kapatıldı. Duvar geçici olarak güçlendirildi."
+        },
+        {
+          "id": "B",
+          "label": "Bölgeye nöbetçi koy, onarımı ertele",
+          "requires_role": "Soldier",
+          "role_bonus": { "defense": 4 },
+          "effects": { "defense": 3, "food": -5 },
+          "outcome": "Nöbetçiler bölgeyi tutuyor ama duvar hâlâ zayıf."
+        },
+        {
+          "id": "C",
+          "label": "Şimdilik görmezden gel",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": { "defense": -8 },
+          "outcome": "Çatlaklar büyüdü. Zombiler yaklaşıyor..."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_chain_wall_2",
+      "category": "savunma",
+      "title": "Duvar Yıkılıyor",
+      "description": "Önceki çatlaklar derinleşti. Gece yarısı duvarın bir bölümü çöktü — şu an zombiler o noktadan akıyor. Tüm kuvvetleri mobilize et.",
+      "weight": 2.2,
+      "trigger_condition": null,
+      "requires_event": "ev_chain_wall_1",
+      "choices": [
+        {
+          "id": "A",
+          "label": "Tüm askerleri o noktaya yönlendir",
+          "requires_role": "Soldier",
+          "role_bonus": { "defense": 12 },
+          "effects": { "defense": 18, "population": -6, "food": -10 },
+          "outcome": "Açık nokta kapatıldı ama kayıplar ağır oldu."
+        },
+        {
+          "id": "B",
+          "label": "Çöken bölgeyi kontrol altına al, geri çekil",
+          "requires_role": "Engineer",
+          "role_bonus": { "defense": 8 },
+          "effects": { "defense": 8, "population": -10, "economy": -8 },
+          "outcome": "İç savunma hattı kuruldu. Şehrin bir kısmı kaybedildi."
+        },
+        {
+          "id": "C",
+          "label": "Acil tahliye ve teslimiyet",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": { "defense": -20, "population": -15, "immunity": -8 },
+          "outcome": "Panik tahliyesinde çok sayıda kişi kayboldu."
+        }
+      ]
+    },
+
+    {
+      "event_id": "ev_chain_refugee_1",
+      "category": "nufus",
+      "title": "Mülteci Kafilesi",
+      "description": "Yüzlerce mülteci kapıda bekliyor. Onları içeri almak şehri zorlayabilir; reddetmek insanlık dışı hissettiriyor.",
+      "weight": 1.4,
+      "trigger_condition": null,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Tümünü kabul et",
+          "requires_role": "Doctor",
+          "role_bonus": { "immunity": 5 },
+          "effects": { "population": 20, "food": -20, "immunity": -8 },
+          "outcome": "Mülteciler alındı. Şehirde kaynak baskısı başladı."
+        },
+        {
+          "id": "B",
+          "label": "Eleme yaparak seçilenleri al",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": { "population": 10, "food": -10 },
+          "outcome": "Kontrollü kabul yapıldı. Bazıları içeri alındı, kalanlar gönderildi."
+        },
+        {
+          "id": "C",
+          "label": "Hiç kimseyi kabul etme",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": { "defense": 5, "economy": 3 },
+          "outcome": "Kapılar kapatıldı. Dışarıda büyük öfke birikti."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_chain_refugee_2",
+      "category": "nufus",
+      "title": "Mülteci Kampında İsyan",
+      "description": "Dışarıda bırakılan mülteciler bir kamp kurdu ve şimdi duvarları zorluyor. İçeride kalanlar da onlara sempatiyle yaklaşıyor — gerilim tırmanıyor.",
+      "weight": 1.7,
+      "trigger_condition": null,
+      "requires_event": "ev_chain_refugee_1",
+      "choices": [
+        {
+          "id": "A",
+          "label": "Hepsini içeri al ve kaynakları paylaş",
+          "requires_role": "Farmer",
+          "role_bonus": { "food": 8 },
+          "effects": { "population": 25, "food": -25, "defense": -5 },
+          "outcome": "Kriz çözüldü ama şehir kaynakları iyice zorlandı."
+        },
+        {
+          "id": "B",
+          "label": "Liderleri müzakereye davet et",
+          "requires_role": "Trader",
+          "role_bonus": { "economy": 6 },
+          "effects": { "population": 8, "economy": -10, "defense": 5 },
+          "outcome": "Temsilciler içeri alındı, kamp sakinleşti."
+        },
+        {
+          "id": "C",
+          "label": "Askeri kuvvetle dağıt",
+          "requires_role": "Soldier",
+          "role_bonus": { "defense": 8 },
+          "effects": { "defense": 10, "population": -8, "economy": -5 },
+          "outcome": "İsyan bastırıldı ama mülteci kanı döküldü. Uzun vadeli sorunlar kaçınılmaz."
+        }
+      ]
+    },
+
+    {
+      "event_id": "ev_dilemma_water",
+      "category": "kriz",
+      "title": "Zehirli Su Kaynağı",
+      "description": "Şehrin ana su kaynağı kirlenmiş. Alternatif yok — ya kirli suyu dağıtmaya devam et ya da suyu kes ve susuzluk başlasın. Her seçenek insanları öldürebilir.",
+      "weight": 1.0,
+      "trigger_condition": null,
+      "is_dilemma": true,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Suyu kes, susuzlukla mücadele et",
+          "requires_role": "Engineer",
+          "role_bonus": { "food": 5 },
+          "effects": { "food": -15, "population": -8, "immunity": 5 },
+          "outcome": "Su kesildi. Halk susuzlukla boğuşuyor ama enfeksiyon yayılmıyor."
+        },
+        {
+          "id": "B",
+          "label": "Kirli suyu dağıtmaya devam et",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": { "immunity": -20, "population": -5 },
+          "outcome": "Hayat normal sürdü ama enfeksiyon şehre yayıldı."
+        },
+        {
+          "id": "C",
+          "label": "Su kısıtlaması uygula, temizleme dene",
+          "requires_role": "Doctor",
+          "role_bonus": { "immunity": 8 },
+          "effects": { "food": -8, "immunity": -10, "economy": -12 },
+          "outcome": "Yarım çözüm her iki taraftan da kayıp verdi."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_dilemma_power",
+      "category": "kriz",
+      "title": "İktidar Kavgası",
+      "description": "Şehrin iki güçlü grubu — askerler ve tüccarlar — yönetim üzerine açık çatışmaya girdi. Taraf tutmak zorundasın. Her iki tarafı kaybet, ya da birini seç.",
+      "weight": 1.0,
+      "trigger_condition": null,
+      "is_dilemma": true,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Askerlerin yanında dur",
+          "requires_role": "Soldier",
+          "role_bonus": { "defense": 10 },
+          "effects": { "defense": 15, "economy": -18 },
+          "outcome": "Askerler güçlendi ama tüccarlar şehri terk etti."
+        },
+        {
+          "id": "B",
+          "label": "Tüccarların yanında dur",
+          "requires_role": "Trader",
+          "role_bonus": { "economy": 10 },
+          "effects": { "economy": 15, "defense": -18 },
+          "outcome": "Ekonomi canlandı ama savunma zayıfladı."
+        },
+        {
+          "id": "C",
+          "label": "Her iki tarafı da feshettir",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": { "defense": -10, "economy": -10, "population": -6 },
+          "outcome": "İki grup da dağıtıldı. Şehir hem savunmasız hem yoksul kaldı."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_dilemma_food",
+      "category": "kriz",
+      "title": "Son Yiyecek Stoku",
+      "description": "Depolarda son yiyecek stoku kaldı. Yetecek kadar değil — ya hastaları besle, ya askerleri, ya da çocukları. Seç.",
+      "weight": 1.0,
+      "trigger_condition": { "stat": "food", "below": 50 },
+      "is_dilemma": true,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Çocuklar ve yaşlılara öncelik ver",
+          "requires_role": "Doctor",
+          "role_bonus": { "immunity": 5 },
+          "effects": { "population": 8, "immunity": 5, "defense": -12, "food": -15 },
+          "outcome": "Zayıflar hayatta kaldı ama askeri kapasite çöktü."
+        },
+        {
+          "id": "B",
+          "label": "Askerlere ve savunmaya öncelik ver",
+          "requires_role": "Soldier",
+          "role_bonus": { "defense": 8 },
+          "effects": { "defense": 12, "population": -10, "immunity": -8, "food": -15 },
+          "outcome": "Şehir korundu ama sivillerin kaybı moral kırdı."
+        },
+        {
+          "id": "C",
+          "label": "Eşit paylaştır — herkese az",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": { "population": -6, "immunity": -6, "defense": -6, "food": -15 },
+          "outcome": "Herkese az verildi. Kimse yeterince güçlenemedi."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_dilemma_leader",
+      "category": "kriz",
+      "title": "Kaçan Lider",
+      "description": "Şehrin güvenilir lideri ailesiyle birlikte kaçmaya hazırlanıyor. Üstelik şehrin kaynaklarından bir kısmını yanına almak istiyor. Onu durdurmak ne kadar mümkün?",
+      "weight": 1.0,
+      "trigger_condition": null,
+      "is_dilemma": true,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Gitmesine izin ver, kaynakları al",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": { "economy": -15, "defense": -5, "population": -4 },
+          "outcome": "Lider gitti. Şehirde moral çöktü, kaynaklar azaldı."
+        },
+        {
+          "id": "B",
+          "label": "Zorla durdur ve yargıla",
+          "requires_role": "Soldier",
+          "role_bonus": { "defense": 6 },
+          "effects": { "defense": 8, "population": -8, "economy": -8 },
+          "outcome": "Lider tutuklandı ama halk ikiye bölündü."
+        },
+        {
+          "id": "C",
+          "label": "Gitmesine izin ver, kaynakları götürsün",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": { "economy": -22, "food": -15, "population": -3 },
+          "outcome": "Lider rahatça çıktı. Şehir hem moral hem kaynak kaybetti."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_dilemma_twofront",
+      "category": "savunma",
+      "title": "İki Cepheli Saldırı",
+      "description": "Kuzeyden zombi sürüsü, güneyden silahlı insan grubu aynı anda saldırıya geçti. Savunma kuvvetlerin ikisine yetmez. Hangisini seçeceksin?",
+      "weight": 1.0,
+      "trigger_condition": { "stat": "defense", "below": 55 },
+      "is_dilemma": true,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Kuzey zombi cephesini tut",
+          "requires_role": "Soldier",
+          "role_bonus": { "defense": 10 },
+          "effects": { "defense": 12, "immunity": -10, "population": -8 },
+          "outcome": "Zombiler durduruldu ama güney grubunun saldırısında kayıplar verildi."
+        },
+        {
+          "id": "B",
+          "label": "Güney insan grubunu durdur",
+          "requires_role": "Soldier",
+          "role_bonus": { "defense": 8 },
+          "effects": { "defense": 8, "immunity": -15, "food": -10 },
+          "outcome": "Silahlı grup geri püskürtüldü ama zombiler şehre girdi."
+        },
+        {
+          "id": "C",
+          "label": "Her iki cepheye de az kuvvet gönder",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": { "defense": -15, "population": -12, "immunity": -8 },
+          "outcome": "İki cephede de tutunulamadı. Şehir ağır hasar gördü."
+        }
+      ]
+    },
+    {
+      "event_id": "ev_dilemma_uprising",
+      "category": "kriz",
+      "title": "Şehir İçi Ayaklanma",
+      "description": "Uzun süren kıtlık ve kısıtlamalar halkı patlamaya getirdi. Sokaklar karıştı, işler durdu. Sert davranmak ya da anlaşmak — ikisi de kayıp demek.",
+      "weight": 1.0,
+      "trigger_condition": null,
+      "is_dilemma": true,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Askerle bastır",
+          "requires_role": "Soldier",
+          "role_bonus": { "defense": 5 },
+          "effects": { "defense": 8, "population": -12, "economy": -8 },
+          "outcome": "Ayaklanma kanlı bastırıldı. Şehirde derin bir kırılma oluştu."
+        },
+        {
+          "id": "B",
+          "label": "Halkın taleplerini kabul et",
+          "requires_role": "Trader",
+          "role_bonus": { "economy": 5 },
+          "effects": { "economy": -20, "food": -12, "defense": -5 },
+          "outcome": "Talepler karşılandı. Kısa vadeli barış sağlandı ama kaynaklar eridi."
+        },
+        {
+          "id": "C",
+          "label": "Müzakere et, zaman kazan",
+          "requires_role": null,
+          "role_bonus": null,
+          "effects": { "economy": -10, "defense": -8, "population": -5 },
+          "outcome": "Müzakere çözüm getirmedi. Her şey aynı anda kötüleşti."
+        }
+      ]
     }
   ]
 }

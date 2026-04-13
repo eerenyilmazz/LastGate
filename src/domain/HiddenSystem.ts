@@ -6,21 +6,25 @@ import ui from '../data/ui.json'
 
 export interface PendingTrait {
   npc_id: string
+  npc_name: string
+  npc_role: string
   trait: HiddenTrait
   accepted_day: number
 }
 
 interface TickModifiers {
   infectionReduction?: number
+  difficulty?: string
 }
 
 const EXPIRY = config.trait_expiry_days
 const NOTIF  = ui.hidden_notifications
+const DIFF_SCALE = (config as any).trait_difficulty_scale as Record<string, number>
 
 export const HiddenSystem = {
-  enqueue(pending: PendingTrait[], npc_id: string, trait: HiddenTrait, currentDay: number): PendingTrait[] {
+  enqueue(pending: PendingTrait[], npc_id: string, npc_name: string, npc_role: string, trait: HiddenTrait, currentDay: number): PendingTrait[] {
     if (trait === 'none' || trait === 'liar') return pending
-    return [...pending, { npc_id, trait, accepted_day: currentDay }]
+    return [...pending, { npc_id, npc_name, npc_role, trait, accepted_day: currentDay }]
   },
 
   tick(
@@ -33,6 +37,7 @@ export const HiddenSystem = {
     const notifications: string[] = []
     const remaining: PendingTrait[] = []
     const reduction = Math.min(modifiers.infectionReduction ?? 0, config.infection_reduction_cap)
+    const diffScale = DIFF_SCALE[modifiers.difficulty ?? 'normal'] ?? 1.0
 
     for (const item of pending) {
       const daysSince = currentDay - item.accepted_day
@@ -49,8 +54,16 @@ export const HiddenSystem = {
       }
 
       if (delta) {
-        deltas.push(delta)
-        notifications.push(HiddenSystem.getNotificationText(item.trait, daysSince))
+        const scaledDelta: StatDelta = {}
+        for (const [k, v] of Object.entries(delta)) {
+          if (v !== undefined) {
+            scaledDelta[k as StatType] = v < 0
+              ? Math.floor(v * diffScale)
+              : Math.ceil(v * diffScale)
+          }
+        }
+        deltas.push(scaledDelta)
+        notifications.push(HiddenSystem.getNotificationText(item.trait, daysSince, item.npc_role))
       }
 
       if (item.trait === 'spy'       && daysSince >= EXPIRY.spy)       continue
@@ -62,13 +75,24 @@ export const HiddenSystem = {
     return { deltas, notifications, remaining }
   },
 
-  getNotificationText(trait: HiddenTrait, days: number): string {
-    if (trait === 'infected' && (days === 1 || days === 2)) return (NOTIF as any).infected_early
-    if (trait === 'infected' && days === 3) return NOTIF.infected_warning
-    if (trait === 'infected' && days === 5) return NOTIF.infected_crisis
-    if (trait === 'infected' && days > 5)   return NOTIF.infected_spread
-    if (trait === 'spy')                    return NOTIF.spy_sabotage
-    if (trait === 'thief')                  return NOTIF.thief_steal
+  getRoleTR(role: string): string {
+    const map: Record<string, string> = {
+      Doctor: 'Doktor', Farmer: 'Çiftçi', Soldier: 'Asker',
+      Trader: 'Tüccar', Engineer: 'Mühendis', Scavenger: 'Kaşif',
+    }
+    return map[role] ?? role
+  },
+
+  getNotificationText(trait: HiddenTrait, days: number, npcRole: string): string {
+    const r = HiddenSystem.getRoleTR(npcRole)
+    if (trait === 'infected' && days === 1) return `warning|Kabul ettiğin ${r} hasta. Bağışıklık düşüyor.`
+    if (trait === 'infected' && days === 2) return `warning|${r}dan gelen hastalık yayılmaya başladı.`
+    if (trait === 'infected' && days === 3) return `danger|${r}dan gelen hastalık şehre yayıldı.`
+    if (trait === 'infected' && days === 5) return `danger|SALGIN! Kabul ettiğin ${r} karantinaya alınamadı.`
+    if (trait === 'infected' && days > 5)   return `danger|Salgın kontrol altına alınamıyor. Kaynak: ${r}.`
+    if (trait === 'spy')                    return `danger|Kabul ettiğin ${r} ajan çıktı. Savunma sistemleri hasar gördü.`
+    if (trait === 'thief' && days === 2)    return `warning|${r} geceleri depolardan çalıyor.`
+    if (trait === 'thief')                  return `danger|${r} büyük miktarda kaynak çalıp kayboldu.`
     return ''
   },
 }

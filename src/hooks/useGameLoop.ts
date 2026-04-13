@@ -92,42 +92,49 @@ export const useGameLoop = () => {
   }
 
   const saveAll = useCallback(async (): Promise<void> => {
+    const g  = useGameStore.getState()
+    const st = useStatStore.getState()
+    const pr = useProgressStore.getState()
+    const se = useSettingsStore.getState()
     await SaveSystem.save({
       [SaveSystem.KEYS.GAME]: {
-        day:               game.day,
-        phase:             game.phase,
-        acceptedNPCRoles:  game.acceptedNPCRoles,
-        acceptedRoleCounts:game.acceptedRoleCounts,
-        pendingTraits:     game.pendingTraits,
-        usedEventIDs:      game.usedEventIDs,
-        queryChargesLeft:  game.queryChargesLeft,
-        queryChargesTotal: game.queryChargesTotal,
-        isGameOver:        game.isGameOver,
-        gameOverReason:    game.gameOverReason,
-        runStats:          game.runStats,
-        pendingReturns:    game.pendingReturns,
-        pendingDelayeds:   game.pendingDelayeds,
+        day:               g.day,
+        phase:             g.phase,
+        activeNPC:         g.activeNPC,
+        activeReturn:      g.activeReturn,
+        acceptedNPCRoles:  g.acceptedNPCRoles,
+        acceptedRoleCounts:g.acceptedRoleCounts,
+        pendingTraits:     g.pendingTraits,
+        usedEventIDs:      g.usedEventIDs,
+        queryChargesLeft:  g.queryChargesLeft,
+        queryChargesTotal: g.queryChargesTotal,
+        isGameOver:        g.isGameOver,
+        gameOverReason:    g.gameOverReason,
+        runStats:          g.runStats,
+        pendingReturns:    g.pendingReturns,
+        pendingDelayeds:   g.pendingDelayeds,
       },
-      [SaveSystem.KEYS.STATS]:    stats.stats,
+      [SaveSystem.KEYS.STATS]:    st.stats,
       [SaveSystem.KEYS.PROGRESS]: {
-        sp:                 progress.sp,
-        buildings:          progress.buildings,
-        unlockedNPCPacks:   progress.unlockedNPCPacks,
-        unlockedEventPacks: progress.unlockedEventPacks,
-        totalRuns:          progress.totalRuns,
-        bestDay:            progress.bestDay,
-        totalWins:          progress.totalWins,
-        achievements:       progress.achievements,
+        sp:                   pr.sp,
+        buildings:            pr.buildings,
+        unlockedNPCPacks:     pr.unlockedNPCPacks,
+        unlockedEventPacks:   pr.unlockedEventPacks,
+        totalRuns:            pr.totalRuns,
+        bestDay:              pr.bestDay,
+        totalWins:            pr.totalWins,
+        achievements:         pr.achievements,
+        hasSeenModifierIntro: pr.hasSeenModifierIntro,
       },
       [SaveSystem.KEYS.NPC_QUEUE]: generator.getState(),
       [SaveSystem.KEYS.SETTINGS]: {
-        musicEnabled:     settings.musicEnabled,
-        sfxEnabled:       settings.sfxEnabled,
-        difficulty:       settings.difficulty,
-        modifiersEnabled: settings.modifiersEnabled,
+        musicEnabled:     se.musicEnabled,
+        sfxEnabled:       se.sfxEnabled,
+        difficulty:       se.difficulty,
+        modifiersEnabled: se.modifiersEnabled,
       },
     })
-  }, [game, stats, progress, settings])
+  }, [])
 
   const applyDailyStats = useCallback((): { hasReturn: boolean; hasDisaster: boolean } => {
     stats.applyPassive(progress.buildings)
@@ -168,7 +175,7 @@ export const useGameLoop = () => {
       game.pendingTraits,
       stats.stats,
       game.day,
-      { infectionReduction },
+      { infectionReduction, difficulty: settings.difficulty },
     )
     for (const delta of deltas) stats.apply(delta)
     for (const note of notifications) game.addNotification(note)
@@ -250,6 +257,15 @@ export const useGameLoop = () => {
   }, [game, finishWithGameOver])
 
   const tryTriggerEvent = useCallback((): boolean => {
+    const pressureInterval = (config as any).pressure_event_interval as number | undefined
+    if (pressureInterval && pressureInterval > 0 && game.day % pressureInterval === 0) {
+      const dilemma = EventManager.pickDilemma(useStatStore.getState().stats, useGameStore.getState().usedEventIDs)
+      if (dilemma) {
+        game.setActiveEvent(dilemma)
+        game.setPhase('event')
+        return true
+      }
+    }
     if (!EventManager.shouldTrigger(game.day)) return false
     const event = EventManager.pickEvent(stats.stats, game.usedEventIDs)
     if (!event) return false
@@ -281,6 +297,7 @@ export const useGameLoop = () => {
   const dayStartStatsRef = useRef<StatState>({ immunity: 0, food: 0, population: 0, defense: 0, economy: 0 })
 
   const continueAfterModifier = useCallback(async () => {
+    progress.markModifierIntroSeen()
     const overReason = stats.getGameOverReason()
     if (overReason) { await triggerRescueOrGameOver(overReason); return }
     if (game.day >= config.win_condition_days[settings.difficulty]) { await finishWithGameOver('victory', true); return }
@@ -288,7 +305,7 @@ export const useGameLoop = () => {
     awardDaySP(dayStartStatsRef.current)
     advanceToNextDay()
     await saveAll()
-  }, [game, stats, finishWithGameOver, tryTriggerEvent, awardDaySP, advanceToNextDay, saveAll])
+  }, [game, stats, progress, finishWithGameOver, tryTriggerEvent, awardDaySP, advanceToNextDay, saveAll])
 
   const endDay = useCallback(async () => {
     if (game.phase !== 'day_summary') return
@@ -321,7 +338,7 @@ export const useGameLoop = () => {
       return
     }
 
-    if (game.day === 1 && settings.modifiersEnabled && game.activeModifier) {
+    if (game.day === 1 && settings.modifiersEnabled && game.activeModifier && !progress.hasSeenModifierIntro) {
       game.setPhase('modifier_reveal')
       await saveAll()
       return
@@ -355,7 +372,7 @@ export const useGameLoop = () => {
     game.incrementRunStat('accepted')
 
     if (npc.hidden_trait !== 'none' && npc.hidden_trait !== 'liar') {
-      game.enqueueTrait({ npc_id: npc.npc_id, trait: npc.hidden_trait, accepted_day: game.day })
+      game.enqueueTrait({ npc_id: npc.npc_id, npc_name: npc.name, npc_role: npc.role, trait: npc.hidden_trait, accepted_day: game.day })
     }
 
     const delayed = ReturnSystem.enqueueDelayed(npc, game.day)
@@ -487,7 +504,9 @@ export const useGameLoop = () => {
     }
 
     if (settings.modifiersEnabled) {
-      const mod = MODIFIERS[Math.floor(Math.random() * MODIFIERS.length)]
+      const mod = settings.selectedModifierId
+        ? (MODIFIERS.find(m => m.id === settings.selectedModifierId) ?? MODIFIERS[Math.floor(Math.random() * MODIFIERS.length)])
+        : MODIFIERS[Math.floor(Math.random() * MODIFIERS.length)]
       game.setActiveModifier(mod)
       if (mod.effects.start_stat_delta) {
         stats.apply(mod.effects.start_stat_delta as StatDelta)
