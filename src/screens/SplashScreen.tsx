@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Platform, useWindowDimensions, Image } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Animated, {
   useSharedValue, useAnimatedStyle,
   withTiming, withDelay, withRepeat, withSequence, Easing, runOnJS,
@@ -22,6 +23,7 @@ const STATUS_ITEMS = ui.splash_status_items
 
 export const SplashScreen: React.FC<Props> = ({ onDone }) => {
   const { width, height } = useWindowDimensions()
+  const insets = useSafeAreaInsets()
   const emblemSize = Math.round(width * 0.88)
 
   const exitOp    = useSharedValue(0)
@@ -158,7 +160,7 @@ export const SplashScreen: React.FC<Props> = ({ onDone }) => {
           <Text style={[styles.hintBracket, { fontFamily: MONO }]}>]</Text>
         </Animated.View>
 
-        <Text style={[styles.version, { fontFamily: MONO }]}>{uiStrings.splash_version}</Text>
+        <Text style={[styles.version, { fontFamily: MONO, marginBottom: insets.bottom + 14 }]}>{uiStrings.splash_version}</Text>
 
       </Animated.View>
     </TouchableOpacity>
@@ -258,6 +260,5 @@ const styles = StyleSheet.create({
     fontSize: TY.size_2xs,
     color: C.bg_deeper,
     letterSpacing: 2,
-    marginBottom: Platform.OS === 'android' ? 18 : 14,
   },
 })

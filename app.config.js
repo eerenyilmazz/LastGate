@@ -1,4 +1,5 @@
-const admobAndroidId = process.env.ADMOB_ANDROID_ID
+const appConfig      = require('./src/data/config.json')
+const admobAndroidId = process.env.ADMOB_ANDROID_ID || appConfig.admob_android_app_id
 const sentryDsn      = process.env.SENTRY_DSN
 
 const plugins = [
@@ -10,14 +11,11 @@ const plugins = [
       ...(sentryDsn ? { dsn: sentryDsn } : {}),
     },
   ],
-]
-
-if (admobAndroidId) {
-  plugins.push([
+  [
     'react-native-google-mobile-ads',
     { androidAppId: admobAndroidId },
-  ])
-}
+  ],
+]
 
 module.exports = {
   expo: {
@@ -39,6 +37,7 @@ module.exports = {
     },
     android: {
       jsEngine: 'hermes',
+      orientation: 'portrait',
       adaptiveIcon: {
         backgroundColor: '#0a0a0a',
         foregroundImage: './assets/android-icon-foreground.png',
