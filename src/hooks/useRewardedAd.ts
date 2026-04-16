@@ -47,8 +47,13 @@ export const useRewardedAd = () => {
         loadedRef.current = true
         setIsLoaded(true)
       })
+      const unsubError = ad.addAdEventListener(RewardedAdEventType.ERROR, () => {
+        loadedRef.current = false
+        setIsLoaded(false)
+        setTimeout(load, 10000)
+      })
       ad.load()
-      return () => { try { unsubLoad() } catch {} }
+      return () => { try { unsubLoad(); unsubError() } catch {} }
     } catch {}
   }, [])
 

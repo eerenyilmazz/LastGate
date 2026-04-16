@@ -40,11 +40,13 @@ export const StatRescue: React.FC<Props> = ({ reason, onRescue, onGiveUp }) => {
 
   useEffect(() => { ad.load() }, [])
 
-  const info   = REASON_LABELS[reason]
-  const canAd  = ad.isAvailable && ad.canShow(settings.difficulty)
+  const info      = REASON_LABELS[reason]
+  const canAd     = ad.isAvailable && ad.canShow(settings.difficulty)
+  const adReady   = canAd && ad.isLoaded
+  const adFetching = canAd && !ad.isLoaded
 
   const handleAd = () => {
-    if (adLoading) return
+    if (adLoading || !ad.isLoaded) return
     setAdLoading(true)
     ad.show(result => {
       setAdLoading(false)
@@ -67,20 +69,22 @@ export const StatRescue: React.FC<Props> = ({ reason, onRescue, onGiveUp }) => {
 
         {canAd && (
           <TouchableOpacity
-            style={styles.adBtn}
+            style={[styles.adBtn, (!adReady || adLoading) && { opacity: 0.5 }]}
             onPress={handleAd}
             activeOpacity={0.8}
-            disabled={adLoading}
+            disabled={adLoading || !adReady}
           >
-            {adLoading
+            {(adLoading || adFetching)
               ? <ActivityIndicator size="small" color={C.query} />
               : <Text style={styles.adBtnIcon}>📺</Text>
             }
             <View style={{ flex: 1 }}>
-              <Text style={[styles.adBtnTitle, { fontFamily: MONO }]}>Reklam İzle</Text>
+              <Text style={[styles.adBtnTitle, { fontFamily: MONO }]}>
+                {adFetching ? 'Reklam yükleniyor...' : 'Reklam İzle'}
+              </Text>
               <Text style={[styles.adBtnSub, { fontFamily: MONO }]}>Ücretsiz kurtarma</Text>
             </View>
-            <Text style={[styles.adBtnArrow, { color: C.query }]}>›</Text>
+            {adReady && <Text style={[styles.adBtnArrow, { color: C.query }]}>›</Text>}
           </TouchableOpacity>
         )}
 
