@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, View, BackHandler } from 'react-native'
 import { initCrashReporting } from './src/utils/crashReporting'
+
+let MobileAds: any = null
+try { MobileAds = require('react-native-google-mobile-ads').default } catch {}
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
@@ -27,6 +30,7 @@ export default function App() {
 
   useEffect(() => {
     initCrashReporting()
+    if (MobileAds) { try { MobileAds().initialize() } catch {} }
     loadSave().then(({ hasResumableGame: resumable }) => setHasResumableGame(resumable))
     startAmbient()
   }, [])
