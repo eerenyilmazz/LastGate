@@ -37,13 +37,23 @@ export const StatRescue: React.FC<Props> = ({ reason, onRescue, onGiveUp }) => {
   const ad       = useRewardedAd()
 
   const [adLoading, setAdLoading] = useState(false)
+  const [adTimedOut, setAdTimedOut] = useState(false)
 
-  useEffect(() => { ad.load() }, [])
+  useEffect(() => {
+    ad.load()
+    const timer = setTimeout(() => setAdTimedOut(true), 15000)
+    return () => clearTimeout(timer)
+  }, [])
 
-  const info      = REASON_LABELS[reason]
-  const canAd     = ad.isAvailable && ad.canShow(settings.difficulty)
-  const adReady   = canAd && ad.isLoaded
-  const adFetching = canAd && !ad.isLoaded
+  // Yüklenirse timeout'u sıfırla
+  useEffect(() => {
+    if (ad.isLoaded) setAdTimedOut(false)
+  }, [ad.isLoaded])
+
+  const info       = REASON_LABELS[reason]
+  const canAd      = ad.isAvailable && ad.canShow(settings.difficulty)
+  const adReady    = canAd && ad.isLoaded
+  const adFetching = canAd && !ad.isLoaded && !adTimedOut
 
   const handleAd = () => {
     if (adLoading || !ad.isLoaded) return
@@ -67,7 +77,7 @@ export const StatRescue: React.FC<Props> = ({ reason, onRescue, onGiveUp }) => {
 
         <View style={styles.divider} />
 
-        {canAd && (
+        {canAd && !adTimedOut && (
           <TouchableOpacity
             style={[styles.adBtn, (!adReady || adLoading) && { opacity: 0.5 }]}
             onPress={handleAd}
@@ -86,6 +96,17 @@ export const StatRescue: React.FC<Props> = ({ reason, onRescue, onGiveUp }) => {
             </View>
             {adReady && <Text style={[styles.adBtnArrow, { color: C.query }]}>›</Text>}
           </TouchableOpacity>
+        )}
+        {canAd && adTimedOut && !adReady && (
+          <View style={[styles.adBtn, { opacity: 0.4 }]}>
+            <Text style={styles.adBtnIcon}>📵</Text>
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.adBtnTitle, { fontFamily: MONO, color: C.text_muted }]}>
+                Reklam şu an mevcut değil
+              </Text>
+              <Text style={[styles.adBtnSub, { fontFamily: MONO }]}>Daha sonra tekrar dene</Text>
+            </View>
+          </View>
         )}
 
         <TouchableOpacity style={styles.giveUpBtn} onPress={onGiveUp} activeOpacity={0.7}>

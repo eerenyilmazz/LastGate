@@ -44,14 +44,17 @@ export const useRewardedAd = () => {
       loadedRef.current = false
       setIsLoaded(false)
       const unsubLoad = ad.addAdEventListener(RewardedAdEventType.LOADED, () => {
+        console.log('[AdMob] rewarded ad LOADED ✅', getAdUnitId())
         loadedRef.current = true
         setIsLoaded(true)
       })
-      const unsubError = ad.addAdEventListener(RewardedAdEventType.ERROR, () => {
+      const unsubError = ad.addAdEventListener(RewardedAdEventType.ERROR, (error: any) => {
+        console.warn('[AdMob] rewarded load ERROR:', error?.code, error?.message)
         loadedRef.current = false
         setIsLoaded(false)
         setTimeout(load, 10000)
       })
+      console.log('[AdMob] requesting ad:', getAdUnitId())
       ad.load()
       return () => { try { unsubLoad(); unsubError() } catch {} }
     } catch {}

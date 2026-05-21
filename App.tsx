@@ -3,7 +3,12 @@ import { StyleSheet, View, BackHandler } from 'react-native'
 import { initCrashReporting } from './src/utils/crashReporting'
 
 let MobileAds: any = null
-try { MobileAds = require('react-native-google-mobile-ads').default } catch {}
+let MaxAdContentRating: any = null
+try {
+  const mod = require('react-native-google-mobile-ads')
+  MobileAds = mod.default
+  MaxAdContentRating = mod.MaxAdContentRating
+} catch {}
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
@@ -30,7 +35,22 @@ export default function App() {
 
   useEffect(() => {
     initCrashReporting()
-    if (MobileAds) { try { MobileAds().initialize() } catch {} }
+    if (MobileAds) {
+      const initAds = async () => {
+        try {
+          await MobileAds().setRequestConfiguration({
+            maxAdContentRating: MaxAdContentRating?.G ?? 'G',
+            tagForChildDirectedTreatment: false,
+            tagForUnderAgeOfConsent: false,
+          })
+          const statuses = await MobileAds().initialize()
+          console.log('[AdMob] initialize statuses:', JSON.stringify(statuses))
+        } catch (e) {
+          console.warn('[AdMob] initialize error:', e)
+        }
+      }
+      initAds()
+    }
     loadSave().then(({ hasResumableGame: resumable }) => setHasResumableGame(resumable))
     startAmbient()
   }, [])
