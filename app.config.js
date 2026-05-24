@@ -38,6 +38,7 @@ module.exports = {
     android: {
       jsEngine: 'hermes',
       orientation: 'portrait',
+      versionCode: 30,
       adaptiveIcon: {
         backgroundColor: '#0a0a0a',
         foregroundImage: './assets/android-icon-foreground.png',
