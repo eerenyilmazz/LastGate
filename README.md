@@ -1,265 +1,277 @@
-# SON KAPI — Last Gate
+<div align="center">
 
-> *"Bu kapı düşerse, şehir düşer."*
+<img src="assets/icon.png" alt="LastGate icon" width="120" />
 
-Post-apokaliptik kart tabanlı hayatta kalma stratejisi. Sektör 7 karantina bölgesinin son kapı komutanısın. Her gün kapına gelen yabancıları sorgula, kararını ver.
+# LastGate
 
-- **Platform**: iOS & Android (React Native / Expo)
-- **Dil**: Türkçe
-- **Hedef**: 100 günü hayatta geçir
-- **Durum**: BETA v0.1
+**A post-apocalyptic, card-based survival strategy game for iOS and Android.**
 
----
+*"If this gate falls, the city falls."*
 
-## İçindekiler
+[![Get it on Google Play](https://img.shields.io/badge/Google_Play-Download-34A853?logo=googleplay&logoColor=white)](https://play.google.com/store/apps/details?id=com.eerenyilmazz.lastgate)
+![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20Android-lightgrey)
+![Expo SDK](https://img.shields.io/badge/Expo_SDK-54-000020?logo=expo)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white)
+![Status](https://img.shields.io/badge/status-beta%20v0.1-orange)
 
-- [Temel Mekanikler](#temel-mekanikler)
-- [5 Ana Stat](#5-ana-stat)
-- [Zorluk Seviyeleri](#zorluk-seviyeleri)
-- [Run Modifikatörleri](#run-modifikatörleri)
-- [NPC Sistemi](#npc-sistemi)
-- [Gizli Özellikler](#gizli-özellikler)
-- [NPC Hafızası ve Geri Dönüş](#npc-hafızası-ve-geri-dönüş)
-- [Sorgulama Sistemi](#sorgulama-sistemi)
-- [Rol Sinerjileri](#rol-sinerjileri)
-- [Binalar](#binalar)
-- [Beceriler](#beceriler)
-- [Olaylar](#olaylar)
-- [Yerleşim Puanı](#yerleşim-puanı)
-- [Oyun Sonu Koşulları](#oyun-sonu-koşulları)
-- [Teknik Altyapı](#teknik-altyapı)
+</div>
 
 ---
 
-## Temel Mekanikler
+You are the commander of the last gate of the Sector 7 quarantine zone. Every day, strangers arrive asking to be let in. Interrogate them, read between the lines, and decide who enters — one wrong call can bring down the whole city.
 
-### Gün Döngüsü
+The game ships in **Turkish**.
+
+## Screenshots
+
+<p align="center">
+  <img src="docs/screenshots/menu.png" width="19%" alt="Main menu" />
+  <img src="docs/screenshots/intro.png" width="19%" alt="Story intro" />
+  <img src="docs/screenshots/how-to-play.png" width="19%" alt="How to play" />
+  <img src="docs/screenshots/gate-card.png" width="19%" alt="Arrival card" />
+  <img src="docs/screenshots/interrogation.png" width="19%" alt="Interrogation result" />
+</p>
+
+<p align="center"><sub>Main menu · Story intro · How to play · Arrival card · Deep-scan interrogation</sub></p>
+
+## Table of Contents
+
+- [Gameplay](#gameplay)
+- [Core Stats](#core-stats)
+- [Difficulty](#difficulty)
+- [Run Modifiers](#run-modifiers)
+- [Characters](#characters)
+- [Interrogation](#interrogation)
+- [Progression](#progression)
+- [Events](#events)
+- [End Conditions](#end-conditions)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+- [Privacy](#privacy)
+
+## Gameplay
+
+### Daily loop
 
 ```
-Giriş → NPC Geliş → Karar (×1–3) → Gün Özeti → İnşaat → [Tekrar]
+Start of day → Arrivals → Decisions (×1–3) → Day summary → Construction → [repeat]
 ```
 
-Her gün sırasıyla: pasif bina bonusları → rol sinerjileri → gıda tüketimi (`nüfus × 0.04`) → zincirleme etkiler → gecikmiş NPC etkileri → olay kontrolü.
+At the end of each day the engine resolves, in order: passive building bonuses → role synergies → food consumption (`population × 0.04`) → cascading penalties → delayed character effects → event checks.
 
-### Karar Verme
+### Controls
 
-| Hareket | Açıklama |
-|---------|----------|
-| Sağa kaydır | **Kabul et** |
-| Sola kaydır | **Reddet** |
-| Dokun | **Sorgula** |
+| Gesture | Action |
+|---|---|
+| Swipe right | **Accept** |
+| Swipe left | **Reject** |
+| Tap | **Interrogate** |
 
-> **%35 NPC'de reddetmek net daha avantajlıdır.** Herkesi kabul etmek optimal strateji değildir.
+> Accepting everyone is not the optimal strategy — for roughly **35%** of arrivals, rejecting is clearly the better choice.
 
----
+## Core Stats
 
-## 5 Ana Stat
+| Stat | Start | Max | Critical | At zero |
+|---|---|---|---|---|
+| 💊 Immunity | 65 | 100 | 15 | Plague |
+| 🌾 Food | 100 | 200 | 35 | Starvation |
+| 👥 Population | 50 | 150 | 25 | Extinction |
+| 🛡 Defense | 45 | 100 | 10 | Breach |
+| 💰 Economy | 50 | 100 | 5 | Collapse |
 
-| Stat | Başlangıç | Maks | Kritik Eşiği | Sıfırda |
-|------|-----------|------|--------------|---------|
-| 💊 Bağışıklık | 65 | 100 | 15 | Veba |
-| 🌾 Gıda | 100 | 200 | 35 | Açlık |
-| 👥 Nüfus | 50 | 150 | 25 | Yok oluş |
-| 🛡 Savunma | 45 | 100 | 10 | İhlal |
-| 💰 Ekonomi | 50 | 100 | 5 | Çöküş |
+### Cascading penalties
 
-### Zincirleme Etkiler
+While a stat is below its critical threshold it drags others down every day:
 
-| Kritik Stat | Zincirleme Hasar /gün |
-|-------------|----------------------|
-| Bağışıklık | Nüfus −1 |
-| Gıda | Ekonomi −2, Savunma −1 |
-| Savunma | Gıda −4, Ekonomi −3, Nüfus −2 |
-| Ekonomi | Gıda −3, Savunma −2 |
-| Nüfus | Ekonomi −3, Savunma −2 |
+| Critical stat | Daily cascade |
+|---|---|
+| Immunity | Population −1 |
+| Food | Economy −2, Defense −1 |
+| Defense | Food −4, Economy −3, Population −2 |
+| Economy | Food −3, Defense −2 |
+| Population | Economy −3, Defense −2 |
 
----
+## Difficulty
 
-## Zorluk Seviyeleri
+| | Easy | Normal | Hard |
+|---|---|---|---|
+| Days to survive | 100 | 70 | 50 |
+| Daily food bonus | +2 | 0 | −3 |
+| Negative character effects | ×0.75 | ×1.0 | ×1.3 |
+| Starting stats | +30% | Base | −25% |
 
-| | Kolay | Normal | Zor |
-|--|-------|--------|-----|
-| Günlük gıda bonusu | +2 | 0 | −3 |
-| NPC negatif etkisi | ×0.75 | ×1.0 | ×1.3 |
-| Başlangıç statları | +%30 | Normal | −%25 |
+## Run Modifiers
 
----
+When enabled in settings, a random rule activates after day 1 and stays visible in the HUD and the expedition log. There are **16 modifiers**:
 
-## Run Modifikatörleri
+| Type | Examples |
+|---|---|
+| Harder | Famine (food ×1.5), Shadow Plague (−20 immunity), Paranoia (negative effects ×1.5) |
+| Easier | Golden Age (negative effects ×0.7), Free Scouting, Supply Day (+food / economy) |
+| Role-focused | Age of Medicine (Doctors ×2), Wartime (Soldiers ×2), Trade Era (Traders ×2) |
 
-Ayarlardan açıkken, 1. günü tamamladıktan sonra rastgele bir kural devreye girer. Aktif modifikatör HUD'da ve Sefer Günlüğü'nde sürekli görünür.
+## Characters
 
-**16 modifikatör:**
+**154 unique characters** across six roles. Roughly 40% are clear accepts, 30% are trade-offs and 30% are liabilities you should turn away.
 
-| Tür | Örnekler |
-|-----|---------|
-| Zorlaştırıcı | Kıtlık (gıda ×1.5), Gölge Veba (−20 bağışıklık), Paranoya (negatif ×1.5) |
-| Kolaylaştırıcı | Altın Çağ (negatif ×0.7), Bedava Keşif, İkmal Günü (+gıda/ekonomi) |
-| Rol Odaklı | Tıp Çağı (Doktor ×2), Savaş Dönemi (Asker ×2), Ticaret Dönemi (Tüccar ×2) |
+| Role | Strength | Watch out for |
+|---|---|---|
+| Doctor | Immunity | An infected doctor costs immunity |
+| Farmer | Food | Burdened farmers add food costs |
+| Soldier | Defense | Suspicious soldiers may sabotage |
+| Trader | Economy | Liars deliver less than they promise |
+| Engineer | Economy + Defense | Usually worth accepting |
+| Scavenger | Food + Economy | The least predictable role |
 
----
+### Hidden traits
 
-## NPC Sistemi
+| Trait | Share | Evades detection | Effect |
+|---|---|---|---|
+| 🦠 Infected | 15% | 10% | Accepting lowers immunity |
+| 🕵️ Spy | 10% | 15% | −4 defense every 3 days, sabotage on day 10 |
+| 💸 Thief | 10% | — | Steals economy and food on days 2 and 5 |
+| 🛡 Guardian | 6% | — | Hidden one-time bonus |
+| 🎭 Liar | 15% | 30% | Positive accept effects scaled ×0.3 |
 
-**154 benzersiz NPC**, 6 rol:
+### Memory and returns
 
-| Rol | Güçlü Yön | Not |
-|-----|-----------|-----|
-| Doktor | Bağışıklık | Enfekte doktor kabul = immunity kaybı |
-| Çiftçi | Gıda | Yük çiftçiler gıda maliyeti getirir |
-| Asker | Savunma | Şüpheliler sabotaj riski |
-| Tüccar | Ekonomi | Yalancılar görünenden az faydalı |
-| Mühendis | Ekonomi + Savunma | Genellikle kabul avantajlı |
-| Çöpçü | Gıda + Ekonomi | En tahmin edilemez |
+- **Delayed effects** — 53 characters trigger a stat change a set number of days after you accept them.
+- **Returning characters** — 25 characters come back later with a new decision to make.
 
-**NPC dağılımı:** %40 açık kabul · %30 takas · %30 yük (reddet avantajlı)
+### Role synergies
 
----
+| Role | Minimum | Daily bonus |
+|---|---|---|
+| Doctor | 3+ | +3 immunity |
+| Farmer | 2+ | +4 food |
+| Soldier | 2+ | +3 defense |
+| Trader | 2+ | +4 economy, +2 food |
+| Engineer | 3+ | +2 immunity, +2 economy |
+| Scavenger | 2+ | +3 food, +2 economy |
 
-## Gizli Özellikler
+## Interrogation
 
-| Özellik | NPC % | Tespit Kaçış | Etki |
-|---------|-------|-------------|------|
-| 🦠 Enfekte | %15 | %10 | Kabul: immunity düşer; reddet: korunur |
-| 🕵️ Ajan | %10 | %15 | Her 3 günde −4 savunma, gün 10'da sabotaj |
-| 💸 Hırsız | %10 | — | Gün 2 ve 5'te ekonomi+gıda çalar |
-| 🛡 Koruyucu | %6 | — | Gizli tek seferlik bonus |
-| 🎭 Yalancı | %15 | %30 | Pozitif accept ×0.3 uygulanır |
+You have **3 charges per day** (+1 with a Watchtower):
 
----
+| Use | Cost |
+|---|---|
+| 1st | Free |
+| 2nd — deep scan | −8 economy, −5 food |
+| 3rd — second scan | −10 economy, −6 defense, −3 immunity |
 
-## NPC Hafızası ve Geri Dönüş
+## Progression
 
-### Gecikmiş Etkiler
-53 NPC kabul edildikten X gün sonra otomatik stat değişimi tetikler (bildirim gelir).
+**Settlement Points (SP)** carry over between runs and are spent on buildings and abilities.
 
-### Aktif Geri Dönüş
-25 NPC belirli günler sonra yeni bir karar ekranıyla geri döner — KABUL veya RET seçimi.
+| Action | SP |
+|---|---|
+| Each day survived | +4 |
+| Correct decision | +1 |
+| Event survived | +3 |
+| Perfect day | +6 |
+| Game over | +5 |
 
----
+A full 100-day victory yields about **670 SP**, while unlocking every building costs 665 SP and every ability 590 SP — you cannot unlock everything in a single run.
 
-## Sorgulama Sistemi
+### Buildings (permanent)
 
-Günde **3 şarj** (Gözetleme Kulesi +1 şarj):
+| Building | SP | Unlocks | Bonus |
+|---|---|---|---|
+| 🌾 Farm | 40 | Day 3 | +3 food / day |
+| 🏪 Market | 45 | Day 4 | +3 economy / day, resource conversion |
+| 🏥 Hospital | 55 | Day 5 | +2 immunity / day, infection −20% |
+| ⛺ Shelter | 50 | Day 6 | +3 population / day |
+| 🗼 Watchtower | 65 | Day 7 | +3 defense / day, +1 interrogation |
+| 💧 Water Purifier | 70 | Day 9 | +1 immunity, +2 population / day |
+| 🔬 Laboratory | 85 | Day 11 | Infection detection +30% |
+| ⚔️ Armory | 80 | Day 14 | +5 defense / day |
+| ☢️ Nuclear Generator | 175 | Day 22 | +2 immunity, +2 food / day |
 
-| Sıra | Maliyet |
-|------|---------|
-| 1. Ücretsiz | — |
-| 2. Derin tarama | −8 ekonomi, −5 gıda |
-| 3. İkinci tarama | −10 ekonomi, −6 savunma, −3 bağışıklık |
+### Abilities (single use)
 
----
+| Ability | SP | Unlocks | Effect |
+|---|---|---|---|
+| 📦 Emergency Supply | 40 | Day 1 | +40 food |
+| 🚨 Evacuation | 65 | Day 5 | +50 population |
+| 💎 Trade Deal | 35 | Day 7 | +20 economy |
+| 🧪 Biohazard Response | 60 | Day 9 | +40 immunity |
+| 📣 Public Appeal | 55 | Day 10 | +25 population |
+| 🛡 Defense Line | 75 | Day 13 | +35 defense |
+| 💉 Medical Intervention | 45 | Day 15 | +20 immunity |
+| 💹 Economic Bailout | 85 | Day 18 | +35 economy, +20 food |
+| ⚡ General Mobilization | 130 | Day 30 | +10 to every stat |
 
-## Rol Sinerjileri
+## Events
 
-| Rol | Min. Sayı | Günlük Bonus |
-|-----|----------|--------------|
-| Doktor | 3+ | +3 bağışıklık |
-| Çiftçi | 2+ | +4 gıda |
-| Asker | 2+ | +3 savunma |
-| Tüccar | 2+ | +4 ekonomi, +2 gıda |
-| Mühendis | 3+ | +2 bağışıklık, +2 ekonomi |
-| Çöpçü | 2+ | +3 gıda, +2 ekonomi |
+50 unique events, each triggered at most once per run, with three choices — some grant extra rewards if you have certain roles inside the walls.
 
----
+Categories: Zombie Combat (12) · Disease (10) · Exploration (10) · Politics (10) · Morale (8)
 
-## Binalar
+## End Conditions
 
-| Bina | SP | Kilit | Bonus |
-|------|----|-------|-------|
-| 🌾 Çiftlik | 40 | G3 | +3 gıda/gün |
-| 🏪 Pazar | 45 | G4 | +3 ekonomi/gün + dönüşüm |
-| 🏥 Hastane | 55 | G5 | +2 bağışıklık/gün, enfeksiyon −%20 |
-| ⛺ Barınak | 50 | G6 | +3 nüfus/gün |
-| 🗼 Gözetleme Kulesi | 65 | G7 | +3 savunma/gün, +1 sorgu |
-| 💧 Su Arıtma | 70 | G9 | +1 bağışıklık, +2 nüfus/gün |
-| 🔬 Laboratuvar | 85 | G11 | Enfekte tespiti +%30 |
-| ⚔️ Cephanelik | 80 | G14 | +5 savunma/gün |
-| ☢️ Nükleer Jeneratör | 175 | G22 | +2 bağışıklık, +2 gıda/gün |
+| Condition | Trigger |
+|---|---|
+| 🌾 Starvation | Food reaches 0 |
+| 🦠 Plague | Immunity reaches 0 |
+| 🛡 Breach | Defense reaches 0 |
+| 💀 Extinction | Population reaches 0 |
+| 💸 Collapse | Economy reaches 0 |
+| 🏆 Victory | Final day of the chosen difficulty completed |
 
----
+## Tech Stack
 
-## Beceriler
+| Area | Technology |
+|---|---|
+| Framework | React Native 0.81 · Expo SDK 54 |
+| Language | TypeScript |
+| State | Zustand |
+| Animation & gestures | Reanimated 4 · Gesture Handler |
+| Persistence | AsyncStorage |
+| Audio & haptics | Expo AV · Expo Haptics |
+| Monetization | Google Mobile Ads (rewarded) |
+| Crash reporting | Sentry |
+| Builds | EAS |
 
-Tek seferlik kullanım:
-
-| Beceri | SP | Kilit | Etki |
-|--------|----|-------|------|
-| 📦 Acil İkmal | 40 | G1 | +40 gıda |
-| 🚨 Tahliye | 65 | G5 | +50 nüfus |
-| 💎 Ticaret | 35 | G7 | +20 ekonomi |
-| 🧪 Biyotehlike | 60 | G9 | +40 bağışıklık |
-| 📣 Kamu Çağrısı | 55 | G10 | +25 nüfus |
-| 🛡 Savunma Hattı | 75 | G13 | +35 savunma |
-| 💉 Tıbbi Müdahale | 45 | G15 | +20 bağışıklık |
-| 💹 Ekonomik Kurtarma | 85 | G18 | +35 ekonomi, +20 gıda |
-| ⚡ Genel Seferberlik | 130 | G30 | Tüm statlara +10 |
-
----
-
-## Olaylar
-
-50 benzersiz olay, her biri bir kez tetiklenir. 3 seçenek — bazıları belirli rollere sahipsen ekstra bonus sağlar.
-
-Kategoriler: Zombi Savaşı (12) · Hastalık (10) · Keşif (10) · Politik (10) · Moral (8)
-
----
-
-## Yerleşim Puanı
-
-Runlar arası birikir. Bina ve yeteneklere yatırılır.
-
-| Eylem | SP |
-|-------|----|
-| Her gün hayatta | +4 |
-| Doğru NPC kararı | +1 |
-| Olaydan çıkma | +3 |
-| Mükemmel gün | +6 |
-| Oyun sonu | +5 |
-
-100 günlük zafer: **~670 SP** · Tüm binalar: 665 SP · Tüm beceriler: 590 SP — her şeyi açmak tek runda imkânsız.
-
----
-
-## Oyun Sonu Koşulları
-
-| Koşul | Tetikleyici |
-|-------|-------------|
-| 🌾 Açlık | Gıda = 0 |
-| 🦠 Veba | Bağışıklık = 0 |
-| 🛡 İhlal | Savunma = 0 |
-| 💀 Yok Oluş | Nüfus = 0 |
-| 💸 Çöküş | Ekonomi = 0 |
-| 🏆 Zafer | Gün 100 tamamlandı |
-
----
-
-## Teknik Altyapı
-
-**Stack:** React Native · Expo SDK 54 · TypeScript · Zustand · Reanimated · AsyncStorage · Expo AV
+### Project structure
 
 ```
 src/
-├── screens/        Splash, Menu, Game, Building, GameOver, Summary
-├── components/     Card/, HUD/, Overlays/
-├── store/          useGameStore, useStatStore, useProgressStore, useSettingsStore
-├── domain/         StatEngine, HiddenSystem, ReturnSystem, EventManager, NPCGenerator, SaveSystem
-├── hooks/          useGameLoop, useAudio
-└── data/           config.json, ui.json, theme.json, events.json,
-                    scenarios.json, followups.json, modifiers.json
+├── screens/      Splash, Menu, Game, Building, GameOver, Summary
+├── components/   Card/, HUD/, Overlays/
+├── store/        useGameStore, useStatStore, useProgressStore, useSettingsStore
+├── domain/       StatEngine, HiddenSystem, ReturnSystem, EventManager, NPCGenerator, SaveSystem
+├── hooks/        useGameLoop, useAudio, useRewardedAd
+└── data/         config, ui, theme, events, scenarios, followups, modifiers, disasters (JSON)
 ```
 
-**Kayıt:** 5 AsyncStorage anahtarı — `lastgate_game`, `lastgate_stats`, `lastgate_progress`, `lastgate_npc_queue`, `lastgate_settings`
+Game balance lives in `src/data/*.json`, so tuning does not require code changes.
 
-### Kurulum
+Save data is stored under five AsyncStorage keys: `lastgate_game`, `lastgate_stats`, `lastgate_progress`, `lastgate_npc_queue`, `lastgate_settings`.
+
+## Getting Started
+
+**Prerequisites:** Node.js 20+, npm, and the Expo Go app or an Android/iOS simulator.
 
 ```bash
-git clone <repo>
+git clone https://github.com/eerenyilmazz/LastGate.git
 cd LastGate
 npm install
 npx expo start
 ```
 
+Ads and Sentry are native modules; use a development build (`npx expo run:android` / `npx expo run:ios`) to exercise them.
+
+Optional environment variables:
+
+| Variable | Purpose |
+|---|---|
+| `ADMOB_ANDROID_ID` | Overrides the AdMob Android app ID from `src/data/config.json` |
+| `SENTRY_DSN` | Enables Sentry crash reporting |
+
+## Privacy
+
+See the [privacy policy](https://statuesque-biscochitos-fb477f.netlify.app/) (source in [`docs/privacy-policy.html`](docs/privacy-policy.html)).
+
 ---
 
-*BETA v0.1 · Sektör 7 · [Gizlilik Politikası](https://statuesque-biscochitos-fb477f.netlify.app/)*
+<div align="center"><sub>Beta v0.1 · Sector 7</sub></div>
