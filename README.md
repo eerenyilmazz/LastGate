@@ -275,3 +275,9 @@ See the [privacy policy](https://statuesque-biscochitos-fb477f.netlify.app/) (so
 ---
 
 <div align="center"><sub>Beta v0.1 · Sector 7</sub></div>
+
+---
+
+## License
+
+Copyright (c) 2026 Eren Yılmaz. All rights reserved. The source is publicly visible for evaluation only; see [`LICENSE`](LICENSE). To request permission to use any part of it, contact eerenyilmazz1@gmail.com.
