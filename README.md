@@ -136,7 +136,7 @@ When enabled in settings, a random rule activates after day 1 and stays visible 
 ### Memory and returns
 
 - **Delayed effects** — 53 characters trigger a stat change a set number of days after you accept them.
-- **Returning characters** — 25 characters come back later with a new decision to make.
+- **Returning characters** — 45 follow-up encounters bring characters back later with a new decision to make.
 
 ### Role synergies
 
@@ -203,9 +203,9 @@ A full 100-day victory yields about **670 SP**, while unlocking every building c
 
 ## Events
 
-50 unique events, each triggered at most once per run, with three choices — some grant extra rewards if you have certain roles inside the walls.
+66 unique events, each triggered at most once per run, with three choices — some grant extra rewards if you have certain roles inside the walls.
 
-Categories: Zombie Combat (12) · Disease (10) · Exploration (10) · Politics (10) · Morale (8)
+Categories: Zombie Combat (12) · Disease (10) · Exploration (10) · Politics (10) · Morale (8) · Crisis (5) · Defense (3) · Espionage (2) · Health (2) · Economy (2) · Population (2)
 
 ## End Conditions
 
